@@ -1,5 +1,5 @@
 # COS301_GroupProject
 
-(1) Swarm Visualizer - Christopher Cleghorn
-(2) Estimate Swarm - Epi-Use(Juan Heyns)
-(3) Artificial World - Eben du Plessis
+This is the repo for the COS301 Main Project, for team "The fellowship of the CIN".
+
+Please see the relevant .pdf for project specifications.
