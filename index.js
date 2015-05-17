@@ -1,15 +1,19 @@
 var express = require('express');
 var app = express();
+var ejs = require('ejs');
+var path = require('path');
 
-app.get('/', function (req, res) {
-  res.send('Hello World!');
+var PORT = process.env.PORT || 8080;
+
+// view engine setup
+app.engine('html', ejs.renderFile);
+app.set('www', path.join(__dirname, 'www'));
+app.set('www engine', 'html');
+
+// serve an empty page that just loads the browserify bundle
+app.get('/', function(req, res) {
+res.render('home');
 });
 
-var server = app.listen(3000, function () {
-
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log('Example app listening at http://%s:%s', host, port);
-
-});
+app.listen(PORT);
+console.log('server started on port %s', PORT);
