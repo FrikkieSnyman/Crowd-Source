@@ -1,0 +1,29 @@
+{
+  "name": "EstiamteSwarm",
+  "version": "0.0.1",
+  "description": "A web server that helps estimate the time it will take to perform programming task. By using experts input.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FrikkieSnyman/COS301_GroupProject.git"
+  },
+  "keywords": [
+    "EstiamteSwarm"
+  ],
+  "author": "Hanrich/Hugo/Frikkie/Andre/Chris",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FrikkieSnyman/COS301_GroupProject/issues"
+  },
+  "homepage": "https://github.com/FrikkieSnyman/COS301_GroupProject",
+  "dependencies": {
+    "bootstrap": "^3.3.4",
+    "express": "^4.12.3"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  }
+}
