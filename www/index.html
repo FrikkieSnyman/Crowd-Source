@@ -9,53 +9,58 @@
     <meta name="author" content="Hanrich/Frikkie/Andre/Hugo/Chris">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Starter Template for Bootstrap</title>
+    <title>Estimate Swarm</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./lib/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="starter-template.css" rel="stylesheet">
+    <!--<link href="starter-template.css" rel="stylesheet">-->
   </head>
 
-  <body>
-
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Project name</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
-
-    <div class="container">
-
-      <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-      </div>
-
-    </div><!-- /.container -->
-
+  <body ng-app>
+  <div class="container">
+	  <div class = "jumbotron" >
+  		<h1>Estimate Swarm</h1>
+	  	<p>Redefining estiamtes..</p>
+	  </div>
+	  <div class = "row">
+	  	<div class = "col-sm-3">
+	  		<h3>The swarm</h3>
+	  		<p>Use the swarm to decide on your projects deadlines.</p>
+	  	</div>
+	  	<div class="col-sm-3">
+	  		<h3>Log On<h3>
+	  		<form role="form">
+			    <div class="form-group">
+			      <label for="email" ><p>Email:</p></label>
+			      <input type="email" ng-model="a" class="form-control" id="email" placeholder="Enter email">
+			    </div>
+			    <div class="form-group">
+			      <label for="pwd"><p>Password:</p></label>
+			      <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+			    </div>
+			    <div class="checkbox">
+			      <label><input type="checkbox"><p>Remember me</p></label>
+			    </div>
+			    <button type="submit" class="btn btn-default">Submit</button>
+		 	</form>
+	  	</div>
+	  	<div class="col-sm-3">
+			<p>Input something in the input box:</p>
+			<p>Name : <input type="text" ng-model="name" placeholder="Enter name here"></p>
+			<P>Hello {{name}}</P>
+			</div>
+	  	</div>
+  </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/reload/reload.js"></script>
+    <script src="./lib/jquery.min.js"></script>
+    <!--<script src="./lib/angular.min.js"></script>-->
+    <script src="./lib/bootstrap.min.js"></script>
+    <!-- Angular -->
+    <script src="./lib/angular.min.js"></script>
   </body>
 </html>
