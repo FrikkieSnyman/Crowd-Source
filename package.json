@@ -30,6 +30,7 @@
     "reload": "^0.1.0",
     "sendevent": "^1.0.4",
     "uglify-js": "^2.4.21",
+    "unit.js": "^2.0.0",
     "watch": "^0.16.0"
   },
   "devDependencies": {
