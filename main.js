@@ -28,8 +28,8 @@ app.get('/', function (req, res) {
 
 app.get('/names',function(request,response){
 	console.log("Client asked me for information");
-	var person = {name:"Hanrich"};
-	response.send(person);
+	var names = ["Hanrich","Frikkie","Hugo","Andre"];
+	response.send(names);
 });
 
 var server = app.listen(3000, function () {

@@ -9,7 +9,7 @@ app.controller('mainCtrl', function($scope,$http) {
     $http.get("/names").success(function(response)
     {
     	console.log("We had a response");
-    	$scope.name = response.name;
-    	console.log(response);
+    	$scope.names = response;
+    	console.log($scope.names);
     });
 });

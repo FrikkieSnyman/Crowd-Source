@@ -80,8 +80,16 @@
 	  	<div class="col-sm-4">
 			<p>Input something in the input box:</p>
 			<p>Name : <input type="text" ng-model="name" placeholder="Enter name here"></p>
-			<P>Hello {{name}}</P>
-			</div>
+			<p>Hello {{name}}</p>
+			<p>Data from the server! Pretty neat</p>
+			<table class="table table-striped">
+				<tr>
+				<th>Names</th>
+				</tr>
+			  <tr ng-repeat="x in names">
+			    <td>{{ x }}</td>
+			  </tr>
+			</table>
 	  	</div>
 	  	<div class = "col-sm-4">
 	  		<h3>Dream big an dare to fail</h3>
