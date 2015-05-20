@@ -28,7 +28,7 @@ app.get('/', function (req, res) {
 
 app.get('/names',function(request,response){
 	console.log("Client asked me for information");
-	var names = ["Hanrich","Frikkie","Hugo","Andre"];
+	var names = ["Hanrich","Frikkie","Hugo","Andre","Isabel"];
 	response.send(names);
 });
 
