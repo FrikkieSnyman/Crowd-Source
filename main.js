@@ -1,6 +1,20 @@
+
+//===========================
+// This is how our server 
+// will be managed. 
+// Ask Hanrich for details
+//
+//===========================
 var express = require('express');
 var app = express();
-
+//===========================
+// Default directory to
+// server pages an dependacys from
+// Already working
+// Try it out npm start
+// localhost........
+// you know the drill
+//===========================
 app.use(express.static(__dirname + '/www'));
 
 app.get('/', function (req, res) {
