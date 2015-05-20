@@ -78,9 +78,11 @@
 		 	</form>
 	  	</div>
 	  	<div class="col-sm-4">
-			<p>Input something in the input box:</p>
-			<p>Name : <input type="text" ng-model="name" placeholder="Enter name here"></p>
-			<p>Hello {{name}}</p>
+	  		<form method="post">
+				<p>Enter name to add:</p>
+				<p>Name : <input type="text" ng-model="name" placeholder="Enter name here"></p>
+				<button ng-click="sendName()" >Send</button>
+			</form>
 			<p>Data from the server! Pretty neat</p>
 			<table class="table table-striped">
 				<tr>
@@ -92,7 +94,7 @@
 			</table>
 	  	</div>
 	  	<div class = "col-sm-4">
-	  		<h3>Dream big an dare to fail</h3>
+	  		<h3>Dream big and dare to fail</h3>
 	  		<p>Just add a sunset and it will be inspirational as hell.</p>
 	  	</div>
   </div>

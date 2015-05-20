@@ -17,6 +17,16 @@ var app = express();
 //===========================
 app.use(express.static(__dirname + '/www'));
 
+var names = ["Hanrich","Frikkie","Hugo","Andre","Isabel"];
+//===========================
+//Very important parser NB!
+//===========================
+var bodyParser = require('body-parser')
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
+
 app.get('/', function (req, res) {
 	// We only need to provide the client with the index page. 
 	// The rest will happen automatically. 
@@ -28,8 +38,13 @@ app.get('/', function (req, res) {
 
 app.get('/names',function(request,response){
 	console.log("Client asked me for information");
-	var names = ["Hanrich","Frikkie","Hugo","Andre","Isabel"];
 	response.send(names);
+});
+
+app.post('/name', function(request, response) {
+	console.log("Client is adding name " + request.body.name);
+	names.push(request.body.name);
+	response.send(true);
 });
 
 var server = app.listen(3000, function () {
