@@ -3,7 +3,7 @@ var main = require('./square.js');
 
 exports.testSquare = function(test){
     test.expect(1);
-    var expected = 25;
+    var expected = 20;
     var result; 
     main.square(5,function(res){
       result = res;
