@@ -1,5 +1,17 @@
 # COS301_GroupProject
-
 This is the repo for the COS301 Main Project, for team "The fellowship of the CIN".
 
-Please see the relevant .pdf for project specifications.
+Installation insturctions.
+First clone the repo.
+```
+git clone https://github.com/FrikkieSnyman/COS301_GroupProject.git
+```
+Now run the indtsll.
+```
+npm install
+```
+To run the server use.
+```
+npm start
+```
+Instructions on unit testing to come next.
