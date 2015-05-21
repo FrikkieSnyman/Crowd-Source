@@ -3,7 +3,8 @@ dependancies
  */
 var express = require('express'),
 	bodyParser = require('body-parser'),
-	config = require('./config');
+	config = require('./config'),
+	mongoose = require('mongoose');
 /*
 Create express app
  */
@@ -18,7 +19,6 @@ app.config = config;
 /*
 Setup the web server
  */
-
 var serverCreated = function()
 {
   var host = server.address().address;
@@ -27,8 +27,17 @@ var serverCreated = function()
   console.log('Example app listening at http://%s:%s', host, port);
 }
 
-var server = app.listen(3000,serverCreated);
-
+var server = app.listen(config.port,serverCreated);
+/*
+setup mongoose
+- We will always use the same database connection when interfacing with the database.
+ */
+app.db = mongoose.createConnection(config.mongodb.uri);
+app.db.on('error', console.error.bind(console, 'mongoose connection error: '));
+app.db.once('open', function () {
+  //and... we have a data store
+  console.log("We have a database connection!");
+});
 
 /*
 middleware
@@ -44,7 +53,8 @@ public directory
 app.use(express.static(__dirname + '/public'));
 
 /*
-setu routes
+setup routes
+-We express app to the routes so that we can use express there.
  */
 require('./routes')(app);
 
