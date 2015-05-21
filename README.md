@@ -13,6 +13,11 @@ To run the server use.
 ```
 npm start
 ```
+##NodeUnit
+To install nodeunit globally
+```
+npm install nodeunit -g
+```
 ##How to setup the database.
 Firsly you need to have mongodb installed on your pc.
 Please follow the link for futher instructions.
