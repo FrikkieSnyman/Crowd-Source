@@ -23,3 +23,15 @@ exports.testSubtract = function(test){
   test.equal(expected,result);
   test.done();
 }
+
+exports.testAdd = function(test){
+  test.expect(1);
+
+  var expected = 6;
+  var result;
+  main.addition(4,2,function(res){
+    result = res;
+  });
+  test.equal(expected,result);
+  test.done();
+}
