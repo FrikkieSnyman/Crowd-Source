@@ -22,7 +22,7 @@ To install nodeunit globally
 npm install nodeunit -g
 ```
 ##How to setup the database.
-Firsly you need to have mongodb installed on your pc.
+You need to have mongodb installed on your pc.
 Please follow the link for futher instructions.
 http://docs.mongodb.org/manual/installation/
 After you have installed mongdb you can start it in the terminal with.
