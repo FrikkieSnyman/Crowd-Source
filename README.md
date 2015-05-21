@@ -14,4 +14,6 @@ To run the server use.
 ```
 npm start
 ```
-##Unit testing.
+##Requirements.
+#Functional.
+#Non functional.
