@@ -1,40 +1,25 @@
-var test = require('unit.js');
-describe('Learning by the example', function(){
-  it('example variable', function(){
-    // just for example of tested value
-    var example = 'hello world';
-    test
-      .string(example)
-        .startsWith('hello')
-        .match(/[a-z]/)
-      .given(example = 'you are welcome')
-        .string(example)
-          .endsWith('welcome')
-          .contains('you')
-      .when('"example" becomes an object', function(){
-        example = {
-          message: 'hello world',
-          name: 'Nico',
-          job: 'developper',
-          from: 'France'
-        };
-      })
-      .then('test the "example" object', function(){
-        test
-          .object(example)
-            .hasValue('developper')
-            .hasProperty('name')
-            .hasProperty('from', 'France')
-            .contains({message: 'hello world'})
-        ;
-      })
-      .if(example = 'bad value')
-        .error(function(){
-          example.badMethod();
-        })
-    ;
+var main = require('./square.js');
+
+
+exports.testSquare = function(test){
+    test.expect(1);
+    var expected = 25;
+    var result; 
+    main.square(5,function(res){
+      result = res;
+    });
+    test.equal(expected,result);
+    test.done();
+};
+
+exports.testSubtract = function(test){
+  test.expect(1);
+
+  var expected = 2;
+  var result;
+  main.subtract(4,2,function(res){
+    result = res;
   });
-  it('other test case', function(){
-    // other tests ...
-  });
-});
+  test.equal(expected,result);
+  test.done();
+}

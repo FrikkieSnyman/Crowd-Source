@@ -51,6 +51,7 @@ require('./routes')(app);
 /*
 dummy data
  */
+<<<<<<< HEAD
 
 /*
 Callback example
@@ -72,5 +73,4 @@ count(tmp,function(result)
 	tmp = result;
 	done();
 });
-
 
