@@ -52,3 +52,6 @@ var names = ["Hanrich","Frikkie","Hugo","Andre","Isabel"];
 
 
 
+exports.square = function (r,callback) {
+  callback(r * r);
+};
