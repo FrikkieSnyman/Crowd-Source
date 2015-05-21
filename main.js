@@ -49,11 +49,6 @@ setu routes
 require('./routes')(app);
 
 /*
-dummy data
- */
-<<<<<<< HEAD
-
-/*
 Callback example
  */
 var count = function(number,callback)
