@@ -6,7 +6,7 @@ First clone the repo.
 ```
 git clone https://github.com/FrikkieSnyman/COS301_GroupProject.git
 ```
-Now run the indtsll.
+Now run the install.
 ```
 npm install
 ```
