@@ -18,14 +18,17 @@ app.config = config;
 /*
 Setup the web server
  */
-var server = app.listen(3000, function () {
 
+var serverCreated = function()
+{
   var host = server.address().address;
   var port = server.address().port;
 
   console.log('Example app listening at http://%s:%s', host, port);
+}
 
-});
+var server = app.listen(3000,serverCreated);
+
 
 /*
 middleware
@@ -48,7 +51,26 @@ require('./routes')(app);
 /*
 dummy data
  */
-var names = ["Hanrich","Frikkie","Hugo","Andre","Isabel"];
 
+/*
+Callback example
+ */
+var count = function(number,callback)
+{	
+	number = number+1;
+	callback(number);
+}
+
+var done = function()
+{
+	console.log(tmp);
+}
+
+var tmp = 0;
+count(tmp,function(result)
+{
+	tmp = result;
+	done();
+});
 
 
