@@ -49,9 +49,3 @@ require('./routes')(app);
 dummy data
  */
 var names = ["Hanrich","Frikkie","Hugo","Andre","Isabel"];
-
-
-
-exports.square = function (r,callback) {
-  callback(r * r);
-};
