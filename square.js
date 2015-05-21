@@ -3,5 +3,5 @@ exports.square = function (r,callback) {
 };
 
 exports.subtract = function(a,b,callback){
-	callback(a + b);
-}
+	callback(a - b);
+};
