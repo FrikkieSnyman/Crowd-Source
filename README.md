@@ -22,7 +22,7 @@ To install nodeunit globally
 ```
 npm install nodeunit -g
 ```
-##How to setup the database.
+##How to setup the database
 You need to have mongodb installed on your pc.
 Please follow the link for futher instructions.
 http://docs.mongodb.org/manual/installation/
@@ -39,12 +39,12 @@ Then we create the database we want to use with the 'use' command.
 use myDB
 ```
 Congratualtions you have created your database. The only thing left now is to add your database credentails to the config.js file.
-##Requirements.
-###Functional.
+##Requirements
+###Functional
 ####Login System
 This system will connect to an already existing user database as provided by the client. This will then be integrated so that the app knows who did what.
 ####Project System
 This system will be used to create projects. It will be built in such a way to allow for a project tree to be built. This system will be integrated to allow users to make estimations on the project.
 ####Estimation System
 This is the system that will be used to provide estimations. From this system, statistical analysis can be made on past estimations.
-###Non functional.
+###Non-functional
