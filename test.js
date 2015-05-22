@@ -7,9 +7,10 @@ exports.testSquare = function(test){
     var result; 
     main.square(5,function(res){
       result = res;
+      test.equal(expected,result);
+      test.done();
     });
-    test.equal(expected,result);
-    test.done();
+    
 };
 
 exports.testSubtract = function(test){
@@ -19,9 +20,10 @@ exports.testSubtract = function(test){
   var result;
   main.subtract(4,2,function(res){
     result = res;
+    test.equal(expected,result);
+    test.done();
   });
-  test.equal(expected,result);
-  test.done();
+  
 }
 
 exports.testAdd = function(test){
@@ -31,9 +33,10 @@ exports.testAdd = function(test){
   var result;
   main.addition(4,2,function(res){
     result = res;
+    test.equal(expected,result);
+    test.done();
   });
-  test.equal(expected,result);
-  test.done();
+  
 }
 
 exports.testDiv = function(test){
@@ -42,15 +45,17 @@ exports.testDiv = function(test){
   var result;
   main.division(8,2,function(res){
     result = res;
+    test.equal(expected,result);
   });
 
-  test.equal(expected,result);
+  
 
   var expected = "zero division";
   main.division(8,0,function(res){
     result = res;
+    test.equal(expected,result);
+    test.done();
   });
 
-  test.equal(expected,result);
-  test.done();
+  
 }
