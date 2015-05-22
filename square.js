@@ -11,9 +11,9 @@ exports.addition = function(a,b,callback){
 };
 
 exports.division = function(a,b,callback){
-	// if(b !== 0){
+	if(b !== 0){
 		callback(a/b);
-	// } else {
-		// callback("zero division");
-	// }
+	} else {
+		callback("zero division");
+	}
 }
