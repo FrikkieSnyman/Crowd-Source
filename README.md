@@ -1,7 +1,6 @@
 # COS301_GroupProject
 
 [![Build Status](https://travis-ci.org/FrikkieSnyman/COS301_GroupProject.svg?branch=master)](https://travis-ci.org/FrikkieSnyman/COS301_GroupProject)
-
 [![Coverage Status](https://coveralls.io/repos/FrikkieSnyman/COS301_GroupProject/badge.svg)](https://coveralls.io/r/FrikkieSnyman/COS301_GroupProject)
 
 This is the repo for the COS301 Main Project, for team "The fellowship of the CIN".
