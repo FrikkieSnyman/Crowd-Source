@@ -35,3 +35,22 @@ exports.testAdd = function(test){
   test.equal(expected,result);
   test.done();
 }
+
+exports.testDiv = function(test){
+  test.expect(2);
+  var expected = 4;
+  var result;
+  main.division(8,2,function(res){
+    result = res;
+  });
+
+  test.equal(expected,result);
+
+  var expected = "zero division";
+  main.division(8,0,function(res){
+    result = res;
+  });
+
+  test.equal(expected,result);
+  test.done();
+}
