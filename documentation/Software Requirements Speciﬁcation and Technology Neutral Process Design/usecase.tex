@@ -5,10 +5,17 @@
 This module is responsible for reading data from the client user database. It will do this by making use of ldap.js. This module will also retrieve the privileges a user has from the system's internal database.
 
 \subsubsection{Scope}
+The scope of the Project module is shown in the figure below:
+	\begin{figure}[H]
+	    	\centering
+	    	\fbox{\includegraphics[width=1.0\textwidth]{UserManagementScope}}
+	    	\caption{User Management Scope}
+	    	\label{fig:UserManagementScope}
+   	\end{figure}
 \paragraph{Test}
 \subsubsection{Use cases}
 
-\paragraph{Login - priority: critical}
+\paragraph{Login - priority: critical}s
 Takes user's credentials to log him into the system.
 
 \paragraph{Authorize - priority: critical}
