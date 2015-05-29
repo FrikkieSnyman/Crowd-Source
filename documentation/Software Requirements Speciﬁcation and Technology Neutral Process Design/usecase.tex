@@ -2,7 +2,7 @@
 %User Management
 %============================
 \subsection{User Management}
-This module is responsible for reading data from the client user database. It will do this by making use of ldap.js. This module will also retrieve the privileges a user has from the system's internal database.
+This module is responsible for reading data from the client's user database. It will do this by making use of ldap.js. The module will log a user into the system, given the correct credentials. This system will provide an authorization interface to other modules, to see if user with a given userID has the needed privileges. This module will also give an interface to other modules, to retrieve the user's details, given the user's userID. 
 
 \subsubsection{Scope}
 The scope of the Project module is shown in the figure below:
@@ -31,9 +31,29 @@ Takes user's credentials to log him into the system.
 
 \paragraph{Authorize - priority: critical}
 Authorizes users with the right privileges to do what is requested.
+\begin{itemize}
+	\item Services contract:\\ \\
+	The authorizationRequest contains only the user's id (the id alone, because user is already logged in) as a string. The authorizationResults contains the user's privileges.
+	\begin{figure}[H]
+    	\centering
+    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractAuthorization}}
+    	\caption{Authorization services contract}
+    	\label{fig:Authorization_services_contract}
+   	\end{figure}
+\end{itemize}
 
 \paragraph{retrieveUserDetails - priority: important}
 This will get the details from the both the external and internal databases, to supply details to other modules in system as they need it.
+\begin{itemize}
+	\item Services contract:\\ \\
+	The retrieveUserDetailsRequest contains the user's id as a string. The retriveUserDetailsResult contains the user's details which consists of a username, password, useremail, userPosition.
+	\begin{figure}[H]
+    	\centering
+    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractRetrieveUserDetails}}
+    	\caption{RetrieveUserDetails services contract}
+    	\label{fig:RetrieveUserDetails_services_contract}
+   	\end{figure}
+\end{itemize}
 
 \subsubsection{Domain model}
 
