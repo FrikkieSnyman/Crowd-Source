@@ -103,7 +103,9 @@ This is the notification scope
 \subsubsection{Use cases}
 The main purpose of notifications is to notify users with the required message. The estimation module will supply the list of users to notify and the contents of the message.
 \paragraph{sendMesssage -- priority:niceToHave}
+We will send the email to the destination address through the use of node mailer. 
 \paragraph{createNotification -- priority:niceToHave}
+The estimation module will create a notification request and send in to the notification module with the desired list of recipients.
 	\begin{figure}[H]
 	    	\centering
 	    	\fbox{\includegraphics[width=0.8\textwidth]{NotificationServiceContract}}
