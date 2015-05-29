@@ -5,6 +5,13 @@
 This module is responsible for reading data from the client user database. It will do this by making use of ldap.js. This module will also retrieve the privileges a user has from the system's internal database.
 
 \subsubsection{Scope}
+The scope of the Project module is shown in the figure below:
+	\begin{figure}[H]
+	    	\centering
+	    	\fbox{\includegraphics[width=1.0\textwidth]{UserManagementScope}}
+	    	\caption{User Management Scope}
+	    	\label{fig:UserManagementScope}
+   	\end{figure}
 \paragraph{Test}
 \subsubsection{Use cases}
 
@@ -81,6 +88,17 @@ Projects can be effectively deleted by hiding them, seeing as projects are not p
 \paragraph{Update project - priority: critical}
 This enables users to update projects, if they have sufficient privileges, by adding or removing task nodes to and from the project tree.
 
+\begin{itemize}
+	\item Services contract:\\ \\
+	The updateProjectRequest contains a reference to the project that needs to be update which can be obtained by making use of the getProject functionality. The updateProjectRequest also contains a reference to the updated project, which can either be an entirely different project, or the same project as represented by oldProject, but with some changes applied to it.
+	\begin{figure}[H]
+    	\centering
+    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractupdateProject}}
+    	\caption{updateProject services contract}
+    	\label{fig:updateProject_services_contract}
+   	\end{figure}
+\end{itemize}
+
 \subsubsection{Domain model}
 
 %============================
@@ -137,7 +155,9 @@ This is the notification scope
 \subsubsection{Use cases}
 The main purpose of notifications is to notify users with the required message. The estimation module will supply the list of users to notify and the contents of the message.
 \paragraph{sendMesssage -- priority:niceToHave}
+We will send the email to the destination address through the use of node mailer. 
 \paragraph{createNotification -- priority:niceToHave}
+The estimation module will create a notification request and send in to the notification module with the desired list of recipients.
 	\begin{figure}[H]
 	    	\centering
 	    	\fbox{\includegraphics[width=0.8\textwidth]{NotificationServiceContract}}
@@ -145,3 +165,9 @@ The main purpose of notifications is to notify users with the required message. 
 	    	\label{fig:Notification_Service Contract}
    	\end{figure}
 \subsubsection{Domain model}
+	\begin{figure}[H]
+	    	\centering
+	    	\fbox{\includegraphics[width=0.8\textwidth]{NotificationDomain}}
+	    	\caption{Domain Modelt}
+	    	\label{fig:Domain Model}
+   	\end{figure}
