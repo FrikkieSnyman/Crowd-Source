@@ -2,15 +2,21 @@
 %User Management
 %============================
 \subsection{User Management}
-This module is responsible for reading data from the client user database. It will do this by making use of ldap.js .
+This module is responsible for reading data from the client user database. It will do this by making use of ldap.js. This module will also retrieve the privileges a user has from the system's internal database.
+
 \subsubsection{Scope}
 \paragraph{Test}
 \subsubsection{Use cases}
-\begin{itemize}
-\item Authorize
-\item validateUserName
-\item retrieveEmail
-\end{itemize}
+
+\paragraph{Login - priority: critical}
+Takes user's credentials to log him into the system.
+
+\paragraph{Authorize - priority: critical}
+Authorizes users with the right privileges to do what is requested.
+
+\paragraph{retrieveUserDetails - priority: important}
+This will get the details from the both the external and internal databases, to supply details to other modules in system as they need it.
+
 \subsubsection{Domain model}
 
 %============================
@@ -20,7 +26,13 @@ This module is responsible for reading data from the client user database. It wi
 The project module is responsible for the representation and persistence of all projects that the system will use to do the estimations on. This module will allow for complex projects to be created, as well as to be updated. A project is represented as a tree, consisting of a top-level project node and lower-level task nodes.
 
 \subsubsection{Scope}
-
+The scope of the Project module is shown in the figure below
+	\begin{figure}[H]
+	    	\centering
+	    	\fbox{\includegraphics[width=0.5\textwidth]{projectScope}}
+	    	\caption{Estimation Scope}
+	    	\label{fig:Estimation_Scope}
+   	\end{figure}
 \subsubsection{Use cases}
 
 \paragraph{Create a project - priority: critical}
