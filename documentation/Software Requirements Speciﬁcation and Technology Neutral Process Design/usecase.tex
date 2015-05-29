@@ -24,14 +24,16 @@ The project module is responsible for the representation and persistence of all 
 \subsubsection{Use cases}
 
 \paragraph{Create a project - priority: critical}
-Users with sufficient privileges can create projects.
+Users with sufficient privileges can create projects. This will persist the project to the database.
 
 \paragraph{Get project - priority: critical}
 Users with sufficient privileges can retrieve projects to view them, or to be used for other purposes. This use case must thus return a representation of the project-tree, and not produce the output of the project tree.
 
 \paragraph{Hide project}
-\paragraph{Update project - priority: critical}
+Projects can be effectively deleted by hiding them, seeing as projects are not physically removed from the database. This action can only be done by authourised user.
 
+\paragraph{Update project - priority: critical}
+This enables users to update projects, if they have sufficient privileges, by adding or removing task nodes to and from the project tree.
 
 \subsubsection{Domain model}
 
