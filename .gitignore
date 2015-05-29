@@ -50,3 +50,6 @@ node_modules
 *.out
 *.synctex.gz
 *.pdf
+
+#For MagicDraw
+*.mdzip.bak
