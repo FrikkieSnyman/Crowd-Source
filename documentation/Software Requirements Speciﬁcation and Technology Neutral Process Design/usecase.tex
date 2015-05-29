@@ -39,9 +39,22 @@ Users with sufficient privileges can retrieve projects to view them, or to be us
 %Estimation
 %============================
 \subsection{Estimation}
+	The Estimation module will be responsible for handling all of the actions related to the estimation of a project. This involves allowing a user to place an estimate on a specific task as well as calculating the total estimation of a project.
 \subsubsection{Scope}
+	This is the estimation scope
+	\begin{figure}[H]
+	    	\centering
+	    	\fbox{\includegraphics[width=0.5\textwidth]{Estimation_Scope}}
+	    	\caption{Estimation Scope}
+	    	\label{fig:Estimation_Scope}
+   	\end{figure}
 \subsubsection{Use cases}
+	\paragraph{estimateTask - priority:critical}This system will allow a user to place an estimation on a task.
+	\paragraph{calculateTotalEstimation - priority:critical}This system will traverse the project tree and calculate the total estimation of a project.
 \subsubsection{Domain model}
+%============================
+%Report
+%============================
 \subsection{Report}
 \subsubsection{Scope}
 \subsubsection{Use cases}
