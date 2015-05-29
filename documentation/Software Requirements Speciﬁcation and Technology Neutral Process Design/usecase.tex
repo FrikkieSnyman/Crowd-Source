@@ -6,11 +6,16 @@ This module is responsible for reading data from the client user database. It wi
 \subsubsection{Scope}
 \paragraph{Test}
 \subsubsection{Use cases}
-\begin{itemize}
-\item Autorize
-\item validateUserName
-\item retrieveEmail
-\end{itemize}
+
+\paragraph{Login - priority: critical}
+Takes user's credentials to log him into the system.
+
+\paragraph{Authorize - priority: critical}
+Authorizes users with the right privileges to do what is requested.
+
+\paragraph{Logout - priority: critical}
+Disconnects user from the system.
+
 \subsubsection{Domain model}
 
 %============================
