@@ -6,11 +6,12 @@
 \usepackage{graphicx}
 \usepackage[hidelinks]{hyperref}
 \usepackage{float}
+\usepackage{titlesec}
 
+\setcounter{secnumdepth}{4}
 
 \DeclareGraphicsExtensions{.png}
 \graphicspath{ {../drawings/} }
-
 
 
 \newcommand{\subtitle}[1]{%
@@ -19,6 +20,12 @@
     \begin{center}\large#1\end{center}
     \vskip0.5em}%
 }
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
 
 \begin{document}
 \title{Software Requirements Speciﬁcation and Technology Neutral Process Design}
