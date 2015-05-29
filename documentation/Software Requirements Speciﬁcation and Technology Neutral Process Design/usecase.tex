@@ -18,6 +18,17 @@ The scope of the Project module is shown in the figure below:
 \paragraph{Login - priority: critical}
 Takes user's credentials to log him into the system.
 
+\begin{itemize}
+	\item Services contract:\\ \\
+	The loginRequest contains a user object. This user object in turn contains credentials that is sent sent to AuthenticateCredentials process that in turn authenticate the user with the username and password obtained from the credentials object. The login results contains a string that contains the user's id.
+	\begin{figure}[H]
+    	\centering
+    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractLogin}}
+    	\caption{login services contract}
+    	\label{fig:login_services_contract}
+   	\end{figure}
+\end{itemize}
+
 \paragraph{Authorize - priority: critical}
 Authorizes users with the right privileges to do what is requested.
 
