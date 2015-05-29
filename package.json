@@ -4,7 +4,7 @@
   "description": "A web server that helps estimate the time it will take to perform programming task. By using experts input.",
   "main": "index.js",
   "scripts": {
-    "test": "nodeunit test.js",
+    "test": "nodeunit tests",
     "start": "nodemon main.js"
   },
   "repository": {
