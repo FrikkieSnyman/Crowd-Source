@@ -81,6 +81,17 @@ Projects can be effectively deleted by hiding them, seeing as projects are not p
 \paragraph{Update project - priority: critical}
 This enables users to update projects, if they have sufficient privileges, by adding or removing task nodes to and from the project tree.
 
+\begin{itemize}
+	\item Services contract:\\ \\
+	The updateProjectRequest contains a reference to the project that needs to be update which can be obtained by making use of the getProject functionality. The updateProjectRequest also contains a reference to the updated project, which can either be an entirely different project, or the same project as represented by oldProject, but with some changes applied to it.
+	\begin{figure}[H]
+    	\centering
+    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractupdateProject}}
+    	\caption{updateProject services contract}
+    	\label{fig:updateProject_services_contract}
+   	\end{figure}
+\end{itemize}
+
 \subsubsection{Domain model}
 
 %============================
