@@ -1,15 +1,27 @@
 \subsection{Architectural Tactics}
-\subsubsection{Minimize technology suite}
-\subsubsection{Dependency Injection}
+\subsubsection{Minimize Technology suite}
+	A minimal suite of technologies will be used to improve the maintainability of the system as well as minimize the complexity of the system and reduce the chance of interference of between technologies.
 \subsubsection{Contracts Based Development}
+	Contracts will be enforced across services as well as data structure constraints. This is done to improve flexibility and testability of the system.
 \subsubsection{Support Plug-in Framework}
+	A plug-in framework will be provided to facilitate flexibility. This will allow addition functionality to easily be added into the system
 \subsubsection{Database Abstraction}
+	The system will provide a database abstraction layer to improve the flexibility and deployability.
 \subsubsection{Automated Persistence Mapping}
+	Automated persistence mapping will be used simplify the replacement of persistence technologies, reduce code bulk and also to avoid polluting application logic with persistence logic.
 \subsubsection{Caching}
+	Caching of resources will be used to address scalability.
 \subsubsection{Connection pooling}
+	Database connection pooling will be used to address scalability by reusing resources.
 \subsubsection{Templating}
+	Templates will be used to address usability by providing a consistent UI, this will also address maintainability.
 \subsubsection{UI Components Framework}
+	The system will make use of rich dynamic JavaScript libraries in order to provide improved the usability of the system as well as address maintainability and scalability by reusing components.
 \subsubsection{Asynchronous Processing}
+	To address scalability the system will make use of asynchronous processing to avoid having to wait for for certain non-critical time consuming tasks to be completed whilst other more important requests are being made.
 \subsubsection{Off-load Rendering Responsibilities to Client}
+	Rendering of pages will be handled on the client side to improve the usability as well scalability of the system.
 \subsubsection{REST Web-services}
+	To address integrability RESTful web services will be employed in the system, with the request and result objects encoded in JSON. This will allow for easier development of multiple clients as well as allow other systems to use the provided services.
 \subsubsection{Logging}
+	Logging will be used to capture audit data for the system.
