@@ -2,7 +2,8 @@
 %User Management
 %============================
 \subsection{User Management}
-This module is responsible for reading data from the client user database. It will do this by making use of ldap.js .
+This module is responsible for reading data from the client user database. It will do this by making use of ldap.js. This module will also retrieve the privileges a user has from the system's internal database.
+
 \subsubsection{Scope}
 \paragraph{Test}
 \subsubsection{Use cases}
@@ -13,8 +14,8 @@ Takes user's credentials to log him into the system.
 \paragraph{Authorize - priority: critical}
 Authorizes users with the right privileges to do what is requested.
 
-\paragraph{Logout - priority: critical}
-Disconnects user from the system.
+\paragraph{retrieveUserDetails - priority: important}
+This will get the details from the both the external and internal databases, to supply details to other modules in system as they need it.
 
 \subsubsection{Domain model}
 
@@ -69,7 +70,7 @@ This enables users to update projects, if they have sufficient privileges, by ad
 %Report
 %============================
 \subsection{Report}
-The Report module will do statistical analysis on the data as well as draw graphs of the estimation data. This module will be responsible for any analysis of the data. It's functionality will be expanded as development continues.
+The Report module will do statistical analysis on the data as well as draw graphs of the estimation data. This module will be responsible for any analysis of the data. It's functionality will be expanded as development continues. This module will retrieve all the data it requires from the database and then process that data to produce an appropriate result.
 \subsubsection{Scope}
 The scope of this module will be accessible to any user at this point in the development, the only authorization that will take place is the initial log in of the user.
 	\begin{figure}[H]
@@ -82,7 +83,6 @@ The scope of this module will be accessible to any user at this point in the dev
 	This section of the documentation will describe the use cases of the Report module.
 	\paragraph{Statistical Analysis - priority:critical}
 	User accessing this function will receive statistical analysis of the data for the chosen project.
-
 	\paragraph{Generate Graphs - priority:critical}
 	User accessing this function will receive a series of graphs of the data for the chosen project. 
 \subsubsection{Domain model}
@@ -104,4 +104,10 @@ This is the notification scope
 The main purpose of notifications is to notify users with the required message. The estimation module will supply the list of users to notify and the contents of the message.
 \paragraph{sendMesssage -- priority:niceToHave}
 \paragraph{createNotification -- priority:niceToHave}
+	\begin{figure}[H]
+	    	\centering
+	    	\fbox{\includegraphics[width=0.8\textwidth]{NotificationServiceContract}}
+	    	\caption{Notifications Service Contract}
+	    	\label{fig:Notification_Service Contract}
+   	\end{figure}
 \subsubsection{Domain model}
