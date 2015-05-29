@@ -100,7 +100,13 @@ This enables users to update projects, if they have sufficient privileges, by ad
 \end{itemize}
 
 \subsubsection{Domain model}
-
+The domain model for the Project module requires that tasks being created and added to the tree, be persisted. Each project holds a reference to its parent, which is also of type Project. Furthermore, each Project holds a list of all its children, which once again, are also of type Project. Each instance of Project is represented as a Task object, which contains references to estimations made on that specific task.
+\begin{figure}[H]
+	\centering
+	\fbox{\includegraphics[width=0.5\textwidth]{projectdomainmodel}}
+	\caption{Project domain model}
+	\label{fig:Project_domain_model}
+\end{figure}
 %============================
 %Estimation
 %============================
