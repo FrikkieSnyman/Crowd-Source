@@ -44,6 +44,16 @@ Authorizes users with the right privileges to do what is requested.
 
 \paragraph{retrieveUserDetails - priority: important}
 This will get the details from the both the external and internal databases, to supply details to other modules in system as they need it.
+\begin{itemize}
+	\item Services contract:\\ \\
+	The retrieveUserDetailsRequest contains the user's id as a string. The retriveUserDetailsResult contains the user's details which consists of a username, password, useremail, userPosition.
+	\begin{figure}[H]
+    	\centering
+    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractRetrieveUserDetails}}
+    	\caption{RetrieveUserDetails services contract}
+    	\label{fig:RetrieveUserDetails_services_contract}
+   	\end{figure}
+\end{itemize}
 
 \subsubsection{Domain model}
 
