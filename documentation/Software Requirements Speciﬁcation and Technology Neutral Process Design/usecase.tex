@@ -29,7 +29,7 @@ The project module is responsible for the representation and persistence of all 
 The scope of the Project module is shown in the figure below
 	\begin{figure}[H]
 	    	\centering
-	    	\fbox{\includegraphics[width=0.5\textwidth]{projectScope}}
+	    	\fbox{\includegraphics[width=1.0\textwidth]{projectScope}}
 	    	\caption{Project Scope}
 	    	\label{fig:Project_Scope}
    	\end{figure}
@@ -43,7 +43,7 @@ Users with sufficient privileges can create projects. This will persist the proj
 	The createProjectRequest contains the name of the project as well as the user who is creating the project. The function will allow the user to expand on the project in order to build a comprehensive project tree.
 	\begin{figure}[H]
     	\centering
-    	\fbox{\includegraphics[width=0.5\textwidth]{servicesContractcreateProject}}
+    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractcreateProject}}
     	\caption{createProject services contract}
     	\label{fig:createProject_services_contract}
    	\end{figure}
@@ -57,7 +57,7 @@ Users with sufficient privileges can retrieve projects to view them, or to be us
 	The getProjectRequest contains the name of the Project that must be retrieved. The getProjectResult contains the Project that has been identified by the projectName.
 	\begin{figure}[H]
     	\centering
-    	\fbox{\includegraphics[width=0.5\textwidth]{servicesContractgetProject}}
+    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractgetProject}}
     	\caption{getProject services contract}
     	\label{fig:getProject_services_contract}
    	\end{figure}
@@ -65,6 +65,18 @@ Users with sufficient privileges can retrieve projects to view them, or to be us
 
 \paragraph{Hide project}
 Projects can be effectively deleted by hiding them, seeing as projects are not physically removed from the database. This action can only be done by authorised user.
+
+\begin{itemize}
+	\item Services contract:\\ \\
+	The hideProjectRequest contains a reference to the Project that must be hidden, which can be obtained by calling the getProject function.
+	\begin{figure}[H]
+    	\centering
+    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContracthideProject}}
+    	\caption{hideProject services contract}
+    	\label{fig:hideProject_services_contract}
+   	\end{figure}
+\end{itemize}
+
 
 \paragraph{Update project - priority: critical}
 This enables users to update projects, if they have sufficient privileges, by adding or removing task nodes to and from the project tree.
