@@ -2,7 +2,7 @@
 %User Management
 %============================
 \subsection{User Management}
-This module is responsible for reading data from the client user database. It will do this by making use of ldap.js. This module will also retrieve the privileges a user has from the system's internal database.
+This module is responsible for reading data from the client's user database. It will do this by making use of ldap.js. The module will log a user into the system, given the correct credentials. This system will provide an authorization interface to other modules, to see if user with a given userID has the needed privileges. This module will also give an interface to other modules, to retrieve the user's details, given the user's userID. 
 
 \subsubsection{Scope}
 The scope of the Project module is shown in the figure below:
