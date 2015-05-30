@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/FrikkieSnyman/COS301_GroupProject.svg?branch=master)](https://travis-ci.org/FrikkieSnyman/COS301_GroupProject)
 [![Coverage Status](https://coveralls.io/repos/FrikkieSnyman/COS301_GroupProject/badge.svg?branch=master)](https://coveralls.io/r/FrikkieSnyman/COS301_GroupProject?branch=master)
 [![Codacy Badge](https://www.codacy.com/project/badge/80ab709550ff47928ee8602468f8a6cc)](https://www.codacy.com/app/Hanrichp/COS301_GroupProject)
+[![Dependency Status](https://gemnasium.com/FrikkieSnyman/COS301_GroupProject.svg)](https://gemnasium.com/FrikkieSnyman/COS301_GroupProject)
 
 This is the repo for the COS301 Main Project, for team "The fellowship of the CIN".
 ##Installation insturctions.
