@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="Hanrich/Frikkie/Andre/Hugo/Chris">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Estimate Swarm</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./lib/bootstrap.min.css" rel="stylesheet">
+    <style>
+		body { padding-top: 70px; }
+		.jumbotronColor {
+			background: #66CCFF;
+		}
+	</style>
+
+
+    <!-- Custom styles for this template -->
+    <!--<link href="starter-template.css" rel="stylesheet">-->
+  </head>
+
+  <body ng-app = "main" ng-controller="mainCtrl">
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+	  <div class="container">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#">
+	      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+	      Estimate Swarm
+	      </a>
+	    </div>
+	    <div id="navbar" class="navbar-collapse collapse">
+	      <ul class="nav navbar-nav">
+	        <li class="active"><a href="#">Home</a></li>
+	        <li><a href="#about">About</a></li>
+	        <li><a href="#contact">Contact</a></li>
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+	          <ul class="dropdown-menu" role="menu">
+	            <li><a href="#">Action</a></li>
+	            <li><a href="#">Another action</a></li>
+	            <li><a href="#">Something else here</a></li>
+	            <li class="divider"></li>
+	            <li class="dropdown-header">Nav header</li>
+	            <li><a href="#">Separated link</a></li>
+	            <li><a href="#">One more separated link</a></li>
+	          </ul>
+	        </li>
+	      </ul>
+	    </div><!--/.nav-collapse -->
+	  </div>
+	</nav>
+  <div class="container theme-showcase" role="main">  
+	  <div class = "jumbotron jumbotronColor" >
+  		<h1>Estimate Swarm</h1>
+	  	<p>Redefining project estimations..</p>
+	  	<button class="btn btn-default" >Create Project</button>
+	  </div>
+	  <div class = "row">
+	  	<div class = "col-sm-4">
+	  		<h3>The swarm</h3>
+	  		<p>Use the swarm to decide on your projects deadlines.</p>
+	  		<p>Data from the database!</p>
+			<table class="table table-striped">
+				<tr>
+				<th>Names</th>
+				<th>Surnames</th>
+				</tr>
+			  <tr ng-repeat="x in names">
+			    <td>{{ x.name }}</td>
+			    <td>{{ x.surname }}</td>
+			  </tr>
+			</table>
+	  	</div>
+	  	<div class="col-sm-4">
+	  		<form method="post">
+				<span class="label label-info">Add mame to database</span>
+				<p>Name : <input  class="form-control" type="text" ng-model="name" placeholder="Enter name here">
+				<p>Surname : <input  class="form-control" type="text" ng-model="surname" placeholder="Enter surname here">
+				<button ng-click="sendName()" class="btn btn-default" >Send</button>
+			</form>
+	  	</div>
+	  	<div class = "col-sm-4">
+	  		<h3>Dream big and dare to fail</h3>
+	  		<p>Just add a sunset and it will be inspirational as hell.</p>
+	  	</div>
+  </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./lib/jquery.min.js"></script>
+    <!--<script src="./lib/angular.min.js"></script>-->
+    <script src="./lib/bootstrap.min.js"></script>
+    <!-- Angular -->
+    <script src="./lib/angular.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
