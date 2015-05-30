@@ -32,7 +32,9 @@ var server = app.listen(config.port,serverCreated);
 setup mongoose
 - We will always use the same database connection when interfacing with the database.
  */
-app.db = mongoose.createConnection(config.mongodb.uri);
+app.mongoose = mongoose;
+mongoose.connect(config.mongodb.uri);
+app.db = mongoose.connection;
 app.db.on('error', console.error.bind(console, 'mongoose connection error: '));
 app.db.once('open', function () {
   //and... we have a data store

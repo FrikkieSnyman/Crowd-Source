@@ -17,15 +17,17 @@ exports = module.exports = function(app) {
 	        res.send(text);
 	    });
 	});
+	/**
+	 * A very simple example of how to work with our files. Now our sepeartion of concerns 
+	 * is looking great.
+	 */
+	
+	/**
+	 * UserManagment
+	 */
+	var usermanagement = require('./lib/usermanagement/usermanagement.js')(app);
+	console.log(usermanagement.addName);
+	app.get('/names',usermanagement.getNames);
+	app.post('/name',usermanagement.addName);
 
-	app.get('/names',function(request,response){
-		console.log("Client asked me for information");
-		response.send(names);
-	});
-
-	app.post('/name', function(request, response) {
-		console.log("Client is adding name " + request.body.name);
-		names.push(request.body.name);
-		response.send(true);
-	});
 	};
