@@ -32,7 +32,6 @@ var server = app.listen(config.port,serverCreated);
 setup mongoose
 - We will always use the same database connection when interfacing with the database.
  */
-app.mongoose = mongoose;
 mongoose.connect(config.mongodb.uri);
 app.db = mongoose.connection;
 app.db.on('error', console.error.bind(console, 'mongoose connection error: '));
@@ -40,6 +39,10 @@ app.db.once('open', function () {
   //and... we have a data store
   console.log("We have a database connection!");
 });
+/*
+Add database schmes
+ */
+require("./models.js")(app,mongoose);
 
 /*
 middleware
@@ -58,7 +61,7 @@ app.use(express.static(__dirname + '/public'));
 setup routes
 -We express app to the routes so that we can use express there.
  */
-require('./routes')(app);
+require('./routes')(app, mongoose);
 
 /*
 Callback example

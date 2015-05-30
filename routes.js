@@ -8,7 +8,7 @@
 
 var names = ["Hanrich","Frikkie","Hugo","Andre","Isabel"];
 
-exports = module.exports = function(app) {
+exports = module.exports = function(app, mongoose) {
 	app.get('/', function (req, res) {
 		// We only need to provide the client with the index page. 
 		// The rest will happen automatically. 
@@ -25,7 +25,7 @@ exports = module.exports = function(app) {
 	/**
 	 * UserManagment
 	 */
-	var usermanagement = require('./lib/usermanagement/usermanagement.js')(app);
+	var usermanagement = require('./lib/usermanagement/usermanagement.js')(app,mongoose);
 	console.log(usermanagement.addName);
 	app.get('/names',usermanagement.getNames);
 	app.post('/name',usermanagement.addName);
