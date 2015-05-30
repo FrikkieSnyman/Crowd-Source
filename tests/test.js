@@ -1,5 +1,8 @@
-var main = require('../lib/square/square.js');
+// var main = require('../');
 
+var main = process.env.CUSTOM_COV
+  ? require('../lib-cov/square/square.js')
+  : require('../lib/square/square.js')
 
 exports.testSquare = function(test){
     test.expect(1);
