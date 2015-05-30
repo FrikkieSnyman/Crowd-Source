@@ -62,15 +62,7 @@
 	  	<div class = "col-sm-4">
 	  		<h3>The swarm</h3>
 	  		<p>Use the swarm to decide on your projects deadlines.</p>
-	  	</div>
-	  	<div class="col-sm-4">
-	  		<form method="post">
-				<span class="label label-info">Add mame to database</span>
-				<p>Name : <input  class="form-control" type="text" ng-model="name" placeholder="Enter name here">
-				<p>Surname : <input  class="form-control" type="text" ng-model="surname" placeholder="Enter surname here">
-				<button ng-click="sendName()" class="btn btn-default" >Send</button>
-			</form>
-			<p>Data from the database!</p>
+	  		<p>Data from the database!</p>
 			<table class="table table-striped">
 				<tr>
 				<th>Names</th>
@@ -81,6 +73,14 @@
 			    <td>{{ x.surname }}</td>
 			  </tr>
 			</table>
+	  	</div>
+	  	<div class="col-sm-4">
+	  		<form method="post">
+				<span class="label label-info">Add mame to database</span>
+				<p>Name : <input  class="form-control" type="text" ng-model="name" placeholder="Enter name here">
+				<p>Surname : <input  class="form-control" type="text" ng-model="surname" placeholder="Enter surname here">
+				<button ng-click="sendName()" class="btn btn-default" >Send</button>
+			</form>
 	  	</div>
 	  	<div class = "col-sm-4">
 	  		<h3>Dream big and dare to fail</h3>
