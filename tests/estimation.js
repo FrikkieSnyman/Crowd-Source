@@ -1,1 +1,0 @@
-// var testEstimation = require('../lib/estimation/estimation.js');

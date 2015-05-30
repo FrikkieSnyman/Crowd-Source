@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "nodeunit tests",
+    "coveralls":"jscoverage lib && SQUARE_COV=1 nodeunit --reporter=lcov tests | coveralls",
     "start": "nodemon main.js"
   },
   "repository": {
@@ -36,7 +37,9 @@
     "watch": "^0.16.0"
   },
   "devDependencies": {
+    "coveralls": "^2.11.2",
     "grunt": "^0.4.5",
+    "jscoverage": "^0.5.9",
     "nodemon": "^1.3.7"
   }
 }
