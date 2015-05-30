@@ -20,4 +20,7 @@ module.exports = function(grunt) {
   // Default task(s).
   grunt.registerTask('default', ['uglify']);
 
+  // Load coveralls
+  grunt.loadNpmTasks('grunt-coveralls');
+
 };
