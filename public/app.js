@@ -6,14 +6,13 @@ var app = angular.module('main', []);
 app.controller('mainCtrl', function($scope,$http) {
     //$scope.firstName = "John";
     //$scope.lastName = "Doe";
-    $scope.name = "Piet";
     $scope.sendName = function()
     {
         console.log("Name!");
         // Simple POST request example (passing data) :
         // application/json
         // 
-        $http.post('/name', {name:$scope.name}).
+        $http.post('/name', {name:$scope.name,surname:$scope.surname}).
           success(function(data, status, headers, config) {
                 $http.get("/names").success(function(response)
                 {

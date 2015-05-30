@@ -67,15 +67,18 @@
 	  		<form method="post">
 				<span class="label label-info">Add mame to database</span>
 				<p>Name : <input  class="form-control" type="text" ng-model="name" placeholder="Enter name here">
+				<p>Surname : <input  class="form-control" type="text" ng-model="surname" placeholder="Enter surname here">
 				<button ng-click="sendName()" class="btn btn-default" >Send</button>
 			</form>
 			<p>Data from the database!</p>
 			<table class="table table-striped">
 				<tr>
 				<th>Names</th>
+				<th>Surnames</th>
 				</tr>
 			  <tr ng-repeat="x in names">
 			    <td>{{ x.name }}</td>
+			    <td>{{ x.surname }}</td>
 			  </tr>
 			</table>
 	  	</div>
