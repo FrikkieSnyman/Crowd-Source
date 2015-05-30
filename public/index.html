@@ -27,7 +27,10 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      <a class="navbar-brand" href="#">Bootstrap theme</a>
+	      <a class="navbar-brand" href="#">
+	      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+	      Estimate Swarm
+	      </a>
 	    </div>
 	    <div id="navbar" class="navbar-collapse collapse">
 	      <ul class="nav navbar-nav">
@@ -61,29 +64,12 @@
 	  		<p>Use the swarm to decide on your projects deadlines.</p>
 	  	</div>
 	  	<div class="col-sm-4">
-	  		<h3>Log On<h3>
-	  		<form role="form">
-			    <div class="form-group">
-			      <label for="email" ><p>Email:</p></label>
-			      <input type="email" ng-model="a" class="form-control" id="email" placeholder="Enter email">
-			    </div>
-			    <div class="form-group">
-			      <label for="pwd"><p>Password:</p></label>
-			      <input type="password" class="form-control" id="pwd" placeholder="Enter password">
-			    </div>
-			    <div class="checkbox">
-			      <label><input type="checkbox"><p>Remember me</p></label>
-			    </div>
-			    <button type="submit" class="btn btn-default">Submit</button>
-		 	</form>
-	  	</div>
-	  	<div class="col-sm-4">
 	  		<form method="post">
-				<p>Enter name to add:</p>
-				<p>Name : <input type="text" ng-model="name" placeholder="Enter name here"></p>
-				<button ng-click="sendName()" >Send</button>
+				<span class="label label-info">Add mame to database</span>
+				<p>Name : <input  class="form-control" type="text" ng-model="name" placeholder="Enter name here">
+				<button ng-click="sendName()" class="btn btn-default" >Send</button>
 			</form>
-			<p>Data from the server! Pretty neat</p>
+			<p>Data from the database!</p>
 			<table class="table table-striped">
 				<tr>
 				<th>Names</th>
