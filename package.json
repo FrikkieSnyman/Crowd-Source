@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "nodeunit tests",
-    "coveralls": "jscoverage lib && SQUARE_COV=1 nodeunit --reporter=lcov tests | coveralls",
+    "coveralls": "jscoverage lib && CUSTOM_COV=1 nodeunit --reporter=lcov tests | coveralls",
     "start": "nodemon main.js"
   },
   "repository": {

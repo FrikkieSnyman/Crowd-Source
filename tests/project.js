@@ -1,4 +1,9 @@
-var testProject = require('../');
+// var testProject = require('../');
+
+var testProject = process.env.CUSTOM_COV
+	? require('../lib-cov/project/project.js')
+	: require('../lib/project/project.js')
+
 console.log("Running tests for demonstration purposes");
 exports.testCreateProject = function(test){
 	test.expect(1);
