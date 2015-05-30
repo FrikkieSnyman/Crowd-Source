@@ -6,6 +6,8 @@
 [![Codacy Badge](https://www.codacy.com/project/badge/80ab709550ff47928ee8602468f8a6cc)](https://www.codacy.com/app/Hanrichp/COS301_GroupProject)
 [![Dependency Status](https://gemnasium.com/FrikkieSnyman/COS301_GroupProject.svg)](https://gemnasium.com/FrikkieSnyman/COS301_GroupProject)
 [![Stories in Ready](https://badge.waffle.io/FrikkieSnyman/COS301_GroupProject.png?label=ready&title=Ready)](https://waffle.io/FrikkieSnyman/COS301_GroupProject)
+[![Stories in Progress](https://badge.waffle.io/FrikkieSnyman/COS301_GroupProject.png?label=In%20Progress&title=In%20Progress)](https://waffle.io/FrikkieSnyman/COS301_GroupProject)
+
 
 This is the repo for the COS301 Main Project, for team "The fellowship of the CIN".
 ##Installation insturctions.
