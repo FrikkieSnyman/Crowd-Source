@@ -1,4 +1,4 @@
-var testProject = require('../lib/project/project.js');
+var testProject = require('../');
 console.log("Running tests for demonstration purposes");
 exports.testCreateProject = function(test){
 	test.expect(1);

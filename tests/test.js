@@ -1,4 +1,4 @@
-var main = require('../lib/square/square.js');
+var main = require('../');
 
 
 exports.testSquare = function(test){
