@@ -13,7 +13,7 @@ exports = module.exports = function(app, mongoose) {
 		// We only need to provide the client with the index page. 
 		// The rest will happen automatically. 
 		// We will only implement the GET/POST 
-	  fs.readFile(__dirname + '/public/index.html', 'utf8', function(err, text){
+	  fs.readFile(__dirname + '/www/index.html', 'utf8', function(err, text){
 	        res.send(text);
 	    });
 	});

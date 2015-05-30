@@ -55,7 +55,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 /*
 public directory
  */
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/www'));
 
 /*
 setup routes
