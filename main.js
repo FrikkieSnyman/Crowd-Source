@@ -1,10 +1,10 @@
 /*
 dependancies
  */
-var express = require('express'),
-	bodyParser = require('body-parser'),
-	config = require('./config'),
-	mongoose = require('mongoose');
+var express = require('express');
+var bodyParser = require('body-parser');
+var config = require('./config');
+var mongoose = require('mongoose');
 /*
 Create express app
  */
@@ -19,15 +19,14 @@ app.config = config;
 /*
 Setup the web server
  */
-var serverCreated = function()
-{
-  var host = server.address().address;
-  var port = server.address().port;
+var serverCreated = function() {
+	var host = server.address().address;
+	var port = server.address().port;
 
-  console.log('Example app listening at http://%s:%s', host, port);
-}
+	console.log('Example app listening at http://%s:%s', host, port);
+};
 
-var server = app.listen(config.port,serverCreated);
+var server = app.listen(config.port, serverCreated);
 /*
 setup mongoose
 - We will always use the same database connection when interfacing with the database.
@@ -35,22 +34,22 @@ setup mongoose
 mongoose.connect(config.mongodb.uri);
 app.db = mongoose.connection;
 app.db.on('error', console.error.bind(console, 'mongoose connection error: '));
-app.db.once('open', function () {
-  //and... we have a data store
-  console.log("We have a database connection!");
+app.db.once('open', function() {
+	//and... we have a data store
+	console.log('We have a database connection!');
 });
 /*
 Add database schmes
  */
-require("./models.js")(app,mongoose);
+require('./models.js')(app, mongoose);
 
 /*
 middleware
  */
 app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended: true
-})); 
+	extended: true
+}));
 
 /*
 public directory
@@ -66,21 +65,17 @@ require('./routes')(app, mongoose);
 /*
 Callback example
  */
-var count = function(number,callback)
-{	
-	number = number+1;
+var count = function(number, callback) {
+	number = number + 1;
 	callback(number);
-}
+};
 
-var done = function()
-{
+var done = function() {
 	console.log(tmp);
-}
+};
 
 var tmp = 0;
-count(tmp,function(result)
-{
+count(tmp, function(result) {
 	tmp = result;
 	done();
 });
-

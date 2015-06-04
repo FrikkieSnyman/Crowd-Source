@@ -4,10 +4,10 @@
  */
 
 exports = module.exports = function(app, mongoose) {
-      var Schema = mongoose.Schema;
-      var userSchema = new Schema({
-      name : String,
-      surname : String,
-      });
-      app.userSchema = userSchema;
+	var Schema = mongoose.Schema;
+	var userSchema = new Schema({
+		name : String,
+		surname : String,
+	});
+	app.userSchema = userSchema;
 };
