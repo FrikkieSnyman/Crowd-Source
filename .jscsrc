@@ -1,0 +1,9 @@
+{
+    "preset": "google",
+    "validateLineBreaks": "LF",
+    "validateIndentation": {
+        "value": "\t",
+        "includeEmptyLine": true
+    },
+    "excludeFiles": ["node_modules/**"]
+}
