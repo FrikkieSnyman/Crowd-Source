@@ -45,6 +45,23 @@ Then we create the database we want to use with the 'use' command.
 use myDB
 ```
 Congratualtions you have created your database. The only thing left now is to add your database credentails to the config.js file.
+
+##JSCS
+JSCS is used to validate code style, this allows all of the code to have a similar style thus making it easier to understand.
+
+To use JSCS first install the jscs npm package with the command
+```
+npm install -g jscs
+```
+Once this is done a file can be checked in the terminal using the command
+```
+cat example.js | jscs
+```
+
+The following two sublime text packages can also be used to assist with the checking process:
+* SublimeLinter-jscs
+* JSCS-Formatter
+
 ##Mobile Application
 ###Android
 The android application can be downloaded from the following link.
