@@ -1,50 +1,50 @@
 // var testProject = require('../');
 
-var testProject = process.env.CUSTOM_COV
-	? require('../lib-cov/project/project.js')
-	: require('../lib/project/project.js')
+var testProject = process.env.CUSTOM_COV ?
+	require('../lib-cov/project/project.js')
+	: require('../lib/project/project.js');
 
-console.log("Running tests for demonstration purposes");
-exports.testCreateProject = function(test){
+console.log('Running tests for demonstration purposes');
+exports.testCreateProject = function(test) {
 	test.expect(1);
-	var expected = "This is a stub for creation of a new project";
+	var expected = 'This is a stub for creation of a new project';
 	var result;
-	testProject.createProject(function(res){
+	testProject.createProject(function(res) {
 		result = res;
-		test.equal(expected,result);
+		test.equal(expected, result);
 		test.done();
 	});
-}
+};
 
-exports.testGetProject = function(test){
+exports.testGetProject = function(test) {
 	test.expect(1);
-	var expected = "This is a stub for retrieving projects";
+	var expected = 'This is a stub for retrieving projects';
 	var result;
-	testProject.getProject(function(res){
+	testProject.getProject(function(res) {
 		result = res;
-		test.equal(expected,result);
+		test.equal(expected, result);
 		test.done();
 	});
-}
+};
 
-exports.testHideProject = function(test){
+exports.testHideProject = function(test) {
 	test.expect(1);
-	var expected = "This is a stub for hiding a project";
+	var expected = 'This is a stub for hiding a project';
 	var result;
-	testProject.hideProject(function(res){
+	testProject.hideProject(function(res) {
 		result = res;
-		test.equal(expected,result);
+		test.equal(expected, result);
 		test.done();
 	});
-}
+};
 
-exports.testUpdateProject = function(test){
+exports.testUpdateProject = function(test) {
 	test.expect(1);
-	var expected = "This is a stub for updating a project";
+	var expected = 'This is a stub for updating a project';
 	var result;
-	testProject.updateProject(function(res){
+	testProject.updateProject(function(res) {
 		result = res;
-		test.equal(expected,result);
+		test.equal(expected, result);
 		test.done();
 	});
-}
+};
