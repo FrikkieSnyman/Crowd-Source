@@ -129,7 +129,7 @@ exports.testProjectObjectSetDescription = function(test) {
 
 exports.testProjectObjectSetEstimation = function(test) {
 
-	var MockEstimate = function(){
+	var MockEstimate = function() {
 		this.title = 'This is a mock estimation object';
 	};
 
