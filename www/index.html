@@ -5,13 +5,57 @@
 	<link rel="stylesheet" href="/node_modules/angular-material/angular-material.css">
 </head>
 	<body ng-controller="mainCtrl" ng-app="main" layout="row">
-		<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
-			<md-toolbar class="md-theme-indigo">
-				<div class="md-toolbar-tools">
-					<h1><span>Menu</span></h1>
-					<span flex></span>
-					<md-button class="md-icon-button md-primary" ng-click="toggleLeft()" aria-label="Settings" hide-gt-md="">
-						<md-icon md-svg-icon="img/icons/chevron_left.svg" style="color: white;"></md-icon>
+			<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+				<md-toolbar class="md-theme-indigo">
+					<div class="md-toolbar-tools">
+						<h1><span>Menu</span></h1>
+						<span flex></span>
+						<md-button class="md-icon-button md-primary" ng-click="toggleLeft()" aria-label="Settings" hide-gt-md="">
+							<md-icon md-svg-icon="img/icons/chevron_left.svg" style="color: white;"></md-icon>
+						</md-button>
+					</div>
+				</md-toolbar>
+				<md-content layout-padding="">
+				<md-list ng-controller="ListCtrl">
+					<md-list-item>
+						<md-list-item ng-click="navigateTo('data usage', $event)">
+					    	<md-icon md-svg-icon="login"></md-icon>
+					    		<p>Login</p>
+						</md-list-item>
+						<md-list-item ng-click="http://en.wikipedia.org/wiki/Mango">
+					    	<md-icon md-svg-icon="cached"></md-icon>
+					    		<p>MenuB1</p>
+						</md-list-item>
+					</md-list-item>
+				</md-list>
+					<p hide-md="" show-gt-md="">
+						This sidenav is locked open on your device. To go back to the default behavior,
+						narrow your display.
+					</p>
+				</md-content>
+			</md-sidenav>
+	<div layout="column" role="main" flex>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<md-button class="md-icon-button md-primary" ng-click="toggleLeft()" aria-label="Settings" hide-gt-md="">
+					<md-icon md-svg-icon="img/icons/menu.svg" style="color: white;"></md-icon>
+				</md-button>
+				<h2>
+					<span>Welcome to the Estimate Swarm</span>
+				</h2>
+				<span flex=""></span>
+			</div>
+		</md-toolbar>
+		<md-content flex="" layout-padding="">
+			<div layout="column" layout-fill="" layout-align="top center">
+				<md-whiteframe class="md-whiteframe-z1" layout layout-align="center center">
+				<span> 
+					<p>
+						The Estimate Swarm will aid in estimating projects by crowd sourcing information from individuals with experience in the field.
+					</p>
+
+					<md-button ng-click="" class="md-raised md-primary">
+						Create a new project
 					</md-button>
 				</div>
 			</md-toolbar>
