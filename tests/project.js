@@ -40,6 +40,31 @@ exports.testCreateProject = function(test) {
 	});
 };
 
+exports.testProjectObjectSetOwner = function(test) {
+	var expected;
+	var project;
+	test.expect(3);
+	testProject.createProject('testHeading', 'testDesc', function(res) {
+		project = res;
+	});
+
+	// Test 1: Test if owner constructs to null
+	expected = null;
+	test.equal(expected, project.getOwner());
+
+	// Test 2: Set inital owner
+	project.setOwner('Frikkie');
+	expected = 'Frikkie';
+	test.equal(expected, project.getOwner());
+
+	// Test 3: reset owner
+	project.setOwner('Andre');
+	expected = 'Andre';
+	test.equal(expected, project.getOwner());
+
+	test.done();
+};
+
 exports.testGetProject = function(test) {
 	test.expect(1);
 	var expected = 'This is a stub for retrieving projects';
