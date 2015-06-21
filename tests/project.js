@@ -127,6 +127,35 @@ exports.testProjectObjectSetDescription = function(test) {
 	test.done();
 };
 
+exports.testProjectObjectSetEstimation = function(test) {
+
+	var MockEstimate = function(){
+		this.title = 'This is a mock estimation object';
+	};
+
+	var expected;
+	var result;
+	var project;
+	test.expect(2);
+	testProject.createProject('testHeading', 'testDesc', function(res) {
+		project = res;
+	});
+
+	// Test 1: Test if initial estimation is set correctly
+	expected = null;
+	result = project.getEstimation();
+	test.equal(expected, result);
+
+	// Test 2: Set estimation
+	var tmpEst = new MockEstimate();
+	expected = tmpEst;
+	project.setEstimation(tmpEst);
+	result = project.getEstimation();
+	test.equal(expected, result);
+
+	test.done();
+};
+
 exports.testGetProject = function(test) {
 	test.expect(1);
 	var expected = 'This is a stub for retrieving projects';
