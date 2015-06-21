@@ -1,31 +1,42 @@
 
-// This is our main module.
-// Here we will help cahnge stuff
-var app = angular.module('main', ['ngMaterial']);
+angular
+  .module('main',['ngMaterial'])
+  .controller('mainCtrl', function ($scope, $timeout, $mdSidenav, $mdUtil, $log) {
 
-app.controller('mainCtrl', function($scope, $http) {
-	$scope.sendName = function() {
-		console.log('Name!');
-		// Simple POST request example (passing data) :
-		// application/json
-		//
-		$http.post('/name', {name:$scope.name, surname:$scope.surname}).
-			success(function(data, status, headers, config) {
-				$http.get('/names').success(function(response) {
-					console.log('We had a response');
-					$scope.names = response;
-					console.log($scope.names);
-				});
-			}).
-			error(function(data, status, headers, config) {
-				// called asynchronously if an error occurs
-				// or server returns response with an error status.
-			});
-	};
+    $scope.toggleLeft = buildToggler('left');
+    $scope.toggleRight = buildToggler('right');
 
-	$http.get('/names').success(function(response) {
-		console.log('We had a response');
-		$scope.names = response;
-		console.log($scope.names);
-	});
-});
+    /**
+     * Build handler to open/close a SideNav; when animation finishes
+     * report completion in console
+     */
+    function buildToggler(navID) {
+      var debounceFn =  $mdUtil.debounce(function(){
+            $mdSidenav(navID)
+              .toggle()
+              .then(function () {
+                $log.debug("toggle " + navID + " is done");
+              });
+          },300);
+
+      return debounceFn;
+    }
+  })
+  .controller('LeftCtrl', function ($scope, $timeout, $mdSidenav, $log) {
+    $scope.close = function () {
+      $mdSidenav('left').close()
+        .then(function () {
+          $log.debug("close LEFT is done");
+        });
+
+    };
+  })
+  .controller('RightCtrl', function ($scope, $timeout, $mdSidenav, $log) {
+    $scope.close = function () {
+      $mdSidenav('right').close()
+        .then(function () {
+          $log.debug("close RIGHT is done");
+        });
+    };
+  });
+
