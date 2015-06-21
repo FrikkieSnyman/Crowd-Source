@@ -17,7 +17,11 @@
 				</md-toolbar>
 				<md-content layout-padding="">
 				<md-list ng-controller="ListCtrl">
-					<md-list-item ng-click="navigateTo('data usage', $event)">
+					<md-list-item ng-click="gotToMainPage()">
+				    	<md-icon md-svg-icon="img/icons/home.svg"></md-icon>
+				    		<p>Home</p>
+					</md-list-item>
+					<md-list-item ng-click="gotToMainPage()">
 				    	<md-icon md-svg-icon="img/icons/person.svg"></md-icon>
 				    		<p>Login</p>
 					</md-list-item>

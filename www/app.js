@@ -34,8 +34,11 @@ angular
 		templateUrl: 'templates/pages/main/index.html'
 	})
 })
-.controller('mainCtrl', function ($scope, $timeout, $mdSidenav, $mdUtil, $log) {
+.controller('mainCtrl', function ($scope, $timeout, $mdSidenav, $mdUtil, $log, $location) {
 	$scope.toggleLeft = buildToggler('left');
+	$scope.gotToMainPage = function(){
+		$location.path( "/" );
+	};
 	// $scope.toggleRight = buildToggler('right');
 
 	/**
