@@ -1,6 +1,6 @@
 
 angular
-.module('main',['ngMaterial', 'ngMdIcons','ngRoute'])
+.module('main',['ngMaterial','ngRoute'])
 .config(function($mdThemingProvider) {
   $mdThemingProvider.definePalette('amazingPaletteName', {
     '50': 'ffebee',
@@ -25,7 +25,7 @@ angular
   });
   $mdThemingProvider.theme('default')
     .primaryPalette('amazingPaletteName')
-}) 
+})
 .config(function($routeProvider){
 	$routeProvider.when('/project',{
 		templateUrl: 'templates/pages/project/index.html'

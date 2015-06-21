@@ -3,8 +3,6 @@
 <head>
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="/node_modules/angular-material/angular-material.css">
-	<link rel="stylesheet" href="/node_modules/angular-material-icons/angular-material-icons.css">
-
 </head>
 	<body ng-controller="mainCtrl" ng-app="main" layout="row">
 
@@ -14,7 +12,7 @@
 						<h1><span>Menu</span></h1>
 						<span flex></span>
 						<md-button class="md-icon-button md-primary" ng-click="toggleLeft()" aria-label="Settings" hide-gt-md="">
-							<ng-md-icon icon="chevron_left" style="fill: white"></ng-md-icon>
+							<md-icon md-svg-icon="img/icons/chevron_left.svg" style="color: white;"></md-icon>
 						</md-button>
 					</div>
 				</md-toolbar>
@@ -29,7 +27,7 @@
 		<md-toolbar>
 			<div class="md-toolbar-tools">
 				<md-button class="md-icon-button md-primary" ng-click="toggleLeft()" aria-label="Settings" hide-gt-md="">
-					<ng-md-icon icon="menu" style="fill: white"></ng-md-icon>
+					<md-icon md-svg-icon="img/icons/menu.svg" style="color: white;"></md-icon>
 				</md-button>
 				<h2>
 					<span>Welcome to the Estimate Swarm</span>
@@ -71,7 +69,6 @@
 	<script src="/node_modules/angular-aria/angular-aria.js"></script>
 	<script src="/node_modules/angular-animate/angular-animate.js"></script>
 	<script src="/node_modules/angular-material/angular-material.js"></script>
-	<script src="/node_modules/angular-material-icons/angular-material-icons.js"></script>
 	<script src="node_modules/angular-route/angular-route.min.js"></script>
 	<script src="app.js"></script>
 	<script src="./javascript/controllers/project-create-controller.js"></script>
