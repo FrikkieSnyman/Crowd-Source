@@ -1,7 +1,7 @@
 
 // This is our main module.
 // Here we will help cahnge stuff
-var app = angular.module('main', []);
+var app = angular.module('main', ['ngMaterial']);
 
 app.controller('mainCtrl', function($scope, $http) {
 	$scope.sendName = function() {
