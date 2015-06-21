@@ -1,6 +1,6 @@
 
 angular
-.module('main',['ngMaterial'])
+.module('main',['ngMaterial', 'ngMdIcons'])
 .controller('mainCtrl', function ($scope, $timeout, $mdSidenav, $mdUtil, $log) {
 	$scope.toggleLeft = buildToggler('left');
  	// $scope.toggleRight = buildToggler('right');
