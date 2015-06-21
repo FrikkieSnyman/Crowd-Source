@@ -1,6 +1,11 @@
 
 angular
-.module('main',['ngMaterial', 'ngMdIcons'])
+.module('main',['ngMaterial', 'ngMdIcons','ngRoute'])
+.config(function($routeProvider){
+	$routeProvider.when('/',{
+		templateUrl: 'templates/pages/main/index.html'
+	})
+})
 .controller('mainCtrl', function ($scope, $timeout, $mdSidenav, $mdUtil, $log) {
 	$scope.toggleLeft = buildToggler('left');
  	// $scope.toggleRight = buildToggler('right');
