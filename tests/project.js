@@ -33,9 +33,9 @@ exports.testCreateProject = function(test) {
 	testProject.createProject('testProject', 'This is a test creation of a project', function(res) {
 		result = res;
 		expected = 'testProject';
-		test.equal(expected, result.heading);
+		test.equal(expected, result.getHeading());
 		expected = 'This is a test creation of a project';
-		test.equal(expected, result.description);
+		test.equal(expected, result.getDescription());
 		test.done();
 	});
 };
