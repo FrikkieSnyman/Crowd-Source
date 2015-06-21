@@ -19,6 +19,18 @@
 					</div>
 				</md-toolbar>
 				<md-content layout-padding="">
+				<md-list ng-controller="ListCtrl">
+					<md-list-item>
+						<md-list-item ng-click="navigateTo('data usage', $event)">
+					    	<md-icon md-svg-icon="login"></md-icon>
+					    		<p>Login</p>
+						</md-list-item>
+						<md-list-item ng-click="http://en.wikipedia.org/wiki/Mango">
+					    	<md-icon md-svg-icon="cached"></md-icon>
+					    		<p>MenuB1</p>
+						</md-list-item>
+					</md-list-item>
+				</md-list>
 					<p hide-md="" show-gt-md="">
 						This sidenav is locked open on your device. To go back to the default behavior,
 						narrow your display.
