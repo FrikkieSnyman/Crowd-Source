@@ -2,6 +2,9 @@
 angular
 .module('main',['ngMaterial', 'ngMdIcons','ngRoute'])
 .config(function($routeProvider){
+	$routeProvider.when('/project',{
+		templateUrl: 'templates/pages/project/index.html'
+	});
 	$routeProvider.when('/',{
 		templateUrl: 'templates/pages/main/index.html'
 	})
