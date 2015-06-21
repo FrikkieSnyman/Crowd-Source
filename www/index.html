@@ -27,11 +27,11 @@
 			<md-content flex="" layout-padding="">
 				<md-toolbar>
 					<div class="md-toolbar-tools">
-						<md-button class="md-icon-button" aria-label="Settings">
+						<md-button class="md-icon-button md-primary" ng-click="toggleLeft()" aria-label="Settings" hide-gt-md="">
 							<md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
 						</md-button>
 						<h2>
-							<span>Toolbar with Icon Buttons</span>
+							<span>Welcome to the Estimate Swarm</span>
 						</h2>
 						<span flex=""></span>
 						<md-button class="md-icon-button" aria-label="Favorite">
@@ -47,8 +47,12 @@
 					<md-whiteframe class="md-whiteframe-z1" layout layout-align="center center">
 					<span> 
 						<p>
-							The left sidenav will 'lock open' on a medium (&gt;=960px wide) device.
+							The Estimate Swarm will aid in estimating projects by crowd sourcing information from individuals with experience in the field.
 						</p>
+						
+						<md-button ng-click="" class="md-raised md-primary">
+							Create a new project
+						</md-button>
 					</span>
 					</md-whiteframe>
 					<p>
@@ -56,9 +60,9 @@
 					</p>
 
 					<div>
-						<md-button ng-click="toggleLeft()" class="md-primary" hide-gt-md="">
+						<!-- <md-button ng-click="toggleLeft()" class="md-primary" hide-gt-md="">
 							Toggle left
-						</md-button>
+						</md-button> -->
 					</div>
 				</div>
 
