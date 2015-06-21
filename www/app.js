@@ -1,6 +1,6 @@
 
 angular
-.module('main',['ngMaterial', 'ngMdIcons','ngRoute'])
+.module('main',['ngMaterial', 'ngRoute'])
 .config(function($routeProvider){
 	$routeProvider.when('/project',{
 		templateUrl: 'templates/pages/project/index.html'
