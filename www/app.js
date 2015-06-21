@@ -36,7 +36,7 @@ angular
 })
 .controller('mainCtrl', function ($scope, $timeout, $mdSidenav, $mdUtil, $log) {
 	$scope.toggleLeft = buildToggler('left');
- 	// $scope.toggleRight = buildToggler('right');
+	// $scope.toggleRight = buildToggler('right');
 
 	/**
 	 * Build handler to open/close a SideNav; when animation finishes
@@ -61,4 +61,16 @@ angular
 				$log.debug("close LEFT is done");
 			});
 	};
-});
+})
+.controller('ListCtrl', function($scope, $mdDialog) {
+	$scope.navigateTo = function(to, event) {
+		$mdDialog.show(
+		$mdDialog.alert()
+			.title('Navigating')
+			.content('Imagine being taken to ' + to)
+			.ariaLabel('Navigation demo')
+			.ok('Neat!')
+			.targetEvent(event)
+		);
+	};
+ });
