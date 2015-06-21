@@ -27,7 +27,7 @@ angular
     .primaryPalette('amazingPaletteName')
 })
 .config(function($routeProvider){
-	$routeProvider.when('/project',{
+	$routeProvider.when('/createProject',{
 		templateUrl: 'templates/pages/project/index.html'
 	});
 	$routeProvider.when('/',{
