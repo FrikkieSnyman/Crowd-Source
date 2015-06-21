@@ -1,18 +1,8 @@
-<div ng-controller="createProjectCtrl" layout="column">
-  <md-whiteframe class="md-whiteframe-z1">
-  <br/>
-  <md-content layout-padding class="autoScroll">
-    <md-input-container d-no-float>
-      <!-- Use floating label instead of placeholder -->
-      <label>Project name</label>
-      <input ng-model="$scope.name" type="text" >
-    </md-input-container>
-    <md-input-container d-no-float>
-      <!-- Use floating label instead of placeholder -->
-      <label>Project description</label>
-      <input ng-model="$scope.name" type="text" >
-    </md-input-container>
-    <md-button class="md-raised md-primary">Create Project</md-button>
-  </md-content>
+  <div ng-controller="mainWelcomeCtrl">
+  <md-whiteframe class="md-whiteframe-z1" layout = "column">
+   <p>Welcome to the home page</p>
+   <span>
+        <md-button class="md-raised md-primary" ng-click="createProject()">Create Project</md-button>
+   </span>
   </md-whiteframe>
-</div>
+  </div>
