@@ -1,5 +1,3 @@
-// var testProject = require('../');
-
 var testProject = process.env.CUSTOM_COV ?
 	require('../lib-cov/project/project.js')
 	: require('../lib/project/project.js');
@@ -42,6 +40,7 @@ exports.testCreateProject = function(test) {
 
 exports.testProjectObjectSetOwner = function(test) {
 	var expected;
+	var result;
 	var project;
 	test.expect(3);
 	testProject.createProject('testHeading', 'testDesc', function(res) {
@@ -50,17 +49,80 @@ exports.testProjectObjectSetOwner = function(test) {
 
 	// Test 1: Test if owner constructs to null
 	expected = null;
-	test.equal(expected, project.getOwner());
+	result = project.getOwner();
+	test.equal(expected, result);
 
 	// Test 2: Set inital owner
 	project.setOwner('Frikkie');
 	expected = 'Frikkie';
-	test.equal(expected, project.getOwner());
+	result = project.getOwner();
+	test.equal(expected, result);
 
 	// Test 3: reset owner
 	project.setOwner('Andre');
 	expected = 'Andre';
-	test.equal(expected, project.getOwner());
+	result = project.getOwner();
+	test.equal(expected, result);
+
+	test.done();
+};
+
+exports.testProjectObjectSetHeading = function(test) {
+	var expected;
+	var result;
+	var project;
+	test.expect(3);
+
+	testProject.createProject('testHeading', 'testDesc', function(res) {
+		project = res;
+	});
+
+	// Test 1: Test if initial heading is set correctly
+	expected = 'testHeading';
+	result = project.getHeading();
+	test.equal(expected, result);
+
+	// Test 2: Test if heading updates correctly
+	expected = 'Updated Heading';
+	project.setHeading('Updated Heading');
+	result = project.getHeading();
+	test.equal(expected, result);
+
+	// Test 3: Test if second change works
+	expected = 'Final heading';
+	project.setHeading('Final heading');
+	result = project.getHeading();
+	test.equal(expected, result);
+
+	test.done();
+};
+
+exports.testProjectObjectSetDescription = function(test) {
+	var expected;
+	var result;
+	var project;
+	test.expect(3);
+
+	testProject.createProject('testHeading', 'testDesc', function(res) {
+		project = res;
+	});
+
+	// Test 1: Test if initial description is set correctly
+	expected = 'testDesc';
+	result = project.getDescription();
+	test.equal(expected, result);
+
+	// Test 2: Test if heading updates correctly
+	expected = 'This is the first updated description';
+	project.setDescription('This is the first updated description');
+	result = project.getDescription();
+	test.equal(expected, result);
+
+	// Test 3: Test if second change works
+	expected = 'Final description';
+	project.setDescription('Final description');
+	result = project.getDescription();
+	test.equal(expected, result);
 
 	test.done();
 };
