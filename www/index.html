@@ -8,7 +8,7 @@
 			<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
 				<md-toolbar class="md-theme-indigo">
 					<div class="md-toolbar-tools">
-						<h1><span>Menu</span></h1>
+						<h1><span>Estimate Swarm</span></h1>
 						<span flex></span>
 						<md-button class="md-icon-button md-primary" ng-click="toggleLeft()" aria-label="Settings" hide-gt-md="">
 							<md-icon md-svg-icon="img/icons/chevron_left.svg" style="color: white;"></md-icon>
@@ -20,6 +20,14 @@
 					<md-list-item ng-click="gotToMainPage()">
 				    	<md-icon md-svg-icon="img/icons/home.svg"></md-icon>
 				    		<p>Home</p>
+					</md-list-item>
+					<md-list-item ng-click="gotToProjectsPage()">
+				    	<md-icon md-svg-icon="img/icons/project.svg"></md-icon>
+				    		<p>Projects</p>
+					</md-list-item>
+					<md-list-item ng-click="gotToEstimationPage()">
+				    	<md-icon md-svg-icon="img/icons/project.svg"></md-icon>
+				    		<p>Estimation</p>
 					</md-list-item>
 					<md-list-item ng-click="gotToMainPage()">
 				    	<md-icon md-svg-icon="img/icons/person.svg"></md-icon>
@@ -43,7 +51,7 @@
 					<md-icon md-svg-icon="img/icons/menu.svg" style="color: white;"></md-icon>
 				</md-button>
 				<h2>
-					<span>Welcome to the Estimate Swarm</span>
+					<span>{{getPath()}}</span>
 				</h2>
 				<span flex=""></span>
 			</div>

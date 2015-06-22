@@ -1,23 +1,45 @@
 
 angular
 .module('main', ['ngMaterial', 'ngRoute'])
+.run(function($rootScope,$location){
+	$rootScope.location = $location;
+	$rootScope.getPath = function(){
+		var path = $location.path();
+		path = path.replace('/',">");
+		path = path.substring(1);
+		path = path.toUpperCase();
+		return path;
+	};
+})
 .config(function($mdThemingProvider) {
 	$mdThemingProvider.theme('default')
     .primaryPalette('indigo')
     .accentPalette('yellow');
 })
 .config(function($routeProvider) {
+	$routeProvider.when('/projects',{
+		templateUrl: 'templates/pages/projects/index.html'
+	});
 	$routeProvider.when('/createProject', {
 		templateUrl: 'templates/pages/project/index.html'
 	});
 	$routeProvider.when('/', {
 		templateUrl: 'templates/pages/main/index.html'
+	});
+	$routeProvider.when('/estimation', {
+		templateUrl: 'templates/pages/estimation/index.html'
 	})
 })
 .controller('mainCtrl', function($scope, $timeout, $mdSidenav, $mdUtil, $log, $location) {
 	$scope.toggleLeft = buildToggler('left');
 	$scope.gotToMainPage = function() {
 		$location.path("/");
+	};
+	$scope.gotToProjectsPage = function() {
+		$location.path("/projects");
+	};
+	$scope.gotToEstimationPage = function() {
+		$location.path("/estimation");
 	};
 	// $scope.toggleRight = buildToggler('right');
 
