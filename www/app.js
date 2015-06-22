@@ -20,6 +20,9 @@ angular
 	$routeProvider.when('/projects',{
 		templateUrl: 'templates/pages/projects/index.html'
 	});
+	$routeProvider.when('/project/:id', {
+      templateUrl: 'templates/pages/project/project.html',
+    })
 	$routeProvider.when('/createProject', {
 		templateUrl: 'templates/pages/project/index.html'
 	});
