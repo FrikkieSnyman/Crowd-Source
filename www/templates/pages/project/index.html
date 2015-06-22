@@ -1,3 +1,4 @@
+
 <div ng-controller="createProjectCtrl" layout="column">
   <md-whiteframe class="md-whiteframe-z1">
   <br/>
@@ -5,14 +6,14 @@
     <md-input-container d-no-float>
       <!-- Use floating label instead of placeholder -->
       <label>Project name</label>
-      <input ng-model="$scope.name" type="text" >
+      <input ng-model="projectName" type="text" >
     </md-input-container>
     <md-input-container d-no-float>
       <!-- Use floating label instead of placeholder -->
       <label>Project description</label>
-      <input ng-model="$scope.name" type="text" >
+      <input ng-model="description" type="text" >
     </md-input-container>
-    <md-button class="md-raised md-primary">Create Project</md-button>
+    <md-button class="md-raised md-primary"  ng-click="createProject()">Create Project</md-button>
   </md-content>
   </md-whiteframe>
 </div>
