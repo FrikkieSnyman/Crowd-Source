@@ -6,8 +6,12 @@ angular.module('main')
 		$scope.project = data[0];
 		// Adding chlider to the project
 		$scope.project.children = [];
-		var child = {name:'Child',description:'Child Description'};
-		$scope.project.children.push(child);
+		var childA = {name:'ChildA',description:'Child Description'};
+		var childB = {name:'ChildB',description:'Child Description'};
+		var childC = {name:'ChildC',description:'Child Description'};
+		$scope.project.children.push(childA);
+		$scope.project.children.push(childB);
+		$scope.project.children.push(childC);
 		//debugger;
 	});
 }]);
