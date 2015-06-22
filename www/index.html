@@ -18,24 +18,20 @@
 				<md-content layout-padding="">
 				<md-list ng-controller="ListCtrl">
 					<md-list-item ng-click="gotToMainPage()">
-				    	<md-icon md-svg-icon="img/icons/home.svg"></md-icon>
-				    		<p>Home</p>
+						<md-icon md-svg-icon="img/icons/home.svg"></md-icon>
+							<p>Home</p>
 					</md-list-item>
 					<md-list-item ng-click="gotToProjectsPage()">
-				    	<md-icon md-svg-icon="img/icons/project.svg"></md-icon>
-				    		<p>Projects</p>
+						<md-icon md-svg-icon="img/icons/project.svg"></md-icon>
+							<p>Projects</p>
 					</md-list-item>
 					<md-list-item ng-click="gotToEstimationPage()">
-				    	<md-icon md-svg-icon="img/icons/project.svg"></md-icon>
-				    		<p>Estimation</p>
+						<md-icon md-svg-icon="img/icons/project.svg"></md-icon>
+							<p>Estimation</p>
 					</md-list-item>
-					<md-list-item ng-click="gotToMainPage()">
-				    	<md-icon md-svg-icon="img/icons/person.svg"></md-icon>
-				    		<p>Login</p>
-					</md-list-item>
-					<md-list-item ng-click="navigateTo('data usage', $event)">
-				    	<md-icon md-svg-icon="cached"></md-icon>
-				    		<p>MenuB1</p>
+					<md-list-item ng-click="showAdvanced($event)">
+						<md-icon md-svg-icon="img/icons/person.svg"></md-icon>
+							<p>Login</p>
 					</md-list-item>
 				</md-list>
 					<p hide-md="" show-gt-md="">
@@ -69,13 +65,19 @@
 			</md-content>
 		</div>
 
+	<!-- Includes for modules required by angular and angular-material -->
+
 	<script src="/node_modules/angular/angular.js"></script>
 	<script src="/node_modules/angular-aria/angular-aria.js"></script>
 	<script src="/node_modules/angular-animate/angular-animate.js"></script>
 	<script src="/node_modules/angular-material/angular-material.js"></script>
 	<script src="node_modules/angular-route/angular-route.min.js"></script>
+
+	<!-- Includes for our modules -->
+
 	<script src="app.js"></script>
 	<script src="./javascript/controllers/project-create-controller.js"></script>
 	<script src="./javascript/controllers/main-controller.js"></script>
+	<script src="./javascript/controllers/login-controller.js"></script>
 </body>
 </html>
