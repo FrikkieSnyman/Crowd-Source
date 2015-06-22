@@ -5,9 +5,12 @@
 
 exports = module.exports = function(app, mongoose) {
 	var Schema = mongoose.Schema;
+
 	var userSchema = new Schema({
-		name : String,
-		surname : String,
+		email : String,
+		password : String,
+		token : String
 	});
+	
 	app.userSchema = userSchema;
 };
