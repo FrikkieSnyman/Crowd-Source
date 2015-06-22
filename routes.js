@@ -31,4 +31,13 @@ exports = module.exports = function(app, mongoose) {
 	console.log(usermanagement.addName);
 	app.get('/names', usermanagement.getNames);
 	app.post('/name', usermanagement.addName);
+
+	var project = require('./lib/project/project.js')(app, mongoose);
+	var response = Object;
+	response.send = function() {};
+	var request = Object;
+	request.body = Object;
+	request.body.heading = 'Frikkie';
+	request.body.description = 'Pewppewpwpe';
+	project.createProject(request, response);
 };
