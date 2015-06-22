@@ -4,4 +4,5 @@
 
 exports = module.exports = function(app, mongoose) {
 	require('./schema/User.js')(app, mongoose);
+	require('./schema/Project.js')(app, mongoose);
 };

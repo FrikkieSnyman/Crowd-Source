@@ -1,4 +1,4 @@
 angular.module('main')
-.controller('createProjectCtrl',function(){
+.controller('createProjectCtrl', function() {
 	
 });
