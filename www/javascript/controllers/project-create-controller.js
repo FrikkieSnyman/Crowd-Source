@@ -5,7 +5,7 @@ angular.module('main')
 		console.log($scope.testInput);
 	});
 	$scope.createProject = function() {
-		var project = {'name': $scope.projectName, 'description': $scope.description};
-		$http({method:'POST', url:'/createProject', data: 'project=' + project});
+		var project = {'heading': $scope.projectName, 'description': $scope.description};
+		$http({method:'POST', url:'/createProject', data: project});
 	};
 }]);
