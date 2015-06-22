@@ -13,8 +13,8 @@ angular
 })
 .config(function($mdThemingProvider) {
 	$mdThemingProvider.theme('default')
-    .primaryPalette('indigo')
-    .accentPalette('yellow');
+	.primaryPalette('indigo')
+	.accentPalette('yellow');
 })
 .config(function($routeProvider) {
 	$routeProvider.when('/projects',{
@@ -33,7 +33,7 @@ angular
 		templateUrl: 'templates/pages/estimation/index.html'
 	})
 })
-.controller('mainCtrl', function($scope, $timeout, $mdSidenav, $mdUtil, $log, $location) {
+.controller('mainCtrl', function($scope, $timeout, $mdSidenav, $mdDialog, $mdUtil, $log, $location) {
 	$scope.toggleLeft = buildToggler('left');
 	$scope.gotToMainPage = function() {
 		$location.path("/");
@@ -61,6 +61,26 @@ angular
 
 		return debounceFn;
 	}
+
+	//Test code for login dialog
+	
+	$scope.alert = 'testAlert';
+
+	$scope.showAdvanced = function(ev) {
+		$mdDialog.show({
+			controller: DialogController,
+			templateUrl: 'templates/pages/login/index.html',
+			parent: angular.element(document.body),
+			targetEvent: ev,
+		})
+		.then(function(answer) {
+			$scope.alert = 'Username: "' + answer.username + '" with password: "' + answer.password + '"';
+		}, function() {
+			$scope.alert = 'You cancelled the dialog.';
+		});
+	  };
+
+	//End test code
 })
 .controller('LeftCtrl', function($scope, $timeout, $mdSidenav, $log) {
 	$scope.close = function() {
@@ -73,12 +93,24 @@ angular
 .controller('ListCtrl', function($scope, $mdDialog) {
 	$scope.navigateTo = function(to, event) {
 		$mdDialog.show(
-		$mdDialog.alert()
-			.title('Navigating')
-			.content('Imagine being taken to ' + to)
-			.ariaLabel('Navigation demo')
-			.ok('Neat!')
-			.targetEvent(event)
+			$mdDialog.alert()
+				.title('Navigating')
+				.content('Imagine being taken to ' + to)
+				.ariaLabel('Navigation demo')
+				.ok('Neat!')
+				.targetEvent(event)
 		);
 	};
  });
+
+function DialogController($scope, $mdDialog) {
+  $scope.hide = function() {
+	$mdDialog.hide();
+  };
+  $scope.cancel = function() {
+	$mdDialog.cancel();
+  };
+  $scope.answer = function(answer) {
+	$mdDialog.hide(answer);
+  };
+}
