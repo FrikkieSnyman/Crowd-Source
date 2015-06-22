@@ -32,5 +32,5 @@ exports = module.exports = function(app, mongoose) {
 	var project = require('./lib/project/project.js')(app, mongoose);
 	app.get('/projects', project.getAllProjects);
 	app.post('/createProject', project.createProject);
-
+	app.post('/project', project.getProject);
 };

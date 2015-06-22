@@ -1,7 +1,9 @@
 angular.module('main')
-.controller('porjectCtrl', ['$scope','$http','$routeParams',function($scope, $http,$routeParams) {
-	var project = Object;
-	project.heading = $routeParams.id;
-	$http({method:'GET',url:'/project/' + $routeParams.id, data:project }).success(function(data) {
-	 	});
+.controller('porjectCtrl', ['$scope', '$http', '$routeParams',
+	function($scope, $http, $routeParams) {
+	var project = {'heading': $routeParams.id};
+	$http({method:'POST', url:'/project', data: project}).success(function(data) {
+		$scope.project = data[0];
+		// debugger;
+	});
 }]);
