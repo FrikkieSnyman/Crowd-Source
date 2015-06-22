@@ -21,9 +21,6 @@ exports = module.exports = function(app, mongoose) {
 	 * is looking great.
 	 */
 
-	 var projects = require('./lib/projects/projects.js')(app, mongoose);
-	 app.get('/projects', projects.getProjects);
-
 	/**
 	 * UserManagment
 	 */
@@ -33,11 +30,7 @@ exports = module.exports = function(app, mongoose) {
 	app.post('/name', usermanagement.addName);
 
 	var project = require('./lib/project/project.js')(app, mongoose);
-	var response = Object;
-	response.send = function() {};
-	var request = Object;
-	request.body = Object;
-	request.body.heading = 'Frikkie';
-	request.body.description = 'Pewppewpwpe';
-	project.createProject(request, response);
+	app.get('/projects', project.getAllProjects);
+	app.post('/createProject', project.createProject);
+
 };
