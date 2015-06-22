@@ -21,6 +21,9 @@ exports = module.exports = function(app, mongoose) {
 	 * is looking great.
 	 */
 
+	 var projects = require('./lib/projects/projects.js')(app, mongoose);
+	 app.get('/projects', projects.getProjects);
+
 	/**
 	 * UserManagment
 	 */

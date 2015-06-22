@@ -1,0 +1,19 @@
+<div ng-controller="projectsCtrl" layout="row">
+	<md-whiteframe class="md-whiteframe-z1" layout>
+		<span>
+			<h2>This is projects page</h2>
+
+<!-- 		<div>
+			{{projects[0].name}}
+		</div>
+ -->
+
+			<nd-list>
+				<md-list-item ng-repeat="project in projects" ng-click="dsgdf()">
+					{{project.name}}
+
+				</md-list-item>
+			</nd-list>
+		</span>
+	</md-whiteframe>
+</div>
