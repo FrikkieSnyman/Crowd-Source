@@ -4,6 +4,10 @@
  		<md-content layout-padding class="autoScroll">
 	  		<h1>{{project.name}}</h1>
 	  		<p>{{project.description}}</p>
+	  		<div ng-repeat = "child in project.children">
+	  			<h2>->{{child.name}}</h1>
+	  			<p>--->{{child.description}}</p>
+	  		</div>
 	  	</md-content>
 	</md-whiteframe>
 </div>
