@@ -6,16 +6,20 @@
   </md-toolbar>
 <div ng-controller="mainWelcomeCtrl">
   <md-content class="md-padding">
-      <img ng-src="../../../img/Swarm.gif" height="540" width="960" class="md-card-image" alt="Washed Out">
+      <!--<img ng-src="../../../img/Swarm.gif" height="540" width="960" class="md-card-image" alt="Washed Out">-->
+      <video controls autoplay width="100%">
+        <source src="../../../img/Swarm.avi" type="video/avi" >
+        Your browser does not support HTML5 video.
+      </video>
       <md-card-content>
         <h2 class="md-title">Estimate Swarm</h2>
-        <p>
-          Helping you reach your deadlines by starting at the most crutial point in the development life cycle.
-        </p>
+        <h3>
+        The best project estimation system to date. Delivering your project on time, every time.
+        </h3>
       </md-card-content>
       <div class="md-actions" layout="row" layout-align="end center">
-        <md-button class="md-raised" >Create Project</md-button>
-        <md-button class="md-raised" >Create Estimation</md-button>
+        <md-button class="md-raised md-primary" >Create Project</md-button>
+        <md-button class="md-raised md-primary" >Create Estimation</md-button>
       </div>
   </md-content>
 </div>
