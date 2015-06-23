@@ -30,11 +30,11 @@
 							<md-icon md-svg-icon="img/icons/project.svg"></md-icon>
 								<p>Estimation</p>
 						</md-list-item>
-						<md-list-item ng-click="showAdvanced($event)">
+						<md-list-item ng-controller="loginCtrl" ng-hide="isLogged()" ng-click="showAdvanced($event)">
 							<md-icon md-svg-icon="img/icons/person.svg"></md-icon>
 								<p>Login</p>
 						</md-list-item>
-						<md-list-item ng-controller="loginCtrl" ng-click="logout()">
+						<md-list-item ng-controller="loginCtrl" ng-show="isLogged()" ng-click="logout()">
 							<md-icon md-svg-icon="img/icons/person.svg"></md-icon>
 								<p>Logout</p>
 						</md-list-item>
