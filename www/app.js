@@ -11,6 +11,9 @@ angular
 		return path;
 	};
 })
+.config(function ($httpProvider) {
+    $httpProvider.interceptors.push('tokenInterceptor');
+})
 .config(function($mdThemingProvider) {
 	$mdThemingProvider.theme('default')
 	.primaryPalette('indigo')
