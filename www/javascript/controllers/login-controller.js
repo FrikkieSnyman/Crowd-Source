@@ -1,11 +1,37 @@
 angular.module('main')
-.controller('loginCtrl', ['$scope', '$http', function($scope, $http) {
-	$scope.login = function() {
-		var user = {'email': $scope.username, 'password': $scope.password};
+.controller('loginCtrl', ['$scope', '$location', '$window', '$mdDialog', 'userService', 'authenticationService',
+	function ($scope, $location, $window, $mdDialog, userService, authenticationService) {
+		$scope.logIn = function logIn(username, password) {
+			if (username !== undefined && password !== undefined) {
+				userService.logIn(username, password).
+				success(function(data) {
+					authenticationService.isLogged = true;
+					$window.sessionStorage.token = data.token;
 
-		$http({method:'POST', url:'/login', data: user})
-		.success(function (data) {
-			console.log(data);
-		});
-	}
+					$mdDialog.hide();
+
+					$location.path("/projects");
+				}).error(function(status, data) {
+					console.log(status);
+					console.log(data);
+
+					console.log("Login failed");
+				});
+			}
+		}
+
+		$scope.logout = function logout() {
+			if (authenticationService.isLogged) {
+				authenticationService.isLogged = false;
+				delete $window.sessionStorage.token;
+				$location.path("/");
+
+				console.log('Loggin out');
+			}
+		}
+
+		$scope.isLogged = function isLogged() {
+			return authenticationService.isLogged;
+
+		}
 }]);

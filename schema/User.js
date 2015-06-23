@@ -8,8 +8,7 @@ exports = module.exports = function(app, mongoose) {
 
 	var userSchema = new Schema({
 		email : String,
-		password : String,
-		token : String
+		password : String
 	});
 	
 	app.userSchema = userSchema;
