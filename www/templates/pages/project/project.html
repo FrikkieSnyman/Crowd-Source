@@ -11,8 +11,12 @@
 			   			<label>Node name</label>
 				      <input ng-model="data.name">
 				    </md-input-container>
-				    <md-button ng-click="add(data)">Add node</md-button>
-				    <md-button ng-click="delete(data)" ng-show="data.nodes.length > 0">Delete nodes</md-button>
+					<md-button class="md-icon-button" aria-label="More" ng-click="add(data)">
+				        <md-icon md-svg-icon="img/icons/plus.svg" ></md-icon>
+				    </md-button>
+				    <md-button class="md-icon-button" aria-label="More" ng-show="data.nodes.length > 0" ng-click="delete(data)" >
+				        <md-icon md-svg-icon="img/icons/minus.svg"></md-icon>
+				    </md-button>
 			    </md-container>
 			    <md-list layout = "column">
 			    	<md-list-item class="md-3-line" ng-repeat="data in data.nodes" ng-include="'tree_item_renderer.html'" layout = "column">
