@@ -1,21 +1,36 @@
 <div ng-controller="porjectCtrl" layout="column">
-	<md-whiteframe class="md-whiteframe-z1">
+	<md-card>
+			<md-toolbar>
+			    <div class="md-toolbar-tools">
+			      <h2>{{project.name}}</h2>
+			    </div>
+			  </md-toolbar>
 	  	<br/>
  		<md-content layout-padding class="autoScroll">
-	  		<h1>{{project.name}}</h1>
+ 			<label>Project description</label>
 	  		<p>{{project.description}}</p>
-
+	  		<md-divider ng-if="!$last"></md-divider>
 			<script type="text/ng-template"  id="tree_item_renderer.html">
 				<md-container layout = "row">
-			   		<md-input-container>
-			   			<label>Node name</label>
+					<md-button class="md-icon-button" aria-label="More" ng-click="add(data)">
+				        <md-tooltip>
+				          Add Node
+				        </md-tooltip>
+				        <md-icon md-svg-icon="img/icons/add.svg" ></md-icon>
+				    </md-button>
+			   		<md-input-container flex>
+			   		<label>Name</label>
 				      <input ng-model="data.name">
 				    </md-input-container>
-					<md-button class="md-icon-button" aria-label="More" ng-click="add(data)">
-				        <md-icon md-svg-icon="img/icons/plus.svg" ></md-icon>
-				    </md-button>
-				    <md-button class="md-icon-button" aria-label="More" ng-show="data.nodes.length > 0" ng-click="delete(data)" >
-				        <md-icon md-svg-icon="img/icons/minus.svg"></md-icon>
+				    <md-input-container flex = "10">
+			   			<label>Qty</label>
+				      	<input ng-model="$scpoe.number">
+				    </md-input-container>
+				    <md-button class="md-icon-button" aria-label="More" ng-click="delete(data)" >
+				   		<md-tooltip>
+				          Remove Node
+				        </md-tooltip>
+				        <md-icon md-svg-icon="img/icons/close.svg"></md-icon>
 				    </md-button>
 			    </md-container>
 			    <md-list layout = "column">
@@ -30,5 +45,5 @@
 				</md-list>
 			</div>
 	  	</md-content>
-	</md-whiteframe>
+	</md-card>
 </div>
