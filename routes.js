@@ -33,4 +33,5 @@ exports = module.exports = function(app, mongoose) {
 	app.get('/projects', project.getAllProjects);
 	app.post('/createProject', project.createProject);
 	app.post('/project', project.getProject);
+	app.post('/addChild', project.addChild);
 };
