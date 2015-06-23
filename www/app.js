@@ -41,6 +41,9 @@ angular
 	$scope.gotToEstimationPage = function() {
 		$location.path("/estimation");
 	};
+	$scope.goToProjectPage = function() {
+		$location.path('/createProject');
+	};
 	// $scope.toggleRight = buildToggler('right');
 
 	/**
