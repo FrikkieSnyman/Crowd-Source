@@ -8,4 +8,6 @@ angular.module('main')
 			console.log(data);
 		});
 	}
+
+	
 }]);
