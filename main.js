@@ -5,7 +5,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var config = require('./config');
 var mongoose = require('mongoose');
-var jwt = require("jsonwebtoken");
+var jwt = require('jsonwebtoken');
 /*
 Create express app
  */
