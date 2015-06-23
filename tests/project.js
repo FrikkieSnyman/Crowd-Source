@@ -40,7 +40,14 @@ exports.testCreateProject = function(test) {
 	test.done();
 };
 
-exports.testGetAllProjects = function(test) {
-	// testProject.getAllProjects(request, response);
+exports.testPersistProject = function(test) {
+	var Project = mongoose.model('Project', app.projectSchema);
+	var project = new Project({
+		name : 'test',
+		description : 'description',
+		children : [{name : 'heading', nodes : []}]
+	});
+	testProject.persistProject(project);
+
 	test.done();
 };
