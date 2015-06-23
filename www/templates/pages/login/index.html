@@ -1,0 +1,38 @@
+<md-dialog aria-label="Login" ng-controller="loginCtrl">
+	<form>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>Login</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="answer('not applicable')">
+					<md-icon md-svg-src="img/icons/close.svg" aria-label="Close dialog"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			<div>
+				<md-input-container d-no-float>
+					<!-- Use floating label instead of placeholder -->
+					<label>Username</label>
+					<input required ng-model="username" type="text" >
+					<div ng-messages="projectForm.description.$error">
+        				<div ng-message="required">This is required.</div>
+        			</div>
+				</md-input-container>
+				<md-input-container d-no-float>
+					<!-- Use floating label instead of placeholder -->
+					<label>Password</label>
+					<input required ng-model="password" type="text" >
+					<div ng-messages="projectForm.description.$error">
+        				<div ng-message="required">This is required.</div>
+        			</div>
+				</md-input-container>
+			</div>
+		</md-dialog-content>
+		<div class="md-actions" layout="row">
+			<md-button ng-click="login()" class="md-primary">
+				Login
+			</md-button>
+		</div>
+	</form>
+</md-dialog>
