@@ -1,8 +1,22 @@
-  <div ng-controller="mainWelcomeCtrl">
-  <md-whiteframe class="md-whiteframe-z1" layout = "column">
-   <p>Welcome to the home page</p>
-   <span>
-        <md-button class="md-raised md-primary" ng-click="createProject()">Create Project</md-button>
-   </span>
-  </md-whiteframe>
-  </div>
+<md-card>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2 class="md-flex">Welcome</h2>
+    </div>
+  </md-toolbar>
+<div ng-controller="mainWelcomeCtrl">
+  <md-content class="md-padding">
+      <img ng-src="../../../img/Swarm.gif" height="540" width="960" class="md-card-image" alt="Washed Out">
+      <md-card-content>
+        <h2 class="md-title">Estimate Swarm</h2>
+        <p>
+          Helping you reach your deadlines by starting at the most crutial point in the development life cycle.
+        </p>
+      </md-card-content>
+      <div class="md-actions" layout="row" layout-align="end center">
+        <md-button class="md-raised" >Create Project</md-button>
+        <md-button class="md-raised" >Create Estimation</md-button>
+      </div>
+  </md-content>
+</div>
+</md-card>
