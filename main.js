@@ -5,6 +5,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var config = require('./config');
 var mongoose = require('mongoose');
+var jwt = require("jsonwebtoken");
 /*
 Create express app
  */
@@ -50,6 +51,13 @@ app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 	extended: true
 }));
+
+app.use(function(req, res, next) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+	next();
+});
 
 /*
 public directory

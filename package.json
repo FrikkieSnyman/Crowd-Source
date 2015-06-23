@@ -29,6 +29,7 @@
     "ejs": "^2.3.1",
     "express": "^4.12.3",
     "jquery": "^2.1.4",
+    "jsonwebtoken": "^5.0.2",
     "mongoose": "^4.0.3",
     "nodeunit": "*",
     "reload": "^0.1.0",

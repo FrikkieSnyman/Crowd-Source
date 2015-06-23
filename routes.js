@@ -28,6 +28,9 @@ exports = module.exports = function(app, mongoose) {
 	console.log(usermanagement.addName);
 	app.get('/names', usermanagement.getNames);
 	app.post('/name', usermanagement.addName);
+	app.post('/authenticate', usermanagement.authenticate);
+	app.post('/login', usermanagement.login);
+	app.get('/me', ensureAuthorized, usermanagement.getDetails);
 
 	var project = require('./lib/project/project.js')(app, mongoose);
 	app.get('/projects', project.getAllProjects);
@@ -35,3 +38,16 @@ exports = module.exports = function(app, mongoose) {
 	app.post('/project', project.getProject);
 	app.post('/addChild', project.addChild);
 };
+
+function ensureAuthorized(req, res, next) {
+	var bearerToken;
+	var bearerHeader = req.headers["authorization"];
+	if (typeof bearerHeader !== 'undefined') {
+		var bearer = bearerHeader.split(" ");
+		bearerToken = bearer[1];
+		req.token = bearerToken;
+		next();
+	} else {
+		res.send(403);
+	}
+}
