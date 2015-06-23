@@ -1,15 +1,16 @@
 angular.module('main')
-.controller('loginCtrl', ['$scope', '$location', '$window', 'userService', 'authenticationService',
-	function ($scope, $location, $window, userService, authenticationService) {
+.controller('loginCtrl', ['$scope', '$location', '$window', '$mdDialog', 'userService', 'authenticationService',
+	function ($scope, $location, $window, $mdDialog, userService, authenticationService) {
 		$scope.logIn = function logIn(username, password) {
 			if (username !== undefined && password !== undefined) {
 				userService.logIn(username, password).
 				success(function(data) {
 					authenticationService.isLogged = true;
 					$window.sessionStorage.token = data.token;
-					// $location.path("/admin");
 
-					console.log("Logged in");
+					$mdDialog.hide();
+
+					$location.path("/projects");
 				}).error(function(status, data) {
 					console.log(status);
 					console.log(data);
@@ -27,5 +28,10 @@ angular.module('main')
 
 				console.log('Loggin out');
 			}
+		}
+
+		$scope.isLogged = function isLogged() {
+			return authenticationService.isLogged;
+
 		}
 }]);

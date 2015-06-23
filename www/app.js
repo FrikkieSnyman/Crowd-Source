@@ -59,25 +59,14 @@ angular
 		return debounceFn;
 	}
 
-	//Test code for login dialog
-	
-	$scope.alert = 'testAlert';
-
 	$scope.showAdvanced = function(ev) {
 		$mdDialog.show({
 			controller: DialogController,
 			templateUrl: 'templates/pages/login/index.html',
 			parent: angular.element(document.body),
 			targetEvent: ev,
-		})
-		.then(function(answer) {
-			$scope.alert = 'Username: "' + answer.username + '" with password: "' + answer.password + '"';
-		}, function() {
-			$scope.alert = 'You cancelled the dialog.';
 		});
 	  };
-
-	//End test code
 })
 .controller('LeftCtrl', function($scope, $timeout, $mdSidenav, $log) {
 	$scope.close = function() {
@@ -106,8 +95,5 @@ function DialogController($scope, $mdDialog) {
   };
   $scope.cancel = function() {
 	$mdDialog.cancel();
-  };
-  $scope.answer = function(answer) {
-	$mdDialog.hide(answer);
   };
 }
