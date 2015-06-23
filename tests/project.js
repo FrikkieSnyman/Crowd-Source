@@ -15,8 +15,8 @@ response.send = function(param) {};
 
 // Module to test
 var testProject = process.env.CUSTOM_COV ?
-	require('../lib-cov/project/project.js')
-	: require('../lib/project/project.js')(app, mongoose);
+	require('../lib-cov/project/abstractedProject.js')
+	: require('../lib/project/abstractedProject.js');
 
 // For testing purposes
 var expected;
@@ -27,7 +27,7 @@ exports.testCreateProject = function(test) {
 	test.expect(2);
 	request.body = {'heading':'testHeading', 'description':'testDesc'};
 
-	testProject.createProject(request, response);
+	testProject.createProject(app, mongoose, request, response);
 
 	expected = 'testHeading';
 	result = response.body.heading;
