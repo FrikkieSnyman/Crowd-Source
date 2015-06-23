@@ -8,9 +8,13 @@ angular.module('main')
 					authenticationService.isLogged = true;
 					$window.sessionStorage.token = data.token;
 					// $location.path("/admin");
+
+					console.log("Logged in");
 				}).error(function(status, data) {
 					console.log(status);
 					console.log(data);
+
+					console.log("Login failed");
 				});
 			}
 		}
@@ -20,6 +24,8 @@ angular.module('main')
 				authenticationService.isLogged = false;
 				delete $window.sessionStorage.token;
 				$location.path("/");
+
+				console.log('Loggin out');
 			}
 		}
 }]);
