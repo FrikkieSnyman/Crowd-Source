@@ -6,21 +6,22 @@
 	  		<p>{{project.description}}</p>
 
 			<script type="text/ng-template"  id="tree_item_renderer.html">
-				<div layout = "row">
+				<md-container layout = "row">
 			   		<md-input-container>
+			   			<label>Node name</label>
 				      <input ng-model="data.name">
 				    </md-input-container>
 				    <md-button ng-click="add(data)">Add node</md-button>
 				    <md-button ng-click="delete(data)" ng-show="data.nodes.length > 0">Delete nodes</md-button>
-			    </div>
+			    </md-container>
 			    <md-list layout = "column">
 			    	<md-list-item class="md-3-line" ng-repeat="data in data.nodes" ng-include="'tree_item_renderer.html'" layout = "column">
 			        </md-list-item>
 			    </md-list>
 			</script>
 			<div>
-				<md-list ng-app="Application" ng-controller="TreeController">
-					<md-list-item ng-repeat="data in tree" ng-include="'tree_item_renderer.html'" layout="column" layout-align="center start">
+				<md-list ng-controller="TreeController">
+					<md-list-item ng-repeat="data in tree" ng-include="'tree_item_renderer.html'" layout="column" layout-align="start start">
 			    	</md-list-item>
 				</md-list>
 			</div>

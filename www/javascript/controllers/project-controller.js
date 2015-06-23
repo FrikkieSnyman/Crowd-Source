@@ -4,6 +4,6 @@ angular.module('main')
 	var project = {'heading': $routeParams.id};
 	$http({method:'POST', url:'/project', data: project}).success(function(data) {
 		$scope.project = data[0];
-
+		$scope.tree = $scope.project.children;
 	});
 }]);

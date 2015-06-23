@@ -3,6 +3,7 @@
 <head>
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="/node_modules/angular-material/angular-material.css">
+	<link rel="stylesheet" href="/css/estimation/estimation.css">
 </head>
 	<body ng-controller="mainCtrl" ng-app="main" layout="row">
 			<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
@@ -50,6 +51,9 @@
 					<span>{{getPath()}}</span>
 				</h2>
 				<span flex=""></span>
+				<md-button class="md-fab" style="positon: absolute; left: -25pt; top: 23pt" aria-label="Go to project page" ng-click="goToProjectPage()">
+					<md-icon md-svg-src="img/icons/add.svg"></md-icon>
+				</md-button>
 			</div>
 		</md-toolbar>
 			<md-content flex="" layout-padding="">
@@ -78,6 +82,7 @@
 	<script src="app.js"></script>
 	<script src="./javascript/controllers/project-create-controller.js"></script>
 	<script src="./javascript/controllers/main-controller.js"></script>
+	<script src="./javascript/controllers/estimation-controller.js"></script>
 	<script src="./javascript/controllers/projects-controller.js"></script>
 	<script src="./javascript/controllers/project-controller.js"></script>
 	<script src="./javascript/controllers/tree-controller.js"></script>

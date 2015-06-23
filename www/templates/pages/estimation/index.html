@@ -1,3 +1,14 @@
-<md-whiteframe class="md-whiteframe-z1" layout>
-	<span><p>This is estimation page</p></span>
-</md-whiteframe>
+
+
+<div ng-controller="estimationCtrl as ctrl" layout="column">
+  <md-content class="md-padding" layout="column">
+        <md-input-container flex>
+          <label>First name</label>
+          <input ng-model="ctrl.name">
+        </md-input-container>
+    <br/>
+    <h2 class="md-title">Estimators</h2>
+    <md-chips ng-model="ctrl.estimatorNames"></md-chips>
+  </md-content>
+</div>
+
