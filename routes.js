@@ -28,7 +28,6 @@ exports = module.exports = function(app, mongoose) {
 	console.log(usermanagement.addName);
 	app.get('/names', usermanagement.getNames);
 	app.post('/name', usermanagement.addName);
-	app.post('/authenticate', usermanagement.authenticate);
 	app.post('/login', usermanagement.login);
 	app.get('/me', ensureAuthorized, usermanagement.getDetails);
 
