@@ -2,8 +2,6 @@
 # COS301_GroupProject
 
 [![Build Status](https://travis-ci.org/FrikkieSnyman/COS301_GroupProject.svg?branch=master)](https://travis-ci.org/FrikkieSnyman/COS301_GroupProject)
-[![Coverage Status](https://coveralls.io/repos/FrikkieSnyman/COS301_GroupProject/badge.svg?branch=master)](https://coveralls.io/r/FrikkieSnyman/COS301_GroupProject?branch=master)
-[![Codacy Badge](https://www.codacy.com/project/badge/80ab709550ff47928ee8602468f8a6cc)](https://www.codacy.com/app/Hanrichp/COS301_GroupProject)
 [![Dependency Status](https://gemnasium.com/FrikkieSnyman/COS301_GroupProject.svg)](https://gemnasium.com/FrikkieSnyman/COS301_GroupProject)
 [![Stories in Ready](https://badge.waffle.io/FrikkieSnyman/COS301_GroupProject.png?label=ready&title=Ready)](https://waffle.io/FrikkieSnyman/COS301_GroupProject)
 [![Stories in Progress](https://badge.waffle.io/FrikkieSnyman/COS301_GroupProject.png?label=In%20Progress&title=In%20Progress)](https://waffle.io/FrikkieSnyman/COS301_GroupProject)
