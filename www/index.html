@@ -17,28 +17,28 @@
 					</div>
 				</md-toolbar>
 				<md-content layout-padding="">
-				<md-list ng-controller="ListCtrl">
-					<md-list-item ng-click="gotToMainPage()">
-						<md-icon md-svg-icon="img/icons/home.svg"></md-icon>
-							<p>Home</p>
-					</md-list-item>
-					<md-list-item ng-click="gotToProjectsPage()">
-						<md-icon md-svg-icon="img/icons/project.svg"></md-icon>
-							<p>Projects</p>
-					</md-list-item>
-					<md-list-item ng-click="gotToEstimationPage()">
-						<md-icon md-svg-icon="img/icons/project.svg"></md-icon>
-							<p>Estimation</p>
-					</md-list-item>
-					<md-list-item ng-click="showAdvanced($event)">
-						<md-icon md-svg-icon="img/icons/person.svg"></md-icon>
-							<p>Login</p>
-					</md-list-item>
-				</md-list>
-					<p hide-md="" show-gt-md="">
-						This sidenav is locked open on your device. To go back to the default behavior,
-						narrow your display.
-					</p>
+					<md-list ng-controller="ListCtrl">
+						<md-list-item ng-click="gotToMainPage()">
+							<md-icon md-svg-icon="img/icons/home.svg"></md-icon>
+								<p>Home</p>
+						</md-list-item>
+						<md-list-item ng-click="gotToProjectsPage()">
+							<md-icon md-svg-icon="img/icons/project.svg"></md-icon>
+								<p>Projects</p>
+						</md-list-item>
+						<md-list-item ng-click="gotToEstimationPage()">
+							<md-icon md-svg-icon="img/icons/project.svg"></md-icon>
+								<p>Estimation</p>
+						</md-list-item>
+						<md-list-item ng-click="showAdvanced($event)">
+							<md-icon md-svg-icon="img/icons/person.svg"></md-icon>
+								<p>Login</p>
+						</md-list-item>
+						<md-list-item ng-controller="loginCtrl" ng-click="logout()">
+							<md-icon md-svg-icon="img/icons/person.svg"></md-icon>
+								<p>Logout</p>
+						</md-list-item>
+					</md-list>
 				</md-content>
 			</md-sidenav>
 	<div layout="column" role="main" flex>
