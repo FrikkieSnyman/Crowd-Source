@@ -3,6 +3,7 @@ exports = module.exports = function(app, mongoose) {
 	var projectSchema = new Schema({
 		name : String,
 		description : String,
+		children : [],
 	});
 	app.projectSchema = projectSchema;
 };
