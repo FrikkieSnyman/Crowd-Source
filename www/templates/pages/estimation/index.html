@@ -1,15 +1,14 @@
-
-
-<div ng-controller="estimationCtrl as ctrl" layout="column">
-	<md-content class="md-padding" layout="column">
-			<div layout="row">
-				<md-select placeholder="Project" ng-model="ctrl.projectName">
-					<md-option ng-repeat="p in ctrl.projects" value="{{p.project}}">{{p.project}}</md-option>
-				</md-select>
-			</div>
-		<br/>
-		<h2 class="md-title">Estimators</h2>
-		<md-chips ng-model="ctrl.estimatorNames"></md-chips>
-	</md-content>
-</div>
-
+<md-whiteframe class="md-whiteframe-z1">
+	<div ng-controller="estimationCtrl as ctrl" layout="column">
+		<md-content class="md-padding" layout="column">
+				<div layout="row">
+					<md-select placeholder="Project" ng-model="ctrl.projectName">
+						<md-option ng-repeat="p in ctrl.projects" value="{{p.project}}">{{p.project}}</md-option>
+					</md-select>
+				</div>
+			<br/>
+			<h2 class="md-title">Estimators</h2>
+			<md-chips ng-model="ctrl.estimatorNames"></md-chips>
+		</md-content>
+	</div>
+</md-whiteframe>
