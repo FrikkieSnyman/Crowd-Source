@@ -1,26 +1,14 @@
-<div ng-controller="estimationCtrl">
-<md-whiteframe class="md-whiteframe-z1" layout>
-	<span><p>Estimate Project</p>
-		<md-content layout-padding>
-			<form name= "estimationForm">
-				<div layout layout-sm="column">
-					<nd-list>
-						<nd-list-item>
-							<md-input-container flex>
-								<label>Project Name</label>
-								<input ng-model="estimation.project">
-							</md-input-container>
-						</nd-list-item>
-						<nd-list-item>
-							<md-input-container flex>
-								<label>Estimator Name</label>
-								<input ng-model="estimation.estimator">
-							</md-input-container>
-						</nd-list-item>
-					</nd-list>
-				</div>
-			</form>
-		</md-content>
-	</span>
-</md-whiteframe>
+
+
+<div ng-controller="estimationCtrl as ctrl" layout="column">
+  <md-content class="md-padding" layout="column">
+        <md-input-container flex>
+          <label>First name</label>
+          <input ng-model="ctrl.name">
+        </md-input-container>
+    <br/>
+    <h2 class="md-title">Estimators</h2>
+    <md-chips ng-model="ctrl.estimatorNames"></md-chips>
+  </md-content>
 </div>
+
