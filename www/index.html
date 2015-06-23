@@ -18,15 +18,15 @@
 				</md-toolbar>
 				<md-content layout-padding="">
 				<md-list ng-controller="ListCtrl">
-					<md-list-item ng-click="gotToMainPage()">
+					<md-list-item ng-click="goTo('/')">
 						<md-icon md-svg-icon="img/icons/home.svg"></md-icon>
 							<p>Home</p>
 					</md-list-item>
-					<md-list-item ng-click="gotToProjectsPage()">
+					<md-list-item ng-click="goTo('/projects')">
 						<md-icon md-svg-icon="img/icons/project.svg"></md-icon>
 							<p>Projects</p>
 					</md-list-item>
-					<md-list-item ng-click="gotToEstimationPage()">
+					<md-list-item ng-click="goTo('/estimation')">
 						<md-icon md-svg-icon="img/icons/project.svg"></md-icon>
 							<p>Estimation</p>
 					</md-list-item>
@@ -51,7 +51,7 @@
 					<span>{{getPath()}}</span>
 				</h2>
 				<span flex=""></span>
-				<md-button class="md-fab" style="positon: absolute; left: -25pt; top: 23pt" aria-label="Go to project page" ng-click="goToProjectPage()">
+				<md-button class="md-fab" style="positon: absolute; left: -25pt; top: 23pt" aria-label="Go to project page" ng-click="goTo('/createProject')">
 					<md-icon md-svg-src="img/icons/add.svg"></md-icon>
 				</md-button>
 			</div>

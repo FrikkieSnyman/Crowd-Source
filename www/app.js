@@ -35,17 +35,8 @@ angular
 })
 .controller('mainCtrl', function($scope, $timeout, $mdSidenav, $mdDialog, $mdUtil, $log, $location) {
 	$scope.toggleLeft = buildToggler('left');
-	$scope.gotToMainPage = function() {
-		$location.path("/");
-	};
-	$scope.gotToProjectsPage = function() {
-		$location.path("/projects");
-	};
-	$scope.gotToEstimationPage = function() {
-		$location.path("/estimation");
-	};
-	$scope.goToProjectPage = function() {
-		$location.path('/createProject');
+	$scope.goTo = function(newPath) {
+		$location.path(newPath);
 	};
 	// $scope.toggleRight = buildToggler('right');
 
