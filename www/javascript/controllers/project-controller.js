@@ -33,16 +33,16 @@ angular.module('main')
 			var confirm = $mdDialog.confirm()
 			.parent(angular.element(document.body))
 			.title('Are you sure you want to leave this page?')
-			.content('')
+			.content('All unsaved changes will be lost.')
 			.ariaLabel('Yes')
-			.ok('Save')
+			.ok('Yes')
 			.cancel('No')
 			.targetEvent(event);
 			$mdDialog.show(confirm).then(function() {
 				newUrl = newUrl.split('#');
 				$scope.goTo(newUrl[1]);
 				$scope.confirm = true;
-				$scope.saveProject();
+				//$scope.saveProject();
 			}, function() {
 				
 			});
