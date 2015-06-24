@@ -19,7 +19,7 @@ angular.module('main')
 				});
 			}
 		}
-
+		
 		$scope.logout = function logout() {
 			if (authenticationService.isLogged) {
 				authenticationService.isLogged = false;
