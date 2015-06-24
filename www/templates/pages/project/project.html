@@ -7,9 +7,10 @@
 			  </md-toolbar>
 	  	<br/>
  		<md-content layout-padding class="autoScroll">
- 			<h3>Project description</h3>
-	  		<p>{{project.description}}</p>
-	  		<md-divider ng-if="!$last"></md-divider>
+ 			<md-input-container flex>
+	   			<label>Project Description</label>
+		      	<input ng-model="project.description">
+		    </md-input-container>
 			<script type="text/ng-template"  id="tree_item_renderer.html">
 				<md-container layout = "row">
 					<md-button class="md-icon-button" aria-label="More" ng-click="add(data)">
@@ -26,7 +27,7 @@
 			   			<label>Qty</label>
 				      	<input ng-model="$scpoe.number">
 				    </md-input-container>
-				    <md-button class="md-icon-button" aria-label="More" ng-click="showConfirm($event,data)">
+				    <md-button class="md-icon-button" aria-label="More"ng-click="showConfirm($event,data)">
 				   		<md-tooltip>
 				          Remove Node
 				        </md-tooltip>
