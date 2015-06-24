@@ -33,7 +33,7 @@ controller('TreeController', ['$scope', '$http', '$mdDialog', function($scope, $
 		.parent(angular.element(document.body))
 		.title('Are you sure you want to delete the node?')
 		.content('')
-		.ariaLabel('Delete Node')
+		.ariaLabel('Delete node')
 		.ok('Yes')
 		.cancel('No')
 		.targetEvent(ev);

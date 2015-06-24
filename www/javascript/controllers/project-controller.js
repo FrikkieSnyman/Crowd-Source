@@ -1,6 +1,7 @@
 angular.module('main')
-.controller('porjectCtrl', ['$scope', '$http', '$routeParams',
-	function($scope, $http, $routeParams) {
+.controller('porjectCtrl', ['$scope', '$http', '$routeParams', '$mdDialog',
+	function($scope, $http, $routeParams, $mdDialog) {
+	$scope.confirm = false;
 	var project = {'heading': $routeParams.id};
 	$http({method:'POST', url:'/project', data: project}).success(function(data) {
 		$scope.project = data[0];
@@ -22,6 +23,33 @@ angular.module('main')
 		});
 	}
 	$scope.addRootNode = function() {
-		$scope.project.children.push({name: "node", nodes: []});
+		$scope.project.children.push({name: 'node', nodes: []});
+	}
+	$scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
+		// Appending dialog to document.body to cover sidenav in docs app
+		if (!$scope.confirm) {
+			event.preventDefault();
+			//console.log(newUrl);
+			var confirm = $mdDialog.confirm()
+			.parent(angular.element(document.body))
+			.title('Are you sure you want to leave this page?')
+			.content('')
+			.ariaLabel('Yes')
+			.ok('Save')
+			.cancel('No')
+			.targetEvent(event);
+			$mdDialog.show(confirm).then(function() {
+				newUrl = newUrl.split('#');
+				$scope.goTo(newUrl[1]);
+				$scope.confirm = true;
+				$scope.saveProject();
+			}, function() {
+				
+			});
+		}
+		
+	});
+	$scope.saveProjectDialog = function() {
+
 	}
 }]);
