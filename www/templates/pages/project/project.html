@@ -1,5 +1,5 @@
-<div ng-controller="porjectCtrl" layout="column">
-	<md-card>
+<div ng-controller="porjectCtrl" flex = "100">
+	<md-card flex = "100">
 			<md-toolbar>
 			    <div class="md-toolbar-tools">
 			      <h2>{{project.name}}</h2>
@@ -19,14 +19,7 @@
 				        </md-tooltip>
 				        <md-icon md-svg-icon="img/icons/add.svg" ></md-icon>
 				    </md-button>
-			   		<md-input-container flex>
-			   		<label>Name</label>
-				      <input ng-model="data.name">
-				    </md-input-container>
-				    <md-input-container flex = "10">
-			   			<label>Qty</label>
-				      	<input ng-model="$scpoe.number">
-				    </md-input-container>
+				    <p>{{data.name}}</p>
 				    <md-button class="md-icon-button" aria-label="More"ng-click="showConfirm($event,data)">
 				   		<md-tooltip>
 				          Remove Node
