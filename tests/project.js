@@ -4,19 +4,21 @@ var mongoose = Object;
 var app = Object;
 mongoose.model = function(a, b) {
 	return function() {
+		this.name = '',
+		this.description = '',
 		this.save = function() {};
 		this.find = function() {};
 	};
 };
-app.projectSchema = Object;
+app.projectSchema = mongoose.model;
 var request = Object;
 var response = Object;
 response.send = function(param) {};
 
 // Module to test
 var testProject = process.env.CUSTOM_COV ?
-	require('../lib-cov/project/project.js')
-	: require('../lib/project/project.js')(app, mongoose);
+	require('../lib-cov/project/abstractedProject.js')
+	: require('../lib/project/abstractedProject.js');
 
 // For testing purposes
 var expected;
@@ -27,7 +29,7 @@ exports.testCreateProject = function(test) {
 	test.expect(2);
 	request.body = {'heading':'testHeading', 'description':'testDesc'};
 
-	testProject.createProject(request, response);
+	testProject.createProject(app, mongoose, request, response);
 
 	expected = 'testHeading';
 	result = response.body.heading;
@@ -40,7 +42,24 @@ exports.testCreateProject = function(test) {
 	test.done();
 };
 
-exports.testGetAllProjects = function(test) {
-	// testProject.getAllProjects(request, response);
+exports.testPersistProject = function(test) {
+	// test.expect(2);
+	// var Project = mongoose.model('Project', app.projectSchema);
+	// var project = new Project({
+	// 	name : 'test',
+	// 	description : 'description',
+	// 	children : [{name : 'heading', nodes : []}]
+	// });
+	// testProject.persistProject(project);
+
+	// expected = 'test';
+	// result = project.name;
+	// console.log(project);
+	// test.equal(expected, result);
+
+	// expected = 'description';
+	// result = project.description;
+	// test.equal(expected, result);
+
 	test.done();
 };
