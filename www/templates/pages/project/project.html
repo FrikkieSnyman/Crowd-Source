@@ -11,6 +11,23 @@
 	   			<label>Project Description</label>
 		      	<input ng-model="project.description">
 		    </md-input-container>
+		    <style>
+		    	.node circle {
+				  fill: #fff;
+				  stroke: steelblue;
+				  stroke-width: 3px;
+				}
+
+				.node text { font: 12px sans-serif; }
+
+				.link {
+				  fill: none;
+				  stroke: #ccc;
+				  stroke-width: 2px;
+				}
+		    </style>
+		    <div id = "chart">
+		    </div>
 			<script type="text/ng-template"  id="tree_item_renderer.html">
 				<md-container layout = "row">
 					<md-button class="md-icon-button" aria-label="More" ng-click="add(data)">
