@@ -7,7 +7,7 @@
 			  </md-toolbar>
 	  	<br/>
  		<md-content layout-padding class="autoScroll">
- 			<label>Project description</label>
+ 			<h3>Project description</h3>
 	  		<p>{{project.description}}</p>
 	  		<md-divider ng-if="!$last"></md-divider>
 			<script type="text/ng-template"  id="tree_item_renderer.html">
@@ -26,7 +26,7 @@
 			   			<label>Qty</label>
 				      	<input ng-model="$scpoe.number">
 				    </md-input-container>
-				    <md-button class="md-icon-button" aria-label="More" ng-click="delete(data)" >
+				    <md-button class="md-icon-button" aria-label="More" ng-click="showConfirm($event,data)">
 				   		<md-tooltip>
 				          Remove Node
 				        </md-tooltip>
@@ -48,6 +48,9 @@
 	  	<md-content label="row">
 		  	<md-button class = "md-primary md-raised" ng-click = "saveProject()">
 		  		Save Tree
+		  	</md-button>
+		  	<md-button class = "md-primary md-raised" ng-click = "addRootNode()" ng-show = "rootIsEmpty()">
+		  		Add root node
 		  	</md-button>
 	  	</md-content>
 	</md-card>

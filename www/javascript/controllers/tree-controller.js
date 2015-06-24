@@ -1,5 +1,5 @@
 angular.module('main').
-controller('TreeController', ['$scope', '$http', function($scope, $http) {
+controller('TreeController', ['$scope', '$http', '$mdDialog', function($scope, $http, $mdDialog) {
 	$scope.delete = function(data) {
 		$scope.searchTree($scope.project.children, data.$$hashKey, function() {
 		});
@@ -18,7 +18,7 @@ controller('TreeController', ['$scope', '$http', function($scope, $http) {
 			if (id === node[i].$$hashKey) {
 				found = true;
 				node.splice(i, 1);
-				$scope.save();
+				//$scope.save();
 			}
 		}
 		if (found === false) {
@@ -27,7 +27,20 @@ controller('TreeController', ['$scope', '$http', function($scope, $http) {
 			}
 		}
 	};
-	$scope.saveProject = function() {
-		$http({method:'POST', url:'/addChild', data: $scope.project});
-	}
+	$scope.showConfirm = function(ev, data) {
+		// Appending dialog to document.body to cover sidenav in docs app
+		var confirm = $mdDialog.confirm()
+		.parent(angular.element(document.body))
+		.title('Are you sure you want to delete the node?')
+		.content('')
+		.ariaLabel('Delete Node')
+		.ok('Yes')
+		.cancel('No')
+		.targetEvent(ev);
+		$mdDialog.show(confirm).then(function() {
+			$scope.delete(data);
+		}, function() {
+			
+		});
+	};
 }]);
