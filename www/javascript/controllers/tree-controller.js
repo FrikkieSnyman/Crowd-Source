@@ -9,7 +9,7 @@ controller('TreeController', ['$scope', '$http', function($scope, $http) {
 		var newName = data.name + '-' + post;
 		data.nodes.push({name: newName, nodes: []});
 		$scope.project.children = $scope.tree;
-		$scope.save();
+		//$scope.save();
 	}
 	$scope.searchTree = function(node, id, callback) {
 		//console.log
@@ -27,7 +27,7 @@ controller('TreeController', ['$scope', '$http', function($scope, $http) {
 			}
 		}
 	};
-	$scope.save = function() {
+	$scope.saveProject = function() {
 		$http({method:'POST', url:'/addChild', data: $scope.project});
 	}
 }]);

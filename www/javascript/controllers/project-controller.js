@@ -6,4 +6,7 @@ angular.module('main')
 		$scope.project = data[0];
 		$scope.tree = $scope.project.children;
 	});
+	$scope.saveProject = function() {
+		$http({method:'POST', url:'/addChild', data: $scope.project});
+	}
 }]);
