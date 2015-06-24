@@ -18,6 +18,7 @@ angular
 	$mdThemingProvider.theme('default')
 	.primaryPalette('indigo')
 	.accentPalette('yellow');
+	console.log($mdThemingProvider);
 })
 .config(function($routeProvider) {
 	$routeProvider.when('/projects',{
