@@ -29,5 +29,5 @@ controller('TreeController', ['$scope', '$http', function($scope, $http) {
 	};
 	$scope.save = function() {
 		$http({method:'POST', url:'/addChild', data: $scope.project});
-	}
+	};
 }]);
