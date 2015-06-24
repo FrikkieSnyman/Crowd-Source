@@ -33,6 +33,7 @@ exports = module.exports = function(app, mongoose) {
 	app.post('/createProject', project.createProject);
 	app.post('/project', project.getProject);
 	app.post('/addChild', project.addChild);
+	app.post('/deleteProject', project.deleteProject);
 };
 
 function ensureAuthorized(req, res, next) {
