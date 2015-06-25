@@ -1,6 +1,6 @@
 angular.module('main')
-.controller('porjectCtrl', ['$scope', '$http', '$routeParams', '$mdDialog', '$mdToast', '$rootScope',
-	function($scope, $http, $routeParams, $mdDialog, $mdToast, $rootScope) {
+.controller('porjectCtrl', ['$rootScope', '$scope', '$http', '$routeParams', '$mdDialog',
+	function($rootScope, $scope, $http, $routeParams, $mdDialog) {
 		$scope.confirm = false;
 		$scope.undoToolTip = function(node, removeNode, newSubItem) {
 			//debugger;
@@ -111,3 +111,53 @@ angular.module('main')
 			left: false,
 			right: true
 		};
+
+		$scope.estimate = function(node) {
+			var currnode = $scope.project.children[0];
+			var n;
+			$scope.searchTree([currnode], node.$$hashKey, function(res) {
+				n = res;
+			});
+			// Push user to user array, if not there already, and place estimation at same index
+			$scope.estimateForUser(n, node.qty);
+		};
+
+		$scope.estimateForUser = function(node, qty) {
+			var user = $rootScope.currentUser;
+			var count = 0;
+			var found = false;
+			for (var u in node.users) {
+				if (node.users[u] === user) {
+					found = true;
+					count = u;
+					break;
+				}
+			}
+			if (!found) {
+				node.users.push(user);
+				node.estimations.push(qty);
+			} else {
+				node.estimations[count] = qty;
+			}
+		};
+
+		$scope.searchTree = function(node, id, callback) {
+			var found = false;
+			var result;
+			for (var i in node) {
+				if (id === node[i].$$hashKey) {
+					found = true;
+					callback(node[i]);
+				}
+			}
+			if (found === false) {
+				for (i in node) {
+					$scope.searchTree(node[i].nodes, id, callback);
+				}
+			}
+		};
+
+		$scope.getEstimateForUser = function() {
+			return 1;
+		};
+	}]);
