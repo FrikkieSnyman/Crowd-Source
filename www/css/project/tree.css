@@ -58,6 +58,6 @@
     box-sizing: border-box;
 }
 
-md-input-container{
+.treeInput {
     padding: 0px !important; 
 }
