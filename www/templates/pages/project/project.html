@@ -1,68 +1,23 @@
 <div ng-controller="porjectCtrl" flex = "100">
 	<md-card flex = "100">
-			<md-toolbar>
-			    <div class="md-toolbar-tools">
-			      <h2>{{project.name}}</h2>
-			    </div>
-			  </md-toolbar>
-	  	<br/>
- 		<md-content layout-padding class="autoScroll">
- 			<md-input-container flex>
-	   			<label>Project Description</label>
-		      	<input ng-model="project.description">
-		    </md-input-container>
-		    <style>
-		    	.node circle {
-				  fill: #fff;
-				  stroke: steelblue;
-				  stroke-width: 3px;
-				}
-
-				.node text { font: 12px sans-serif; }
-
-				.link {
-				  fill: none;
-				  stroke: #ccc;
-				  stroke-width: 2px;
-				}
-		    </style>
-		    <div id = "chart">
+		<md-toolbar>
+		    <div class="md-toolbar-tools">
+		      <h2>{{project.name}}</h2>
 		    </div>
-			<script type="text/ng-template"  id="tree_item_renderer.html">
-				<md-container layout = "row">
-					<md-button class="md-icon-button" aria-label="More" ng-click="add(data)">
-				        <md-tooltip>
-				          Add Node
-				        </md-tooltip>
-				        <md-icon md-svg-icon="img/icons/add.svg" ></md-icon>
-				    </md-button>
-				    <p>{{data.name}}</p>
-				    <md-button class="md-icon-button" aria-label="More"ng-click="showConfirm($event,data)">
-				   		<md-tooltip>
-				          Remove Node
-				        </md-tooltip>
-				        <md-icon md-svg-icon="img/icons/close.svg"></md-icon>
-				    </md-button>
-			    </md-container>
-			    <md-list layout = "column">
-			    	<md-list-item class="md-3-line" ng-repeat="data in data.nodes" ng-include="'tree_item_renderer.html'" layout = "column">
-			        </md-list-item>
-			    </md-list>
-			</script>
-			<div>
-				<md-list ng-controller="TreeController">
-					<md-list-item ng-repeat="data in tree" ng-include="'tree_item_renderer.html'" layout="column" layout-align="start start">
-			    	</md-list-item>
-				</md-list>
-			</div>
-	  	</md-content>
-	  	<md-content label="row">
-		  	<md-button class = "md-primary md-raised" ng-click = "saveProject()">
-		  		Save Tree
-		  	</md-button>
-		  	<md-button class = "md-primary md-raised" ng-click = "addRootNode()" ng-show = "rootIsEmpty()">
-		  		Add root node
-		  	</md-button>
+		  </md-toolbar>
+		<br/>
+		<md-content layout-padding class="autoScroll">
+			<md-input-container flex>
+				<label>Project Description</label>
+	      	<input ng-model="project.description">
+	    </md-input-container>
+		<md-content label="row">
+	  	<md-button class = "md-primary md-raised" ng-click = "saveProject()">
+	  		Save Tree
+	  	</md-button>
+	  	<md-button class = "md-primary md-raised" ng-click = "addRootNode()" ng-show = "rootIsEmpty()">
+	  		Add root node
+	  	</md-button>
 	  	</md-content>
 	</md-card>
 </div>
