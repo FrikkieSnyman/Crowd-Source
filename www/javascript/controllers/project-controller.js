@@ -106,88 +106,8 @@ angular.module('main')
 		};
 
 		$scope.toastPosition = {
-<<<<<<< HEAD
-		bottom: true,
-		top: false,
-		left: false,
-		right: true
-	};
-
-
-		$scope.estimate = function(node) {
-			var currnode = $scope.project.children[0];
-			var n;
-			$scope.searchTree([currnode], node.$$hashKey, function(res) {
-				n = res;
-			});
-			// Push user to user array, if not there already, and place estimation at same index
-			$scope.estimateForUser(n, node.qty);
-		};
-
-		$scope.estimateForUser = function(node, qty) {
-			var user = $rootScope.currentUser;
-			var count = 0;
-			var found = false;
-			for (var u in node.users) {
-				if (node.users[u] === user) {
-					found = true;
-					count = u;
-					break;
-				}
-			}
-			if (!found) {
-				node.users.push(user);
-				node.estimations.push(qty);
-			} else {
-				node.estimations[count] = qty;
-			}
-=======
 			bottom: true,
 			top: false,
 			left: false,
 			right: true
 		};
-
-		$scope.estimate = function(node) {
-			// $http({method:'POST', url:'/estimate', data: $scope.project}).success(function() {
-
-			// });
-
-			var currnode = $scope.project.children[0];
-			// console.log(currnode);
-			var tmp;
-			$scope.searchTree([currnode], node.$$hashKey, function(res) {
-				tmp = res;
-			});
-
-			console.log(tmp);
->>>>>>> Finds correct node in tree
-		};
-
-		$scope.searchTree = function(node, id, callback) {
-			var found = false;
-			var result;
-			for (var i in node) {
-				if (id === node[i].$$hashKey) {
-					found = true;
-					callback(node[i]);
-				}
-			}
-			if (found === false) {
-				for (i in node) {
-					$scope.searchTree(node[i].nodes, id, callback);
-				}
-			}
-<<<<<<< HEAD
-		};
-
-=======
-
-			// callback(result);
-		};
-
-		$scope.getEstimateForUser = function() {
-			return 1;
-		};
->>>>>>> Finds correct node in tree
-	}]);
