@@ -4,6 +4,8 @@
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="/node_modules/angular-material/angular-material.css">
 	<link rel="stylesheet" href="/css/estimation/estimation.css">
+	<link rel="stylesheet" href="./node_modules/angular-ui-tree/dist/angular-ui-tree.min.css">
+	<link rel="stylesheet" href="./css/project/tree.css">
 	<link rel="stylesheet" href="/css/main/main.css">
 </head>
 	<body ng-controller="mainCtrl" ng-app="main" layout="row">
@@ -65,11 +67,16 @@
 
 	<!-- Includes for modules required by angular and angular-material -->
 
-	<script src="/node_modules/angular/angular.js"></script>
-	<script src="/node_modules/angular-aria/angular-aria.js"></script>
-	<script src="/node_modules/angular-animate/angular-animate.js"></script>
-	<script src="/node_modules/angular-material/angular-material.js"></script>
-	<script src="node_modules/angular-route/angular-route.min.js"></script>
+	<script src="./node_modules/angular/angular.js"></script>
+	<script src="./node_modules/angular-aria/angular-aria.js"></script>
+	<script src="./node_modules/angular-animate/angular-animate.js"></script>
+	<script src="./node_modules/angular-material/angular-material.js"></script>
+	<script src="./node_modules/angular-route/angular-route.min.js"></script>
+
+	<!-- Includes tree liabary  -->
+	<script src="./node_modules/jquery/dist/jquery.min.js"></script>
+	<script src="./node_modules/angular-ui-tree/dist/angular-ui-tree.min.js"></script>
+	<script src="./javascript/tree/main.js"></script>
 
 	<!-- Includes for our modules -->
 
@@ -79,7 +86,6 @@
 	<script src="./javascript/controllers/estimation-controller.js"></script>
 	<script src="./javascript/controllers/projects-controller.js"></script>
 	<script src="./javascript/controllers/project-controller.js"></script>
-	<script src="./javascript/controllers/tree-controller.js"></script>
 	<script src="./javascript/controllers/login-controller.js"></script>
 
 	<!-- Includes for our services -->
@@ -88,5 +94,6 @@
 	<script src="./javascript/services/tokenInterceptor.js"></script>
 	<script src="./javascript/services/userService.js"></script>
 	<script src="./javascript/services/authenticationService.js"></script>
+
 </body>
 </html>
