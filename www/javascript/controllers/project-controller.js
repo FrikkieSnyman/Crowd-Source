@@ -117,12 +117,12 @@ angular.module('main')
 
 			var currnode = $scope.project.children[0];
 			// console.log(currnode);
-			var tmp;
+			var n;
 			$scope.searchTree([currnode], node.$$hashKey, function(res) {
-				tmp = res;
+				n = res;
 			});
-
-			console.log(tmp);
+			// Push user to user array, if not there already, and place estimation at same index
+			// n.estimations.push(node.qty);
 		};
 
 		$scope.searchTree = function(node, id, callback) {
@@ -139,8 +139,6 @@ angular.module('main')
 					$scope.searchTree(node[i].nodes, id, callback);
 				}
 			}
-
-			// callback(result);
 		};
 
 	}]);
