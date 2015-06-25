@@ -8,12 +8,12 @@ angular.module('main')
 		var project = {'heading': $scope.projectName, 'description': $scope.description};
 		$http({method:'POST', url:'/createProject', data: project}).success(function() {
 			$mdToast.show(
-		    $mdToast.simple()
-		    .content('Project created')
-		    .position($scope.getToastPosition())
-		    .hideDelay(3000)
-	    	);
-			$scope.goTo('/project' + project.name);
+			$mdToast.simple()
+			.content('Project created')
+			.position($scope.getToastPosition())
+			.hideDelay(3000)
+			);
+			$scope.goTo('/project/' + $scope.projectName);
 		});
 	};
 	$scope.getToastPosition = function() {

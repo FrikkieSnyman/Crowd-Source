@@ -1,12 +1,24 @@
 angular.module('main')
-.controller('porjectCtrl', ['$scope', '$http', '$routeParams', '$mdDialog',
-	function($scope, $http, $routeParams, $mdDialog) {
+.controller('porjectCtrl', ['$scope', '$http', '$routeParams', '$mdDialog', '$mdToast', '$rootScope',
+	function($scope, $http, $routeParams, $mdDialog, $mdToast, $rootScope) {
 		$scope.confirm = false;
+		$scope.undoToolTip = function(node, removeNode, newSubItem) {
+			//debugger;
+			var tree = $.extend(true, [], $scope.project.children);
+			removeNode(node);
+			var toast = $mdToast.simple()
+				.content('Node deleted')
+				.action('UNDO')
+				.highlightAction(false)
+				.position($scope.getToastPosition());
+			$mdToast.show(toast).then(function() {
+				$scope.project.children = $.extend(true, [], tree);
+			});
+		};
 		var project = {'heading': $routeParams.id};
 		$http({method:'POST', url:'/project', data: project}).success(function(data) {
 			$scope.project = data[0];
 			$scope.tree = $scope.project.children;
-			$scope.treeData = $scope.project.children[0];
 
 			$scope.rootIsEmpty = function() {
 				//debugger;
@@ -21,11 +33,16 @@ angular.module('main')
 		});
 		$scope.saveProject = function() {
 			$http({method:'POST', url:'/addChild', data: $scope.project}).success(function() {
-
+				$mdToast.show(
+					$mdToast.simple()
+					.content('Project saved')
+					.position($scope.getToastPosition())
+					.hideDelay(3000)
+			);
 			});
 		}
 		$scope.addRootNode = function() {
-			$scope.project.children.push({id: 'node', title:"Root Node" ,nodes: [],collapsed : false});
+			$scope.project.children.push({id: 'node', title:"Root Node" , nodes: [], collapsed : false});
 		}
 		$scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
 			// Appending dialog to document.body to cover sidenav in docs app
@@ -55,15 +72,6 @@ angular.module('main')
 
 		}
 
-		$scope.remove = function(scope) {
-			scope.remove();
-		};
-
-		$scope.toggleNode = function(scope) {
-			debugger;
-			scope.toggle();
-		};
-
 		$scope.moveLastToTheBeginning = function() {
 			var a = $scope.data.pop();
 			$scope.data.splice(0, 0, a);
@@ -86,4 +94,15 @@ angular.module('main')
 		$scope.expandAll = function() {
 			$scope.$broadcast('expandAll');
 		};
+		$scope.getToastPosition = function() {
+			return Object.keys($scope.toastPosition)
+		.filter(function(pos) { return $scope.toastPosition[pos]; })
+		.join(' ');
+		};
+		$scope.toastPosition = {
+		bottom: true,
+		top: false,
+		left: false,
+		right: true
+	};
 	}]);
