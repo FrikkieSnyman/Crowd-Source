@@ -1,12 +1,24 @@
 angular.module('main')
-.controller('porjectCtrl', ['$scope', '$http', '$routeParams', '$mdDialog', '$mdToast',
-	function($scope, $http, $routeParams, $mdDialog, $mdToast) {
+.controller('porjectCtrl', ['$scope', '$http', '$routeParams', '$mdDialog', '$mdToast', '$rootScope',
+	function($scope, $http, $routeParams, $mdDialog, $mdToast, $rootScope) {
 		$scope.confirm = false;
+		$scope.undoToolTip = function(node, removeNode, newSubItem) {
+			//debugger;
+			var tree = $.extend(true, [], $scope.project.children);
+			removeNode(node);
+			var toast = $mdToast.simple()
+				.content('Node deleted')
+				.action('UNDO')
+				.highlightAction(false)
+				.position($scope.getToastPosition());
+			$mdToast.show(toast).then(function() {
+				$scope.project.children = $.extend(true, [], tree);
+			});
+		};
 		var project = {'heading': $routeParams.id};
 		$http({method:'POST', url:'/project', data: project}).success(function(data) {
 			$scope.project = data[0];
 			$scope.tree = $scope.project.children;
-			$scope.treeData = $scope.project.children[0];
 
 			$scope.rootIsEmpty = function() {
 				//debugger;
@@ -59,15 +71,6 @@ angular.module('main')
 		$scope.saveProjectDialog = function() {
 
 		}
-
-		$scope.remove = function(scope) {
-			scope.remove();
-		};
-
-		$scope.toggleNode = function(scope) {
-			debugger;
-			scope.toggle();
-		};
 
 		$scope.moveLastToTheBeginning = function() {
 			var a = $scope.data.pop();

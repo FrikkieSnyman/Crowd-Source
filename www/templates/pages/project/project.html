@@ -34,13 +34,13 @@
 			  <label>Qty</label>
 			  <input ng-model="node.qty">
 			</md-input-container>
-		    <md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="remove(this)" >
+		    <md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="undoToolTip(this,removeNode,newSubItem)" >
 		    	<md-tooltip>
 		          Remove
 		        </md-tooltip>
           		<md-icon md-svg-src="../../../img/icons/close.svg"></md-icon>
         	</md-button>
-		    <md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="newSubItem(this)" >
+		    <md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="newSubItem(this);apply()" >
 		    	<md-tooltip>
 		          Add
 		        </md-tooltip>
