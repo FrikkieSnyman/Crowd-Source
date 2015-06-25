@@ -45,7 +45,6 @@ angular.module('main')
 		$scope.addRootNode = function() {
 			$scope.project.children.push({id: 'node', title:"Root Node" , nodes: [], collapsed : false, users : [], estimations : []});
 		};
-
 		$scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
 			// Appending dialog to document.body to cover sidenav in docs app
 			if (!$scope.confirm) {
