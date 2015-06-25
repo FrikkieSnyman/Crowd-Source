@@ -13,7 +13,7 @@ angular.module('main')
 			.position($scope.getToastPosition())
 			.hideDelay(3000)
 			);
-			$scope.goTo('/project' + project.name);
+			$scope.goTo('/project/' + $scope.projectName);
 		});
 	};
 	$scope.getToastPosition = function() {
