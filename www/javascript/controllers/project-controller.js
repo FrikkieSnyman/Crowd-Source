@@ -29,7 +29,7 @@ angular.module('main')
 				} else {
 					return false;
 				}
-			}
+			};
 		});
 		$scope.saveProject = function() {
 			$http({method:'POST', url:'/addChild', data: $scope.project}).success(function() {
@@ -40,10 +40,12 @@ angular.module('main')
 					.hideDelay(3000)
 			);
 			});
-		}
+		};
+
 		$scope.addRootNode = function() {
-			$scope.project.children.push({id: 'node', title:"Root Node" , nodes: [], collapsed : false});
-		}
+			$scope.project.children.push({id: 'node', title:"Root Node" , nodes: [], collapsed : false, users : [], estimations : []});
+		};
+
 		$scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
 			// Appending dialog to document.body to cover sidenav in docs app
 			if (!$scope.confirm) {
@@ -70,7 +72,7 @@ angular.module('main')
 		});
 		$scope.saveProjectDialog = function() {
 
-		}
+		};
 
 		$scope.moveLastToTheBeginning = function() {
 			var a = $scope.data.pop();
@@ -83,7 +85,9 @@ angular.module('main')
 				id: nodeData.id * 10 + nodeData.nodes.length,
 				title: nodeData.title + '.' + (nodeData.nodes.length + 1),
 				nodes: [],
-				collapsed : false
+				collapsed : false,
+				users : [],
+				estimations : []
 			});
 		};
 
@@ -94,15 +98,54 @@ angular.module('main')
 		$scope.expandAll = function() {
 			$scope.$broadcast('expandAll');
 		};
+
 		$scope.getToastPosition = function() {
 			return Object.keys($scope.toastPosition)
-		.filter(function(pos) { return $scope.toastPosition[pos]; })
-		.join(' ');
+			.filter(function(pos) { return $scope.toastPosition[pos]; })
+			.join(' ');
 		};
+
 		$scope.toastPosition = {
-		bottom: true,
-		top: false,
-		left: false,
-		right: true
-	};
+			bottom: true,
+			top: false,
+			left: false,
+			right: true
+		};
+
+		$scope.estimate = function(node) {
+			// $http({method:'POST', url:'/estimate', data: $scope.project}).success(function() {
+
+			// });
+
+			var currnode = $scope.project.children[0];
+			// console.log(currnode);
+			var tmp;
+			$scope.searchTree([currnode], node.$$hashKey, function(res) {
+				tmp = res;
+			});
+
+			console.log(tmp);
+		};
+
+		$scope.searchTree = function(node, id, callback) {
+			var found = false;
+			var result;
+			for (var i in node) {
+				if (id === node[i].$$hashKey) {
+					found = true;
+					callback(node[i]);
+				}
+			}
+			if (found === false) {
+				for (i in node) {
+					$scope.searchTree(node[i].nodes, id, callback);
+				}
+			}
+
+			// callback(result);
+		};
+
+		$scope.getEstimateForUser = function() {
+			return 1;
+		};
 	}]);
