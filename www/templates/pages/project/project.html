@@ -22,6 +22,10 @@
 		          'glyphicon-chevron-right': collapsed,
 		          'glyphicon-chevron-down': !collapsed
 		        }"></span></a>
+		    <md-button class="md-icon-button" aria-label="Use Android" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="toggle(this)" >
+          		<md-icon md-svg-src="../../../img/icons/close.svg" ng-show="collapsed"></md-icon>
+          		<md-icon md-svg-src="../../../img/icons/home.svg" ng-show="!collapsed"></md-icon>
+        	</md-button>
 		    <md-input-container class = "treeInput" flex>
 			  <label>Title</label>
 			  <input ng-model="node.title">
