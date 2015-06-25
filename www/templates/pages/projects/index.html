@@ -1,7 +1,12 @@
-<div ng-controller="projectsCtrl" layout="row" flex>
-	<!-- <md-whiteframe class="md-whiteframe-z1" layout> -->
-	<span>
-		<md-card ng-repeat="project in projects" flex>
+
+<md-content flex ='100'>
+<div ng-controller="projectsCtrl">
+  <md-grid-list
+        md-cols-sm="1" md-cols-md="3" md-cols-gt-md="4"
+        md-row-height-gt-md="1:1" md-row-height="1:1"
+        md-gutter="2px" md-gutter-gt-sm="2px" >
+    <md-grid-tile ng-repeat="project in projects" class="gray" md-rowspan="1" md-colspan="1" md-colspan-sm="1">
+		<md-card flex>
 			<md-toolbar>
 			    <div class="md-toolbar-tools">
 			      <h2>{{project.name}}</h2>
@@ -11,7 +16,7 @@
 			<md-card-content class="md-padding"> 
 				<p>{{project.description}}</p>
 			</md-card-content>
-			<md-fab-toolbar md-open="false" count="0" class="md-fab-toolbar md-right" style="height: 4.8rem">
+			<md-fab-toolbar md-open="false" count="0" class="md-fab-toolbar md-right">
 				<div class="md-fab-toolbar-wrapper">
 					<div class="md-fab-toolbar-content">
 		    			<md-fab-trigger class="align-with-text ng-scope">
@@ -39,8 +44,11 @@
 		      				</md-fab-actions>
 		    			</md-toolbar>
 		    		</div>
-    			</div>
-  			</md-fab-toolbar>
+				</div>
+				</md-fab-toolbar>
 		</md-card>
-	</span>
+    </md-grid-tile>
+  </md-grid-list>
 </div>
+</md-content>
+
