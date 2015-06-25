@@ -57,15 +57,6 @@ angular
 
 		return debounceFn;
 	}
-
-	$scope.showAdvanced = function(ev) {
-		$mdDialog.show({
-			controller: DialogController,
-			templateUrl: 'templates/pages/login/index.html',
-			parent: angular.element(document.body),
-			targetEvent: ev,
-		});
-	  };
 })
 .controller('LeftCtrl', function($scope, $timeout, $mdSidenav, $log) {
 	$scope.close = function() {
