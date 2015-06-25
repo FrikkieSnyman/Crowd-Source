@@ -1,6 +1,6 @@
 angular.module('main')
-.controller('porjectCtrl', ['$rootScope', '$scope', '$http', '$routeParams', '$mdDialog',
-	function($rootScope, $scope, $http, $routeParams, $mdDialog) {
+.controller('porjectCtrl', ['$rootScope', '$scope', '$http', '$routeParams', '$mdDialog', '$mdToast',
+	function($rootScope, $scope, $http, $routeParams, $mdDialog, $mdToast) {
 		$scope.confirm = false;
 		$scope.undoToolTip = function(node, removeNode, newSubItem) {
 			//debugger;
