@@ -1,4 +1,3 @@
-
 angular
 .module('main', ['ngMaterial', 'ngRoute'])
 .run(function($rootScope,$location){
@@ -18,7 +17,6 @@ angular
 	$mdThemingProvider.theme('default')
 	.primaryPalette('indigo')
 	.accentPalette('yellow');
-	console.log($mdThemingProvider);
 })
 .config(function($routeProvider) {
 	$routeProvider.when('/projects',{
@@ -50,12 +48,12 @@ angular
 	 */
 	function buildToggler(navID) {
 		var debounceFn =  $mdUtil.debounce(function() {
-					$mdSidenav(navID)
-						.toggle()
-						.then(function() {
-							$log.debug("toggle " + navID + " is done");
-						});
-				}, 300);
+			$mdSidenav(navID)
+				.toggle()
+				.then(function() {
+					$log.debug("toggle " + navID + " is done");
+				});
+		}, 300);
 
 		return debounceFn;
 	}
@@ -72,29 +70,8 @@ angular
 .controller('LeftCtrl', function($scope, $timeout, $mdSidenav, $log) {
 	$scope.close = function() {
 		$mdSidenav('left').close()
-			.then(function() {
-				$log.debug("close LEFT is done");
-			});
+		.then(function() {
+			$log.debug("close LEFT is done");
+		});
 	};
-})
-.controller('ListCtrl', function($scope, $mdDialog) {
-	$scope.navigateTo = function(to, event) {
-		$mdDialog.show(
-			$mdDialog.alert()
-				.title('Navigating')
-				.content('Imagine being taken to ' + to)
-				.ariaLabel('Navigation demo')
-				.ok('Neat!')
-				.targetEvent(event)
-		);
-	};
- });
-
-function DialogController($scope, $mdDialog) {
-  $scope.hide = function() {
-	$mdDialog.hide();
-  };
-  $scope.cancel = function() {
-	$mdDialog.cancel();
-  };
-}
+});

@@ -3,8 +3,6 @@ angular.module('main')
     var auth = {
         isLogged: false
     }
-
-    // debugger;
  
     return auth;
 });
