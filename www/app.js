@@ -1,18 +1,18 @@
 
 angular
-.module('main', ['ngMaterial', 'ngRoute'])
-.run(function($rootScope,$location){
+.module('main', ['ngMaterial', 'ngRoute', 'ui.tree'])
+.run(function($rootScope, $location) {
 	$rootScope.location = $location;
-	$rootScope.getPath = function(){
+	$rootScope.getPath = function() {
 		var path = $location.path();
-		path = path.replace('/',">");
+		path = path.replace('/', ">");
 		path = path.substring(1);
 		path = path.toUpperCase();
 		return path;
 	};
 })
-.config(function ($httpProvider) {
-    $httpProvider.interceptors.push('tokenInterceptor');
+.config(function($httpProvider) {
+	$httpProvider.interceptors.push('tokenInterceptor');
 })
 .config(function($mdThemingProvider) {
 	$mdThemingProvider.theme('default')
@@ -21,12 +21,12 @@ angular
 	console.log($mdThemingProvider);
 })
 .config(function($routeProvider) {
-	$routeProvider.when('/projects',{
+	$routeProvider.when('/projects', {
 		templateUrl: 'templates/pages/projects/index.html'
 	});
 	$routeProvider.when('/project/:id', {
-      templateUrl: 'templates/pages/project/project.html',
-    })
+		templateUrl: 'templates/pages/project/project.html',
+	})
 	$routeProvider.when('/createProject', {
 		templateUrl: 'templates/pages/project/index.html'
 	});
@@ -91,10 +91,10 @@ angular
  });
 
 function DialogController($scope, $mdDialog) {
-  $scope.hide = function() {
+	$scope.hide = function() {
 	$mdDialog.hide();
   };
-  $scope.cancel = function() {
+	$scope.cancel = function() {
 	$mdDialog.cancel();
   };
 }
