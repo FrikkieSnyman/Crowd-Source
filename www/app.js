@@ -1,6 +1,8 @@
 angular
 .module('main', ['ngMaterial', 'ngRoute', 'ui.tree'])
 .run(function($rootScope, $location) {
+	$rootScope.currentUser = '';
+
 	$rootScope.location = $location;
 	$rootScope.getPath = function() {
 		var path = $location.path();
