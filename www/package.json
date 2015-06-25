@@ -14,6 +14,8 @@
     "angular-aria": "^1.4.1",
     "angular-material": "^0.10.0",
     "angular-route": "^1.4.1",
-    "d3": "^3.5.5"
+    "angular-ui-tree": "git+https://github.com/angular-ui-tree/angular-ui-tree.git",
+    "bootstrap": "^3.3.5",
+    "jquery": "^2.1.4"
   }
 }

@@ -1,6 +1,6 @@
 
 angular
-.module('main', ['ngMaterial', 'ngRoute'])
+.module('main', ['ngMaterial', 'ngRoute', 'ui.tree'])
 .run(function($rootScope, $location) {
 	$rootScope.location = $location;
 	$rootScope.getPath = function() {
