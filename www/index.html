@@ -18,9 +18,13 @@
 					</div>
 				</md-toolbar>
 				<md-content layout="column" class="coloredBackground">
+				<md-divider></md-divider>
 					<md-button class="sideNavItem" ng-click="goTo('/')"><span>Home</span></md-button>
+				<md-divider></md-divider>
 					<md-button class="sideNavItem" ng-click="goTo('/projects')"><span>Projects</span></md-button>
+				<md-divider></md-divider>
 					<md-button class="sideNavItem" ng-click="goTo('/estimation')"><span>Estimation</span></md-button>
+				<md-divider></md-divider>
 					<md-button ng-controller="loginCtrl" class="sideNavItem" ng-click="logInOut($event)">
 						<span ng-controller="loginCtrl" ng-hide="isLogged()">Login</span>
 						<span ng-controller="loginCtrl" ng-show="isLogged()">Logout</span>

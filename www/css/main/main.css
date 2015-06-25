@@ -5,6 +5,9 @@
 .sideNavItem {
 	background: #3F51B5 !important;
 	color : white;
+	text-align: left;
+	margin: 0 auto;
+	padding: 8px;
 }
 
 .sideNavItem:hover {
