@@ -1,6 +1,6 @@
 angular.module('main')
-.controller('loginCtrl', ['$scope', '$location', '$window', '$mdDialog', 'userService', 'authenticationService',
-	function($scope, $location, $window, $mdDialog, userService, authenticationService) {
+.controller('loginCtrl', ['$rootScope', '$scope', '$location', '$window', '$mdDialog', 'userService', 'authenticationService',
+	function($rootScope, $scope, $location, $window, $mdDialog, userService, authenticationService) {
 		$scope.logInOut = function(ev) {
 			if (!authenticationService.isLogged) {
 				showAdvanced(ev);
@@ -24,6 +24,7 @@ angular.module('main')
 				success(function(data) {
 					authenticationService.isLogged = true;
 					$window.sessionStorage.token = data.token;
+					$rootScope.currentUser = username;
 
 					$mdDialog.hide();
 
@@ -41,6 +42,9 @@ angular.module('main')
 			if (authenticationService.isLogged) {
 				authenticationService.isLogged = false;
 				delete $window.sessionStorage.token;
+
+				$rootScope.currentUser = '';
+
 				$location.path("/");
 
 				console.log('Loggin out');
