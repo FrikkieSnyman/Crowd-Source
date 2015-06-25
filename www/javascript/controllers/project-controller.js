@@ -40,10 +40,12 @@ angular.module('main')
 					.hideDelay(3000)
 			);
 			});
-		}
+		};
+
 		$scope.addRootNode = function() {
-			$scope.project.children.push({id: 'node', title:"Root Node" ,nodes: [],collapsed : false, estimations : []});
-		}
+			$scope.project.children.push({id: 'node', title:"Root Node", nodes: [], collapsed : false, estimations : []});
+		};
+
 		$scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
 			// Appending dialog to document.body to cover sidenav in docs app
 			if (!$scope.confirm) {
@@ -70,7 +72,7 @@ angular.module('main')
 		});
 		$scope.saveProjectDialog = function() {
 
-		}
+		};
 
 		$scope.moveLastToTheBeginning = function() {
 			var a = $scope.data.pop();
@@ -99,10 +101,12 @@ angular.module('main')
 
 		$scope.getToastPosition = function() {
 			return Object.keys($scope.toastPosition)
-		.filter(function(pos) { return $scope.toastPosition[pos]; })
-		.join(' ');
+			.filter(function(pos) { return $scope.toastPosition[pos]; })
+			.join(' ');
 		};
+
 		$scope.toastPosition = {
+<<<<<<< HEAD
 		bottom: true,
 		top: false,
 		left: false,
@@ -137,6 +141,27 @@ angular.module('main')
 			} else {
 				node.estimations[count] = qty;
 			}
+=======
+			bottom: true,
+			top: false,
+			left: false,
+			right: true
+		};
+
+		$scope.estimate = function(node) {
+			// $http({method:'POST', url:'/estimate', data: $scope.project}).success(function() {
+
+			// });
+
+			var currnode = $scope.project.children[0];
+			// console.log(currnode);
+			var tmp;
+			$scope.searchTree([currnode], node.$$hashKey, function(res) {
+				tmp = res;
+			});
+
+			console.log(tmp);
+>>>>>>> Finds correct node in tree
 		};
 
 		$scope.searchTree = function(node, id, callback) {
@@ -153,6 +178,16 @@ angular.module('main')
 					$scope.searchTree(node[i].nodes, id, callback);
 				}
 			}
+<<<<<<< HEAD
 		};
 
+=======
+
+			// callback(result);
+		};
+
+		$scope.getEstimateForUser = function() {
+			return 1;
+		};
+>>>>>>> Finds correct node in tree
 	}]);
