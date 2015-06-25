@@ -21,12 +21,12 @@ angular.module('main')
 			$timeout(function() {
 				$http({method:'POST', url:'/deleteProject', data: project}).success(function() {
 					$scope.updateProjects();
-				})
+				});
 			});
 				//debugger;
 		}, function() {
 		});
-	}
+	};
 	$scope.updateProjects = function() {
 		$http({method:'GET', url:'/projects'}).success(function(data) {
 			$scope.projects = data;
