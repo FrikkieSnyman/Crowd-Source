@@ -35,16 +35,3 @@ exports = module.exports = function(app, mongoose) {
 	app.post('/addChild', project.addChild);
 	app.post('/deleteProject', project.deleteProject);
 };
-
-function ensureAuthorized(req, res, next) {
-	var bearerToken;
-	var bearerHeader = req.headers["authorization"];
-	if (typeof bearerHeader !== 'undefined') {
-		var bearer = bearerHeader.split(" ");
-		bearerToken = bearer[1];
-		req.token = bearerToken;
-		next();
-	} else {
-		res.send(403);
-	}
-}
