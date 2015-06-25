@@ -17,6 +17,12 @@
 		<script type="text/ng-template" id="nodes_renderer.html">
 		  <div ui-tree-handle class="tree-node tree-node-content" layout = "row">
 		    <md-button class="md-icon-button" aria-label="Use Android" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="node.collapsed = !node.collapsed" >
+				<md-tooltip ng-show="!node.collapsed">
+		          Close
+		        </md-tooltip>
+		        <md-tooltip ng-show="node.collapsed" >
+		          Expand
+		        </md-tooltip>
           		<md-icon md-svg-src="../../../img/icons/down_arrow.svg" ng-show="node.collapsed" data-nodrag></md-icon>
           		<md-icon md-svg-src="../../../img/icons/right_arrow.svg" ng-show="!node.collapsed" data-nodrag></md-icon>
         	</md-button>
@@ -29,9 +35,15 @@
 			  <input ng-model="node.qty">
 			</md-input-container>
 		    <md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="remove(this)" >
+		    	<md-tooltip>
+		          Remove
+		        </md-tooltip>
           		<md-icon md-svg-src="../../../img/icons/close.svg"></md-icon>
         	</md-button>
 		    <md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="newSubItem(this)" >
+		    	<md-tooltip>
+		          Add
+		        </md-tooltip>
           		<md-icon  md-svg-src="../../../img/icons/add.svg"></md-icon>
         	</md-button>
 		  </div>
@@ -52,7 +64,7 @@
 		<!-- Nested node template -->
 		<md-content label="row">
 	  	<md-button class = "md-primary md-raised" ng-click = "saveProject()">
-	  		Save Tree
+	  		Save Project
 	  	</md-button>
 	  	<md-button class = "md-primary md-raised" ng-click = "addRootNode()" ng-show = "rootIsEmpty()">
 	  		Add root node

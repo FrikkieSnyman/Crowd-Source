@@ -1,6 +1,6 @@
 angular.module('main')
-.controller('porjectCtrl', ['$scope', '$http', '$routeParams', '$mdDialog',
-	function($scope, $http, $routeParams, $mdDialog) {
+.controller('porjectCtrl', ['$scope', '$http', '$routeParams', '$mdDialog', '$mdToast',
+	function($scope, $http, $routeParams, $mdDialog, $mdToast) {
 		$scope.confirm = false;
 		var project = {'heading': $routeParams.id};
 		$http({method:'POST', url:'/project', data: project}).success(function(data) {
@@ -21,11 +21,16 @@ angular.module('main')
 		});
 		$scope.saveProject = function() {
 			$http({method:'POST', url:'/addChild', data: $scope.project}).success(function() {
-
+				$mdToast.show(
+					$mdToast.simple()
+					.content('Project saved')
+					.position($scope.getToastPosition())
+					.hideDelay(3000)
+			);
 			});
 		}
 		$scope.addRootNode = function() {
-			$scope.project.children.push({id: 'node', title:"Root Node" ,nodes: [],collapsed : false});
+			$scope.project.children.push({id: 'node', title:"Root Node" , nodes: [], collapsed : false});
 		}
 		$scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
 			// Appending dialog to document.body to cover sidenav in docs app
@@ -86,4 +91,15 @@ angular.module('main')
 		$scope.expandAll = function() {
 			$scope.$broadcast('expandAll');
 		};
+		$scope.getToastPosition = function() {
+			return Object.keys($scope.toastPosition)
+		.filter(function(pos) { return $scope.toastPosition[pos]; })
+		.join(' ');
+		};
+		$scope.toastPosition = {
+		bottom: true,
+		top: false,
+		left: false,
+		right: true
+	};
 	}]);
