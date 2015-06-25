@@ -7,10 +7,16 @@
         md-gutter="2px" md-gutter-gt-sm="2px" >
     <md-grid-tile ng-repeat="project in projects" class="gray" md-rowspan="1" md-colspan="1" md-colspan-sm="1">
 		<md-card flex>
-			<md-toolbar>
+			<md-toolbar layout = "row">
 			    <div class="md-toolbar-tools">
 			      <h2>{{project.name}}</h2>
 			    </div>
+			    <md-button aria-label="Delete" class="md-icon-button">
+					<md-tooltip>
+						Delete
+					</md-tooltip>
+  					<md-icon md-svg-src="img/icons/close.svg" ng-click="deleteProject(project)"></md-icon>
+				</md-button>
 			  </md-toolbar>
 			<br/>
 			<md-card-content class="md-padding"> 
