@@ -2,7 +2,7 @@ angular.module('main')
 .controller('createProjectCtrl', ['$scope', '$http', function($scope, $http) {
 
 	$scope.$watch('testInput', function() {
-		console.log($scope.testInput);
+		// console.log($scope.testInput);
 	});
 	$scope.createProject = function() {
 		var project = {'heading': $scope.projectName, 'description': $scope.description};
