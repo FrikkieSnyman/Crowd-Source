@@ -1,19 +1,26 @@
 
-<div ng-controller="createProjectCtrl" layout="column">
-  <md-whiteframe class="md-whiteframe-z1">
+<div ng-controller="createProjectCtrl" layout="column" flex>
+  <md-card>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Create Project</h2>
+    </div>
+  </md-toolbar>
   <br/>
   <md-content layout-padding class="autoScroll">
+  <form name="myForm">
     <md-input-container d-no-float>
       <!-- Use floating label instead of placeholder -->
       <label>Project name</label>
-      <input ng-model="projectName" type="text" >
+      <input ng-model="projectName" type="text" required>
     </md-input-container>
     <md-input-container d-no-float>
       <!-- Use floating label instead of placeholder -->
       <label>Project description</label>
-      <input ng-model="description" type="text" >
+      <input ng-model="description" type="text" required>
     </md-input-container>
-    <md-button class="md-raised md-primary"  ng-click="createProject()">Create Project</md-button>
+    </form>
+    <md-button class="md-raised md-primary"  ng-click="createProject()" ng-disabled="myForm.$invalid">Create Project</md-button>
   </md-content>
-  </md-whiteframe>
+  </md-card>
 </div>
