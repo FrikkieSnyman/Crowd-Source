@@ -9,7 +9,7 @@ angular.module('main')
 		$location.path('/createProject');
 	};
 
-	$scope.deleteProject = function(project, ev) {
+	$scope.deleteProject = function(project) {
 		var confirm = $mdDialog.confirm()
 		.parent(angular.element(document.body))
 		.title('Are you sure you wish to delete project ' + project.name + '?')
@@ -17,12 +17,15 @@ angular.module('main')
 		.ariaLabel('Delete the project')
 		.ok('Yes')
 		.cancel('No');
-		$mdDialog.show(confirm).then($timeout(function() {
+		$mdDialog.show(confirm).then(function() {
+			$timeout(function() {
 				$http({method:'POST', url:'/deleteProject', data: project}).success(function() {
 					$scope.updateProjects();
-				});
+				})
+			});
 				//debugger;
-			}, function() {}))
+		}, function() {
+		});
 	}
 	$scope.updateProjects = function() {
 		$http({method:'GET', url:'/projects'}).success(function(data) {
