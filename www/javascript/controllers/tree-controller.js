@@ -27,6 +27,7 @@ controller('TreeController', ['$scope', '$http', '$mdDialog', function($scope, $
 			}
 		}
 	};
+<<<<<<< HEAD
 	$scope.showConfirm = function(ev, data) {
 		// Appending dialog to document.body to cover sidenav in docs app
 		var confirm = $mdDialog.confirm()
@@ -42,5 +43,9 @@ controller('TreeController', ['$scope', '$http', '$mdDialog', function($scope, $
 		}, function() {
 			
 		});
+=======
+	$scope.save = function() {
+		$http({method:'POST', url:'/addChild', data: $scope.project});
+>>>>>>> master
 	};
 }]);

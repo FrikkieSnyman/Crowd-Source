@@ -1,0 +1,29 @@
+.coloredBackground {
+	background-color: #3F51B5 !important;
+}
+
+.sideNavItem {
+	background: #3F51B5 !important;
+	color : white;
+	text-align: left;
+	margin: 0 auto;
+	padding: 8px;
+}
+
+.sideNavItem:hover {
+	background-color: #3F51B5 !important;
+	color : white;
+}
+
+.mainToolbar {
+	background: #f6f6f6;
+	color: #202020;
+}
+
+.lightIcon {
+	color: white !important;
+}
+
+.darkIcon {
+	color: #202020 !important;
+}
