@@ -17,8 +17,8 @@
 		<script type="text/ng-template" id="nodes_renderer.html">
 		  <div ui-tree-handle class="tree-node tree-node-content" layout = "row">
 		    <md-button class="md-icon-button" aria-label="Use Android" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="node.collapsed = !node.collapsed" >
-          		<md-icon md-svg-src="../../../img/icons/down_arrow.svg" ng-show="node.collapsed" data-nodrag></md-icon>
-          		<md-icon md-svg-src="../../../img/icons/right_arrow.svg" ng-show="!node.collapsed" data-nodrag></md-icon>
+          		<md-icon md-svg-src="../../../img/icons/right_arrow.svg" ng-show="node.collapsed" data-nodrag></md-icon>
+          		<md-icon md-svg-src="../../../img/icons/down_arrow.svg" ng-show="!node.collapsed" data-nodrag></md-icon>
         	</md-button>
 		    <md-input-container class = "treeInput" flex>
 			  <label>Title</label>
