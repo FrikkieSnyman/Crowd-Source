@@ -40,6 +40,7 @@ angular.module('main')
 					.hideDelay(3000)
 			);
 			});
+
 		};
 
 		$scope.addRootNode = function() {
@@ -112,6 +113,8 @@ angular.module('main')
 			right: true
 		};
 
+		$scope.est = 0;
+
 		$scope.estimate = function(node) {
 			var currnode = $scope.project.children[0];
 			var n;
@@ -159,4 +162,13 @@ angular.module('main')
 		$scope.getEstimateForUser = function() {
 			return 1;
 		};
+
+		$scope.$watch('test', function(value) {
+			if (value) {
+				$scope.lol = 1;
+			} else {
+				$scope.lol = 2;
+			}
+		});
+
 	}]);
