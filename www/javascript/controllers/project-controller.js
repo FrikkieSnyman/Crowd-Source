@@ -118,7 +118,6 @@ angular.module('main')
 			$scope.searchTree([currnode], node.$$hashKey, function(res) {
 				n = res;
 			});
-			// Push user to user array, if not there already, and place estimation at same index
 			$scope.estimateForUser(n, node.qty);
 		};
 
