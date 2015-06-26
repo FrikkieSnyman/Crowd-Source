@@ -4,9 +4,7 @@ exports = module.exports = function(app, mongoose) {
 		name : String,
 		description : String,
 		children : [],
-		deleted : Boolean,
-		users : [],
-		estimations : []
+		deleted : Boolean
 	});
 	app.projectSchema = projectSchema;
 };
