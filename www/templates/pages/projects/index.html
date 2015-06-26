@@ -4,9 +4,9 @@
   <md-grid-list
         md-cols-sm="1" md-cols-md="3" md-cols-gt-md="4"
         md-row-height-gt-md="1:1" md-row-height="1:1"
-        md-gutter="2px" md-gutter-gt-sm="2px" >
+        md-gutter="10px" md-gutter-gt-sm="10px" >
     <md-grid-tile ng-repeat="project in projects" class="gray" md-rowspan="1" md-colspan="1" md-colspan-sm="1">
-		<md-card flex>
+		<md-card flex class = "cardHeight">
 			<md-toolbar layout = "row">
 			    <div class="md-toolbar-tools">
 			      <h3>{{project.name}}</h3>
@@ -20,8 +20,7 @@
 			  </md-toolbar>
 			<br/>
 			<md-card-content class="md-padding"> 
-				<p>{{project.description}}</p>
-			</md-card-content>
+			<p>{{project.description}}</p>
 			<md-fab-toolbar md-open="false" count="0" class="md-fab-toolbar md-right">
 				<div class="md-fab-toolbar-wrapper">
 					<div class="md-fab-toolbar-content">
@@ -52,6 +51,7 @@
 		    		</div>
 				</div>
 				</md-fab-toolbar>
+				</md-card-content>
 		</md-card>
     </md-grid-tile>
   </md-grid-list>
