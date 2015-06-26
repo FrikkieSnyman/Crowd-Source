@@ -19,6 +19,17 @@ angular.module('main')
 		$http({method:'POST', url:'/project', data: project}).success(function(data) {
 			$scope.project = data[0];
 			$scope.tree = $scope.project.children;
+			$scope.userIndex = -1;
+			for (var u in $scope.project.users) {
+				if ($scope.project.users[u] === $rootScope.currentUser) {
+					$scope.userIndex = u;
+				}
+			}
+
+			if ($scope.userIndex === -1) {
+				$scope.project.users.push($rootScope.currentUser);
+				$scope.userIndex = $scope.project.users.length - 1;
+			}
 
 			$scope.rootIsEmpty = function() {
 				//debugger;
@@ -87,7 +98,6 @@ angular.module('main')
 				title: nodeData.title + '.' + (nodeData.nodes.length + 1),
 				nodes: [],
 				collapsed : false,
-				users : [],
 				estimations : []
 			});
 		};
@@ -112,8 +122,6 @@ angular.module('main')
 			left: false,
 			right: true
 		};
-
-		$scope.est = 0;
 
 		$scope.estimate = function(node) {
 			var currnode = $scope.project.children[0];
@@ -163,12 +171,8 @@ angular.module('main')
 			return 1;
 		};
 
-		$scope.$watch('test', function(value) {
-			if (value) {
-				$scope.lol = 1;
-			} else {
-				$scope.lol = 2;
-			}
-		});
+		$scope.test = function(user, node) {
+			return node.qty;
+		};
 
 	}]);
