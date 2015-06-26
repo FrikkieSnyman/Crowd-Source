@@ -24,4 +24,9 @@
 .cardHeight {
   height :100% !important;
   margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.cardHeader {
+  border-radius: 5px 5px 0 0 !important;
 }
