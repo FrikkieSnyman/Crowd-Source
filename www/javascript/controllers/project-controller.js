@@ -82,6 +82,7 @@ angular.module('main')
 			}
 		
 		});
+		
 		$scope.saveProjectDialog = function() {
 
 		};
@@ -165,14 +166,6 @@ angular.module('main')
 					$scope.searchTree(node[i].nodes, id, callback);
 				}
 			}
-		};
-
-		$scope.getEstimateForUser = function() {
-			return 1;
-		};
-
-		$scope.test = function(user, node) {
-			return node.qty;
 		};
 
 	}]);
