@@ -55,9 +55,14 @@ angular.module('main')
 		};
 
 		$scope.addRootNode = function() {
+<<<<<<< HEAD
 			$scope.project.children.push({id: 'node', title:"Root Node", nodes: [], collapsed : false, estimations : []});
 		};
 
+=======
+			$scope.project.children.push({id: 'node', title:"Root Node" , nodes: [], collapsed : false, estimations : []});
+		};
+>>>>>>> 2694213a510a23e3ed6b8aac5d8fb9bc8a2f48e9
 		$scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
 			// Appending dialog to document.body to cover sidenav in docs app
 			if (!$scope.confirm) {
@@ -167,5 +172,4 @@ angular.module('main')
 				}
 			}
 		};
-
 	}]);
