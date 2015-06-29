@@ -34,4 +34,7 @@ exports = module.exports = function(app, mongoose) {
 	app.post('/project', project.getProject);
 	app.post('/addChild', project.addChild);
 	app.post('/deleteProject', project.deleteProject);
+
+	var estimation = require('./lib/estimation/estimation.js')(app,mongoose);
+	app.post('/estimate', estimation.estimate);
 };
