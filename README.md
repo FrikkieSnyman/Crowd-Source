@@ -19,7 +19,7 @@ npm install
 ```
 Now change to the www directory and run npm install there too. This is done to keep the client side and server side completely seperate. This should be replaced by a grunt script in the future.
 ```
-cs ./www
+cd ./www
 npm install
 ```
 To run the server use.
