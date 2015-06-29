@@ -28,3 +28,7 @@
 .darkIcon {
 	color: #202020 !important;
 }
+
+.imageMain {
+	border-radius: 5px;
+}
