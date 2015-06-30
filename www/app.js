@@ -43,8 +43,7 @@ angular
 		$location.path(newPath);
 	};
 	$scope.onProjects = function() {
-		var path = $location.path();
-		return path == '/projects';
+		return $location.path() === '/projects';
 	}
 	// $scope.toggleRight = buildToggler('right');
 
