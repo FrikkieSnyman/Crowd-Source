@@ -22,7 +22,7 @@ Now change to the www directory and run npm install there too. This is done to k
 cd ./www
 npm install
 ```
-To run the server use.
+Change back to the root directory. Ensure that an instance of monogDB is running, then to run the server use
 ```
 npm start
 ```
