@@ -5,6 +5,7 @@ angular.module('main')
 	$scope.$watch('testInput', function() {
 		// console.log($scope.testInput);
 	});
+	$scope.people = ['frik','andre'];
 	$scope.createProject = function() {
 		var project = {'heading': $scope.projectName, 'description': $scope.description, 'owner' : $rootScope.currentUser};
 		$http({method:'POST', url:'/createProject', data: project}).success(function(res) {
