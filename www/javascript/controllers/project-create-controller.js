@@ -1,11 +1,12 @@
 angular.module('main')
-.controller('createProjectCtrl', ['$scope', '$http', '$mdToast', function($scope, $http, $mdToast) {
+.controller('createProjectCtrl', ['$rootScope', '$scope', '$http', '$mdToast',
+	function($rootScope, $scope, $http, $mdToast) {
 
 	$scope.$watch('testInput', function() {
 		// console.log($scope.testInput);
 	});
 	$scope.createProject = function() {
-		var project = {'heading': $scope.projectName, 'description': $scope.description};
+		var project = {'heading': $scope.projectName, 'description': $scope.description, 'owner' : $rootScope.currentUser};
 		$http({method:'POST', url:'/createProject', data: project}).success(function() {
 			$mdToast.show(
 			$mdToast.simple()
