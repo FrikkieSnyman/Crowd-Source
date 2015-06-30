@@ -26,11 +26,7 @@ Change back to the root directory. Ensure that an instance of monogDB is running
 ```
 npm start
 ```
-##NodeUnit
-To install nodeunit globally
-```
-npm install nodeunit -g
-```
+
 ##How to setup the database
 You need to have mongodb installed on your pc.
 Please follow the link for futher instructions.
@@ -49,6 +45,11 @@ use myDB
 ```
 Congratualtions you have created your database. The only thing left now is to add your database credentails to the config.js file.
 
+##NodeUnit
+To install nodeunit globally
+```
+npm install nodeunit -g
+```
 ##JSCS
 JSCS is used to validate code style, this allows all of the code to have a similar style thus making it easier to understand.
 
