@@ -24,7 +24,7 @@ var serverCreated = function() {
 	var host = server.address().address;
 	var port = server.address().port;
 
-	console.log('Example app listening at http://%s:%s', host, port);
+	console.log('Listening at http:localhost//%s:%s', host, port);
 };
 
 var server = app.listen(config.port, serverCreated);
@@ -37,7 +37,7 @@ app.db = mongoose.connection;
 app.db.on('error', console.error.bind(console, 'mongoose connection error: '));
 app.db.once('open', function() {
 	//and... we have a data store
-	console.log('We have a database connection!');
+	console.log('Connected to database');
 });
 /*
 Add database schmes
@@ -69,23 +69,3 @@ setup routes
 -We express app to the routes so that we can use express there.
  */
 require('./routes')(app, mongoose);
-
-
-
-/*
-Callback example
- */
-var count = function(number, callback) {
-	number = number + 1;
-	callback(number);
-};
-
-var done = function() {
-	console.log(tmp);
-};
-
-var tmp = 0;
-count(tmp, function(result) {
-	tmp = result;
-	done();
-});
