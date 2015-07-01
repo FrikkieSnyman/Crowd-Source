@@ -58,7 +58,13 @@ angular.module('main')
 		};
 
 		$scope.addRootNode = function() {
-			$scope.project.children.push({id: 'node', title:"Root Node", nodes: [], collapsed : false, estimations : []});
+			// initialise estimations array
+			var estimationsArr = [];
+			for (i in $scope.project.users) {
+				console.log(i);
+				estimationsArr.push(null);
+			}
+			$scope.project.children.push({id: 'node', title:"Root Node", nodes: [], collapsed : false, estimations : estimationsArr});
 		};
 		$scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
 			// Appending dialog to document.body to cover sidenav in docs app
@@ -95,13 +101,20 @@ angular.module('main')
 		};
 
 		$scope.newSubItem = function(scope) {
+			// console.log(scope.project.users);
 			var nodeData = scope.$modelValue;
+			// console.log(nodeData);
+			var estimationsArr = [];
+			for (i in scope.project.users) {
+				// console.log(i);
+				estimationsArr.push(null);
+			}
 			nodeData.nodes.push({
 				id: nodeData.id * 10 + nodeData.nodes.length,
 				title: nodeData.title + '.' + (nodeData.nodes.length + 1),
 				nodes: [],
 				collapsed : false,
-				estimations : []
+				estimations : estimationsArr
 			});
 		};
 
@@ -168,6 +181,39 @@ angular.module('main')
 					$scope.searchTree(node[i].nodes, id, callback);
 				}
 			}
+		};
+
+		$scope.updateLocalTree = function(node) {
+			// currnode.estimations[userIndex] = 1000;
+			// var user = $rootScope.currentUser;
+			// var userPosition = 0;
+			// var found = false;
+			// for (i in node.users) {
+			// 	if (node.users[i] === user) {
+			// 		found = true;
+			// 		count = i;
+			// 		break;
+			// 	}
+			// }
+
+			var user = $rootScope.currentUser;
+			var count = 0;
+			var found = false;
+			for (var u in node.users) {
+				if (node.users[u] === user) {
+					found = true;
+					count = u;
+					break;
+				}
+			}
+
+			var currnode = $scope.project.children[0];
+			currnode.estimations[count] = 1000;
+
+			console.log('Current User: ' + $rootScope.currentUser);
+			console.log('Calc user ind: ' + count);
+			console.log('User index: ' + $scope.userIndex);
+			console.log(currnode.nodes);
 		};
 
 		$scope.currentNode = undefined;
