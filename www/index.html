@@ -43,7 +43,7 @@
 					<span>{{getPath()}}</span>
 				</h2>
 				<span flex=""></span>
-				<md-button class="md-fab" style="positon: absolute; left: -25pt; top: 23pt" aria-label="Go to project page" ng-click="goTo('/createProject')">
+				<md-button ng-show="onProjects()" class="md-fab" style="positon: absolute; left: -25pt; top: 23pt; z-index: 100 !important;" aria-label="Go to project page" ng-click="goTo('/createProject')">
 					<md-icon md-svg-src="img/icons/add.svg"></md-icon>
 				</md-button>
 			</div>

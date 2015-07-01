@@ -42,6 +42,9 @@ angular
 	$scope.goTo = function(newPath) {
 		$location.path(newPath);
 	};
+	$scope.onProjects = function() {
+		return $location.path() === '/projects';
+	}
 	// $scope.toggleRight = buildToggler('right');
 
 	/**

@@ -1,19 +1,29 @@
 angular.module('main')
-.controller('createProjectCtrl', ['$scope', '$http', '$mdToast', function($scope, $http, $mdToast) {
+.controller('createProjectCtrl', ['$rootScope', '$scope', '$http', '$mdToast',
+	function($rootScope, $scope, $http, $mdToast) {
 
 	$scope.$watch('testInput', function() {
 		// console.log($scope.testInput);
 	});
 	$scope.createProject = function() {
-		var project = {'heading': $scope.projectName, 'description': $scope.description};
-		$http({method:'POST', url:'/createProject', data: project}).success(function() {
-			$mdToast.show(
-			$mdToast.simple()
-			.content('Project created')
-			.position($scope.getToastPosition())
-			.hideDelay(3000)
-			);
-			$scope.goTo('/project/' + $scope.projectName);
+		var project = {'heading': $scope.projectName, 'description': $scope.description, 'owner' : $rootScope.currentUser};
+		$http({method:'POST', url:'/createProject', data: project}).success(function(res) {
+			if (res === false) {
+				$mdToast.show(
+				$mdToast.simple()
+				.content('Need to be logged in to create a project')
+				.position($scope.getToastPosition())
+				.hideDelay(3000)
+				);
+			} else {
+				$mdToast.show(
+				$mdToast.simple()
+				.content('Project created')
+				.position($scope.getToastPosition())
+				.hideDelay(3000)
+				);
+				$scope.goTo('/project/' + $scope.projectName);
+			}
 		});
 	};
 	$scope.getToastPosition = function() {
