@@ -183,7 +183,7 @@ angular.module('main')
 			}
 		};
 
-		$scope.updateLocalTree = function(node) {
+		$scope.updateLocalTree = function(scope) {
 			// currnode.estimations[userIndex] = 1000;
 			// var user = $rootScope.currentUser;
 			// var userPosition = 0;
@@ -199,8 +199,11 @@ angular.module('main')
 			var user = $rootScope.currentUser;
 			var count = 0;
 			var found = false;
-			for (var u in node.users) {
-				if (node.users[u] === user) {
+
+			console.log(scope.project.users);
+
+			for (var u in scope.project.users) {
+				if (scope.project.users[u] === user) {
 					found = true;
 					count = u;
 					break;
@@ -208,12 +211,40 @@ angular.module('main')
 			}
 
 			var currnode = $scope.project.children[0];
-			currnode.estimations[count] = 1000;
+			// currnode.estimations[count] = 1000 * $scope.userIndex;
+
+
+			var result;
+			$scope.getEstimation(currnode, count, function(res) {
+				result = res;
+				console.log('Root node estimation: ' + result);
+			});
 
 			console.log('Current User: ' + $rootScope.currentUser);
 			console.log('Calc user ind: ' + count);
 			console.log('User index: ' + $scope.userIndex);
 			console.log(currnode.nodes);
+		};
+
+		$scope.getEstimation = function(node, userNum, callback) {
+			if (node.nodes.length <= 0) {
+				callback(node.estimations[userNum]);
+			}
+			else {
+				node.estimations[userNum] = null;
+				for (var i in node.nodes) {
+					debugger;
+					$scope.getEstimation(node.nodes[i], userNum, function(result) {
+						if (node.estimations[userNum] === null || node.nodes.length <= 1) {
+							node.estimations[userNum] = parseInt(result);
+						}
+						else /*if (result !== null)*/ {
+							node.estimations[userNum] += parseInt(result);
+						}
+						callback(node.estimations[userNum]);
+					});
+				}
+			}
 		};
 
 		$scope.currentNode = undefined;
