@@ -37,7 +37,7 @@ angular
 		templateUrl: 'templates/pages/estimation/index.html'
 	})
 })
-.controller('mainCtrl', function($scope, $timeout, $mdSidenav, $mdDialog, $mdUtil, $log, $location, $http) {
+.controller('mainCtrl', function($rootScope, $scope, $timeout, $mdSidenav, $mdDialog, $mdUtil, $log, $location, $http) {
 	$scope.toggleLeft = buildToggler('left');
 	$scope.goTo = function(newPath) {
 		$location.path(newPath);
@@ -50,7 +50,9 @@ angular
 
 		// });
 		$http.get('/getUsers').success(function(res){
-			console.log(res);
+			// $http({method:'POST', url:'/createProject', data: res});
+			$rootScope.users = res;
+			$location.path('/createProject');
 		});
 
 	};
