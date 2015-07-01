@@ -1,7 +1,7 @@
 angular.module('main')
 .controller('createProjectCtrl', ['$rootScope', '$scope', '$http', '$mdToast',
 	function($rootScope, $scope, $http, $mdToast) {
-
+console.log($rootScope);
 	$scope.$watch('testInput', function() {
 		// console.log($scope.testInput);
 	});
