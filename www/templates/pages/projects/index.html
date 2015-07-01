@@ -2,58 +2,37 @@
 <md-content flex ='100'>
 <div ng-controller="projectsCtrl">
   <md-grid-list
-        md-cols-sm="1" md-cols-md="3" md-cols-gt-md="4"
-        md-row-height-gt-md="1:1" md-row-height="1:1"
-        md-gutter="10px" md-gutter-gt-sm="10px" >
-    <md-grid-tile ng-repeat="project in projects" class="gray" md-rowspan="1" md-colspan="1" md-colspan-sm="1" style="z-index : 1">
+		md-cols-sm="1" md-cols-md="3" md-cols-gt-md="4"
+		md-row-height-gt-md="1:1" md-row-height="1:1"
+		md-gutter="12px" md-gutter-gt-sm="8px" >
+	<md-grid-tile ng-repeat="project in projects" class="gray" md-rowspan="1" md-colspan="1" md-colspan-sm="1" style="z-index : 1;">
 		<md-card flex class = "cardHeight">
 			<md-toolbar layout = "row" class = "cardHeader">
-			    <div class="md-toolbar-tools">
-			      <h3>{{project.name}}</h3>
-			    </div>
-			    <md-button aria-label="Delete" class="md-icon-button">
+				<div class="md-toolbar-tools">
+				  <h3>{{project.name}}</h3>
+				</div>
+				<md-button aria-label="photo" class="md-icon-button">
+					<md-icon md-svg-src="img/icons/home.svg"></md-icon>
+				</md-button>
+				<md-button aria-label="View/Edit" class="md-icon-button" ng-click="goTo('/project/' + project.name)">
+					<md-tooltip>
+						View/Edit
+					</md-tooltip>
+					<md-icon md-svg-src="img/icons/edit.svg"></md-icon>
+				</md-button>
+				<md-button aria-label="Delete" class="md-icon-button">
 					<md-tooltip>
 						Delete
 					</md-tooltip>
-  					<md-icon md-svg-src="img/icons/close.svg" ng-click="deleteProject(project)"></md-icon>
+					<md-icon md-svg-src="img/icons/close.svg" ng-click="deleteProject(project)"></md-icon>
 				</md-button>
 			  </md-toolbar>
 			<br/>
-			<md-card-content class="md-padding" class = "cardHeight"> 
-			<p>{{project.description}}</p>
-			<md-fab-toolbar md-open="false" count="0" class="md-fab-toolbar md-right">
-				<div class="md-fab-toolbar-wrapper">
-					<div class="md-fab-toolbar-content">
-		    			<md-fab-trigger class="align-with-text ng-scope">
-		      				<md-button aria-label="Project Menu" class="md-fab md-primary">
-		        				<md-icon md-svg-src="img/icons/menu.svg"></md-icon>
-		      				</md-button>
-		    			</md-fab-trigger>
-		    			<md-toolbar class="ng-scope md-default-theme">
-		      				<md-fab-actions class="md-toolbar-tools">
-		        				<md-button aria-label="Delete" class="md-icon-button">
-		        					<md-tooltip>
-		        						Delete
-		        					</md-tooltip>
-		          					<md-icon md-svg-src="img/icons/close.svg" ng-click="deleteProject(project)"></md-icon>
-		        				</md-button>
-		        				<md-button aria-label="View/Edit" class="md-icon-button" ng-click="goTo('/project/' + project.name)">
-		        					<md-tooltip>
-		        						View/Edit
-		        					</md-tooltip>
-		          					<md-icon md-svg-src="img/icons/edit.svg"></md-icon>
-		        				</md-button>
-		        				<md-button aria-label="photo" class="md-icon-button">
-		          					<md-icon md-svg-src="img/icons/home.svg"></md-icon>
-		        				</md-button>
-		      				</md-fab-actions>
-		    			</md-toolbar>
-		    		</div>
-				</div>
-				</md-fab-toolbar>
-				</md-card-content>
+			<md-card-content class="md-padding" class = "cardHeight" style="overflow:auto;"> 
+				<p>{{project.description}}</p>
+			</md-card-content>
 		</md-card>
-    </md-grid-tile>
+	</md-grid-tile>
   </md-grid-list>
 </div>
 </md-content>
