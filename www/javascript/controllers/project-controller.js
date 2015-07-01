@@ -25,12 +25,16 @@ angular.module('main')
 					$scope.userIndex = u;
 				}
 			}
-
+// UserIndex is -1 if user trying to estimate is not in users array
 			if ($scope.userIndex === -1) {
-				$scope.project.users.push($rootScope.currentUser);
-				$scope.userIndex = $scope.project.users.length - 1;
+				var toast = $mdToast.simple()
+				.content('Not authorised to estimate')
+				.action('')
+				.highlightAction(false)
+				.position($scope.getToastPosition());
+				$mdToast.show(toast).then(function() {
+				});
 			}
-
 			$scope.rootIsEmpty = function() {
 				//debugger;
 				if (typeof $scope.project.children !== undefined) {
