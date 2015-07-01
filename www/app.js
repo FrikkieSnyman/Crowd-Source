@@ -37,14 +37,23 @@ angular
 		templateUrl: 'templates/pages/estimation/index.html'
 	})
 })
-.controller('mainCtrl', function($scope, $timeout, $mdSidenav, $mdDialog, $mdUtil, $log, $location) {
+.controller('mainCtrl', function($scope, $timeout, $mdSidenav, $mdDialog, $mdUtil, $log, $location, $http) {
 	$scope.toggleLeft = buildToggler('left');
 	$scope.goTo = function(newPath) {
 		$location.path(newPath);
 	};
 	$scope.onProjects = function() {
 		return $location.path() === '/projects';
-	}
+	};
+	$scope.createProject = function() {
+		// $http({method:'POST', url:'/getUsers', data: $scope}).succes(function() {
+
+		// });
+		$http.get('/getUsers').success(function(res){
+			console.log(res);
+		});
+
+	};
 	// $scope.toggleRight = buildToggler('right');
 
 	/**

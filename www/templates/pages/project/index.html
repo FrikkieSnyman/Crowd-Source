@@ -20,39 +20,21 @@
       <input ng-model="description" type="text" required>
     </md-input-container>
 
-    <div ng-controller="estimationCtrl as ctrl" layout="column">
-      <md-content class="md-padding autocomplete" layout="column">
-        <md-contact-chips
-            ng-model="ctrl.contacts"
-            md-contacts="ctrl.querySearch($query)"
-            md-contact-name="name"
-            md-contact-image="image"
-            md-contact-email="email"
-            md-require-match
-            filter-selected="ctrl.filterSelected"
-            placeholder="To">
-        </md-contact-chips>
-        <md-list class="fixedRows">
-          <md-subheader class="md-no-sticky">Contacts</md-subheader>
-          <md-list-item class="md-2-line contact-item" ng-repeat="(index, contact) in ctrl.allContacts"
-              ng-if="ctrl.contacts.indexOf(contact) < 0">
-            <img ng-src="{{contact.image}}" class="md-avatar" alt="{{contact.name}}" />
-            <div class="md-list-item-text compact">
-              <h3>{{contact.name}}</h3>
-              <p>{{contact.email}}</p>
-            </div>
-          </md-list-item>
-          <md-list-item class="md-2-line contact-item selected" ng-repeat="(index, contact) in ctrl.contacts">
-            <img ng-src="{{contact.image}}" class="md-avatar" alt="{{contact.name}}" />
-            <div class="md-list-item-text compact">
-              <h3>{{contact.name}}</h3>
-              <p>{{contact.email}}</p>
-            </div>
-          </md-list-item>
-        </md-list>
-      </md-content>
-    </div> 
-
+    
+    <div flex="50" flex-md="100" layout="column">
+      <fieldset class="standard" flex>
+        <legend>Using <code>&lt;input type="checkbox"&gt;</code></legend>
+        <div layout="row" layout-wrap>
+          <div ng-repeat="item in people" class="standard" flex="50">
+            <label>
+              <input type="checkbox" ng-checked="exists(item, selected)" ng-click="toggle(item, selected)"/>
+              {{ item }}
+            </label>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  
     </form>
     <md-button class="md-raised md-primary"  ng-click="createProject()" ng-disabled="myForm.$invalid">Create Project</md-button>
   </md-content>
