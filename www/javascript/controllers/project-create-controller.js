@@ -5,9 +5,8 @@ angular.module('main')
 	for (var i = $rootScope.users.length - 1; i >= 0; i--) {
 		$scope.people[i] = $rootScope.users[i].email;
 	};
-	// $scope.people = ['frik','andre'];
 	$scope.createProject = function() {
-		var project = {'heading': $scope.projectName, 'description': $scope.description, 'owner' : $rootScope.currentUser};
+		var project = {'heading': $scope.projectName, 'description': $scope.description, 'owner' : $rootScope.currentUser, 'users' : $scope.selected};
 		$http({method:'POST', url:'/createProject', data: project}).success(function(res) {
 			if (res === false) {
 				$mdToast.show(
