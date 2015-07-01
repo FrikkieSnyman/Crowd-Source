@@ -198,14 +198,10 @@ angular.module('main')
 	}]);
 
 function DialogController($scope, $mdDialog) {
-  $scope.hide = function() {
-    $mdDialog.hide();
-  };
-  $scope.cancel = function() {
-    $mdDialog.cancel();
-  };
-
-  $scope.printToConsole = function(input) {
-  	console.log(input);
-  };
+	$scope.hide = function() {
+		$mdDialog.hide();
+	};
+	$scope.cancel = function() {
+		$mdDialog.cancel();
+	};
 }
