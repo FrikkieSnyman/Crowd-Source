@@ -32,8 +32,7 @@ angular.module('main')
 				.action('')
 				.highlightAction(false)
 				.position($scope.getToastPosition());
-				$mdToast.show(toast).then(function() {
-				});
+				$mdToast.show(toast);
 			}
 			$scope.rootIsEmpty = function() {
 				//debugger;
