@@ -169,4 +169,43 @@ angular.module('main')
 				}
 			}
 		};
+
+		$scope.currentNode = undefined;
+
+		$scope.showDescriptionDialog = function(ev, node) {
+			$scope.currentNode = node;
+
+			$scope.setCurrentNode(node, function() {
+				var newScope = $scope.$new();
+
+				$mdDialog.show({
+					controller: DialogController,
+					templateUrl: '../../templates/dialogs/project_node_description.tmpl.html',
+					parent: angular.element(document.body),
+					targetEvent: ev,
+					scope: newScope
+				});
+			});
+		};
+		
+		$scope.setCurrentNode = function(node, callback) {
+			$scope.currentNode = node;
+
+			if (callback !== undefined) {
+				callback();
+			}
+		};
 	}]);
+
+function DialogController($scope, $mdDialog) {
+  $scope.hide = function() {
+    $mdDialog.hide();
+  };
+  $scope.cancel = function() {
+    $mdDialog.cancel();
+  };
+
+  $scope.printToConsole = function(input) {
+  	console.log(input);
+  };
+}

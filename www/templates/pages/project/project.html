@@ -3,6 +3,8 @@
 		<md-toolbar>
 		    <div class="md-toolbar-tools">
 		      <h2>{{project.name}}</h2>
+		      <span flex></span>
+		      <p>{{currentNode.title}}</p>
 		    </div>
 		  </md-toolbar>
 		<br/>
@@ -35,6 +37,12 @@
 			  <label>Qty</label>
 			  <input ng-model="node.estimations[userIndex]">
 			</md-input-container>
+			<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="showDescriptionDialog($event, node)">
+				<md-tooltip>
+					Edit Description
+				</md-tooltip>
+				<md-icon md-svg-src="../../../img/icons/info.svg"></md-icon>
+			</md-button>
 		    <md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="undoToolTip(this,removeNode,newSubItem)" >
 		    	<md-tooltip>
 		          Remove
