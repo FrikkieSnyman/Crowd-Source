@@ -26,6 +26,7 @@ exports = module.exports = function(app, mongoose) {
 	 */
 	var usermanagement = require('./lib/usermanagement/usermanagement.js')(app, mongoose);
 	app.post('/login', usermanagement.login);
+	app.get('/getUsers', usermanagement.getAllUsers);
 
 	var project = require('./lib/project/project.js')(app, mongoose);
 	app.get('/projects', project.getAllProjects);
