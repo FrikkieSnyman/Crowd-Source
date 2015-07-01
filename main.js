@@ -70,22 +70,3 @@ setup routes
  */
 require('./routes')(app, mongoose);
 
-
-
-/*
-Callback example
- */
-var count = function(number, callback) {
-	number = number + 1;
-	callback(number);
-};
-
-var done = function() {
-	console.log(tmp);
-};
-
-var tmp = 0;
-count(tmp, function(result) {
-	tmp = result;
-	done();
-});
