@@ -4,6 +4,10 @@
     overflow: hidden;
     height: 4.8rem !important; }
 
+    .md-button.md-icon-button {
+      height: 62px;
+    }
+
  .gridListdemoBasicUsage md-grid-list {
   margin: 8px; }
 .gridListdemoBasicUsage .gray {
