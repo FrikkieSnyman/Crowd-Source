@@ -6,7 +6,6 @@
 	<link rel="stylesheet" href="/css/estimation/estimation.css">
 	<link rel="stylesheet" href="./node_modules/angular-ui-tree/dist/angular-ui-tree.min.css">
 	<link rel="stylesheet" href="./css/project/tree.css">
-	<link rel="stylesheet" href="./css/project/contactChip.css">
 	<link rel="stylesheet" href="/css/main/main.css">
 </head>
 	<body ng-controller="mainCtrl" ng-app="main" layout="row">
@@ -44,7 +43,7 @@
 					<span>{{getPath()}}</span>
 				</h2>
 				<span flex=""></span>
-				<md-button ng-show="onProjects()" class="md-fab" style="positon: absolute; left: -25pt; top: 23pt; z-index: 100 !important;" aria-label="Go to project page" ng-click="goTo('/createProject')">
+				<md-button ng-show="onProjects()" class="md-fab" style="positon: absolute; left: -25pt; top: 23pt; z-index: 100 !important;" aria-label="Go to project page" ng-click="createProject()">
 					<md-icon md-svg-src="img/icons/add.svg"></md-icon>
 				</md-button>
 			</div>
