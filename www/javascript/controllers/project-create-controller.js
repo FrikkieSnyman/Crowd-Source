@@ -22,6 +22,9 @@ angular.module('main')
 				.position($scope.getToastPosition())
 				.hideDelay(3000)
 				);
+
+				$http({method:'POST', url:'/email', data: $scope.selected});
+
 				$scope.goTo('/project/' + $scope.projectName);
 			}
 		});
@@ -39,13 +42,16 @@ angular.module('main')
 	};
 
 	$scope.selected = [];
-	$scope.toggle = function (item, list) {
-        var idx = list.indexOf(item);
-        if (idx > -1) list.splice(idx, 1);
-        else list.push(item);
-    };
-    
-    $scope.exists = function (item, list) {
-        return list.indexOf(item) > -1;
-    };
+	$scope.toggle = function(item, list) {
+		var idx = list.indexOf(item);
+		if (idx > -1) {
+			list.splice(idx, 1);
+		} else {
+			list.push(item);
+		}
+	};
+
+	$scope.exists = function(item, list) {
+		return list.indexOf(item) > -1;
+	};
 }]);
