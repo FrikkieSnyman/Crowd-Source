@@ -25,9 +25,14 @@
       	<md-subheader class="md-primary">Project Members</md-subheader>
       	</md-content>
 		<md-list ng-hide="members">
-			<md-list-item ng-repeat="user in project.users" >
-				{{user}}
-			</md-list-item>
+				<md-list-item ng-repeat="user in project.users" >
+						<p>{{user}}</p>
+						<span flex>
+						</span>
+						<md-button class="md-icon-button" aria-label="More" ng-click="removeUser(user)">
+				        	<md-icon md-svg-icon="img/icons/close.svg"></md-icon>
+				      	</md-button>
+				</md-list-item>
 		</md-list>
 		<md-divider>
 		</md-divider>

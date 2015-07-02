@@ -25,7 +25,7 @@ angular.module('main')
 					$scope.userIndex = u;
 				}
 			}
-// UserIndex is -1 if user trying to estimate is not in users array
+			// UserIndex is -1 if user trying to estimate is not in users array
 			if ($scope.userIndex === -1) {
 				var toast = $mdToast.simple()
 				.content('Not authorised to estimate')
@@ -87,6 +87,14 @@ angular.module('main')
 		
 		$scope.saveProjectDialog = function() {
 
+		};
+
+		$scope.removeUser = function(user) {
+			for (i in $scope.project.users) {
+				if ($scope.project.users[i] === user) {
+					$scope.project.users.splice(i, 1);
+				}
+			}
 		};
 
 		$scope.moveLastToTheBeginning = function() {
