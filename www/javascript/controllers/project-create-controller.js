@@ -23,7 +23,8 @@ angular.module('main')
 				.hideDelay(3000)
 				);
 
-				$http({method:'POST', url:'/email', data: $scope.selected});
+				var invites = {'projectName': project.heading, 'users': $scope.selected};
+				$http({method:'POST', url:'/email', data: invites});
 
 				$scope.goTo('/project/' + $scope.projectName);
 			}
