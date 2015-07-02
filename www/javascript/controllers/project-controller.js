@@ -4,10 +4,10 @@ angular.module('main')
 		$scope.confirm = false;
 		$scope.getUsers = function() {
 			$http.get('/getUsers').success(function(users) {
-				for (i in $scop.project.users) {
+				for (i in $scope.project.users) {
 					var found = false;
 					for (j in users) {
-						if ($scop.project.users[i] === users[j]) {
+						if ($scope.project.users[i] === users[j]) {
 							found = true;
 						}
 					}
