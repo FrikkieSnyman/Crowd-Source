@@ -13,7 +13,16 @@
 				<label>Project Description</label>
 	      	<input ng-model="project.description">
 	    </md-input-container>
-
+	    <md-divider>
+		</md-divider>
+		<md-list>
+			<md-subheader class="md-primary">Project Members</md-subheader>
+			<md-list-item ng-repeat="user in project.users">
+				{{user}}
+			</md-list-item>
+		</md-list>
+		<md-divider>
+		</md-divider>
 	    <div ui-tree>
 	    <!-- Nested node template -->
 		<script type="text/ng-template" id="nodes_renderer.html">
