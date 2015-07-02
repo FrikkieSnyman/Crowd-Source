@@ -16,12 +16,16 @@ angular.module('main')
 				.hideDelay(3000)
 				);
 			} else {
+				var invites = {'projectName': $scope.projectName, 'users': $scope.selected};
+				$http({method:'POST', url:'/email', data: invites});
+
 				$mdToast.show(
 				$mdToast.simple()
 				.content('Project created')
 				.position($scope.getToastPosition())
 				.hideDelay(3000)
 				);
+
 				$scope.goTo('/project/' + $scope.projectName);
 			}
 		});
@@ -39,13 +43,16 @@ angular.module('main')
 	};
 
 	$scope.selected = [];
-	$scope.toggle = function (item, list) {
-        var idx = list.indexOf(item);
-        if (idx > -1) list.splice(idx, 1);
-        else list.push(item);
-    };
-    
-    $scope.exists = function (item, list) {
-        return list.indexOf(item) > -1;
-    };
+	$scope.toggle = function(item, list) {
+		var idx = list.indexOf(item);
+		if (idx > -1) {
+			list.splice(idx, 1);
+		} else {
+			list.push(item);
+		}
+	};
+
+	$scope.exists = function(item, list) {
+		return list.indexOf(item) > -1;
+	};
 }]);
