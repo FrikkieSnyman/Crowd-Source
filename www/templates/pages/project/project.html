@@ -16,13 +16,19 @@
 	    <md-divider>
 		</md-divider>
 		<md-content layout = "coloum">
-		<md-button class="md-icon-button" aria-label="More" ng-hide="members" ng-click="members = !members">
-        	<md-icon md-svg-icon="img/icons/down_arrow.svg"></md-icon>
-      	</md-button>
-      	<md-button class="md-icon-button" aria-label="More" ng-show="members" ng-click="members = !members">
-        	<md-icon md-svg-icon="img/icons/right_arrow.svg"></md-icon>
-      	</md-button>
-      	<md-subheader class="md-primary">Project Members</md-subheader>
+			<md-button class="md-icon-button" aria-label="More" ng-hide="members" ng-click="members = !members">
+	        	<md-icon md-svg-icon="img/icons/down_arrow.svg"></md-icon>
+	      	</md-button>
+	      	<md-button class="md-icon-button" aria-label="More" ng-show="members" ng-click="members = !members">
+	        	<md-icon md-svg-icon="img/icons/right_arrow.svg"></md-icon>
+	      	</md-button>
+	      	<md-subheader class="md-primary">Project Members</md-subheader>
+	      	<md-button class="md-icon-button" aria-label="More">
+	      		<md-tooltip>
+		          Add User
+		        </md-tooltip>
+	        	<md-icon md-svg-icon="img/icons/add.svg"></md-icon>
+	      	</md-button>
       	</md-content>
 		<md-list ng-hide="members">
 				<md-list-item ng-repeat="user in project.users" >
@@ -39,7 +45,6 @@
 	    <div ui-tree>
 	    <!-- Nested node template -->
 		<script type="text/ng-template" id="nodes_renderer.html">
-
 		  <div ui-tree-handle class="tree-node tree-node-content" layout = "row">
 		    <md-button class="md-icon-button" aria-label="Use Android" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="node.collapsed = !node.collapsed" >
 				<md-tooltip ng-show="!node.collapsed">
