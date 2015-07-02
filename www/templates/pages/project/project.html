@@ -22,10 +22,10 @@
 	      	<md-button class="md-icon-button" aria-label="More" ng-show="members" ng-click="members = !members">
 	        	<md-icon md-svg-icon="img/icons/right_arrow.svg"></md-icon>
 	      	</md-button>
-	      	<md-subheader class="md-primary">Project Members</md-subheader>
-	      	<md-button class="md-icon-button" aria-label="More">
+	      	<h3>Project Members</h3>
+	      	<md-button class="md-icon-button" aria-label="More" ng-click = "getUsers()">
 	      		<md-tooltip>
-		          Add User
+		          Add Memeber
 		        </md-tooltip>
 	        	<md-icon md-svg-icon="img/icons/add.svg"></md-icon>
 	      	</md-button>
@@ -38,6 +38,14 @@
 						<md-button class="md-icon-button" aria-label="More" ng-click="removeUser(user)">
 				        	<md-icon md-svg-icon="img/icons/close.svg"></md-icon>
 				      	</md-button>
+				</md-list-item>
+		</md-list>
+		<md-list ng-show="allUsers">
+				<md-list-item ng-repeat="user in allUsers" >
+				<p>{{user.email}}</p>
+				<md-button class="md-icon-button" aria-label="More" ng-click="addUser(user);allUsers = !allUsers">
+				     <md-icon md-svg-icon="img/icons/add.svg"></md-icon>
+				</md-button>
 				</md-list-item>
 		</md-list>
 		<md-divider>

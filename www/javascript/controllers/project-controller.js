@@ -2,6 +2,24 @@ angular.module('main')
 .controller('porjectCtrl', ['$rootScope', '$scope', '$http', '$routeParams', '$mdDialog', '$mdToast',
 	function($rootScope, $scope, $http, $routeParams, $mdDialog, $mdToast) {
 		$scope.confirm = false;
+		$scope.getUsers = function() {
+			$http.get('/getUsers').success(function(users) {
+				for (i in $scop.project.users) {
+					var found = false;
+					for (j in users) {
+						if ($scop.project.users[i] === users[j]) {
+							found = true;
+						}
+					}
+					if (found) {
+						$scope.allUsers.push(users);
+					}
+				}
+			});
+		};
+		$scope.addUser = function(user) {
+			$scope.project.users.push(user.email);
+		}
 		$scope.undoToolTip = function(node, removeNode, newSubItem) {
 			//debugger;
 			var tree = $.extend(true, [], $scope.project.children);
