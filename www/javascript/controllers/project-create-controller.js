@@ -16,15 +16,15 @@ angular.module('main')
 				.hideDelay(3000)
 				);
 			} else {
+				var invites = {'projectName': $scope.projectName, 'users': $scope.selected};
+				$http({method:'POST', url:'/email', data: invites});
+
 				$mdToast.show(
 				$mdToast.simple()
 				.content('Project created')
 				.position($scope.getToastPosition())
 				.hideDelay(3000)
 				);
-
-				var invites = {'projectName': project.heading, 'users': $scope.selected};
-				$http({method:'POST', url:'/email', data: invites});
 
 				$scope.goTo('/project/' + $scope.projectName);
 			}
