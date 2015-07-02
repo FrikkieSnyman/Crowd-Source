@@ -29,7 +29,17 @@
 			  </md-toolbar>
 			<br/>
 			<md-card-content class="md-padding" class = "cardHeight" style="overflow:auto;"> 
-				<p>{{project.description}}</p>
+			<p>{{project.description}}</p>
+			<md-divider>
+			</md-divider>
+			<md-list>
+				<md-subheader class="md-primary">Project Members</md-subheader>
+				<md-list-item ng-repeat="user in project.users">
+				{{user}}
+				</md-list-item>
+			</md-list>
+			<md-divider>
+			</md-divider>
 			</md-card-content>
 		</md-card>
 	</md-grid-tile>
