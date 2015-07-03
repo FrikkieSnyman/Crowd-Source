@@ -20,12 +20,6 @@ angular.module('main')
 						$scope.allUsers.push(users[i]);
 					}
 				}
-				if ($scope.project.users.length === 0) {
-					for (i in users) {
-						$scope.allUsers.push(users[i].email);
-						//debugger;
-					}
-				}
 			});
 		};
 		$scope.addUser = function(user) {
