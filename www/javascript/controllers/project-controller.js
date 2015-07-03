@@ -58,7 +58,12 @@ angular.module('main')
 		};
 
 		$scope.addRootNode = function() {
-			$scope.project.children.push({id: 'node', title:"Root Node", nodes: [], collapsed : false, estimations : []});
+			// initialise estimations array
+			var estimationsArr = [];
+			for (i in $scope.project.users) {
+				estimationsArr.push(null);
+			}
+			$scope.project.children.push({id: 'node', title:"Root Node", nodes: [], collapsed : false, estimations : estimationsArr});
 		};
 		$scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
 			// Appending dialog to document.body to cover sidenav in docs app
@@ -95,13 +100,20 @@ angular.module('main')
 		};
 
 		$scope.newSubItem = function(scope) {
+			// console.log(scope.project.users);
 			var nodeData = scope.$modelValue;
+			// console.log(nodeData);
+			var estimationsArr = [];
+			for (i in scope.project.users) {
+				// console.log(i);
+				estimationsArr.push(null);
+			}
 			nodeData.nodes.push({
 				id: nodeData.id * 10 + nodeData.nodes.length,
 				title: nodeData.title + '.' + (nodeData.nodes.length + 1),
 				nodes: [],
 				collapsed : false,
-				estimations : []
+				estimations : estimationsArr
 			});
 		};
 
@@ -166,6 +178,49 @@ angular.module('main')
 			if (found === false) {
 				for (i in node) {
 					$scope.searchTree(node[i].nodes, id, callback);
+				}
+			}
+		};
+
+		$scope.updateLocalTree = function(scope) {
+			var user = $rootScope.currentUser;
+			var count = 0;
+			var found = false;
+
+			console.log(scope.project.users);
+
+			for (var u in scope.project.users) {
+				if (scope.project.users[u] === user) {
+					found = true;
+					count = u;
+					break;
+				}
+			}
+
+			var currnode = $scope.project.children[0];
+
+			var result;
+			$scope.getEstimation(currnode, count, function(res) {
+				result = res;
+			});
+		};
+
+		$scope.getEstimation = function(node, userNum, callback) {
+			if (node.nodes.length <= 0) {
+				callback(node.estimations[userNum]);
+			}
+			else {
+				node.estimations[userNum] = null;
+				for (var i in node.nodes) {
+					$scope.getEstimation(node.nodes[i], userNum, function(result) {
+						if (node.estimations[userNum] === null) {
+							node.estimations[userNum] = parseInt(result);
+						}
+						else {
+							node.estimations[userNum] += parseInt(result);
+						}
+						callback(parseInt(result));
+					});
 				}
 			}
 		};

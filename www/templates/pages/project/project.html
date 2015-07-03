@@ -35,7 +35,7 @@
 			</md-input-container>
 			<md-input-container class = "treeInput" flex ="10">
 			  <label>Qty</label>
-			  <input ng-model="node.estimations[userIndex]">
+			  <input ng-model="node.estimations[userIndex]" ng-change="updateLocalTree(this)">
 			</md-input-container>
 			<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="showDescriptionDialog($event, node)">
 				<md-tooltip>
