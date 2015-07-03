@@ -40,7 +40,7 @@
 				      	</md-button>
 				</md-list-item>
 		</md-list>
-		<md-list ng-show="allUsers">
+		<md-list ng-show="allUsers" ng-hide="members">
 				<md-list-item ng-repeat="user in allUsers" >
 				<p>{{user.email}}</p>
 				<md-button class="md-icon-button" aria-label="More" ng-click="addUser(user);allUsers = !allUsers">
