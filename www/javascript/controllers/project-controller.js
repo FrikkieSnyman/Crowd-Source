@@ -10,7 +10,7 @@ angular.module('main')
 					var found = false;
 					var j = 0;
 					for (j in $scope.project.users) {
-						if ($scope.project.users[i] === users[j].email) {
+						if ($scope.project.users[j] === users[i].email) {
 
 							found = true;
 						}
@@ -22,7 +22,7 @@ angular.module('main')
 				}
 				if ($scope.project.users.length === 0) {
 					for (i in users) {
-						$scope.allUsers.push(users[i]);
+						$scope.allUsers.push(users[i].email);
 						//debugger;
 					}
 				}
