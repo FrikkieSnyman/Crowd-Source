@@ -2,23 +2,39 @@ angular.module('main')
 .controller('porjectCtrl', ['$rootScope', '$scope', '$http', '$routeParams', '$mdDialog', '$mdToast',
 	function($rootScope, $scope, $http, $routeParams, $mdDialog, $mdToast) {
 		$scope.confirm = false;
+		$scope.allUsers = [];
+
 		$scope.getUsers = function() {
 			$http.get('/getUsers').success(function(users) {
-				for (i in $scop.project.users) {
+				for (i in users) {
 					var found = false;
-					for (j in users) {
-						if ($scop.project.users[i] === users[j]) {
+					var j = 0;
+					for (j in $scope.project.users) {
+						if ($scope.project.users[i] === users[j].email) {
+
 							found = true;
 						}
 					}
-					if (found) {
-						$scope.allUsers.push(users);
+					//debugger;
+					if (!found) {
+						$scope.allUsers.push(users[i]);
+					}
+				}
+				if ($scope.project.users.length === 0) {
+					for (i in users) {
+						$scope.allUsers.push(users[i]);
+						//debugger;
 					}
 				}
 			});
 		};
 		$scope.addUser = function(user) {
 			$scope.project.users.push(user.email);
+			for (i in $scope.allUsers) {
+				if ($scope.allUsers[i].email === user.email) {
+					$scope.allUsers.splice(i, 1);
+				}
+			}
 		}
 		$scope.undoToolTip = function(node, removeNode, newSubItem) {
 			//debugger;
