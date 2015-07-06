@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 var jwt = require('express-jwt');
 
 // Check testing environment
-if (process.env.TEST === '1') {
+if (process.env.TEST === '1' || process.env.CUSTOM_COV === '1') {
 	console.log('Test environment');
 	var mockgoose = require('mockgoose');
 	mockgoose(mongoose);
