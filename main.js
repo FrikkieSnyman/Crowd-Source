@@ -8,11 +8,25 @@ var mongoose = require('mongoose');
 var jwt = require('express-jwt');
 
 // Check testing environment
-// process.env.CUSTOM_COV ?
-// 	console.log('test environemnt')
-// 	: 
-// 	console.log('normal env');
-console.log(process.env.NODE_ENV);
+if (process.env.TEST === '1') {
+	console.log('Test environment');
+	var mockgoose = require('mockgoose');
+	mockgoose(mongoose);
+	exports.app = function() {
+		return app;
+	};
+
+	exports.server = function() {
+		return server;
+	};
+
+	exports.mongoose = function() {
+		return mongoose;
+	};
+
+} else {
+	console.log('Server environment');
+}
 /*
 Create express app
  */
@@ -76,15 +90,3 @@ setup routes
 -We express app to the routes so that we can use express there.
  */
 require('./routes')(app, mongoose);
-
-exports.app = function() {
-	return app;
-};
-
-exports.server = function() {
-	return server;
-};
-
-exports.mongoose = function() {
-	return mongoose;
-};

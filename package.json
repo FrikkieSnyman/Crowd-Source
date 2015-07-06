@@ -4,7 +4,7 @@
   "description": "A web server that helps estimate the time it will take to perform programming task. By using experts input.",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=1 && nodeunit tests",
+    "test": "TEST=1 nodeunit tests",
     "coveralls": "jscoverage lib && CUSTOM_COV=1 nodeunit --reporter=lcov tests | coveralls",
     "start": "nodemon main.js"
   },
