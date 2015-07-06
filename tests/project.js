@@ -21,7 +21,7 @@ response.send = function(res) {response.res = res;};
 
 // Tests
 exports.testCreateProject = function(test) {
-	test.expect(8);
+	test.expect(9);
 
 	// Object to create
 	request.body = {'heading':'testHeading', 'description':'testDesc', 'owner': 'testOwner', 'users': ['testUser1', 'testUser2', 'testUser3']};
@@ -59,6 +59,13 @@ exports.testCreateProject = function(test) {
 
 	expected = 'testUser3';
 	result = response.res.users[2];
+	test.equal(expected, result);
+
+	request.body = {'heading':'testHeading', 'description':'testDesc', 'owner': '', 'users': ['testUser1', 'testUser2', 'testUser3']};
+	testProject.createProject(app, mongoose, request, response);
+
+	expected = false;
+	result = response.res;
 	test.equal(expected, result);
 
 	test.done();
