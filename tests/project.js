@@ -1,19 +1,8 @@
-// Mock objects
-
-var mongoose = Object;
-var app = Object;
-mongoose.model = function(a, b) {
-	return function() {
-		this.name = '',
-		this.description = '',
-		this.save = function() {};
-		this.find = function() {};
-	};
-};
-app.projectSchema = mongoose.model;
-var request = Object;
-var response = Object;
-response.send = function(param) {};
+// Config
+var main = require('../main.js');
+var app = main.app();
+var server = main.server();
+var mongoose = main.mongoose();
 
 // Module to test
 var testProject = process.env.CUSTOM_COV ?
@@ -23,6 +12,11 @@ var testProject = process.env.CUSTOM_COV ?
 // For testing purposes
 var expected;
 var result;
+
+// Mocks
+var request = Object;
+var response = Object;
+response.send = function() {};
 
 // Tests
 exports.testCreateProject = function(test) {
@@ -60,6 +54,8 @@ exports.testPersistProject = function(test) {
 	// expected = 'description';
 	// result = project.description;
 	// test.equal(expected, result);
-
 	test.done();
+	setTimeout(function() {
+		process.exit();
+	}, 3000);
 };
