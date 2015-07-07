@@ -169,7 +169,8 @@ module.exports = {
 			testProject.createProject(app, mongoose, request, response, function() {
 				request.body = {'heading':'testHeading'};
 				testProject.getProject(app, mongoose, request, response, function(res) {
-					
+					expected = 2;
+					test.equal(expected, response.res.length);
 					test.done();
 				});
 			});
