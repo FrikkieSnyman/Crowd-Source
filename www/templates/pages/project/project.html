@@ -13,11 +13,46 @@
 				<label>Project Description</label>
 	      	<input ng-model="project.description">
 	    </md-input-container>
-
+	    <md-divider>
+		</md-divider>
+		<md-content layout = "coloum">
+			<md-button class="md-icon-button" aria-label="More" ng-hide="members" ng-click="members = !members">
+	        	<md-icon md-svg-icon="img/icons/down_arrow.svg"></md-icon>
+	      	</md-button>
+	      	<md-button class="md-icon-button" aria-label="More" ng-show="members" ng-click="members = !members">
+	        	<md-icon md-svg-icon="img/icons/right_arrow.svg"></md-icon>
+	      	</md-button>
+	      	<h3>Project Members</h3>
+	      	<md-button class="md-icon-button" aria-label="More" ng-click = "getUsers()">
+	      		<md-tooltip>
+		          Add Memeber
+		        </md-tooltip>
+	        	<md-icon md-svg-icon="img/icons/add.svg"></md-icon>
+	      	</md-button>
+      	</md-content>
+		<md-list ng-hide="members">
+				<md-list-item ng-repeat="user in project.users" >
+						<p>{{user}}</p>
+						<span flex>
+						</span>
+						<md-button class="md-icon-button" aria-label="More" ng-click="removeUser(user)">
+				        	<md-icon md-svg-icon="img/icons/close.svg"></md-icon>
+				      	</md-button>
+				</md-list-item>
+		</md-list>
+		<md-list ng-show="allUsers" ng-hide="members">
+				<md-list-item ng-repeat="user in allUsers" >
+				<p>{{user.email}}</p>
+				<md-button class="md-icon-button" aria-label="More" ng-click="addUser(user);allUsers = !allUsers">
+				     <md-icon md-svg-icon="img/icons/add.svg"></md-icon>
+				</md-button>
+				</md-list-item>
+		</md-list>
+		<md-divider>
+		</md-divider>
 	    <div ui-tree>
 	    <!-- Nested node template -->
 		<script type="text/ng-template" id="nodes_renderer.html">
-
 		  <div ui-tree-handle class="tree-node tree-node-content" layout = "row">
 		    <md-button class="md-icon-button" aria-label="Use Android" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="node.collapsed = !node.collapsed" >
 				<md-tooltip ng-show="!node.collapsed">

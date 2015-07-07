@@ -2,6 +2,34 @@ angular.module('main')
 .controller('porjectCtrl', ['$rootScope', '$scope', '$http', '$routeParams', '$mdDialog', '$mdToast',
 	function($rootScope, $scope, $http, $routeParams, $mdDialog, $mdToast) {
 		$scope.confirm = false;
+		$scope.allUsers = [];
+
+		$scope.getUsers = function() {
+			$http.get('/getUsers').success(function(users) {
+				for (i in users) {
+					var found = false;
+					var j = 0;
+					for (j in $scope.project.users) {
+						if ($scope.project.users[j] === users[i].email) {
+
+							found = true;
+						}
+					}
+					//debugger;
+					if (!found) {
+						$scope.allUsers.push(users[i]);
+					}
+				}
+			});
+		};
+		$scope.addUser = function(user) {
+			$scope.project.users.push(user.email);
+			for (i in $scope.allUsers) {
+				if ($scope.allUsers[i].email === user.email) {
+					$scope.allUsers.splice(i, 1);
+				}
+			}
+		}
 		$scope.undoToolTip = function(node, removeNode, newSubItem) {
 			//debugger;
 			var tree = $.extend(true, [], $scope.project.children);
@@ -25,7 +53,7 @@ angular.module('main')
 					$scope.userIndex = u;
 				}
 			}
-// UserIndex is -1 if user trying to estimate is not in users array
+			// UserIndex is -1 if user trying to estimate is not in users array
 			if ($scope.userIndex === -1) {
 				var toast = $mdToast.simple()
 				.content('Not authorised to estimate')
@@ -92,6 +120,14 @@ angular.module('main')
 		
 		$scope.saveProjectDialog = function() {
 
+		};
+
+		$scope.removeUser = function(user) {
+			for (i in $scope.project.users) {
+				if ($scope.project.users[i] === user) {
+					$scope.project.users.splice(i, 1);
+				}
+			}
 		};
 
 		$scope.moveLastToTheBeginning = function() {
