@@ -51,74 +51,71 @@ module.exports = {
 	},
 
 	testCreateProject: function(test) {
-		// test.expect(11);
-
-		// Object to create
 		request.body = {'heading':'testHeading', 'description':'testDesc', 'owner': 'testOwner', 'users': ['testUser1', 'testUser2', 'testUser3']};
 
-		// Function being tested
-		testProject.createProject(app, mongoose, request, response);
-		var pResult = response.res.pop();
-		expected = 'testHeading';
-		result = pResult.name;
-		test.equal(expected, result);
+		testProject.createProject(app, mongoose, request, response, function() {
+			var pResult = response.res.pop();
 
-		expected = 'testDesc';
-		result = pResult.description;
-		test.equal(expected, result);
+			expected = 'testHeading';
+			result = pResult.name;
+			test.equal(expected, result);
 
-		expected = false;
-		result = pResult.deleted;
-		test.equal(expected, result);
+			expected = 'testDesc';
+			result = pResult.description;
+			test.equal(expected, result);
+			expected = false;
+			result = pResult.deleted;
+			test.equal(expected, result);
 
-		expected = 0;
-		result = pResult.children.length;
-		test.equal(expected, result);
+			expected = 0;
+			result = pResult.children.length;
+			test.equal(expected, result);
 
-		expected = 'testOwner';
-		result = pResult.owner;
-		test.equal(expected, result);
+			expected = 'testOwner';
+			result = pResult.owner;
+			test.equal(expected, result);
 
-		expected = 3;
-		result = pResult.users.length;
-		test.equal(expected, result);
+			expected = 3;
+			result = pResult.users.length;
+			test.equal(expected, result);
 
-		expected = 'testUser1';
-		result = pResult.users[0];
-		test.equal(expected, result);
+			expected = 'testUser1';
+			result = pResult.users[0];
+			test.equal(expected, result);
 
-		expected = 'testUser3';
-		result = pResult.users[2];
-		test.equal(expected, result);
+			expected = 'testUser3';
+			result = pResult.users[2];
+			test.equal(expected, result);
+			request.body = {'heading':'testHeading', 'description':'testDesc', 'owner': '', 'users': ['testUser1', 'testUser2', 'testUser3']};
+			testProject.createProject(app, mongoose, request, response, function() {
+				pResult = response.res.pop();
+				expected = false;
+				result = pResult;
+				test.equal(expected, result);
 
-		request.body = {'heading':'testHeading', 'description':'testDesc', 'owner': '', 'users': ['testUser1', 'testUser2', 'testUser3']};
-		testProject.createProject(app, mongoose, request, response);
+				request.body = {'heading':'testHeading2', 'description':'testDesc2', 'owner': 'testOwner', 'users': ['testUser1', 'testUser3']};
+				testProject.createProject(app, mongoose, request, response, function() {
+					pResult = response.res.pop();
+					expected = 'testHeading2';
+					result = pResult.name;
+					test.equal(expected, result);
 
-		pResult = response.res.pop();
-		expected = false;
-		result = pResult;
-		test.equal(expected, result);
+					expected = 'testDesc2';
+					result = pResult.description;
+					test.equal(expected, result);
 
-		request.body = {'heading':'testHeading2', 'description':'testDesc2', 'owner': 'testOwner', 'users': ['testUser1', 'testUser3']};
-		testProject.createProject(app, mongoose, request, response);
-
-		pResult = response.res.pop();
-		expected = 'testHeading2';
-		result = pResult.name;
-		test.equal(expected, result);
-
-		expected = 'testDesc2';
-		result = pResult.description;
-		test.equal(expected, result);
-
-		request.body = {'heading':'testHeading3', 'description':'testDesc4', 'owner': 'testOwner', 'users': ['testUser1', 'testUser3']};
-		testProject.createProject(app, mongoose, request, response);
-		response.res.pop();
-		request.body = {'heading':'testHeading4', 'description':'testDesc5', 'owner': 'testOwner', 'users': ['testUser1', 'testUser3']};
-		testProject.createProject(app, mongoose, request, response);
-		response.res.pop();
-
-		test.done();
+					request.body = {'heading':'testHeading3', 'description':'testDesc4', 'owner': 'testOwner', 'users': ['testUser1', 'testUser3']};
+					testProject.createProject(app, mongoose, request, response, function() {
+						response.res.pop();
+						request.body = {'heading':'testHeading4', 'description':'testDesc5', 'owner': 'testOwner', 'users': ['testUser1', 'testUser3']};
+						testProject.createProject(app, mongoose, request, response, function() {
+							response.res.pop();
+							test.done();
+						});
+					});
+				});
+			});
+		});
 	},
 
 	testGetAllProjects: function(test) {
