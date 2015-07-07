@@ -21,8 +21,8 @@ var result;
 var request = Object;
 var response = Object;
 response.res = [];
-response.send = function(res) {
-	response.res.push(res);
+response.send = function(resp) {
+	response.res.push(resp);
 };
 
 module.exports = {
@@ -123,7 +123,7 @@ module.exports = {
 
 	testGetAllProjects: function(test) {
 		testProject.getAllProjects(app, mongoose, request, response, function(res) {
-			var tmp = response.res[0];
+			var tmp = response.res.pop();
 			expected = 4;
 			result = tmp.length;
 			test.equal(expected, result);
@@ -140,11 +140,39 @@ module.exports = {
 			result = tmp[2].name;
 			test.equal(expected, result);
 
-
 			expected = 'testHeading4';
 			result = tmp[3].name;
 			test.equal(expected, result);
 			test.done();
+		});
+	},
+
+	testGetProject: function(test) {
+		request.body = {'heading': 'testHeading'};
+		testProject.getProject(app, mongoose, request, response, function(res) {
+			result = response.res.pop()[0];
+
+			expected = 'testHeading';
+			test.equal(expected, result.name);
+
+			expected = 'testDesc';
+			test.equal(expected, result.description);
+
+			expected = 'testOwner';
+			test.equal(expected, result.owner);
+			expected = 3;
+			test.equal(expected, result.users.length);
+
+			expected = 'testUser1';
+			test.equal(expected, result.users[0]);
+			request.body = {'heading':'testConflictHeading', 'description':'testConflictDesc', 'owner': 'testConflictOwner', 'users': ['testUser3']};
+			testProject.createProject(app, mongoose, request, response, function() {
+				request.body = {'heading':'testHeading'};
+				testProject.getProject(app, mongoose, request, response, function(res) {
+					
+					test.done();
+				});
+			});
 		});
 	}
 
