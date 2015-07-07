@@ -9,12 +9,22 @@ angular.module('main')
 		var project = {'heading': $scope.projectName, 'description': $scope.description, 'owner' : $rootScope.currentUser, 'users' : $scope.selected};
 		$http({method:'POST', url:'/createProject', data: project}).success(function(res) {
 			if (res === false) {
-				$mdToast.show(
-				$mdToast.simple()
-				.content('Need to be logged in to create a project')
-				.position($scope.getToastPosition())
-				.hideDelay(3000)
-				);
+				if (project.owner === '') {
+					$mdToast.show(
+					$mdToast.simple()
+					.content('Need to be logged in to create a project')
+					.position($scope.getToastPosition())
+					.hideDelay(3000)
+					);
+				} else {
+					$mdToast.show(
+					$mdToast.simple()
+					.content('There already exists a project with that name')
+					.position($scope.getToastPosition())
+					.hideDelay(3000)
+					);
+				}
+
 			} else {
 				var invites = {'projectName': $scope.projectName, 'users': $scope.selected};
 				$http({method:'POST', url:'/email', data: invites});
