@@ -86,7 +86,7 @@ module.exports = {
 			expected = 'testUser3';
 			result = pResult.users[2];
 			test.equal(expected, result);
-			request.body = {'heading':'testHeading', 'description':'testDesc', 'owner': '', 'users': ['testUser1', 'testUser2', 'testUser3']};
+			request.body = {'heading':'testHeadingx', 'description':'testDesc', 'owner': '', 'users': ['testUser1', 'testUser2', 'testUser3']};
 			testProject.createProject(app, mongoose, request, response, function() {
 				pResult = response.res.pop();
 				expected = false;
