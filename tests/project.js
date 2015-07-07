@@ -165,12 +165,44 @@ module.exports = {
 
 			expected = 'testUser1';
 			test.equal(expected, result.users[0]);
-			request.body = {'heading':'testConflictHeading', 'description':'testConflictDesc', 'owner': 'testConflictOwner', 'users': ['testUser3']};
-			testProject.createProject(app, mongoose, request, response, function() {
-				request.body = {'heading':'testHeading'};
+			test.done();
+		});
+	},
+
+	testAddChild: function(test) {
+		request.body = {'heading':'testHeading4'};
+		testProject.getProject(app, mongoose, request, response, function(res) {
+			var project = response.res.pop()[0];
+			console.log(project);
+			project.children.push({'depth':'1'});
+			request.body = project;
+			testProject.addChild(app, mongoose, request, response, function(res) {
+				request.body = {'heading':'testHeading4'};
 				testProject.getProject(app, mongoose, request, response, function(res) {
-					expected = 2;
-					test.equal(expected, response.res.length);
+					result = response.res.pop()[0];
+					console.log('This test is broken by the latest version of Mockgoose. View test code comments for further info.');
+					// Mockgoose somehow loses the ObjectID,
+					// and since this function depends on that, it can't be tested using the mock db
+					// https://github.com/mccormicka/Mockgoose/issues/120
+					test.done();
+				});
+			});
+		});
+	},
+
+	testDelete: function(test) {
+		request.body = {'heading':'testHeading4'};
+		testProject.getProject(app, mongoose, request, response, function(res) {
+			var project = response.res.pop()[0];
+			request.body = project;
+			testProject.addChild(app, mongoose, request, response, function(res) {
+				request.body = {'heading':'testHeading4'};
+				testProject.getProject(app, mongoose, request, response, function(res) {
+					result = response.res.pop()[0];
+					console.log('This test is broken by the latest version of Mockgoose. View test code comments for further info.');
+					// Mockgoose somehow loses the ObjectID,
+					// and since this function depends on that, it can't be tested using the mock db
+					// https://github.com/mccormicka/Mockgoose/issues/120
 					test.done();
 				});
 			});
