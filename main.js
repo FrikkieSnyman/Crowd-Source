@@ -6,6 +6,27 @@ var bodyParser = require('body-parser');
 var config = require('./config');
 var mongoose = require('mongoose');
 var jwt = require('express-jwt');
+
+// Check testing environment
+if (process.env.TEST === '1' || process.env.CUSTOM_COV === '1') {
+	console.log('Test environment');
+	var mockgoose = require('mockgoose');
+	mockgoose(mongoose);
+	exports.app = function() {
+		return app;
+	};
+
+	exports.server = function() {
+		return server;
+	};
+
+	exports.mongoose = function() {
+		return mongoose;
+	};
+
+} else {
+	console.log('Server environment');
+}
 /*
 Create express app
  */

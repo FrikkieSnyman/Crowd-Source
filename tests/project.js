@@ -1,20 +1,13 @@
-// Mock objects
-
-var mongoose = Object;
-var app = Object;
-mongoose.model = function(a, b) {
-	return function() {
-		this.name = '',
-		this.description = '',
-		this.save = function() {};
-		this.find = function() {};
-	};
-};
-app.projectSchema = mongoose.model;
-var request = Object;
-var response = Object;
-response.send = function(param) {};
-
+// Config
+var main = require('../main.js');
+var app = main.app();
+var server = main.server();
+var mongoose = main.mongoose();
+var open = false;
+var timeout = setTimeout(function() {
+			console.log('exiting');
+			process.exit();
+		}, 3000);
 // Module to test
 var testProject = process.env.CUSTOM_COV ?
 	require('../lib-cov/project/abstractedProject.js')
@@ -24,42 +17,193 @@ var testProject = process.env.CUSTOM_COV ?
 var expected;
 var result;
 
-// Tests
-exports.testCreateProject = function(test) {
-	// test.expect(2);
-	// request.body = {'heading':'testHeading', 'description':'testDesc'};
-
-	// testProject.createProject(app, mongoose, request, response);
-
-	// expected = 'testHeading';
-	// result = response.body.heading;
-	// test.equal(expected, result);
-
-	// expected = 'testDesc';
-	// result = response.body.description;
-	// test.equal(expected, result);
-
-	test.done();
+// Mocks
+var request = Object;
+var response = Object;
+response.res = [];
+response.send = function(resp) {
+	response.res.push(resp);
 };
 
-exports.testPersistProject = function(test) {
-	// test.expect(2);
-	// var Project = mongoose.model('Project', app.projectSchema);
-	// var project = new Project({
-	// 	name : 'test',
-	// 	description : 'description',
-	// 	children : [{name : 'heading', nodes : []}]
-	// });
-	// testProject.persistProject(project);
+module.exports = {
+	setUp: function(callback) {
+		clearTimeout(timeout);
+		if (open === true) {
+			callback();
+			return;
+		}
+		try {
+			mongoose.connection.on('open', function() {
+				open = true;
+				callback();
+			});
+		} catch (err) {
+			console.log(err);
+		}
+	},
 
-	// expected = 'test';
-	// result = project.name;
-	// console.log(project);
-	// test.equal(expected, result);
+	tearDown : function(callback) {
+		timeout = setTimeout(function() {
+			console.log('exiting');
+			process.exit();
+		}, 3000);
+		callback();
+	},
 
-	// expected = 'description';
-	// result = project.description;
-	// test.equal(expected, result);
+	testCreateProject: function(test) {
+		request.body = {'heading':'testHeading', 'description':'testDesc', 'owner': 'testOwner', 'users': ['testUser1', 'testUser2', 'testUser3']};
 
-	test.done();
+		testProject.createProject(app, mongoose, request, response, function() {
+			var pResult = response.res.pop();
+
+			expected = 'testHeading';
+			result = pResult.name;
+			test.equal(expected, result);
+
+			expected = 'testDesc';
+			result = pResult.description;
+			test.equal(expected, result);
+			expected = false;
+			result = pResult.deleted;
+			test.equal(expected, result);
+
+			expected = 0;
+			result = pResult.children.length;
+			test.equal(expected, result);
+
+			expected = 'testOwner';
+			result = pResult.owner;
+			test.equal(expected, result);
+
+			expected = 3;
+			result = pResult.users.length;
+			test.equal(expected, result);
+
+			expected = 'testUser1';
+			result = pResult.users[0];
+			test.equal(expected, result);
+
+			expected = 'testUser3';
+			result = pResult.users[2];
+			test.equal(expected, result);
+			request.body = {'heading':'testHeadingx', 'description':'testDesc', 'owner': '', 'users': ['testUser1', 'testUser2', 'testUser3']};
+			testProject.createProject(app, mongoose, request, response, function() {
+				pResult = response.res.pop();
+				expected = false;
+				result = pResult;
+				test.equal(expected, result);
+
+				request.body = {'heading':'testHeading2', 'description':'testDesc2', 'owner': 'testOwner', 'users': ['testUser1', 'testUser3']};
+				testProject.createProject(app, mongoose, request, response, function() {
+					pResult = response.res.pop();
+					expected = 'testHeading2';
+					result = pResult.name;
+					test.equal(expected, result);
+
+					expected = 'testDesc2';
+					result = pResult.description;
+					test.equal(expected, result);
+
+					request.body = {'heading':'testHeading3', 'description':'testDesc4', 'owner': 'testOwner', 'users': ['testUser1', 'testUser3']};
+					testProject.createProject(app, mongoose, request, response, function() {
+						response.res.pop();
+						request.body = {'heading':'testHeading4', 'description':'testDesc5', 'owner': 'testOwner', 'users': ['testUser1', 'testUser3']};
+						testProject.createProject(app, mongoose, request, response, function() {
+							response.res.pop();
+							test.done();
+						});
+					});
+				});
+			});
+		});
+	},
+
+	testGetAllProjects: function(test) {
+		testProject.getAllProjects(app, mongoose, request, response, function(res) {
+			var tmp = response.res.pop();
+			expected = 4;
+			result = tmp.length;
+			test.equal(expected, result);
+
+			expected = 'testHeading';
+			result = tmp[0].name;
+			test.equal(expected, result);
+
+			expected = 'testHeading2';
+			result = tmp[1].name;
+			test.equal(expected, result);
+
+			expected = 'testHeading3';
+			result = tmp[2].name;
+			test.equal(expected, result);
+
+			expected = 'testHeading4';
+			result = tmp[3].name;
+			test.equal(expected, result);
+			test.done();
+		});
+	},
+
+	testGetProject: function(test) {
+		request.body = {'heading': 'testHeading'};
+		testProject.getProject(app, mongoose, request, response, function(res) {
+			result = response.res.pop()[0];
+
+			expected = 'testHeading';
+			test.equal(expected, result.name);
+
+			expected = 'testDesc';
+			test.equal(expected, result.description);
+
+			expected = 'testOwner';
+			test.equal(expected, result.owner);
+			expected = 3;
+			test.equal(expected, result.users.length);
+
+			expected = 'testUser1';
+			test.equal(expected, result.users[0]);
+			test.done();
+		});
+	},
+
+	testAddChild: function(test) {
+		request.body = {'heading':'testHeading4'};
+		testProject.getProject(app, mongoose, request, response, function(res) {
+			var project = response.res.pop()[0];
+			console.log(project);
+			project.children.push({'depth':'1'});
+			request.body = project;
+			testProject.addChild(app, mongoose, request, response, function(res) {
+				request.body = {'heading':'testHeading4'};
+				testProject.getProject(app, mongoose, request, response, function(res) {
+					result = response.res.pop()[0];
+					console.log('This test is broken by the latest version of Mockgoose. View test code comments for further info.');
+					// Mockgoose somehow loses the ObjectID,
+					// and since this function depends on that, it can't be tested using the mock db
+					// https://github.com/mccormicka/Mockgoose/issues/120
+					test.done();
+				});
+			});
+		});
+	},
+
+	testDelete: function(test) {
+		request.body = {'heading':'testHeading4'};
+		testProject.getProject(app, mongoose, request, response, function(res) {
+			var project = response.res.pop()[0];
+			request.body = project;
+			testProject.addChild(app, mongoose, request, response, function(res) {
+				request.body = {'heading':'testHeading4'};
+				testProject.getProject(app, mongoose, request, response, function(res) {
+					result = response.res.pop()[0];
+					console.log('This test is broken by the latest version of Mockgoose. View test code comments for further info.');
+					// Mockgoose somehow loses the ObjectID,
+					// and since this function depends on that, it can't be tested using the mock db
+					// https://github.com/mccormicka/Mockgoose/issues/120
+					test.done();
+				});
+			});
+		});
+	}
+
 };
