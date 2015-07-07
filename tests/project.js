@@ -123,7 +123,27 @@ module.exports = {
 
 	testGetAllProjects: function(test) {
 		testProject.getAllProjects(app, mongoose, request, response, function(res) {
-			console.log(res);
+			var tmp = response.res[0];
+			expected = 4;
+			result = tmp.length;
+			test.equal(expected, result);
+
+			expected = 'testHeading';
+			result = tmp[0].name;
+			test.equal(expected, result);
+
+			expected = 'testHeading2';
+			result = tmp[1].name;
+			test.equal(expected, result);
+
+			expected = 'testHeading3';
+			result = tmp[2].name;
+			test.equal(expected, result);
+
+
+			expected = 'testHeading4';
+			result = tmp[3].name;
+			test.equal(expected, result);
 			test.done();
 		});
 	}
