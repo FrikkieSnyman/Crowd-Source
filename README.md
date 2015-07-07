@@ -45,11 +45,19 @@ use myDB
 ```
 Congratualtions you have created your database. The only thing left now is to add your database credentails to the config.js file.
 
-##NodeUnit
-To install nodeunit globally
+##Unit tests
+NOTE: The unit tests can only be run on a Unix based system (ie, OSX/Linux), seeing as some environment variables are set in the npm scripts.
+
+First, ensure you have NodeUnit installed globalle
+To install nodeunit globally (might require superuser rights)
 ```
 npm install nodeunit -g
 ```
+Navigate to the root of the project, and run
+```
+npm test
+```
+to run the unit tests
 ##JSCS
 JSCS is used to validate code style, this allows all of the code to have a similar style thus making it easier to understand.
 
@@ -67,16 +75,6 @@ The following two sublime text packages can also be used to assist with the chec
 * JSCS-Formatter
 
 ##Mobile Application
-###Android
-The android application can be downloaded from the following link.
 
-https://build.phonegap.com/apps/1466735/download/android
-##Requirements
-###Functional
-####Login System
-This system will connect to an already existing user database as provided by the client. This will then be integrated so that the app knows who did what.
-####Project System
-This system will be used to create projects. It will be built in such a way to allow for a project tree to be built. This system will be integrated to allow users to make estimations on the project.
-####Estimation System
-This is the system that will be used to provide estimations. From this system, statistical analysis can be made on past estimations.
-###Non-functional
+The mobile app will be built at a later stage.
+
