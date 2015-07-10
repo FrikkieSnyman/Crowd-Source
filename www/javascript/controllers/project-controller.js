@@ -3,7 +3,7 @@ angular.module('main')
 	function($rootScope, $scope, $http, $routeParams, $mdDialog, $mdToast) {
 		$scope.confirm = false;
 		$scope.allUsers = [];
-
+		$scope.members = true;
 		$scope.getUsers = function() {
 			$http.get('/getUsers').success(function(users) {
 				for (i in users) {
