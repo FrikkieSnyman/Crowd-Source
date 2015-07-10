@@ -33,5 +33,9 @@ angular.module('main')
 		});
 	};
 
+	$scope.querySearch = function(query) {
+		console.log(query);
+	}
+
 	// debugger;
 }]);

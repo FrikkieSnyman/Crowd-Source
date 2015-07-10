@@ -34,3 +34,8 @@
 .cardHeader {
   border-radius: 5px 5px 0 0 !important;
 }
+
+.searchBar {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
