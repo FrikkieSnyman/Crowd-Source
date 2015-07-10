@@ -5,6 +5,36 @@
 		md-cols-sm="1" md-cols-md="3" md-cols-gt-md="4"
 		md-row-height-gt-md="1:1" md-row-height="1:1"
 		md-gutter="10px" md-gutter-gt-sm="10px" >
+
+		<md-autocomplete 
+          ng-disabled="isDisabled"
+          md-no-cache="noCache"
+          md-selected-item="selectedItem"
+          md-search-text-change="searchTextChange(searchText)"
+          md-search-text="searchText"
+          md-selected-item-change="selectedItemChange(item)"
+          md-items="item in querySearch(searchText)"
+          md-item-text="item.name"
+          md-min-length="0"
+          placeholder="Search"
+          md-menu-class="autocomplete-custom-template"
+          class = "searchBar">
+        <md-item-template>
+          <span class="item-title">
+            <span>
+            	<strong>{{item.name  | uppercase}}</strong> 
+            </span>
+          </span>
+          <span class="item-metadata">
+            <span class="item-metastat">
+              {{item.description}}
+            </span>
+          </span>
+        </md-item-template>
+      </md-autocomplete>
+
+
+
 	<md-grid-tile ng-repeat="project in projects" class="gray" md-rowspan="1" md-colspan="1" md-colspan-sm="1" style="z-index : 1; position: absolute">
 		<md-card flex class = "cardHeight">
 			<md-toolbar layout = "row" class = "cardHeader">
