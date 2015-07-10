@@ -2,7 +2,7 @@
 <md-content flex ='100'>
 <div ng-controller="projectsCtrl">
   <md-grid-list
-		md-cols-sm="1" md-cols-md="3" md-cols-gt-md="4"
+		md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3"
 		md-row-height-gt-md="1:1" md-row-height="1:1"
 		md-gutter="10px" md-gutter-gt-sm="10px" >
 	<md-grid-tile ng-repeat="project in projects" class="gray" md-rowspan="1" md-colspan="1" md-colspan-sm="1" style="z-index : 1; position: absolute">
@@ -30,16 +30,16 @@
 			<br/>
 			<md-card-content class="md-padding" class = "cardHeight" style="overflow:auto;"> 
 			<p>{{project.description}}</p>
-			<md-divider>
-			</md-divider>
-			<md-list>
+			<!-- <md-divider>
+			</md-divider> -->
+			<!-- <md-list>
 				<md-subheader class="md-primary">Project Members</md-subheader>
 				<md-list-item ng-repeat="user in project.users">
 				{{user}}
 				</md-list-item>
-			</md-list>
-			<md-divider>
-			</md-divider>
+			</md-list> -->
+			<!-- <md-divider>
+			</md-divider> -->
 			</md-card-content>
 		</md-card>
 	</md-grid-tile>
