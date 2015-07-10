@@ -10,10 +10,10 @@
           ng-disabled="isDisabled"
           md-no-cache="noCache"
           md-selected-item="selectedItem"
-          md-search-text-change="searchTextChange(ctrl.searchText)"
+          md-search-text-change="searchTextChange(searchText)"
           md-search-text="searchText"
           md-selected-item-change="selectedItemChange(item)"
-          md-items="item in querySearch(ctrl.searchText)"
+          md-items="item in querySearch(searchText)"
           md-item-text="item.name"
           md-min-length="0"
           placeholder="Search"
@@ -21,15 +21,13 @@
           class = "searchBar">
         <md-item-template>
           <span class="item-title">
-            <md-icon md-svg-icon="img/icons/octicon-repo.svg"></md-icon>
-            <span> {{item.name}} </span>
+            <span>
+            	<strong>{{item.name  | uppercase}}</strong> 
+            </span>
           </span>
           <span class="item-metadata">
             <span class="item-metastat">
-              <strong>{{item.watchers}}</strong> watchers
-            </span>
-            <span class="item-metastat">
-              <strong>{{item.forks}}</strong> forks
+              {{item.description}}
             </span>
           </span>
         </md-item-template>

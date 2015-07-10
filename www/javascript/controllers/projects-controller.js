@@ -34,7 +34,27 @@ angular.module('main')
 	};
 
 	$scope.querySearch = function(query) {
-		console.log(query);
+		//console.log(query);
+		var results = query ? $scope.projects.filter(createFilterFor(query)) : $scope.projects, deferred;
+		return results;
+	};
+
+	$scope.searchTextChange = function(text) {
+		console.log('Text changed to ' + text);
+	};
+
+	$scope.selectedItemChange = function(item)
+	{
+		$scope.goTo('/project/' + item.name);
+	}
+
+	var createFilterFor = function(query) {
+		var lowercaseQuery = angular.lowercase(query);
+		return function filterFn(item) {
+			//console.log(item);
+			var name = angular.lowercase(item.name);
+			return (name.indexOf(lowercaseQuery) === 0);
+		};
 	}
 
 	// debugger;
