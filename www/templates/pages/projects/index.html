@@ -35,7 +35,7 @@
 
 
 
-	<md-grid-tile ng-repeat="project in projects" class="gray" md-rowspan="1" md-colspan="1" md-colspan-sm="1" style="z-index : 1; position: absolute">
+	<md-grid-tile ng-repeat="project in querySearch(searchText)" class="gray" md-rowspan="1" md-colspan="1" md-colspan-sm="1" style="z-index : 1; position: absolute">
 		<md-card flex class = "cardHeight">
 			<md-toolbar layout = "row" class = "cardHeader">
 				<div class="md-toolbar-tools">
