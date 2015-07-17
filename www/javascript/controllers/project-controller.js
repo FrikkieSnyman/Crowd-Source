@@ -286,6 +286,18 @@ angular.module('main')
 				callback();
 			}
 		};
+
+		$scope.estimateCondtionsMet = function() {
+			return true;
+		};
+
+		$scope.authorisedForEstimation = function() {
+			if ($scope.userIndex === -1) {
+				return false;
+			} else {
+				return true;
+			}
+		};
 	}]);
 
 function DialogController($scope, $mdDialog) {
