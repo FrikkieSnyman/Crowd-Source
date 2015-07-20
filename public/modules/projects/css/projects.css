@@ -85,6 +85,7 @@ md-fab-toolbar .md-fab-toolbar-wrapper {
 	background: #f8faff;
 	color: #7c9eb2;
 }
+
 .tree-node-content {
 	margin: 10px;
 }
@@ -93,9 +94,6 @@ md-fab-toolbar .md-fab-toolbar-wrapper {
 	background: #428bca;
 	color: #FFF;
 	margin-right: 10px;
-}
-
-.angular-ui-tree-handle:hover {
 }
 
 .angular-ui-tree-placeholder {
@@ -107,5 +105,5 @@ md-fab-toolbar .md-fab-toolbar-wrapper {
 }
 
 .treeInput {
-	padding: 0px !important; 
+	padding: 0 !important; 
 }
