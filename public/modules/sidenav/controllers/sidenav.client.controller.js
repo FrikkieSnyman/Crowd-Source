@@ -9,6 +9,15 @@ angular.module('sidenav').controller('SidenavController', ['$scope', '$http', '$
 		$scope.signup = Logindialog.signup;
 		$scope.forgotPass = Logindialog.forgotPass;
 
+		function DialogController($scope, $mdDialog) {
+		$scope.hide = function() {
+				$mdDialog.hide();
+			};
+			$scope.cancel = function() {
+				$mdDialog.cancel();
+			};
+		}
+
 		var showAdvanced = function(ev) {
 			$mdDialog.show({
 				controller: DialogController,
@@ -24,7 +33,7 @@ angular.module('sidenav').controller('SidenavController', ['$scope', '$http', '$
 			Logindialog.forgotPass = false;
 
 			showAdvanced(ev);
-		}
+		};
 
 		$scope.signupDialog = function(ev) {
 			Logindialog.signin = false;
@@ -32,23 +41,24 @@ angular.module('sidenav').controller('SidenavController', ['$scope', '$http', '$
 			Logindialog.forgotPass = false;
 
 			showAdvanced(ev);
+		};
+
+		function buildToggler(navID) {
+			var debounceFn =  $mdUtil.debounce(function() {
+				$mdSidenav(navID)
+				.toggle()
+				.then(function() {
+					$log.debug('toggle ' + navID + ' is done');
+				});
+			}, 300);
+			return debounceFn;
 		}
 
 		$scope.toggleLeft = buildToggler('left');
 		/**
-		 * Build handler to open/close a SideNav; when animation finishes
-		 * report completion in console
-		 */
-		function buildToggler(navID) {
-		  var debounceFn =  $mdUtil.debounce(function(){
-				$mdSidenav(navID)
-				  .toggle()
-				  .then(function () {
-					$log.debug("toggle " + navID + " is done");
-				  });
-			  },300);
-		  return debounceFn;
-		}
+ 		* Build handler to open/close a SideNav; when animation finishes
+ 		* report completion in console
+ 		*/
 
 		$scope.go = function(path) {
 			$location.path(path);
@@ -68,23 +78,14 @@ angular.module('sidenav').controller('SidenavController', ['$scope', '$http', '$
 			}).error(function(response) {
 				// $scope.error = response.message;
 			});
-		}
+		};
 	}
 ])
-.controller('LeftCtrl', function ($scope, $timeout, $mdSidenav, $log) {
-	$scope.close = function () {
-	  $mdSidenav('left').close()
-		.then(function () {
-		  $log.debug("close LEFT is done");
+.controller('LeftCtrl', function($scope, $timeout, $mdSidenav, $log) {
+	$scope.close = function() {
+		$mdSidenav('left').close()
+		.then(function() {
+			$log.debug('close LEFT is done');
 		});
 	};
 });
-
-function DialogController($scope, $mdDialog) {
-	$scope.hide = function() {
-		$mdDialog.hide();
-	};
-	$scope.cancel = function() {
-		$mdDialog.cancel();
-	};
-}

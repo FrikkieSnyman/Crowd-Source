@@ -17,10 +17,10 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 		$scope.addRootNode = function() {
 			// initialise estimations array
 			var estimationsArr = [];
-			for (i in $scope.project.users) {
+			for (var i in $scope.project.users) {
 				estimationsArr.push(null);
 			}
-			$scope.project.children.push({id: 'node', title:"Root Node", nodes: [], collapsed : false, estimations : estimationsArr});
+			$scope.project.children.push({id: 'node', title:'Root Node', nodes: [], collapsed : false, estimations : estimationsArr});
 		};
 		$scope.goTo = function(route)
 		{
@@ -180,7 +180,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 			var nodeData = scope.$modelValue;
 			// console.log(nodeData);
 			var estimationsArr = [];
-			for (i in scope.project.users) {
+			for (var i in scope.project.users) {
 				// console.log(i);
 				estimationsArr.push(null);
 			}
