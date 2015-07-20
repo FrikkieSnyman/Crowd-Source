@@ -3,7 +3,7 @@ angular.module('main')
 	function($rootScope, $scope, $http, $routeParams, $mdDialog, $mdToast) {
 		$scope.confirm = false;
 		$scope.allUsers = [];
-
+		$scope.members = true;
 		$scope.getUsers = function() {
 			$http.get('/getUsers').success(function(users) {
 				for (i in users) {
@@ -284,6 +284,18 @@ angular.module('main')
 
 			if (callback !== undefined) {
 				callback();
+			}
+		};
+
+		$scope.estimateCondtionsMet = function() {
+			return true;
+		};
+
+		$scope.authorisedForEstimation = function() {
+			if ($scope.userIndex === -1) {
+				return false;
+			} else {
+				return true;
 			}
 		};
 	}]);

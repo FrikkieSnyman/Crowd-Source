@@ -52,8 +52,9 @@
 		</md-divider>
 	    <div ui-tree>
 	    <!-- Nested node template -->
+	    
 		<script type="text/ng-template" id="nodes_renderer.html">
-		  <div ui-tree-handle class="tree-node tree-node-content" layout = "row">
+	  	<div ui-tree-handle class="tree-node tree-node-content" layout = "row">
 		    <md-button class="md-icon-button" aria-label="Use Android" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="node.collapsed = !node.collapsed" >
 				<md-tooltip ng-show="!node.collapsed">
 		          Close
@@ -70,7 +71,7 @@
 			</md-input-container>
 			<md-input-container class = "treeInput" flex ="10">
 			  <label>Qty</label>
-			  <input ng-model="node.estimations[userIndex]" ng-change="updateLocalTree(this)">
+			  <input ng-model="node.estimations[userIndex]" ng-change="updateLocalTree(this)" required>
 			</md-input-container>
 			<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="showDescriptionDialog($event, node)">
 				<md-tooltip>
@@ -95,7 +96,9 @@
 		    <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
 		    </li>
 		  </ol>
+		  
 		</script>
+		<form name="myForm">
 		<div>
 		  <div>
 		    <div ui-tree id="tree-root">
@@ -105,6 +108,7 @@
 		    </div>
 		  </div>
 		</div>
+		</form>
 		<!-- Nested node template -->
 		<md-content label="row">
 	  	<md-button class = "md-primary md-raised" ng-click = "saveProject()">
@@ -113,6 +117,9 @@
 	  	<md-button class = "md-primary md-raised" ng-click = "addRootNode()" ng-show = "rootIsEmpty()">
 	  		Add root node
 	  	</md-button>
+		<md-button class = "md-primary md-raised" ng-click = "saveProject()" ng-disabled = "myForm.$invalid" ng-show = "authorisedForEstimation()">
+			Submit Estimation
+		</md-button>
 	  	</md-content>
 	</md-card>
 </div>
