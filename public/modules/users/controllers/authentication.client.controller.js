@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', 'Authentication',
-	function($scope, $http, $location, Authentication) {
+angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', '$mdDialog', 'Authentication',
+	function($scope, $http, $location, $mdDialog, Authentication) {
 		$scope.authentication = Authentication;
 
 		// If user is signed in then redirect back home
@@ -12,8 +12,11 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				// If successful we assign the response to the global user model
 				$scope.authentication.user = response;
 
+				// Close dialog
+				$mdDialog.cancel();
+
 				// And redirect to the index page
-				$location.path('/');
+				$location.path('/projects');
 			}).error(function(response) {
 				$scope.error = response.message;
 			});
@@ -24,8 +27,11 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				// If successful we assign the response to the global user model
 				$scope.authentication.user = response;
 
+				// Close dialog
+				$mdDialog.cancel();
+
 				// And redirect to the index page
-				$location.path('/');
+				$location.path('/projects');
 			}).error(function(response) {
 				$scope.error = response.message;
 			});
