@@ -12,3 +12,15 @@
 	right: 10px;
 	position: absolute;
 }
+.dialogButton {
+	width: 100% !important;
+	margin-left: 0;
+	margin-right: 0;
+	text-align: center !important;
+}
+
+.errorMessage {
+	color: rgb(244, 67, 54) !important;
+	text-align: center;
+	padding-right: 16px !important;
+}
