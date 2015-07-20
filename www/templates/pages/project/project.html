@@ -117,7 +117,9 @@
 	  	<md-button class = "md-primary md-raised" ng-click = "addRootNode()" ng-show = "rootIsEmpty()">
 	  		Add root node
 	  	</md-button>
-		<md-button class = "md-primary md-raised" ng-click = "" ng-disabled = "myForm.$invalid" ng-show = "authorisedForEstimation()">Submit Estimation</md-button>
+		<md-button class = "md-primary md-raised" ng-click = "saveProject()" ng-disabled = "myForm.$invalid" ng-show = "authorisedForEstimation()">
+			Submit Estimation
+		</md-button>
 	  	</md-content>
 	</md-card>
 </div>
