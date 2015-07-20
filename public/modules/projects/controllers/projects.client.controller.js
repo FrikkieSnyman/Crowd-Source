@@ -225,6 +225,5 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 				$scope.error = errorResponse.data.message;
 			});
 		};
-
 	}
 ]);
