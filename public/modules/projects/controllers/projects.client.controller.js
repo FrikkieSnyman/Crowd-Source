@@ -1,11 +1,11 @@
 'use strict';
 
 // Projects controller
-angular.module('projects').controller('ProjectsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects','$http','$mdToast','$mdDialog', '$timeout',
+angular.module('projects').controller('ProjectsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout',
 	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout) {
 		$scope.authentication = Authentication;
 		$scope.rootIsEmpty = function() {
-				//debugger;
+			//debugger;
 			if (typeof $scope.project.children !== undefined) {
 				if ($scope.project.children.length < 1) {
 					return true;
@@ -22,55 +22,58 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 			}
 			$scope.project.children.push({id: 'node', title:'Root Node', nodes: [], collapsed : false, estimations : estimationsArr});
 		};
-		$scope.goTo = function(route)
-		{
+		$scope.goTo = function(route) {
 			$location.path(route);
 		};
 		$scope.createProject = function() {
-	//		var project = {'name': $scope.projectName, 'description': $scope.description, 'owner' : Authentication.user, 'users' : $scope.selected};
-		var project = new Projects ({
+			//		var project = {'name': $scope.projectName, 'description': $scope.description, 'owner' : Authentication.user, 'users' : $scope.selected};
+			var project = new Projects ({
 			name: $scope.projectName,
 			description: $scope.description
 		});
-
-		project.$save(function(response) {
-			$location.path('projects');
-
-		}, function(errorResponse) {
+			project.$save(function(response) {
+				$location.path('projects/' + project._id + '/edit');
+				$mdToast.show(
+				$mdToast.simple()
+				.content('Project created')
+				.position($scope.getToastPosition())
+				.hideDelay(3000)
+				);
+			}, function(errorResponse) {
 			$scope.error = errorResponse.data.message;
 		});
-		/*
-			$http({method:'POST', url:'/projects', data: project}).success(function(res) {
-				if (res === false) {
-					if (project.owner === '') {
-						$mdToast.show(
-						$mdToast.simple()
-						.content('Need to be logged in to create a project')
-						.position($scope.getToastPosition())
-						.hideDelay(3000)
-						);
+			/*
+				$http({method:'POST', url:'/projects', data: project}).success(function(res) {
+					if (res === false) {
+						if (project.owner === '') {
+							$mdToast.show(
+							$mdToast.simple()
+							.content('Need to be logged in to create a project')
+							.position($scope.getToastPosition())
+							.hideDelay(3000)
+							);
+						} else {
+							$mdToast.show(
+							$mdToast.simple()
+							.content('There already exists a project with that name')
+							.position($scope.getToastPosition())
+							.hideDelay(3000)
+							);
+						}
 					} else {
+						var invites = {'projectName': $scope.projectName, 'users': $scope.selected};
+						//$http({method:'POST', url:'/email', data: invites});
+
 						$mdToast.show(
 						$mdToast.simple()
-						.content('There already exists a project with that name')
+						.content('Project created')
 						.position($scope.getToastPosition())
 						.hideDelay(3000)
 						);
+
+						$scope.goTo('/project/' + project._id);
 					}
-				} else {
-					var invites = {'projectName': $scope.projectName, 'users': $scope.selected};
-					//$http({method:'POST', url:'/email', data: invites});
-
-					$mdToast.show(
-					$mdToast.simple()
-					.content('Project created')
-					.position($scope.getToastPosition())
-					.hideDelay(3000)
-					);
-
-					$scope.goTo('/project/' + project._id);
-				}
-			});
+				});
 */
 		};
 
@@ -109,7 +112,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 
 		// Remove existing Project
 		$scope.remove = function(project) {
-			if ( project ) { 
+			if (project) { 
 				project.$remove();
 
 				for (var i in $scope.projects) {
@@ -161,8 +164,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 			console.log('Text changed to ' + text);
 		};
 
-		$scope.selectedItemChange = function(item)
-		{
+		$scope.selectedItemChange = function(item) {
 			$scope.goTo('/project/' + item.name);
 		};
 
