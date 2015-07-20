@@ -15,7 +15,8 @@ var ProjectSchema = new Schema({
 	children : [],
 	deleted : Boolean,
 	users : [],
-	owner : String
+	owner : String,
+	user: Object
 });
 
 mongoose.model('Project', ProjectSchema);
