@@ -1,0 +1,104 @@
+<section data-ng-controller="SidenavController" class = "sidenav">
+	<md-sidenav class="md-sidenav-left md-whiteframe-z2 sidenav" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" layout = "row" >
+		<md-list ng-controller="LeftCtrl">
+			<!-- <md-divider></md-divider> -->
+			<md-list-item ng-click="go('/')">
+				<md-icon md-svg-icon="modules/sidenav/img/person.svg"></md-icon>
+				<p> <b>Welcome</b> {{authentication.user.displayName}} </p>
+			</md-list-item> 
+			<div data-ng-hide="authentication.user">
+				<md-list-item ng-click="signupDialog($event)">
+					<md-icon md-svg-icon="modules/sidenav/img/edit.svg"></md-icon>
+					<p> Sign Up </p>
+				</md-list-item>
+				<md-list-item ng-click="signinDialog($event)">
+					<md-icon md-svg-icon="modules/sidenav/img/person.svg"></md-icon>
+					<p> Log In </p>
+				</md-list-item>
+			</div>
+
+			<div data-ng-show="authentication.user">
+				<md-list-item ng-click="go('/settings/profile')">
+					<md-icon md-svg-icon="modules/sidenav/img/edit.svg"></md-icon>
+					<p> Profile </p>
+				</md-list-item>
+				<md-list-item ng-click="go('/projects')">
+					<md-icon md-svg-icon="modules/sidenav/img/edit.svg"></md-icon>
+					<p> Projects </p>
+				</md-list-item>
+				<md-list-item ng-click="signOut()">
+					<md-icon md-svg-icon="modules/sidenav/img/right_arrow.svg"></md-icon>
+					<p> Log Out </p>
+				</md-list-item>
+			</div>
+
+			<div hide-gt-md>
+				<md-divider></md-divider>
+				<md-subheader class="md-no-sticky">Navigation Bar</md-subheader>
+				<md-list-item ng-click="close()">
+					<md-icon md-svg-icon="modules/sidenav/img/right_arrow.svg"></md-icon>
+					<p> Close </p>
+				</md-list-item>
+			</div>
+
+			<md-divider></md-divider>
+		</md-list>
+
+	  <!-- <md-content layout-padding ng-controller="LeftCtrl" class="navContent">
+		<img src = "modules/sidenav/img/Willburg_Logo.png" class="logo">
+		</img>
+		<md-container layout = "coloum">
+			<md-icon md-svg-src="modules/sidenav/img/person.svg" class="s24" aria-label="Cake" class= "nav-icon"></md-icon>
+			<md-button href="/#!/" class = "navButton" layout="row"><b>Welcome</b> {{authentication.user.displayName}}</md-button>
+		</md-container>
+		<md-divider></md-divider>
+			<md-container layout = "coloum">
+				<md-icon md-svg-src="modules/sidenav/img/info.svg" class="s24" aria-label="Cake"></md-icon>
+				<md-button href="/#!/" class = "navButton">how to guide</md-button>
+			</md-container>
+		<md-divider></md-divider>
+		<md-container data-ng-hide="authentication.user" class = "navButton">
+			<md-container layout = "coloum">
+				<md-icon md-svg-src="modules/sidenav/img/edit.svg" class="s24" aria-label="Cake"></md-icon>
+				<md-button class = "navButton" ng-click="signupDialog($event)">sign up</md-button>
+			</md-container>
+		<md-divider></md-divider>
+			<md-container layout = "coloum">
+				<md-icon md-svg-src="modules/sidenav/img/person.svg" class="s24" aria-label="Cake"></md-icon>
+				<md-button class = "navButton" ng-click="signinDialog($event)">log in</md-button>
+			</md-container>
+		<md-divider></md-divider>
+		</md-container>
+		<md-container data-ng-show="authentication.user" class = "navButton">
+			<md-container layout = "coloum">
+				<md-icon md-svg-src="modules/sidenav/img/edit.svg" class="s24" aria-label="Cake"></md-icon>
+				<md-button href="/#!/settings/profile" class = "navButton">Profile</md-button>
+			</md-container>
+		<md-divider></md-divider>
+			<md-container layout = "coloum">
+				<md-icon md-svg-src="modules/sidenav/img/right_arrow.svg" class="s24" aria-label="Cake"></md-icon>
+				<md-button href="/auth/signout" class = "navButton">Log out</md-button>
+			</md-container>
+		<p class="menu-division">DISPLAY</p>
+		<md-container layout = "coloum">
+				<md-icon md-svg-src="modules/sidenav/img/right_arrow.svg" class="s24" aria-label="Cake"></md-icon>
+				<md-button class = "navButton" href = "/#!/calendar">calendar view</md-button>
+			</md-container>
+		<md-divider></md-divider>
+		<md-container layout = "coloum">
+				<md-icon md-svg-src="modules/sidenav/img/right_arrow.svg" class="s24" aria-label="Cake"></md-icon>
+				<md-button class = "navButton">camera view</md-button>
+			</md-container>
+		</md-container>
+		 <p class="menu-division" hide-gt-md>NAVIGATION BAR</p>
+		<md-container layout = "coloum" hide-gt-md>
+				<md-icon md-svg-src="modules/sidenav/img/right_arrow.svg" class="s24" aria-label="Cake"></md-icon>
+				<md-button ng-click="close()" class = "navButton">
+				  Close
+				</md-button>
+		</md-container>
+		</md-container>
+		<md-divider></md-divider>
+	  </md-content> -->
+	</md-sidenav>
+</section>

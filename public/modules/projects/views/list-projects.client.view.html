@@ -1,0 +1,76 @@
+<section data-ng-controller="ProjectsController" data-ng-init="find()">
+<md-content flex ='100'>
+<div>
+  <md-grid-list
+        md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3"
+        md-row-height-gt-md="1:1" md-row-height="1:1"
+        md-gutter="10px" md-gutter-gt-sm="10px" >
+
+        <md-autocomplete 
+          ng-disabled="isDisabled"
+          md-no-cache="noCache"
+          md-selected-item="selectedItem"
+          md-search-text-change="searchTextChange(searchText)"
+          md-search-text="searchText"
+          md-selected-item-change="selectedItemChange(item)"
+          md-items="item in querySearch(searchText)"
+          md-item-text="item.name"
+          md-min-length="0"
+          placeholder="Search"
+          md-menu-class="autocomplete-custom-template"
+          class = "searchBar">
+        <md-item-template>
+          <span class="item-title">
+            <span>
+                <strong>{{item.name  | uppercase}}</strong> 
+            </span>
+          </span>
+          <span class="item-metadata">
+            <span class="item-metastat">
+              {{item.description}}
+            </span>
+          </span>
+        </md-item-template>
+      </md-autocomplete>
+    <md-grid-tile ng-repeat="project in querySearch(searchText)" class="gray" md-rowspan="1" md-colspan="1" md-colspan-sm="1" style="z-index : 1; position: absolute">
+        <md-card flex class = "cardHeight" >
+            <md-toolbar layout = "row" class = "cardHeader">
+                <div class="md-toolbar-tools">
+                  <h3>{{project.name}}</h3>
+                </div>
+                <md-button aria-label="photo" class="md-icon-button">
+                    <md-icon md-svg-src="modules/projects/img/icons/home.svg"></md-icon>
+                </md-button>
+                <md-button aria-label="View/Edit" class="md-icon-button" ng-click="goTo('/projects/{{project._id}}/edit')">
+                    <md-tooltip>
+                        View/Edit
+                    </md-tooltip>
+                    <md-icon md-svg-src="modules/projects/img/icons/edit.svg"></md-icon>
+                </md-button>
+                <md-button aria-label="Delete" class="md-icon-button">
+                    <md-tooltip>
+                        Delete
+                    </md-tooltip>
+                    <md-icon md-svg-src="modules/projects/img/icons/close.svg" ng-click="deleteProject(project)"></md-icon>
+                </md-button>
+              </md-toolbar>
+            <br/>
+            <md-card-content class="md-padding" class = "cardHeight" style="overflow:auto;"> 
+            <p>{{project.description}}</p>
+            <md-button class="md-raised"
+            ng-hide="project.locked" 
+            ng-click="project.locked = !project.locked">
+            Start Estimation
+            </md-button>
+            <md-button class="md-raised" 
+            ng-show="project.locked"
+            ng-click="project.locked = !project.locked">
+            Stop Estimation
+            </md-button>
+            </md-card-content>
+        </md-card>
+    </md-grid-tile>
+  </md-grid-list>
+</div>
+</md-content>
+</section>
