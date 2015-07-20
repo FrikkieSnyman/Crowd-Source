@@ -11,12 +11,12 @@
 		md-min-length="0"
 		placeholder="Search"
 		md-menu-class="autocomplete-custom-template"
-		class = "searchBar"
-		focusOnOpen = "false">
+		class="searchBar"
+		md-autofocus="false">
 		<md-item-template>
 			<span class="item-title">
 				<span>
-						<strong>{{item.name  | uppercase}}</strong> 
+					<strong>{{item.name  | uppercase}}</strong> 
 				</span>
 			</span>
 			<span class="item-metadata">
@@ -25,6 +25,9 @@
 				</span>
 			</span>
 		</md-item-template>
+		<md-not-found>
+			No matches found for "{{searchText}}".
+		</md-not-found>
 	</md-autocomplete>
 
 	<md-grid-list
@@ -56,7 +59,7 @@
 				</md-toolbar>
 
 				<br/>
-				
+
 				<md-card-content class="md-padding" class = "cardHeight" style="overflow:auto;"> 
 					<p>{{project.description}}</p>
 					<md-button class="md-raised"
