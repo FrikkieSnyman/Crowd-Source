@@ -107,3 +107,7 @@ md-fab-toolbar .md-fab-toolbar-wrapper {
 .treeInput {
 	padding: 0 !important; 
 }
+
+.searchBar {
+  margin: 10px;
+}
