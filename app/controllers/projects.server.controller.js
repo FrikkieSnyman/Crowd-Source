@@ -109,3 +109,14 @@ exports.hasAuthorization = function(req, res, next) {
 	}
 	next();
 };
+
+exports.getProject = function(req, res) {
+	var projectId = req.body.projectId;
+
+	Project.find({_id: projectId}, function(err, project) {
+		if (err) {
+			return console.error(err);
+		}
+		res.send(project);
+	});
+};
