@@ -62,16 +62,6 @@
 
 				<md-card-content class="md-padding" class = "cardHeight" style="overflow:auto;"> 
 					<p>{{project.description}}</p>
-					<md-button class="md-raised"
-						ng-hide="project.locked" 
-						ng-click="project.locked = !project.locked">
-						Start Estimation
-					</md-button>
-					<md-button class="md-raised" 
-						ng-show="project.locked"
-						ng-click="project.locked = !project.locked">
-						Stop Estimation
-					</md-button>
 				</md-card-content>
 			</md-card>
 		</md-grid-tile>
