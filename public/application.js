@@ -8,7 +8,12 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$locatio
 	function($locationProvider) {
 		$locationProvider.hashPrefix('!');
 	}
-]);
+])
+.config(function($mdThemingProvider) {
+	$mdThemingProvider.theme('default')
+	.primaryPalette('indigo')
+	.accentPalette('yellow');
+});
 
 //Then define the init function for starting up the application
 angular.element(document).ready(function() {
