@@ -228,8 +228,12 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 
 		$scope.saveProject = function() {
 			$scope.project.$update(function(response) {
-				$location.path('projects');
-
+				$mdToast.show(
+					$mdToast.simple()
+					.content('Project saved')
+					.position($scope.getToastPosition())
+					.hideDelay(3000)
+				);
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -281,5 +285,30 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 		$scope.exists = function(item, list) {
 			return list.indexOf(item) > -1;
 		};
+
+		$scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
+			// Appending dialog to document.body to cover sidenav in docs app
+			if (!$scope.confirm) {
+				event.preventDefault();
+				//console.log(newUrl);
+				var confirm = $mdDialog.confirm()
+				.parent(angular.element(document.body))
+				.title('Are you sure you want to leave this page?')
+				.content('All unsaved changes will be lost.')
+				.ariaLabel('Yes')
+				.ok('Yes')
+				.cancel('No')
+				.targetEvent(event);
+				$mdDialog.show(confirm).then(function() {
+				newUrl = newUrl.split('#!');
+				$scope.goTo(newUrl[1]);
+				$scope.confirm = true;
+				//$scope.saveProject();
+			}, function() {
+				
+			});
+			}
+		
+		});
 	}
 ]);
