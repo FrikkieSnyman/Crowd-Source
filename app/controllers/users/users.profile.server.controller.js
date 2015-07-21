@@ -9,6 +9,19 @@ var _ = require('lodash'),
 	passport = require('passport'),
 	User = mongoose.model('User');
 
+exports.getAllUsers = function(req, res) {
+	User.find({}).select('displayName -_id').exec(function(err, users) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			console.log('here');
+			res.jsonp(users);
+		}
+	});
+};
+
 /**
  * Update user details
  */
