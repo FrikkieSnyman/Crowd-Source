@@ -226,5 +226,38 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 				$scope.error = errorResponse.data.message;
 			});
 		};
+
+		function DialogController($scope, $mdDialog) {
+			$scope.hide = function() {
+				$mdDialog.hide();
+			};
+			$scope.cancel = function() {
+				$mdDialog.cancel();
+			};
+		}
+
+		$scope.showDescriptionDialog = function(ev, node) {
+			$scope.currentNode = node;
+
+			$scope.setCurrentNode(node, function() {
+				var newScope = $scope.$new();
+
+				$mdDialog.show({
+					controller: DialogController,
+					templateUrl: 'modules/projects/views/description.dialog.client.view.html',
+					parent: angular.element(document.body),
+					targetEvent: ev,
+					scope: newScope
+				});
+			});
+		};
+
+		$scope.setCurrentNode = function(node, callback) {
+			$scope.currentNode = node;
+
+			if (callback !== undefined) {
+				callback();
+			}
+		};
 	}
 ]);
