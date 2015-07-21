@@ -165,7 +165,8 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 		};
 
 		$scope.selectedItemChange = function(item) {
-			$scope.goTo('/project/' + item.name);
+			console.log(item);
+			$scope.goTo('/projects/' + item._id + '/edit');
 		};
 
 		var createFilterFor = function(query) {
