@@ -10,7 +10,7 @@ var _ = require('lodash'),
 	User = mongoose.model('User');
 
 exports.getAllUsers = function(req, res) {
-	User.find({}).select('displayName -_id').sort([['displayName', 'ascending']]).exec(function(err, users) {
+	User.find({}).select('username -_id').sort([['username', 'ascending']]).exec(function(err, users) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)

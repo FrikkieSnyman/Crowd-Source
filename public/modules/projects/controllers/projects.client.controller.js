@@ -6,17 +6,39 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 		$scope.people = [];
 		$http.get('/users/getUsers').success(function(users) {
 			for (var i in users) {
-				$scope.people.push(users[i].displayName);
+				$scope.people.push(users[i].username);
 			}
 		});
 
 		$scope.authentication = Authentication;
-		$scope.rootIsEmpty = function() {
-			//debugger;
-			if (typeof $scope.project.children !== undefined) {
-				if ($scope.project.children.length < 1) {
-					return true;
+		$scope.userIndex = -1;
+
+		var project = {'projectId': $stateParams.projectId};
+		$http({method:'POST', url:'/project', data: project}).success(function(data) {
+			if (data.length !== 0) {
+				var tmp = data[0];
+				for (var u in tmp.users) {
+					if (tmp.users[u] === $scope.authentication.user.username) {
+						$scope.userIndex = u;
+					}
 				}
+
+				if ($scope.userIndex === -1) {
+					var toast = $mdToast.simple()
+					.content('Not authorised to estimate')
+					.action('')
+					.highlightAction(false)
+					.position($scope.getToastPosition());
+					$mdToast.show(toast);					
+				}
+			}
+		});
+
+		$scope.rootIsEmpty = function() {
+			if (typeof $scope.project.children !== undefined) {
+					if ($scope.project.children.length < 1) {
+						return true;
+					}
 			} else {
 				return false;
 			}
@@ -227,6 +249,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 		};
 
 		$scope.saveProject = function() {
+			console.log($scope.project);
 			$scope.project.$update(function(response) {
 				$mdToast.show(
 					$mdToast.simple()
