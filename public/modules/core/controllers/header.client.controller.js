@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', 'Authentication', 'Menus', '$location',
-	function($scope, Authentication, Menus, $location) {
+angular.module('core').controller('HeaderController', ['$scope', 'Authentication', 'Menus', '$location', '$mdSidenav', '$mdUtil',
+	function($scope, Authentication, Menus, $location, $mdSidenav, $mdUtil) {
 		$scope.authentication = Authentication;
 		$scope.isCollapsed = false;
 		$scope.menu = Menus.getMenu('topbar');
@@ -18,5 +18,18 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 		$scope.goTo = function(route) {
 			$location.path(route);
 		};
+
+		$scope.sidenav = $mdSidenav;
+		function buildToggler(navID) {
+			var debounceFn =  $mdUtil.debounce(function() {
+				$mdSidenav(navID)
+				.toggle()
+        .then(function() {
+        });
+			}, 300);
+			return debounceFn;
+		}
+		$scope.toggleLeft = buildToggler('left');
+
 	}
 ]);
