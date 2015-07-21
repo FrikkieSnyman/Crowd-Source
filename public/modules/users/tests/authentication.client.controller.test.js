@@ -45,7 +45,7 @@
 			});
 		}));
 
-		/*
+		
 		it('$scope.signin() should login with a correct user and password', function() {
 			// Test expected GET request
 			$httpBackend.when('POST', '/auth/signin').respond(200, 'Fred');
@@ -55,9 +55,9 @@
 
 			// Test scope value
 			expect(scope.authentication.user).toEqual('Fred');
-			expect($location.url()).toEqual('/');
+			expect($location.url()).toEqual('/projects');
 		});
-
+		/*
 		it('$scope.signin() should fail to log in with nothing', function() {
 			// Test expected POST request
 			$httpBackend.expectPOST('/auth/signin').respond(400, {
@@ -114,6 +114,6 @@
 			// Test scope value
 			expect(scope.error).toBe('Username already exists');
 		});
+		*/
 	});
-*/
 }());

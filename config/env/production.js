@@ -20,7 +20,7 @@ module.exports = {
 				'public/lib/angular-material/angular-material.min.js',
 				'public/lib/angular-animate/angular-animate.min.js',
 				'public/lib/angular-aria/angular-aria.min.js',
-				'public/lib/angular-ui-tree/dist/angular-ui-tree.min.js'
+				'public/lib/angular-ui-tree/dist/angular-ui-tree.min.js',
 			]
 		},
 		css: 'public/dist/application.min.css',

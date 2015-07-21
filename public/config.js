@@ -13,7 +13,7 @@ var ApplicationConfiguration = (function() {
 	'ui.utils',
 	'ngMaterial',
 	'ui.tree',
-	'ngAria'];
+	'ngAria',];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {

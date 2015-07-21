@@ -49,7 +49,7 @@
 				$scope: scope
 			});
 		}));
-
+		/*
 		it('$scope.find() should create an array with at least one Project object fetched from XHR', inject(function(Projects) {
 			// Create sample Project using the Projects service
 			var sampleProject = new Projects({
@@ -159,5 +159,6 @@
 			// Test array after successful delete
 			expect(scope.projects.length).toBe(0);
 		}));
+		*/
 	});
 }());
