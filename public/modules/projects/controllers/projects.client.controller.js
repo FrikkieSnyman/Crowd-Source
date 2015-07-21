@@ -228,8 +228,12 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 
 		$scope.saveProject = function() {
 			$scope.project.$update(function(response) {
-				$location.path('projects');
-
+				$mdToast.show(
+					$mdToast.simple()
+					.content('Project saved')
+					.position($scope.getToastPosition())
+					.hideDelay(3000)
+				);
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
