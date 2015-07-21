@@ -50,118 +50,117 @@
 			});
 		}));
 		
-		// it('$scope.find() should create an array with at least one Project object fetched from XHR', inject(function(Projects) {
-		// 	// Create sample Project using the Projects service
-		// 	var sampleProject = new Projects({
-		// 		name: 'New Project'
-		// 	});
+		it('$scope.find() should create an array with at least one Project object fetched from XHR', inject(function(Projects) {
+			// Create sample Project using the Projects service
+			var sampleProject = new Projects({
+				name: 'New Project'
+			});
 
-		// 	// Create a sample Projects array that includes the new Project
-		// 	var sampleProjects = [sampleProject];
+			// Create a sample Projects array that includes the new Project
+			var sampleProjects = [sampleProject];
 
-		// 	// Set GET response
-		// 	$httpBackend.expectGET('projects').respond(sampleProjects);
+			// Set GET response
+			$httpBackend.expectGET('projects').respond(sampleProjects);
 
-		// 	// Run controller functionality
-		// 	scope.find();
-		// 	$httpBackend.flush();
+			// Run controller functionality
+			scope.find();
+			$httpBackend.flush();
 
-		// 	// Test scope value
-		// 	expect(scope.projects).toEqualData(sampleProjects);
-		// }));
+			// Test scope value
+			expect(scope.projects).toEqualData(sampleProjects);
+		}));
 
-		// it('$scope.findOne() should create an array with one Project object fetched from XHR using a projectId URL parameter', inject(function(Projects) {
-		// 	// Define a sample Project object
-		// 	var sampleProject = new Projects({
-		// 		name: 'New Project'
-		// 	});
+		it('$scope.findOne() should create an array with one Project object fetched from XHR using a projectId URL parameter', inject(function(Projects) {
+			// Define a sample Project object
+			var sampleProject = new Projects({
+				name: 'New Project'
+			});
 
-		// 	// Set the URL parameter
-		// 	$stateParams.projectId = '525a8422f6d0f87f0e407a33';
+			// Set the URL parameter
+			$stateParams.projectId = '525a8422f6d0f87f0e407a33';
 
-		// 	// Set GET response
-		// 	$httpBackend.expectGET(/projects\/([0-9a-fA-F]{24})$/).respond(sampleProject);
+			// Set GET response
+			$httpBackend.expectGET(/projects\/([0-9a-fA-F]{24})$/).respond(sampleProject);
 
-		// 	// Run controller functionality
-		// 	scope.findOne();
-		// 	$httpBackend.flush();
+			// Run controller functionality
+			scope.findOne();
+			$httpBackend.flush();
 
-		// 	// Test scope value
-		// 	expect(scope.project).toEqualData(sampleProject);
-		// }));
+			// Test scope value
+			expect(scope.project).toEqualData(sampleProject);
+		}));
 		
-		// it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Projects) {
-		// 	// Create a sample Project object
-		// 	var sampleProjectPostData = new Projects({
-		// 		name: 'New Project',
-		// 		description: 'Test'
-		// 	});
+		it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Projects) {
+			// Create a sample Project object
+			var sampleProjectPostData = new Projects({
+				name: 'New Project',
+				description: 'Test'
+			});
 
-		// 	// Create a sample Project response
-		// 	var sampleProjectResponse = new Projects({
-		// 		_id: '525cf20451979dea2c000001',
-		// 		name: 'New Project',
-		// 		description: 'Test'
-		// 	});
+			// Create a sample Project response
+			var sampleProjectResponse = new Projects({
+				_id: '525cf20451979dea2c000001',
+				name: 'New Project',
+				description: 'Test'
+			});
 
-		// 	// Fixture mock form input values
-		// 	scope.name = 'New Project';
-		// 	scope.description = 'Test';
+			// Fixture mock form input values
+			scope.name = 'New Project';
+			scope.description = 'Test';
 
-		// 	// Set POST response
-		// 	$httpBackend.expectPOST('projects', sampleProjectPostData).respond(sampleProjectResponse);
+			// Set POST response
+			$httpBackend.expectPOST('projects', sampleProjectPostData).respond(sampleProjectResponse);
 
-		// 	// Run controller functionality
-		// 	scope.create();
-		// 	$httpBackend.flush();
+			// Run controller functionality
+			scope.create();
+			$httpBackend.flush();
 
-		// 	// Test form inputs are reset
-		// 	expect(scope.name).toEqual('');
+			// Test form inputs are reset
+			expect(scope.name).toEqual('');
 
-		// 	// Test URL redirection after the Project was created
-		// 	expect($location.path()).toBe('/projects/' + sampleProjectResponse._id);
-		// }));
+			// Test URL redirection after the Project was created
+			expect($location.path()).toBe('/projects/' + sampleProjectResponse._id);
+		}));
 		
-		// it('$scope.update() should update a valid Project', inject(function(Projects) {
-		// 	// Define a sample Project put data
-		// 	var sampleProjectPutData = new Projects({
-		// 		_id: '525cf20451979dea2c000001',
-		// 		name: 'New Project'
-		// 	});
+		it('$scope.update() should update a valid Project', inject(function(Projects) {
+			// Define a sample Project put data
+			var sampleProjectPutData = new Projects({
+				_id: '525cf20451979dea2c000001',
+				name: 'New Project'
+			});
 
-		// 	// Mock Project in scope
-		// 	scope.project = sampleProjectPutData;
+			// Mock Project in scope
+			scope.project = sampleProjectPutData;
 
-		// 	// Set PUT response
-		// 	$httpBackend.expectPUT(/projects\/([0-9a-fA-F]{24})$/).respond();
+			// Set PUT response
+			$httpBackend.expectPUT(/projects\/([0-9a-fA-F]{24})$/).respond();
 
-		// 	// Run controller functionality
-		// 	scope.update();
-		// 	$httpBackend.flush();
+			// Run controller functionality
+			scope.update();
+			$httpBackend.flush();
 
-		// 	// Test URL location to new object
-		// 	expect($location.path()).toBe('/projects/' + sampleProjectPutData._id);
-		// }));
+			// Test URL location to new object
+			expect($location.path()).toBe('/projects/' + sampleProjectPutData._id);
+		}));
 
-		// it('$scope.remove() should send a DELETE request with a valid projectId and remove the Project from the scope', inject(function(Projects) {
-		// 	// Create new Project object
-		// 	var sampleProject = new Projects({
-		// 		_id: '525a8422f6d0f87f0e407a33'
-		// 	});
+		it('$scope.remove() should send a DELETE request with a valid projectId and remove the Project from the scope', inject(function(Projects) {
+			// Create new Project object
+			var sampleProject = new Projects({
+				_id: '525a8422f6d0f87f0e407a33'
+			});
 
-		// 	// Create new Projects array and include the Project
-		// 	scope.projects = [sampleProject];
+			// Create new Projects array and include the Project
+			scope.projects = [sampleProject];
 
-		// 	// Set expected DELETE response
-		// 	$httpBackend.expectDELETE(/projects\/([0-9a-fA-F]{24})$/).respond(204);
+			// Set expected DELETE response
+			$httpBackend.expectDELETE(/projects\/([0-9a-fA-F]{24})$/).respond(204);
 
-		// 	// Run controller functionality
-		// 	scope.remove(sampleProject);
-		// 	$httpBackend.flush();
+			// Run controller functionality
+			scope.remove(sampleProject);
+			$httpBackend.flush();
 
-		// 	// Test array after successful delete
-		// 	expect(scope.projects.length).toBe(0);
-		// }));
-		
+			// Test array after successful delete
+			expect(scope.projects.length).toBe(0);
+		}));
 	});
 }());
