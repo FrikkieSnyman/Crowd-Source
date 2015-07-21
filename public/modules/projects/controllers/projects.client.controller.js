@@ -17,14 +17,21 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 		$http({method:'POST', url:'/project', data: project}).success(function(data) {
 			if (data.length !== 0) {
 				var tmp = data[0];
-				console.log($scope.authentication.user.username);
 				for (var u in tmp.users) {
 					if (tmp.users[u] === $scope.authentication.user.username) {
 						$scope.userIndex = u;
 					}
 				}
+
+				if ($scope.userIndex === -1) {
+					var toast = $mdToast.simple()
+					.content('Not authorised to estimate')
+					.action('')
+					.highlightAction(false)
+					.position($scope.getToastPosition());
+					$mdToast.show(toast);					
+				}
 			}
-			console.log($scope.userIndex);
 		});
 
 		$scope.rootIsEmpty = function() {
