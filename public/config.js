@@ -4,12 +4,12 @@
 var ApplicationConfiguration = (function() {
 	// Init module configuration options
 	var applicationModuleName = 'estimate-swarm';
-	var applicationModuleVendorDependencies = ['ngResource', 
+	var applicationModuleVendorDependencies = ['ngResource',
 	'ngCookies',
-	'ngAnimate',  
-	'ngTouch',  
-	'ngSanitize',  
-	'ui.router', 
+	'ngAnimate',
+	'ngTouch',
+	'ngSanitize',
+	'ui.router',
 	'ui.utils',
 	'ngMaterial',
 	'ui.tree',
