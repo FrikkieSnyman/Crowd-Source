@@ -16,10 +16,10 @@
 				$scope: scope
 			});
 		}));
-		/*
+		
 		it('should expose the authentication service', function() {
 			expect(scope.authentication).toBeTruthy();
 		});
-		*/
+		
 	});
 })();
