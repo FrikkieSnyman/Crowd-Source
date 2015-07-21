@@ -1,7 +1,6 @@
 <section data-ng-controller="SidenavController" class = "sidenav">
-	<md-sidenav class="md-sidenav-left md-whiteframe-z2 sidenav" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
-		<md-list ng-controller="LeftCtrl">
-			<!-- <md-divider></md-divider> -->
+	<md-sidenav class="md-sidenav-left md-whiteframe-z2 sidenav coloredBackground" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+		<!-- <md-list ng-controller="LeftCtrl">
 			<md-list-item ng-click="go('/')">
 				<md-icon md-svg-icon="modules/sidenav/img/person.svg"></md-icon>
 				<p> <b>Welcome</b> {{authentication.user.displayName}} </p>
@@ -42,7 +41,39 @@
 			</div>
 
 			<md-divider></md-divider>
-		</md-list>
+		</md-list> -->
+		
+		<md-content class="coloredBackground">
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<h1><span>Estimate Swarm</span></h1>
+					<span flex></span>
+					<md-button class="md-icon-button md-primary" ng-click="toggleLeft()" aria-label="Settings" hide-gt-md="">
+						<md-icon md-svg-icon="modules/sidenav/img/chevron_left.svg" class="lightIcon"></md-icon>
+					</md-button>
+				</div>
+			</md-toolbar>
+
+			<md-button class="sideNavItem" ng-click="go('/');toggleLeft()"><span>Home</span></md-button>
+			<md-divider></md-divider>
+
+			<div data-ng-hide="authentication.user">
+				<md-button class="sideNavItem" ng-click="signupDialog($event);toggleLeft()"><span>Sign Up</span></md-button>
+				<md-divider></md-divider>
+
+				<md-button class="sideNavItem" ng-click="signinDialog($event);toggleLeft()"><span>Sign In</span></md-button>
+			</div>
+
+			<div data-ng-show="authentication.user">
+				<md-button class="sideNavItem" ng-click="go('/settings/profile');toggleLeft()"><span>Profile</span></md-button>
+				<md-divider></md-divider>
+
+				<md-button class="sideNavItem" ng-click="go('/projects');toggleLeft()"><span>Projects</span></md-button>
+				<md-divider></md-divider>
+
+				<md-button class="sideNavItem" ng-click="signOut();toggleLeft()"><span>Sign Out</span></md-button>
+			</div>
+		</md-content>
 
 	  <!-- <md-content layout-padding ng-controller="LeftCtrl" class="navContent">
 		<img src = "modules/sidenav/img/Willburg_Logo.png" class="logo">

@@ -8,6 +8,10 @@ var mongoose = require('mongoose'),
 	Project = mongoose.model('Project'),
 	_ = require('lodash');
 
+exports.getAllUsers = function(req, res) {
+	console.log('HERE');
+}
+
 /**
  * Create a Project
  */

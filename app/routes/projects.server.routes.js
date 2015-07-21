@@ -9,6 +9,8 @@ module.exports = function(app) {
 		.get(projects.list)
 		.post(users.requiresLogin, projects.create);
 
+	app.route('/getUsers').get(projects.getAllUsers);
+
 	app.route('/projects/:projectId')
 		.get(projects.read)
 		.put(users.requiresLogin, projects.update)
