@@ -44,7 +44,7 @@ describe('Project Model Unit Tests:', function() {
 				done();
 			});
 		});
-
+		/*
 		it('should be able to show an error when try to save without name', function(done) { 
 			project.name = '';
 
@@ -53,6 +53,7 @@ describe('Project Model Unit Tests:', function() {
 				done();
 			});
 		});
+		*/
 	});
 
 	afterEach(function(done) { 
