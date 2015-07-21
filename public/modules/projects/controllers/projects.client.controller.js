@@ -3,6 +3,13 @@
 // Projects controller
 angular.module('projects').controller('ProjectsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout',
 	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout) {
+		$scope.people = [];
+		$http.get('/users/getUsers').success(function(users) {
+			for (var i in users) {
+				$scope.people.push(users[i].displayName);
+			}
+		});
+
 		$scope.authentication = Authentication;
 		$scope.rootIsEmpty = function() {
 			//debugger;
@@ -29,7 +36,8 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 			//		var project = {'name': $scope.projectName, 'description': $scope.description, 'owner' : Authentication.user, 'users' : $scope.selected};
 			var project = new Projects ({
 			name: $scope.projectName,
-			description: $scope.description
+			description: $scope.description,
+			users : $scope.selected
 		});
 			project.$save(function(response) {
 				$location.path('projects/' + project._id + '/edit');
@@ -258,6 +266,20 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 			if (callback !== undefined) {
 				callback();
 			}
+		};
+
+		$scope.selected = [];
+		$scope.toggle = function(item, list) {
+			var idx = list.indexOf(item);
+			if (idx > -1) {
+				list.splice(idx, 1);
+			} else {
+				list.push(item);
+			}
+		};
+
+		$scope.exists = function(item, list) {
+			return list.indexOf(item) > -1;
 		};
 	}
 ]);
