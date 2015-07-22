@@ -2,6 +2,10 @@
 
 angular.module('projects').controller('ProjectEditController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope',
 	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope) {
+		$scope.goTo = function(route) {
+			$location.path(route);
+		};
+
 		$scope.people = [];
 		$http.get('/users/getUsers').success(function(users) {
 			for (var i in users) {
