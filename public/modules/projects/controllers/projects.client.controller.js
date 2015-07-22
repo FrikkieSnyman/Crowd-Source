@@ -289,31 +289,13 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 
 		$scope.updateLocalTree = function(scope) {
 			var user = Authentication.user.firstName + ' ' + Authentication.user.lastName;
-			console.log('Curent user name: ' + user);
-
-			console.log($scope.project.children[0].estimations);
-
 			var count = $scope.userIndex; // might have to use $rootScope
 			var found = false;
-
-			console.log('User index: ' + $scope.userIndex);
-
-			// for (var u in scope.project.users) {
-			// 	if (scope.project.users[u] === user) {
-			// 		found = true;
-			// 		count = u;
-			// 		break;
-			// 	}
-			// }
-
-			// console.log('User number: ' + count);
-
 			var currnode = $scope.project.children[0];
-
 			var result;
+			
 			$scope.getEstimation(currnode, count, function(res) {
 				result = res;
-				// console.log(result);
 			});
 		};
 
