@@ -38,8 +38,10 @@
 		<md-grid-tile ng-repeat="project in querySearch(searchText)" class="gray" md-rowspan="1" md-colspan="1" md-colspan-sm="1" style="z-index : 1; position: absolute">
 			<md-card flex class = "cardHeight" >
 				<md-toolbar layout = "row" class = "cardHeader">
-					<div style="white-space: nowrap; overflow: hidden" class="md-toolbar-tools">
-						<h3>{{project.name}}</h3>
+					<div style="padding: 10px" class="md-toolbar-tools">
+						<div style="overflow:auto;" class="cardHeight">
+							<h3>{{project.name}}</h3>
+						</div>
 					</div>
 					<md-button aria-label="photo" class="md-icon-button">
 						<md-icon md-svg-src="modules/projects/img/icons/home.svg"></md-icon>
@@ -60,7 +62,7 @@
 
 				<br/>
 
-				<md-card-content class="md-padding" class = "cardHeight" style="overflow:auto;"> 
+				<md-card-content class="md-padding" class="cardHeight" style="overflow:auto;"> 
 					<p>{{project.description}}</p>
 				</md-card-content>
 			</md-card>
