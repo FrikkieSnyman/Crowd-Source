@@ -13,7 +13,7 @@
 		md-menu-class="autocomplete-custom-template"
 		class="searchBar"
 		md-autofocus="false">
-		<md-item-template>
+		<md-item-template style="white-space: nowrap; overflow: hidden">
 			<span class="item-title">
 				<span>
 					<strong>{{item.name  | uppercase}}</strong> 
@@ -38,7 +38,7 @@
 		<md-grid-tile ng-repeat="project in querySearch(searchText)" class="gray" md-rowspan="1" md-colspan="1" md-colspan-sm="1" style="z-index : 1; position: absolute">
 			<md-card flex class = "cardHeight" >
 				<md-toolbar layout = "row" class = "cardHeader">
-					<div class="md-toolbar-tools">
+					<div style="white-space: nowrap; overflow: hidden" class="md-toolbar-tools">
 						<h3>{{project.name}}</h3>
 					</div>
 					<md-button aria-label="photo" class="md-icon-button">
