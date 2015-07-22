@@ -56,7 +56,7 @@
 		}));
 
 		it('$scope.updateLocalTree() should send cause the estimations of the leaf nodes to bubble-up the tree to the root node', inject(function() {
-			// Create new Project object with depth 2
+			// Create new Project object with depth 2 and 2 children
 			var sampleProject = {
 					children : [
 						{
@@ -78,10 +78,69 @@
 
 			// mock userIndex: middle user
 			scope.userIndex = 1;
-
 			scope.updateLocalTree(scope);
-
 			expect(scope.project.children[0].estimations[scope.userIndex]).toBe(3);
+			// test whether other estimations are un-touched
+			expect(scope.project.children[0].estimations[0]).toBe(null);
+			expect(scope.project.children[0].estimations[2]).toBe(null);
+
+
+			// Test project with depth 3, but with incomplete tree
+			sampleProject = {
+					children : [
+						{
+							nodes : [
+								{
+									nodes : [
+										{
+											nodes : [
+												{
+													nodes : [],
+													estimations : [null, null, 2]
+												},
+												{
+													nodes : [
+														{
+															nodes : [],
+															estimations : [null, null, 1]
+														}
+													],
+													estimations : [null, null, null]
+												}
+											],
+											estimations : [null, null, null]
+										},
+										{
+											nodes : [],
+											estimations : [null, null, 4]
+										}
+									],
+									estimations : [null, null, null]
+								},
+								{
+									nodes : [],
+									estimations : [null, null, 3]
+								}
+							],
+							estimations : [null, null, null]
+						}
+					],
+			};
+			scope.project = sampleProject;
+
+			scope.userIndex = 2;
+			scope.updateLocalTree(scope);
+			expect(scope.project.children[0].estimations[scope.userIndex]).toBe(10);
+			// test whether other estimations are un-touched
+			expect(scope.project.children[0].estimations[0]).toBe(null);
+			expect(scope.project.children[0].estimations[1]).toBe(null);
+
+			/*
+				TODO: 
+				1. Add test for updating existing values in nodes correctly
+				2. Tree with a maximum of 1 child
+			*/
+
 		}));
 
 	});
