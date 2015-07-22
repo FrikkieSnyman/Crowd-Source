@@ -32,10 +32,8 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 
 		$scope.rootIsEmpty = function() {
 			if ($scope.project.$resolved !== false) {
-				if (typeof $scope.project.children !== undefined) {
-						if ($scope.project.children.length < 1) {
-							return true;
-						}
+				if ($scope.project.children.length < 1) {
+					return true;
 				} else {
 					return false;
 				}
