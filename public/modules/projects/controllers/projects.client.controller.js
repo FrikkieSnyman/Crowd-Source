@@ -1,8 +1,8 @@
 'use strict';
 
 // Projects controller
-angular.module('projects').controller('ProjectsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout',
-	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout) {
+angular.module('projects').controller('ProjectsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope',
+	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope) {
 		$scope.people = [];
 		$http.get('/users/getUsers').success(function(users) {
 			for (var i in users) {
@@ -263,6 +263,60 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 				});
 			});
 		};
+
+		$scope.updateLocalTree = function(scope) {
+			var user = Authentication.user.firstName + ' ' + Authentication.user.lastName;
+			console.log('Curent user name: ' + user);
+
+			console.log($scope.project.children[0].estimations);
+
+			var count = 0;
+			var found = false;
+
+			console.log(scope.project.users);
+			// console.log(scope.project);
+
+
+			for (var u in scope.project.users) {
+				if (scope.project.users[u] === user) {
+					found = true;
+					count = u;
+					break;
+				}
+			}
+
+			// console.log('User number: ' + count);
+
+			var currnode = $scope.project.children[0];
+
+			var result;
+			$scope.getEstimation(currnode, count, function(res) {
+				result = res;
+				// console.log(result);
+			});
+		};
+
+		$scope.getEstimation = function(node, userNum, callback) {
+			if (node.nodes.length <= 0) {
+				callback(node.estimations[userNum]);
+			}
+			else {
+				node.estimations[userNum] = null;
+				for (var i in node.nodes) {
+					$scope.getEstimation(node.nodes[i], userNum, function(result) {
+						if (node.estimations[userNum] === null) {
+							node.estimations[userNum] = parseInt(result);
+						}
+						else {
+							node.estimations[userNum] += parseInt(result);
+						}
+						callback(parseInt(result));
+					});
+				}
+			}
+		};
+
+		$scope.currentNode = undefined;
 
 		$scope.setCurrentNode = function(node, callback) {
 			$scope.currentNode = node;
