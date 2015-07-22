@@ -55,14 +55,33 @@
 			// ...
 		}));
 
-		it('$scope.updateLocalTree() should send cause the estimations of the leaf nodes to bubble-up the tree to the root node', inject(function(Projects) {
-			// Create new Project object
-			var sampleProject = new Projects({
-					children : [],
-					users : []
-			});
+		it('$scope.updateLocalTree() should send cause the estimations of the leaf nodes to bubble-up the tree to the root node', inject(function() {
+			// Create new Project object with depth 2
+			var sampleProject = {
+					children : [
+						{
+							nodes : [
+								{
+									nodes : [],
+									estimations : [null, 1, null]
+								},
+								{
+									nodes : [],
+									estimations : [null, 2, null]
+								}
+							],
+							estimations : [null, null, null]
+						}
+					],
+			};
+			scope.project = sampleProject;
 
-			expect(/*scope.projects.length*/ 1).toBe(0);
+			// mock userIndex: middle user
+			scope.userIndex = 1;
+
+			scope.updateLocalTree(scope);
+
+			expect(scope.project.children[0].estimations[scope.userIndex]).toBe(3);
 		}));
 
 	});
