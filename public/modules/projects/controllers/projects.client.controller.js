@@ -293,20 +293,18 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 
 			console.log($scope.project.children[0].estimations);
 
-			var count = 0;
+			var count = $scope.userIndex; // might have to use $rootScope
 			var found = false;
 
-			console.log(scope.project.users);
-			// console.log(scope.project);
+			console.log('User index: ' + $scope.userIndex);
 
-
-			for (var u in scope.project.users) {
-				if (scope.project.users[u] === user) {
-					found = true;
-					count = u;
-					break;
-				}
-			}
+			// for (var u in scope.project.users) {
+			// 	if (scope.project.users[u] === user) {
+			// 		found = true;
+			// 		count = u;
+			// 		break;
+			// 	}
+			// }
 
 			// console.log('User number: ' + count);
 
