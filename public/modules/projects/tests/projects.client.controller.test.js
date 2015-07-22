@@ -163,15 +163,5 @@
 			expect(scope.projects.length).toBe(0);
 		}));
 
-		it('$scope.updateLocalTree() should send cause the estimations of the leaf nodes to bubble-up the tree to the root node', inject(function(Projects) {
-			// Create new Project object
-			var sampleProject = new Projects({
-					children : [],
-					users : []
-			});
-
-			expect(/*scope.projects.length*/ 1).toBe(0);
-		}));
-
 	});
 }());
