@@ -193,5 +193,26 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 				});
 			});
 		};
+
+		$scope.people = [];
+		$http.get('/users/getUsers').success(function(users) {
+			for (var i in users) {
+				$scope.people.push(users[i].username);
+			}
+		});
+
+		$scope.selected = [];
+		$scope.toggle = function(item, list) {
+			var idx = list.indexOf(item);
+			if (idx > -1) {
+				list.splice(idx, 1);
+			} else {
+				list.push(item);
+			}
+		};
+
+		$scope.exists = function(item, list) {
+			return list.indexOf(item) > -1;
+		};
 	}
 ]);

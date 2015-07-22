@@ -2,20 +2,13 @@
 
 angular.module('projects').controller('ProjectEditController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope',
 	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope) {
+		$scope.members = true;
 		$scope.goTo = function(route) {
 			$location.path(route);
 		};
 
-		$scope.people = [];
-		$http.get('/users/getUsers').success(function(users) {
-			for (var i in users) {
-				$scope.people.push(users[i].username);
-			}
-		});
-
 		$scope.authentication = Authentication;
 		$scope.userIndex = -1;
-
 		var project = {'projectId': $stateParams.projectId};
 		$http({method:'POST', url:'/project', data: project}).success(function(data) {
 			if (data.length !== 0) {
@@ -36,15 +29,19 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				}
 			}
 		});
+
 		$scope.rootIsEmpty = function() {
-			if (typeof $scope.project.children !== undefined) {
-					if ($scope.project.children.length < 1) {
-						return true;
-					}
-			} else {
-				return false;
+			if ($scope.project.$resolved !== false) {
+				if (typeof $scope.project.children !== undefined) {
+						if ($scope.project.children.length < 1) {
+							return true;
+						}
+				} else {
+					return false;
+				}
 			}
 		};
+
 		$scope.addRootNode = function() {
 			// initialise estimations array
 			var estimationsArr = [];
@@ -108,8 +105,20 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			});
 		};
 
+		$scope.toastPosition = {
+			bottom: true,
+			top: false,
+			left: false,
+			right: true
+		};		
+
+		$scope.getToastPosition = function() {
+			return Object.keys($scope.toastPosition)
+			.filter(function(pos) { return $scope.toastPosition[pos]; })
+			.join(' ');
+		};
+
 		$scope.saveProject = function() {
-			console.log($scope.project);
 			$scope.project.$update(function(response) {
 				$mdToast.show(
 					$mdToast.simple()
@@ -219,20 +228,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			if (callback !== undefined) {
 				callback();
 			}
-		};
-
-		$scope.selected = [];
-		$scope.toggle = function(item, list) {
-			var idx = list.indexOf(item);
-			if (idx > -1) {
-				list.splice(idx, 1);
-			} else {
-				list.push(item);
-			}
-		};
-
-		$scope.exists = function(item, list) {
-			return list.indexOf(item) > -1;
 		};
 
 		$scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
