@@ -162,6 +162,6 @@
 			// Test array after successful delete
 			expect(scope.projects.length).toBe(0);
 		}));
-
+		
 	});
 }());
