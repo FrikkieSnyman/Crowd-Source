@@ -7,6 +7,13 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 		$scope.goTo = function(route) {
 			$location.path(route);
 		};
+		$scope.owner = function(project) {
+			if (Authentication.user.username === project.owner) {
+				return true;
+			} else {
+				return false;
+			}
+		};
 		$scope.createProject = function() {
 			//		var project = {'name': $scope.projectName, 'description': $scope.description, 'owner' : Authentication.user, 'users' : $scope.selected};
 			var project = new Projects ({
