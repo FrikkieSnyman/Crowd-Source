@@ -89,7 +89,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 
 		// Find existing Project
 		$scope.findOne = function() {
-			$scope.project = Projects.get({ 
+			$scope.project = Projects.get({
 				projectId: $stateParams.projectId
 			}, function() {
 				if ($scope.project.children[0].estimations[$scope.userIndex] === null) {
@@ -99,7 +99,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				}
 			});
 		};
-
 
 		$scope.newSubItem = function(scope) {
 			// console.log(scope.project.users);
@@ -138,7 +137,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			top: false,
 			left: false,
 			right: true
-		};		
+		};
 
 		$scope.getToastPosition = function() {
 			return Object.keys($scope.toastPosition)
@@ -215,12 +214,11 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			});
 		};
 
-
 		$scope.updateLocalTree = function(scope) {
 			var count = $scope.userIndex;
 			var currnode = $scope.project.children[0];
 			var result;
-			
+
 			$scope.getEstimation(currnode, count, function(res) {
 				result = res;
 			});
@@ -229,15 +227,13 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		$scope.getEstimation = function(node, userNum, callback) {
 			if (node.nodes.length <= 0) {
 				callback(node.estimations[userNum]);
-			}
-			else {
+			} else {
 				node.estimations[userNum] = null;
 				for (var i in node.nodes) {
 					$scope.getEstimation(node.nodes[i], userNum, function(result) {
 						if (node.estimations[userNum] === null) {
 							node.estimations[userNum] = parseInt(result);
-						}
-						else {
+						} else {
 							node.estimations[userNum] += parseInt(result);
 						}
 						callback(parseInt(result));
