@@ -56,7 +56,11 @@
 		}));
 
 		it('$scope.updateLocalTree() should send cause the estimations of the leaf nodes to bubble-up the tree to the root node', inject(function() {
+<<<<<<< HEAD
 			// Create new Project object with depth 1 and 2 children
+=======
+			// Create new Project object with depth 2 and 2 children
+>>>>>>> 8100c85813dd18b5ee0341aacc44224465040720
 			var sampleProject = {
 					children : [
 						{
@@ -85,7 +89,11 @@
 			expect(scope.project.children[0].estimations[2]).toBe(null);
 
 
+<<<<<<< HEAD
 			// Test project with depth 2, but with incomplete tree
+=======
+			// Test project with depth 3, but with incomplete tree
+>>>>>>> 8100c85813dd18b5ee0341aacc44224465040720
 			sampleProject = {
 					children : [
 						{
@@ -134,6 +142,7 @@
 			// test whether other estimations are un-touched
 			expect(scope.project.children[0].estimations[0]).toBe(null);
 			expect(scope.project.children[0].estimations[1]).toBe(null);
+			
 			// testing internal state of tree
 			expect(scope.project.children[0].nodes[0].estimations[2]).toBe(7);
 			expect(scope.project.children[0].nodes[0].nodes[0].estimations[2]).toBe(3);
@@ -161,7 +170,6 @@
 			expect(scope.project.children[0].nodes[0].estimations[0]).toBe(null);
 			expect(scope.project.children[0].nodes[0].nodes[0].estimations[0]).toBe(null);
 			expect(scope.project.children[0].nodes[0].nodes[1].estimations[0]).toBe(null);
-
 		}));
 
 	});

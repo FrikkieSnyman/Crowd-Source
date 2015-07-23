@@ -162,6 +162,10 @@
 			// Test array after successful delete
 			expect(scope.projects.length).toBe(0);
 		}));
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 8100c85813dd18b5ee0341aacc44224465040720
 	});
 }());
