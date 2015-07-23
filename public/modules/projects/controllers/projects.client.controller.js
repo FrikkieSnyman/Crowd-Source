@@ -200,5 +200,9 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 				});
 			});
 		};
+
+		$scope.isNotOverflow = function() {
+			
+		};
 	}
 ]);
