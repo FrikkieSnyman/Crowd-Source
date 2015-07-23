@@ -40,6 +40,13 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			}
 		};
 
+		$scope.owner = function() {
+			if ($scope.project.$resolved !== false) {
+				
+				return true;
+			}
+		};
+
 		$scope.addRootNode = function() {
 			// initialise estimations array
 			var estimationsArr = [];
