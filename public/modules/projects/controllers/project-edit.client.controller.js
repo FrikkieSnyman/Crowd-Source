@@ -3,6 +3,7 @@
 angular.module('projects').controller('ProjectEditController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope',
 	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope) {
 		$scope.members = true;
+		$scope.estimated = false;
 		$scope.goTo = function(route) {
 			$location.path(route);
 		};
@@ -58,6 +59,11 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			}
 		};
 
+		$scope.submitEstimation = function() {
+			$scope.saveProject();
+			$scope.estimated = true;
+		};
+
 		$scope.addRootNode = function() {
 			// initialise estimations array
 			var estimationsArr = [];
@@ -85,6 +91,12 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		$scope.findOne = function() {
 			$scope.project = Projects.get({ 
 				projectId: $stateParams.projectId
+			}, function() {
+				if ($scope.project.children[0].estimations[$scope.userIndex] === null) {
+					$scope.estimated = false;
+				} else {
+					$scope.estimated = true;
+				}
 			});
 		};
 
