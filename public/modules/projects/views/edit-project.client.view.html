@@ -68,7 +68,7 @@
               <label>Title</label>
               <input ng-model="node.title">
             </md-input-container>
-            <md-input-container class = "treeInput" flex ="10">
+            <md-input-container class = "treeInput" flex ="10" ng-show = "estimator()">
               <label>Qty</label>
               <input ng-model="node.estimations[userIndex]" ng-change="updateLocalTree(this)" required>
             </md-input-container>
@@ -115,7 +115,7 @@
         <md-button class = "md-primary md-raised" ng-click = "addRootNode()" ng-show = "rootIsEmpty()">
             Add root node
         </md-button>
-        <md-button class = "md-primary md-raised" ng-click = "saveProject()" ng-show = "!rootIsEmpty()" ng-disabled = "estimationForm.$invalid">
+        <md-button class = "md-primary md-raised" ng-click = "saveProject()" ng-show = "!rootIsEmpty() && estimator()" ng-disabled = "estimationForm.$invalid">
             Submit estimation
         </md-button>
 
