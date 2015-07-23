@@ -50,6 +50,14 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			}
 		};
 
+		$scope.estimator = function() {
+			if ($scope.userIndex === -1) {
+				return false;
+			} else {
+				return true;
+			}
+		};
+
 		$scope.addRootNode = function() {
 			// initialise estimations array
 			var estimationsArr = [];
