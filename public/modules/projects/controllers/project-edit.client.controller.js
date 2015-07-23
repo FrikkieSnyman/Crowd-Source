@@ -26,7 +26,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 					.action('')
 					.highlightAction(false)
 					.position($scope.getToastPosition());
-					$mdToast.show(toast);					
+					$mdToast.show(toast);
 				}
 			}
 		});
