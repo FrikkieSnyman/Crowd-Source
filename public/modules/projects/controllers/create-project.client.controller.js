@@ -33,10 +33,10 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 			project.$save(function(response) {
 				$location.path('projects/' + project._id + '/edit');
 				$mdToast.show(
-				$mdToast.simple()
-				.content('Project created')
-				.position($scope.getToastPosition())
-				.hideDelay(3000)
+					$mdToast.simple()
+						.content('Project created')
+						.position($scope.getToastPosition())
+						.hideDelay(3000)
 				);
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;

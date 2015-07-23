@@ -50,6 +50,27 @@
 			});
 		}));
 
+		it('$scope.update() should update a valid Project', inject(function(Projects) {
+			// Define a sample Project put data
+			var sampleProjectPutData = new Projects({
+				_id: '525cf20451979dea2c000001',
+				name: 'New Project'
+			});
+
+			// Mock Project in scope
+			scope.project = sampleProjectPutData;
+
+			// Set PUT response
+			$httpBackend.expectPUT(/projects\/([0-9a-fA-F]{24})$/).respond();
+
+			// Run controller functionality
+			scope.update();
+			$httpBackend.flush();
+
+			// Test URL location to new object
+			expect($location.path()).toBe('/projects/' + sampleProjectPutData._id);
+		}));
+
 		it('Should do some controller test', inject(function() {
 			// The test logic
 			// ...
