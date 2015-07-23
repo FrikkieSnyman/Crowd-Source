@@ -43,8 +43,8 @@
 							<h3>{{project.name}}</h3>
 						</div>
 					</div>
-					<md-button aria-label="photo" class="md-icon-button">
-						<md-icon md-svg-src="modules/projects/img/icons/home.svg"></md-icon>
+					<md-button aria-label="photo" class="md-icon-button" ng-show = "owner(project)">
+						<md-icon md-svg-src="modules/projects/img/icons/person.svg"></md-icon>
 					</md-button>
 					<md-button aria-label="View/Edit" class="md-icon-button" ng-click="goTo('/projects/{{project._id}}/edit')">
 						<md-tooltip>
@@ -52,7 +52,7 @@
 						</md-tooltip>
 						<md-icon md-svg-src="modules/projects/img/icons/edit.svg"></md-icon>
 					</md-button>
-					<md-button aria-label="Delete" class="md-icon-button">
+					<md-button aria-label="Delete" class="md-icon-button" ng-show = "owner(project)">
 						<md-tooltip>
 							Delete
 						</md-tooltip>
