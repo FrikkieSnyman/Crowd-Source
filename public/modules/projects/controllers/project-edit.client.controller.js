@@ -42,8 +42,11 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 
 		$scope.owner = function() {
 			if ($scope.project.$resolved !== false) {
-				
-				return true;
+				if ($scope.project.owner === $scope.authentication.user.username) {
+					return true;
+				} else {
+					return false;
+				}
 			}
 		};
 
