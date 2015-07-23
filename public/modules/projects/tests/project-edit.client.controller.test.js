@@ -56,7 +56,7 @@
 		}));
 
 		it('$scope.updateLocalTree() should send cause the estimations of the leaf nodes to bubble-up the tree to the root node', inject(function() {
-			// Create new Project object with depth 2 and 2 children
+			// Create new Project object with depth 1 and 2 children
 			var sampleProject = {
 					children : [
 						{
@@ -85,7 +85,7 @@
 			expect(scope.project.children[0].estimations[2]).toBe(null);
 
 
-			// Test project with depth 3, but with incomplete tree
+			// Test project with depth 2, but with incomplete tree
 			sampleProject = {
 					children : [
 						{
@@ -134,12 +134,33 @@
 			// test whether other estimations are un-touched
 			expect(scope.project.children[0].estimations[0]).toBe(null);
 			expect(scope.project.children[0].estimations[1]).toBe(null);
+			// testing internal state of tree
+			expect(scope.project.children[0].nodes[0].estimations[2]).toBe(7);
+			expect(scope.project.children[0].nodes[0].nodes[0].estimations[2]).toBe(3);
+			expect(scope.project.children[0].nodes[0].nodes[1].estimations[2]).toBe(4);
+			// testing internal state of tree with regards to other estimators
+			expect(scope.project.children[0].nodes[0].estimations[0]).toBe(null);
+			expect(scope.project.children[0].nodes[0].nodes[0].estimations[0]).toBe(null);
+			expect(scope.project.children[0].nodes[0].nodes[1].estimations[0]).toBe(null);
 
-			/*
-				TODO: 
-				1. Add test for updating existing values in nodes correctly
-				2. Tree with a maximum of 1 child
-			*/
+			// test for updating of values already in the tree
+			// initialise new tree values
+			scope.project.children[0].nodes[0].estimations[2] = 999;
+			scope.project.children[0].nodes[0].nodes[0].estimations[2] = 999;
+			
+			scope.updateLocalTree(scope);
+			expect(scope.project.children[0].estimations[scope.userIndex]).toBe(10);
+			// test whether other estimations are un-touched
+			expect(scope.project.children[0].estimations[0]).toBe(null);
+			expect(scope.project.children[0].estimations[1]).toBe(null);
+			// testing internal state of tree
+			expect(scope.project.children[0].nodes[0].estimations[2]).toBe(7);
+			expect(scope.project.children[0].nodes[0].nodes[0].estimations[2]).toBe(3);
+			expect(scope.project.children[0].nodes[0].nodes[1].estimations[2]).toBe(4);
+			// testing internal state of tree with regards to other estimators
+			expect(scope.project.children[0].nodes[0].estimations[0]).toBe(null);
+			expect(scope.project.children[0].nodes[0].nodes[0].estimations[0]).toBe(null);
+			expect(scope.project.children[0].nodes[0].nodes[1].estimations[0]).toBe(null);
 
 		}));
 
