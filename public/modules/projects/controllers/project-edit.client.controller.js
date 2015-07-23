@@ -59,14 +59,11 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			}
 		};
 
-<<<<<<< HEAD
 		$scope.submitEstimation = function() {
 			$scope.saveProject();
 			$scope.estimated = true;
 		};
 
-=======
->>>>>>> Cannot estimate if not estimator
 		$scope.addRootNode = function() {
 			// initialise estimations array
 			var estimationsArr = [];
