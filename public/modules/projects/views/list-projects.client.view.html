@@ -44,17 +44,20 @@
 						</md-tooltip>
 						<md-icon md-svg-src="modules/projects/img/icons/person.svg"></md-icon>
 					</md-button>
+
 					<div style="padding: 10px" class="md-toolbar-tools">
 						<div style="overflow:auto;" class="cardHeight">
 							<h3>{{project.name}}</h3>
 						</div>
 					</div>
+
 					<md-button aria-label="View/Edit" class="md-icon-button" ng-click="goTo('/projects/{{project._id}}/edit')">
 						<md-tooltip>
 							View/Edit
 						</md-tooltip>
 						<md-icon md-svg-src="modules/projects/img/icons/edit.svg"></md-icon>
 					</md-button>
+					
 					<md-button aria-label="Delete" class="md-icon-button" ng-show = "owner(project)">
 						<md-tooltip>
 							Delete
