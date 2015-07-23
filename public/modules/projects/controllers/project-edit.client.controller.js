@@ -121,7 +121,9 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		$scope.undoToolTip = function(node, removeNode, newSubItem) {
 			//debugger;
 			var tree = $.extend(true, [], $scope.project.children);
+
 			removeNode(node);
+
 			var toast = $mdToast.simple()
 				.content('Node deleted')
 				.action('UNDO')
