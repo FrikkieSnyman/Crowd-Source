@@ -57,8 +57,12 @@
 				name: 'New Project'
 			});
 
+			scope.authentication = { user : { username : 'peter bell' } };
+
 			// Mock Project in scope
 			scope.project = sampleProjectPutData;
+
+			$httpBackend.whenPOST('/project').respond([{users : ['peter bell', 'Jamie Olive']}]);
 
 			// Set PUT response
 			$httpBackend.expectPUT(/projects\/([0-9a-fA-F]{24})$/).respond();

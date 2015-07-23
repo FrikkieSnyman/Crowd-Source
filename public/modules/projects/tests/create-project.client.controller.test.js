@@ -55,6 +55,7 @@
 			var sampleProjectPostData = new Projects({
 				name: 'New Project',
 				description: 'Test',
+				users : []
 			});
 
 			// Create a sample Project response
@@ -62,6 +63,7 @@
 				_id: '525cf20451979dea2c000001',
 				name: 'New Project',
 				description: 'Test',
+				users : []
 			});
 
 			// Fixture mock form input values
@@ -69,7 +71,7 @@
 			scope.description = 'Test';
 
 			// $httpBackend.expectGET('/users/getUsers').respond(200);
-			$httpBackend.whenGET('/users/getUsers').respond(200);
+			$httpBackend.expectGET('/users/getUsers').respond(200);
 
 			// Set POST response
 			$httpBackend.expectPOST('projects', sampleProjectPostData).respond(sampleProjectResponse);
@@ -82,7 +84,7 @@
 			expect(scope.name).toEqual('');
 
 			// Test URL redirection after the Project was created
-			expect($location.path()).toBe('/projects/' + sampleProjectResponse._id);
+			expect($location.path()).toBe('/projects/' + sampleProjectResponse._id + '/edit');
 		}));
 
 		it('Should do some controller test', inject(function() {
