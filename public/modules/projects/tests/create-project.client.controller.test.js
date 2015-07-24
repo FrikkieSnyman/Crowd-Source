@@ -55,7 +55,8 @@
 			var sampleProjectPostData = new Projects({
 				name: 'New Project',
 				description: 'Test',
-				users : []
+				users : [],
+				owner: 'Bob'
 			});
 
 			// Create a sample Project response
@@ -63,8 +64,13 @@
 				_id: '525cf20451979dea2c000001',
 				name: 'New Project',
 				description: 'Test',
-				users : []
+				users : [],
+				owner: 'Bob'
 			});
+
+			scope.authentication.user = {
+				username: 'Bob'
+			};
 
 			// Fixture mock form input values
 			scope.name = 'New Project';

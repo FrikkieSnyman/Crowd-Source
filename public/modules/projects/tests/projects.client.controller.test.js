@@ -38,7 +38,6 @@
 		beforeEach(inject(function($controller, $rootScope, _$location_, _$stateParams_, _$httpBackend_, _Authentication_) {
 			// Set a new global scope
 			scope = $rootScope.$new();
-			var Authentication.user.username = '';
 
 			// Point global variables to injected services
 			$stateParams = _$stateParams_;
