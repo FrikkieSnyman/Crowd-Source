@@ -45,9 +45,7 @@
 						<md-icon md-svg-src="modules/projects/img/icons/person.svg"></md-icon>
 					</md-button>
 					<div style="padding: 10px" class="md-toolbar-tools">
-						<div id="namediv" ng-hide="isNotOverflow()">
-							<marquee><h3>{{project.name}}</h3></marquee>
-						</div>
+						<marquee><h3>{{project.name}}</h3></marquee>
 					</div>
 					<md-button aria-label="View/Edit" class="md-icon-button" ng-click="goTo('/projects/{{project._id}}/edit')">
 						<md-tooltip>
