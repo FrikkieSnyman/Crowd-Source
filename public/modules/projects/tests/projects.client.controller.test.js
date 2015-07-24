@@ -90,7 +90,7 @@
 			expect(scope.project).toEqualData(sampleProject);
 		}));
 		
-		it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Projects) {
+		it('$scope.createProject() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Projects) {
 			// Create a sample Project object
 			var sampleProjectPostData = new Projects({
 				name: 'New Project',
@@ -105,21 +105,22 @@
 			});
 
 			// Fixture mock form input values
-			scope.name = 'New Project';
+			scope.projectName = 'New Project';
+			scope.name = scope.projectName;
 			scope.description = 'Test';
 
 			// Set POST response
 			$httpBackend.expectPOST('projects', sampleProjectPostData).respond(sampleProjectResponse);
 
 			// Run controller functionality
-			scope.create();
+			scope.createProject();
 			$httpBackend.flush();
 
 			// Test form inputs are reset
-			expect(scope.name).toEqual('');
+			expect(scope.name).toEqual('New Project');
 
 			// Test URL redirection after the Project was created
-			expect($location.path()).toBe('/projects/' + sampleProjectResponse._id);
+			expect($location.path()).toBe('/projects/' + sampleProjectResponse._id + '/edit');
 		}));
 		
 		it('$scope.update() should update a valid Project', inject(function(Projects) {
