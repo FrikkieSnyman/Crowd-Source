@@ -187,9 +187,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 
 
 		$scope.updateLocalTree = function(scope) {
-			var user = Authentication.user.firstName + ' ' + Authentication.user.lastName;
-			var count = $scope.userIndex; // might have to use $rootScope
-			var found = false;
+			var count = $scope.userIndex;
 			var currnode = $scope.project.children[0];
 			var result;
 			
