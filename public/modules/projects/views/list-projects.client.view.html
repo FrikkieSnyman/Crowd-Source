@@ -37,8 +37,8 @@
 
 		<md-grid-tile ng-repeat="project in querySearch(searchText)" class="gray" md-rowspan="1" md-colspan="1" md-colspan-sm="1" style="z-index : 1; position: absolute">
 			<md-card flex class = "cardHeight">
-				<md-toolbar layout = "row" class = "cardHeader">
-					<div style="padding: 10px" class="md-toolbar-tools">
+				<md-toolbar layout="row" class="cardHeader">
+					<div style="padding: 10px; overflow:hidden" class="md-toolbar-tools">
 						<marquee><h3>{{project.name}}</h3></marquee>
 					</div>
 					<md-button aria-label="photo" class="md-icon-button">
