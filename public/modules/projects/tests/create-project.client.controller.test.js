@@ -73,7 +73,8 @@
 			};
 
 			// Fixture mock form input values
-			scope.name = 'New Project';
+			scope.projectName = 'New Project';
+			scope.name = scope.projectName;
 			scope.description = 'Test';
 
 			// $httpBackend.expectGET('/users/getUsers').respond(200);
@@ -87,7 +88,7 @@
 			$httpBackend.flush();
 
 			// Test form inputs are reset
-			expect(scope.name).toEqual('');
+			expect(scope.name).toEqual('New Project');
 
 			// Test URL redirection after the Project was created
 			expect($location.path()).toBe('/projects/' + sampleProjectResponse._id + '/edit');
