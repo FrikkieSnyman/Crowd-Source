@@ -3,6 +3,7 @@
 angular.module('projects').controller('ProjectEditController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope',
 	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope) {
 		$scope.members = true;
+		$scope.estimated = false;
 		$scope.goTo = function(route) {
 			$location.path(route);
 		};
@@ -25,7 +26,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 					.action('')
 					.highlightAction(false)
 					.position($scope.getToastPosition());
-					$mdToast.show(toast);					
+					$mdToast.show(toast);
 				}
 			}
 		});
@@ -38,6 +39,29 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 					return false;
 				}
 			}
+		};
+
+		$scope.owner = function() {
+			if ($scope.project.$resolved !== false) {
+				if ($scope.project.owner === $scope.authentication.user.username) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		};
+
+		$scope.estimator = function() {
+			if ($scope.userIndex === -1) {
+				return false;
+			} else {
+				return true;
+			}
+		};
+
+		$scope.submitEstimation = function() {
+			$scope.saveProject();
+			$scope.estimated = true;
 		};
 
 		$scope.addRootNode = function() {
@@ -65,11 +89,16 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 
 		// Find existing Project
 		$scope.findOne = function() {
-			$scope.project = Projects.get({ 
+			$scope.project = Projects.get({
 				projectId: $stateParams.projectId
+			}, function() {
+				if ($scope.project.children[0].estimations[$scope.userIndex] === null) {
+					$scope.estimated = false;
+				} else {
+					$scope.estimated = true;
+				}
 			});
 		};
-
 
 		$scope.newSubItem = function(scope) {
 			// console.log(scope.project.users);
@@ -92,7 +121,9 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		$scope.undoToolTip = function(node, removeNode, newSubItem) {
 			//debugger;
 			var tree = $.extend(true, [], $scope.project.children);
+
 			removeNode(node);
+
 			var toast = $mdToast.simple()
 				.content('Node deleted')
 				.action('UNDO')
@@ -108,7 +139,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			top: false,
 			left: false,
 			right: true
-		};		
+		};
 
 		$scope.getToastPosition = function() {
 			return Object.keys($scope.toastPosition)
@@ -185,12 +216,11 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			});
 		};
 
-
 		$scope.updateLocalTree = function(scope) {
 			var count = $scope.userIndex;
 			var currnode = $scope.project.children[0];
 			var result;
-			
+
 			$scope.getEstimation(currnode, count, function(res) {
 				result = res;
 			});
@@ -199,15 +229,13 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		$scope.getEstimation = function(node, userNum, callback) {
 			if (node.nodes.length <= 0) {
 				callback(node.estimations[userNum]);
-			}
-			else {
+			} else {
 				node.estimations[userNum] = null;
 				for (var i in node.nodes) {
 					$scope.getEstimation(node.nodes[i], userNum, function(result) {
 						if (node.estimations[userNum] === null) {
 							node.estimations[userNum] = parseInt(result);
-						}
-						else {
+						} else {
 							node.estimations[userNum] += parseInt(result);
 						}
 						callback(parseInt(result));

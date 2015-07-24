@@ -68,23 +68,23 @@
               <label>Title</label>
               <input ng-model="node.title">
             </md-input-container>
-            <md-input-container class = "treeInput" flex ="10">
+            <md-input-container class = "treeInput" flex ="10" ng-show = "estimator()">
               <label>Qty</label>
-              <input ng-model="node.estimations[userIndex]" ng-change="updateLocalTree(this)" required>
+              <input ng-model="node.estimations[userIndex]" ng-change="updateLocalTree(this)" ng-readonly = "estimated" required>
             </md-input-container>
-            <md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="showDescriptionDialog($event, node)">
+            <md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="showDescriptionDialog($event, node)" ng-show="owner()">
                 <md-tooltip>
                     Edit Description
                 </md-tooltip>
                 <md-icon md-svg-src="modules/projects/img/icons/info.svg"></md-icon>
             </md-button>
-            <md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="undoToolTip(this,removeNode,newSubItem)" >
+            <md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="undoToolTip(this,removeNode,newSubItem)" ng-show="owner()">
                 <md-tooltip>
                   Remove
                 </md-tooltip>
                 <md-icon md-svg-src="modules/projects/img/icons/close.svg"></md-icon>
             </md-button>
-            <md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="newSubItem(this);apply()" >
+            <md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="newSubItem(this);apply()" ng-show="owner()">
                 <md-tooltip>
                   Add
                 </md-tooltip>
@@ -109,13 +109,13 @@
         </form>
         <!-- Nested node template -->
         <md-content label="row">
-        <md-button class = "md-primary md-raised" ng-click = "saveProject()">
+        <md-button class = "md-primary md-raised" ng-click = "saveProject()" ng-show = "owner()">
             Save Project
         </md-button>
         <md-button class = "md-primary md-raised" ng-click = "addRootNode()" ng-show = "rootIsEmpty()">
             Add root node
         </md-button>
-        <md-button class = "md-primary md-raised" ng-click = "saveProject()" ng-show = "!rootIsEmpty()" ng-disabled = "estimationForm.$invalid">
+        <md-button class = "md-primary md-raised" ng-click = "submitEstimation()" ng-show = "!rootIsEmpty() && estimator() && !estimated" ng-disabled = "estimationForm.$invalid">
             Submit estimation
         </md-button>
 

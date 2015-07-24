@@ -8,10 +8,6 @@ var mongoose = require('mongoose'),
 	Project = mongoose.model('Project'),
 	_ = require('lodash');
 
-exports.getAllUsers = function(req, res) {
-	console.log('HERE');
-};
-
 /**
  * Create a Project
  */
@@ -76,7 +72,7 @@ exports.delete = function(req, res) {
  * List of Projects
  */
 exports.list = function(req, res) {
-	Project.find().sort('-created').populate('user', 'displayName').exec(function(err, projects) {
+	Project.find().sort('name').populate('user', 'displayName').exec(function(err, projects) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
