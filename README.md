@@ -13,19 +13,15 @@ First clone the repo.
 ```
 git clone https://github.com/FrikkieSnyman/COS301_GroupProject.git
 ```
-Now change to the directory and run the install.
+Now change to the directory and run the install. This will use npm install to install the backend dependencies and it will also run bower install to install frontend dependencies.
 ```
 npm install
 ```
-Now change to the www directory and run npm install there too. This is done to keep the client side and server side completely seperate. This should be replaced by a grunt script in the future.
+Ensure that an instance of monogDB is running, then to run the server use
 ```
-cd ./www
-npm install
+grunt
 ```
-Change back to the root directory. Ensure that an instance of monogDB is running, then to run the server use
-```
-npm start
-```
+Once you have done this you can navigate to http://localhost:3000/ to view the page and start interacting with it.
 
 ##How to setup the database
 You need to have mongodb installed on your pc.
@@ -48,16 +44,16 @@ Congratualtions you have created your database. The only thing left now is to ad
 ##Unit tests
 NOTE: The unit tests can only be run on a Unix based system (ie, OSX/Linux), seeing as some environment variables are set in the npm scripts.
 
-First, ensure you have NodeUnit installed globalle
-To install nodeunit globally (might require superuser rights)
+First, ensure you have phantomjs installed globally
+To install phantomjs globally (might require superuser rights)
 ```
-npm install nodeunit -g
+npm install phantomjs -g
 ```
-Navigate to the root of the project, and run
+Now navigate to the root of the project, and run
 ```
-npm test
+grunt test
 ```
-to run the unit tests
+to run the unit tests. This will run the backend tests as well as the frontend tests
 ##JSCS
 JSCS is used to validate code style, this allows all of the code to have a similar style thus making it easier to understand.
 
