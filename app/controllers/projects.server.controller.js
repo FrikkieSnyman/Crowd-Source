@@ -10,7 +10,7 @@ var mongoose = require('mongoose'),
 
 exports.getAllUsers = function(req, res) {
 	console.log('HERE');
-}
+};
 
 /**
  * Create a Project
