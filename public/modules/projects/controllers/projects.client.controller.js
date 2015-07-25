@@ -194,8 +194,20 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 			});
 		};
 
+		$scope.isOverflow = function() {
+			if ($('marquee')[0].scrollWidth >  $('marquee').innerWidth()) {
+				return true;
+			} else {
+				false;
+			}
+		};
+
 		$scope.isNotOverflow = function() {
-			
+			if ($('marquee')[0].scrollWidth >  $('marquee').innerWidth()) {
+				return false;
+			} else {
+				true;
+			}
 		};
 	}
 ]);
