@@ -79,7 +79,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			console.log('All estimations done');
 		};
 
-		$scope.openForEstimation = function () {
+		$scope.openForEstimation = function() {
 			var confirm = $mdDialog.confirm()
 			.parent(angular.element(document.body))
 			.title('Are you sure you want to open the project for estimations?')

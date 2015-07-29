@@ -72,19 +72,19 @@
               <label>Qty</label>
               <input ng-model="node.estimations[userIndex]" ng-change="updateLocalTree(this)" ng-readonly = "estimated" required>
             </md-input-container>
-            <md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="showDescriptionDialog($event, node)" ng-show="owner()">
+            <md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="showDescriptionDialog($event, node)" ng-show="owner() && !isOpenForEstimation()">
                 <md-tooltip>
                     Edit Description
                 </md-tooltip>
                 <md-icon md-svg-src="modules/projects/img/icons/info.svg"></md-icon>
             </md-button>
-            <md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="undoToolTip(this,removeNode,newSubItem)" ng-show="owner()">
+            <md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="undoToolTip(this,removeNode,newSubItem)" ng-show="owner() && !isOpenForEstimation()">
                 <md-tooltip>
                   Remove
                 </md-tooltip>
                 <md-icon md-svg-src="modules/projects/img/icons/close.svg"></md-icon>
             </md-button>
-            <md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="newSubItem(this);apply()" ng-show="owner()">
+            <md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="newSubItem(this);apply()" ng-show="owner() && !isOpenForEstimation()">
                 <md-tooltip>
                   Add
                 </md-tooltip>
