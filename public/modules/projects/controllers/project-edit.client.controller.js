@@ -64,6 +64,19 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			$scope.estimated = true;
 		};
 
+		$scope.openForEstimation = function () {
+			$scope.project.openForEstimation = true;
+			$scope.saveProject();
+		};
+
+		$scope.isOpenForEstimation = function() {
+			if ($scope.project.$resolved !== false) {
+				return $scope.project.openForEstimation;
+			} else {
+				return false;
+			}
+		};
+
 		$scope.addRootNode = function() {
 			// initialise estimations array
 			var estimationsArr = [];
@@ -159,6 +172,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				$scope.error = errorResponse.data.message;
 			});
 		};
+
 		$scope.querySearch = function(query) {
 			//console.log(query);
 			var results = query ? $scope.projects.filter(createFilterFor(query)) : $scope.projects, deferred;

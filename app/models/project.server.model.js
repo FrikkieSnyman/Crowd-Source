@@ -16,7 +16,8 @@ var ProjectSchema = new Schema({
 	deleted : Boolean,
 	users : [],
 	owner : String,
-	user: Object
+	user: Object,
+	openForEstimation : Boolean
 });
 
 mongoose.model('Project', ProjectSchema);

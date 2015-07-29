@@ -112,10 +112,13 @@
         <md-button class = "md-primary md-raised" ng-click = "saveProject()" ng-show = "owner()">
             Save Project
         </md-button>
+        <md-button class = "md-primary md-raised" ng-click = "openForEstimation()" ng-show = "owner() && !isOpenForEstimation()">
+            Open for Estimation
+        </md-button>
         <md-button class = "md-primary md-raised" ng-click = "addRootNode()" ng-show = "rootIsEmpty()">
             Add root node
         </md-button>
-        <md-button class = "md-primary md-raised" ng-click = "submitEstimation()" ng-show = "!rootIsEmpty() && estimator() && !estimated" ng-disabled = "estimationForm.$invalid">
+        <md-button class = "md-primary md-raised" ng-click = "submitEstimation()" ng-show = "!rootIsEmpty() && estimator() && !estimated && isOpenForEstimation()" ng-disabled = "estimationForm.$invalid">
             Submit estimation
         </md-button>
 
