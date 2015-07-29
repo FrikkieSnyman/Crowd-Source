@@ -62,6 +62,21 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		$scope.submitEstimation = function() {
 			$scope.saveProject();
 			$scope.estimated = true;
+			$scope.determineEstimations();
+		};
+
+		$scope.determineEstimations = function() {
+			for (var i = 0; i < $scope.project.users.length; ++i) {
+				if ($scope.project.children[0].estimations[i] === null) {
+					// An estimator still hasn't estimated
+					return;
+				}
+			}
+			$scope.sendEstimationReport();
+		};
+
+		$scope.sendEstimationReport = function() {
+			console.log('All estimations done');
 		};
 
 		$scope.openForEstimation = function () {
