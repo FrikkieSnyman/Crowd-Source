@@ -99,7 +99,7 @@
         <form name = "estimationForm">
         <div>
           <div>
-            <div ui-tree id="tree-root">
+            <div ui-tree id="tree-root" data-drag-enabled="owner() && !isOpenForEstimation()">
               <ol ui-tree-nodes ng-model="project.children">
                 <li ng-repeat="node in project.children" ui-tree-node ng-include="'nodes_renderer.html'"></li>
               </ol>
@@ -115,7 +115,7 @@
         <md-button class = "md-primary md-raised" ng-click = "openForEstimation()" ng-show = "owner() && !isOpenForEstimation()">
             Open for Estimation
         </md-button>
-        <md-button class = "md-primary md-raised" ng-click = "addRootNode()" ng-show = "rootIsEmpty()">
+        <md-button class = "md-primary md-raised" ng-click = "addRootNode()" ng-show = "owner() && rootIsEmpty()">
             Add root node
         </md-button>
         <md-button class = "md-primary md-raised" ng-click = "submitEstimation()" ng-show = "!rootIsEmpty() && estimator() && !estimated && isOpenForEstimation()" ng-disabled = "estimationForm.$invalid">
