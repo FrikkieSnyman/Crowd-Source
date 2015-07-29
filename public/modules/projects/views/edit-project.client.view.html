@@ -109,7 +109,7 @@
         </form>
         <!-- Nested node template -->
         <md-content label="row">
-        <md-button class = "md-primary md-raised" ng-click = "saveProject()" ng-show = "owner()">
+        <md-button class = "md-primary md-raised" ng-click = "saveProject()" ng-show = "owner() && !isOpenForEstimation()">
             Save Project
         </md-button>
         <md-button class = "md-primary md-raised" ng-click = "openForEstimation()" ng-show = "owner() && !isOpenForEstimation()">

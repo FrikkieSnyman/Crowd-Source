@@ -65,8 +65,20 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.openForEstimation = function () {
-			$scope.project.openForEstimation = true;
-			$scope.saveProject();
+			var confirm = $mdDialog.confirm()
+			.parent(angular.element(document.body))
+			.title('Are you sure you want to open the project for estimations?')
+			.content('This will allow estimators to estimate, but will lock the project tree to its current state.')
+			.ariaLabel('Open for estimation')
+			.ok('Yes')
+			.cancel('No');
+			$mdDialog.show(confirm).then(function() {
+				$timeout(function() {
+					$scope.project.openForEstimation = true;
+					$scope.saveProject();
+				});
+			}, function() {
+			});
 		};
 
 		$scope.isOpenForEstimation = function() {
