@@ -62,6 +62,46 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		$scope.submitEstimation = function() {
 			$scope.saveProject();
 			$scope.estimated = true;
+			$scope.determineEstimations();
+		};
+
+		$scope.determineEstimations = function() {
+			for (var i = 0; i < $scope.project.users.length; ++i) {
+				if ($scope.project.children[0].estimations[i] === null) {
+					// An estimator still hasn't estimated
+					return;
+				}
+			}
+			$scope.sendEstimationReport();
+		};
+
+		$scope.sendEstimationReport = function() {
+			console.log('All estimations done');
+		};
+
+		$scope.openForEstimation = function() {
+			var confirm = $mdDialog.confirm()
+			.parent(angular.element(document.body))
+			.title('Are you sure you want to open the project for estimations?')
+			.content('This will allow estimators to estimate, but will lock the project tree to its current state.')
+			.ariaLabel('Open for estimation')
+			.ok('Yes')
+			.cancel('No');
+			$mdDialog.show(confirm).then(function() {
+				$timeout(function() {
+					$scope.project.openForEstimation = true;
+					$scope.saveProject();
+				});
+			}, function() {
+			});
+		};
+
+		$scope.isOpenForEstimation = function() {
+			if ($scope.project.$resolved !== false) {
+				return $scope.project.openForEstimation;
+			} else {
+				return false;
+			}
 		};
 
 		$scope.addRootNode = function() {
@@ -159,6 +199,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				$scope.error = errorResponse.data.message;
 			});
 		};
+
 		$scope.querySearch = function(query) {
 			//console.log(query);
 			var results = query ? $scope.projects.filter(createFilterFor(query)) : $scope.projects, deferred;
@@ -255,7 +296,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
-			// Appending dialog to document.body to cover sidenav in docs app
 			if (!$scope.confirm) {
 				event.preventDefault();
 				//console.log(newUrl);

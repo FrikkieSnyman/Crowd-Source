@@ -2,7 +2,9 @@
 
 angular.module('projects').controller('CreateProjectController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope',
 	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope) {
+		$scope.authentication = Authentication;
 		$scope.people = [];
+
 		$http.get('/users/getUsers').success(function(users) {
 			for (var i in users) {
 				$scope.people.push(users[i].username);
@@ -29,15 +31,16 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 				name: $scope.projectName,
 				description: $scope.description,
 				users : $scope.selected,
-				owner : Authentication.user.username
+				owner : $scope.authentication.user.username,
+				openForEstimation : false
 			});
 			project.$save(function(response) {
 				$location.path('projects/' + project._id + '/edit');
 				$mdToast.show(
-				$mdToast.simple()
-				.content('Project created')
-				.position($scope.getToastPosition())
-				.hideDelay(3000)
+					$mdToast.simple()
+						.content('Project created')
+						.position($scope.getToastPosition())
+						.hideDelay(3000)
 				);
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;

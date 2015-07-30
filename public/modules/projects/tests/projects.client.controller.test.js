@@ -35,7 +35,7 @@
 		// The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
 		// This allows us to inject a service but then attach it to a variable
 		// with the same name as the service.
-		beforeEach(inject(function($controller, $rootScope, _$location_, _$stateParams_, _$httpBackend_) {
+		beforeEach(inject(function($controller, $rootScope, _$location_, _$stateParams_, _$httpBackend_, _Authentication_) {
 			// Set a new global scope
 			scope = $rootScope.$new();
 
@@ -94,14 +94,18 @@
 			// Create a sample Project object
 			var sampleProjectPostData = new Projects({
 				name: 'New Project',
-				description: 'Test'
+				description: 'Test',
+				users: '',
+				owner: ''
 			});
 
 			// Create a sample Project response
 			var sampleProjectResponse = new Projects({
 				_id: '525cf20451979dea2c000001',
 				name: 'New Project',
-				description: 'Test'
+				description: 'Test',
+				users: '',
+				owner: ''
 			});
 
 			// Fixture mock form input values

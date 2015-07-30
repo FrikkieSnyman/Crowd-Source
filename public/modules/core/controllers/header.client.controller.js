@@ -19,6 +19,11 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 			$location.path(route);
 		};
 
+		$scope.onProjects = function() {
+			// console.log($location);
+			return $location.path() === '/projects';
+		};
+
 		$scope.sidenav = $mdSidenav;
 		function buildToggler(navID) {
 			var debounceFn =  $mdUtil.debounce(function() {
