@@ -8,25 +8,26 @@ var mongoose = require('mongoose'),
 	Report = mongoose.model('Report'),
 	_ = require('lodash');
 
-
-var visit = function(node) {
-	console.log(node.title);
+var visit = function(node, project) {
+	console.log('Estimations for ' + node.title);
+	for (var i = 0; i < node.estimations.length; ++i) {
+		console.log(project.users[i] + ' ' + node.estimations[i]);
+	}
 };
 
-var traverseTree = function(node) {
+var traverseTree = function(node, project) {
 	if (node === null) {
 		return;
 	}
-	visit(node);
+	visit(node, project);
 	for (var i = 0; i < node.nodes.length; ++i) {
-		traverseTree(node.nodes[i]);
+		traverseTree(node.nodes[i], project);
 	}
 };
 
 var generateReport = function(project) {
 	var projectTree = project.children[0];
-	console.log(projectTree);
-	traverseTree(projectTree);
+	traverseTree(projectTree, project);
 };
 /**
  * Create a Report
