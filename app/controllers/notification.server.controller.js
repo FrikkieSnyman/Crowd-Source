@@ -34,7 +34,7 @@ exports.sendInvites = function(req, res, next) {
 									name: user.displayName,
 									appName: config.app.title,
 									projectName: project.name,
-									url: 'http://' + req.headers.host + '/#!/projects/' + project._id
+									url: 'http://' + req.headers.host + '/#!/projects/' + project._id + '/edit'
 								}, function(err, emailHTML) {
 									done(err, emailHTML, user);
 								});
