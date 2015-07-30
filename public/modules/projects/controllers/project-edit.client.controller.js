@@ -41,6 +41,36 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			}
 		};
 
+		$scope.initUsers = function(scope) {
+			// console.log('Hello: ' + users);
+			$http.get('/users/getUsers').success(function(users) {
+				scope.people = [];
+				for (var i in users) {
+					var tempIsEstimator = false;
+					for (var j = 0; j < scope.project.users.length; ++j) {
+						if (users[i].username === scope.project.users[j]) {
+							tempIsEstimator = true;
+						}
+					}
+					scope.people.push({
+						username : users[i].username,
+						isEstimator : tempIsEstimator
+					});
+				}
+			});
+		};
+
+		$scope.addEstimator = function(ev) {
+			var newScope = $scope.$new();
+			$mdDialog.show({
+				controller: DialogController,
+				templateUrl: 'modules/projects/views/add-estimator.client.view.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				scope: newScope
+			});
+		};
+
 		$scope.owner = function() {
 			if ($scope.project.$resolved !== false) {
 				if ($scope.project.owner === $scope.authentication.user.username) {
