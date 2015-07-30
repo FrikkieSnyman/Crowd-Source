@@ -19,7 +19,6 @@ var visit = function(node, project) {
 		string = string + '\r\n\r\n' + project.users[i] + ': ' + node.estimations[i];
 		// string.push(project.users[i] + ' ' + node.estimations[i]);
 	}
-
 };
 
 var traverseTree = function(node, project) {
@@ -59,11 +58,7 @@ exports.create = function(req, res) {
 			res.jsonp(report);
 		}
 	});
-<<<<<<< HEAD
 	generateReport(req.body, res);
-=======
-	generateReport(req.body);
->>>>>>> Tree taversal is a thing
 };
 
 /**
