@@ -296,7 +296,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
-			// Appending dialog to document.body to cover sidenav in docs app
 			if (!$scope.confirm) {
 				event.preventDefault();
 				//console.log(newUrl);
