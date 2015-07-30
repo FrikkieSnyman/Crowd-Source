@@ -59,7 +59,11 @@ exports.create = function(req, res) {
 			res.jsonp(report);
 		}
 	});
+<<<<<<< HEAD
 	generateReport(req.body, res);
+=======
+	generateReport(req.body);
+>>>>>>> Tree taversal is a thing
 };
 
 /**
