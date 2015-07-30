@@ -76,7 +76,9 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.sendEstimationReport = function() {
-			console.log('All estimations done');
+			$http({method:'POST', url:'/reports', data: $scope.project}).success(function(data) {
+
+			});
 		};
 
 		$scope.openForEstimation = function() {
