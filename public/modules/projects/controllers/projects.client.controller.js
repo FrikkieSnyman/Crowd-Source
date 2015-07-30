@@ -202,18 +202,20 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 		};
 
 		$scope.isOverflow = function() {
-			if ($('marquee')[0].scrollWidth >  $('marquee').innerWidth()) {
+			var element = document.getElementById('marquee');
+			if (element.scrollWidth > element.clientWidth) {
 				return true;
 			} else {
-				false;
+				return false;
 			}
 		};
 
 		$scope.isNotOverflow = function() {
-			if ($('marquee')[0].scrollWidth >  $('marquee').innerWidth()) {
+			var element = document.getElementById('marquee');
+			if (element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth) {
 				return false;
 			} else {
-				true;
+				return true;
 			}
 		};
 	}
