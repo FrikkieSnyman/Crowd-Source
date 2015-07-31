@@ -25,9 +25,7 @@ exports.sendInvites = function(req, res, next) {
 				userName = project.users[i];
 
 				User.findOne({username: userName}, function(err, user) {
-					if (err) {
-
-					} else {
+					if (err) {} else {
 						async.waterfall([
 							function(done) {
 								res.render('templates/invite-email', {
@@ -50,9 +48,9 @@ exports.sendInvites = function(req, res, next) {
 								};
 								smtpTransport.sendMail(mailOptions, function(err) {
 									if (!err) {
-										res.send({
-											message: 'An email has been sent to ' + user.email + ' with further instructions.'
-										});
+										// res.send({
+										// 	message: 'An email has been sent to ' + user.email + ' with further instructions.'
+										// });
 									}
 
 									done(err);
