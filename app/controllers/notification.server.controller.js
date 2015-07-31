@@ -48,9 +48,6 @@ exports.sendInvites = function(req, res, next) {
 								};
 								smtpTransport.sendMail(mailOptions, function(err) {
 									if (!err) {
-										// res.send({
-										// 	message: 'An email has been sent to ' + user.email + ' with further instructions.'
-										// });
 									}
 
 									done(err);
