@@ -6,8 +6,38 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Report = mongoose.model('Report'),
+	notification = require('./notification.server.controller'),
 	_ = require('lodash');
 
+var string = '';
+var visit = function(node, project) {
+	// string = string + '<br />Estimations for ' + node.title;
+	string = string + '\r\n\r\nEstimations for: ' + node.title;
+	// string.push('Estimations for: ' + node.title);
+	for (var i = 0; i < node.estimations.length; ++i) {
+		// string = string + '<br />' + project.users[i] + ' ' + node.estimations[i];
+		string = string + '\r\n\r\n' + project.users[i] + ': ' + node.estimations[i];
+		// string.push(project.users[i] + ' ' + node.estimations[i]);
+	}
+
+};
+
+var traverseTree = function(node, project) {
+	if (node === null) {
+		return;
+	}
+	visit(node, project);
+	for (var i = 0; i < node.nodes.length; ++i) {
+		traverseTree(node.nodes[i], project);
+	}
+};
+
+var generateReport = function(project, res) {
+	var projectTree = project.children[0];
+	string = '';
+	traverseTree(projectTree, project);
+	notification.sendReport(string, project, res);
+};
 /**
  * Create a Report
  */
@@ -29,6 +59,7 @@ exports.create = function(req, res) {
 			res.jsonp(report);
 		}
 	});
+	generateReport(req.body, res);
 };
 
 /**
