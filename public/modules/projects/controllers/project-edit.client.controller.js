@@ -93,6 +93,12 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				$timeout(function() {
 					$scope.project.openForEstimation = true;
 					$scope.saveProject();
+
+					var project = {'projectId': $scope.project._id};
+
+					$http({method:'POST', url:'/sendInvites', data: project}).success(function(data) {
+						
+					});
 				});
 			}, function() {
 			});
