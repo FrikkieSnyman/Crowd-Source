@@ -67,3 +67,40 @@ exports.sendInvites = function(req, res, next) {
 		}
 	});
 };
+
+exports.sendReport = function(string, project, res) {
+	var owner = project.owner;
+	User.findOne({username : owner}, function(err, user) {
+		if (err) {} else {
+			async.waterfall([
+				function(done) {
+					res.render('templates/report-email', {
+						name: user.displayName,
+						appName: config.app.title,
+						projectName: project.name,
+						report: string
+					}, function(err, emailHTML) {
+						done(err, emailHTML, user);
+					});
+				},
+				function(emailHTML, user, done) {
+					var smtpTransport = nodemailer.createTransport(config.mailer.options);
+					var mailOptions = {
+						to: user.email,
+						from: config.mailer.from,
+						subject: 'Estimation report for ' + project.name,
+						html: emailHTML
+					};
+					smtpTransport.sendMail(mailOptions, function(err) {
+						if (!err) {
+							//asd
+						}
+						done(err);
+					});
+				}
+				], function(err) {
+					if (err) return next(err);
+				});
+		}
+	});
+};
