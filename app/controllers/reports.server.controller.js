@@ -6,13 +6,20 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Report = mongoose.model('Report'),
+	notification = require('./notification.server.controller'),
 	_ = require('lodash');
 
+var string = '';
 var visit = function(node, project) {
-	console.log('Estimations for ' + node.title);
+	// string = string + '<br />Estimations for ' + node.title;
+	string = string + '\r\n\r\nEstimations for: ' + node.title;
+	// string.push('Estimations for: ' + node.title);
 	for (var i = 0; i < node.estimations.length; ++i) {
-		console.log(project.users[i] + ' ' + node.estimations[i]);
+		// string = string + '<br />' + project.users[i] + ' ' + node.estimations[i];
+		string = string + '\r\n\r\n' + project.users[i] + ': ' + node.estimations[i];
+		// string.push(project.users[i] + ' ' + node.estimations[i]);
 	}
+
 };
 
 var traverseTree = function(node, project) {
@@ -25,9 +32,11 @@ var traverseTree = function(node, project) {
 	}
 };
 
-var generateReport = function(project) {
+var generateReport = function(project, res) {
 	var projectTree = project.children[0];
+	string = '';
 	traverseTree(projectTree, project);
+	notification.sendReport(string, project, res);
 };
 /**
  * Create a Report
@@ -50,7 +59,7 @@ exports.create = function(req, res) {
 			res.jsonp(report);
 		}
 	});
-	generateReport(req.body);
+	generateReport(req.body, res);
 };
 
 /**
