@@ -67,7 +67,6 @@ exports.sendInvites = function(req, res, next) {
 		}
 	});
 };
-
 exports.sendReport = function(string, project, res) {
 	var owner = project.owner;
 	User.findOne({username : owner}, function(err, user) {

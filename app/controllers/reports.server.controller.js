@@ -19,6 +19,7 @@ var visit = function(node, project) {
 		string = string + '\r\n\r\n' + project.users[i] + ': ' + node.estimations[i];
 		// string.push(project.users[i] + ' ' + node.estimations[i]);
 	}
+
 };
 
 var traverseTree = function(node, project) {
