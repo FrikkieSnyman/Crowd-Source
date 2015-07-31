@@ -76,7 +76,9 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.sendEstimationReport = function() {
-			console.log('All estimations done');
+			$http({method:'POST', url:'/reports', data: $scope.project}).success(function(data) {
+
+			});
 		};
 
 		$scope.openForEstimation = function() {
@@ -91,6 +93,12 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				$timeout(function() {
 					$scope.project.openForEstimation = true;
 					$scope.saveProject();
+
+					var project = {'projectId': $scope.project._id};
+
+					$http({method:'POST', url:'/sendInvites', data: project}).success(function(data) {
+						
+					});
 				});
 			}, function() {
 			});
