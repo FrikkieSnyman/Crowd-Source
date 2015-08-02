@@ -37,25 +37,15 @@
 
 		<md-grid-tile ng-repeat="project in querySearch(searchText)" class="gray" md-rowspan="1" md-colspan="1" md-colspan-sm="1" style="z-index : 1; position: absolute">
 			<md-card flex class = "cardHeight">
-<<<<<<< HEAD
 				<md-toolbar layout = "row" class = "cardHeader">
 					<md-button class="md-icon-button" ng-show = "owner(project)" ng-click = "goTo('/settings/profile')">
 						<md-tooltip>
 							Owner
 						</md-tooltip>
 						<md-icon md-svg-src="modules/projects/img/icons/person.svg"></md-icon>
-=======
-				<md-toolbar layout="row" class="cardHeader">
-					<div id="marquee" style="padding: 10px; white-space: nowrap; overflow:hidden" class="md-toolbar-tools">
-						
-						<marquee width="100%"><h3 ng-hide="isOverflow()">{{project.name}}</h3></marquee>
-					</div>
-					<md-button aria-label="photo" class="md-icon-button">
-						<md-icon md-svg-src="modules/projects/img/icons/home.svg"></md-icon>
->>>>>>> 3abc8d20ddc0c732a99d4c779f69f4585b5a6eda
 					</md-button>
-					<div id="marquee" style="padding: 10px; white-space: nowrap; overflow:hidden" class="md-toolbar-tools">
-						<marquee width="100%"><h3 ng-hide="isOverflow()">{{project.name}}</h3></marquee>
+					<div style="padding: 10px; white-space: nowrap; overflow:hidden" class="md-toolbar-tools">
+						<marquee><h3>{{project.name}}</h3></marquee>
 					</div>
 					<md-button aria-label="View/Edit" class="md-icon-button" ng-click="goTo('/projects/{{project._id}}/edit')">
 						<md-tooltip>
