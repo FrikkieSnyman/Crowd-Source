@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', '$mdDialog', 'Authentication',
-	function($scope, $http, $location, $mdDialog, Authentication) {
+angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', '$mdDialog', '$mdToast', 'Authentication',
+	function($scope, $http, $location, $mdDialog, $mdToast, Authentication) {
 		$scope.authentication = Authentication;
 
 		// If user is signed in then redirect back home
@@ -31,10 +31,29 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				$mdDialog.cancel();
 
 				// And redirect to the index page
+				$mdToast.show(
+					$mdToast.simple()
+						.content('Login successful')
+						.position($scope.getToastPosition())
+						.hideDelay(3000)
+				);
 				$location.path('/projects');
 			}).error(function(response) {
 				$scope.error = response.message;
 			});
 		};
+
+		$scope.toastPosition = {
+			bottom: true,
+			top: false,
+			left: false,
+			right: true
+		};
+
+		$scope.getToastPosition = function() {
+			return Object.keys($scope.toastPosition)
+			.filter(function(pos) { return $scope.toastPosition[pos]; })
+			.join(' ');
+		};	
 	}
 ]);
