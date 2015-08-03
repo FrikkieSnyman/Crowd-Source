@@ -1,0 +1,51 @@
+\documentclass[11pt,a4paper,titlepage]{article}
+
+%\usepackage{pdflscape}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{titlesec}
+
+\setcounter{secnumdepth}{4}
+
+\DeclareGraphicsExtensions{.png}
+\graphicspath{ {../drawings/} }
+
+
+\newcommand{\subtitle}[1]{%
+  \posttitle{%
+    \par\end{center}
+    \begin{center}\large#1\end{center}
+    \vskip0.5em}%
+}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+
+\begin{document}
+\title{Software Requirements Speciﬁcation and Technology Neutral Process Design}
+\subtitle{ Git: \url{https://github.com/FrikkieSnyman/COS301_GroupProject}}
+
+\author{\textbf{COS301 Main Project - The fellowship of the CIN}\\
+Frikkie Snyman 13028741\\
+Hanrich Potgieter 12287343\\
+Hugo Greyvenstein 13019989\\
+Andre Calitz 13020006\\
+Chris Cloete 13029721\\}
+
+\maketitle1
+
+\tableofcontents
+\pagebreak
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0.5em}
+\section{Introduction}
+%just use \input{file} here
+	%\input{intro.tex}
+\end{document}
