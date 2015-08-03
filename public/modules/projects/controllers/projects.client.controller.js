@@ -218,5 +218,9 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 				return true;
 			}
 		};
+
+		$scope.test = function() {
+			console.log('here');
+		};
 	}
 ]);
