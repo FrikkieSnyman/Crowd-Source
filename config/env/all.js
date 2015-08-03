@@ -30,6 +30,7 @@ module.exports = {
 				'public/lib/angular-aria/angular-aria.min.js',
 				'public/lib/angular-ui-tree/dist/angular-ui-tree.min.js',
 				'public/lib/jquery/dist/jquery.min.js',
+				'public/lib/d3/d3.js',
 			]
 		},
 		css: [
