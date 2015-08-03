@@ -4,7 +4,6 @@
 angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports',
 	function($scope, $stateParams, $location, Authentication, Reports) {
 		$scope.authentication = Authentication;
-
 		// Create new Report
 		$scope.create = function() {
 			// Create new Report object
