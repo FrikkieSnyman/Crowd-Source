@@ -15,15 +15,35 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 						.append('svg')
 						.style('width', '100%');
 
+					var visit = function(node, project, data) {
+						for (var i = 0; i < node.estimations.length; ++i) {
+							data.push({title: node.title, name: project.users[i], score: node.estimations[i]});
+						}
+					};
+
+					var traverseTree = function(node, project, data) {
+						if (node === null) {
+							return;
+						}
+						visit(node, project, data);
+						for (var i = 0; i < node.nodes.length; ++i) {
+							traverseTree(node.nodes[i], project, data);
+						}
+					};
+
+					var generateReport = function(project, data) {
+						var projectTree = project.children[0];
+						traverseTree(projectTree, project, data);
+					};
+
 					window.onresize = function() {
 						scope.$apply();
 					};
 					//hard coded data
-					scope.data = [];
-					for (var i = 0; i < project.users.length; ++i) {
-						scope.data.push({name: project.users[i], score: project.children[0].estimations[i]});
-					}
 
+					scope.data = [];
+
+					generateReport(project, scope.data);
 					scope.$watch(function() {
 						return angular.element($window)[0].innerWidth;
 					}, function() {
@@ -68,13 +88,13 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 							.data(data)
 							.enter()
 							.append('text')
-							.attr('fill', '#fff')
+							.attr('fill', '#000')
 							.attr('y', function(d, i) {
 								return i * (barHeight + barPadding) + 15;
 							})
 							.attr('x', 15)
 							.text(function(d) {
-								return d.name + ' scored: ' + d.score;
+								return d.title + ': ' + d.name + ' estimated: ' + d.score;
 							});
 					};
 				});
