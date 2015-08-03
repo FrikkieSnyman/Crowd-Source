@@ -7,96 +7,99 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 			scope : {},
 			link : function(scope, element, attrs) {
 				D3.d3().then(function(d3) {
-					var project = scope.$parent.report.project;
-					var margin = parseInt(attrs.margin) || 20;
-					var barHeight = parseInt(attrs.barHeight) || 20;
-					var barPadding = parseInt(attrs.barPadding) || 5;
-					var svg = d3.select(element[0])
-						.append('svg')
-						.style('width', '100%');
+					scope.$parent.report.$promise.then(function() {
+						var project = scope.$parent.report.project;
 
-					var visit = function(node, project, data) {
-						for (var i = 0; i < node.estimations.length; ++i) {
-							data.push({title: node.title, name: project.users[i], score: node.estimations[i]});
-						}
-					};
+						var margin = parseInt(attrs.margin) || 20;
+						var barHeight = parseInt(attrs.barHeight) || 20;
+						var barPadding = parseInt(attrs.barPadding) || 5;
+						var svg = d3.select(element[0])
+							.append('svg')
+							.style('width', '100%');
 
-					var traverseTree = function(node, project, data) {
-						if (node === null) {
-							return;
-						}
-						visit(node, project, data);
-						for (var i = 0; i < node.nodes.length; ++i) {
-							traverseTree(node.nodes[i], project, data);
-						}
-					};
+						var visit = function(node, project, data) {
+							for (var i = 0; i < node.estimations.length; ++i) {
+								data.push({title: node.title, name: project.users[i], score: node.estimations[i]});
+							}
+						};
 
-					var generateReport = function(project, data) {
-						var projectTree = project.children[0];
-						traverseTree(projectTree, project, data);
-					};
+						var traverseTree = function(node, project, data) {
+							if (node === null) {
+								return;
+							}
+							visit(node, project, data);
+							for (var i = 0; i < node.nodes.length; ++i) {
+								traverseTree(node.nodes[i], project, data);
+							}
+						};
 
-					window.onresize = function() {
-						scope.$apply();
-					};
-					//hard coded data
+						var generateReport = function(project, data) {
+							var projectTree = project.children[0];
+							traverseTree(projectTree, project, data);
+						};
 
-					scope.data = [];
+						window.onresize = function() {
+							scope.$apply();
+						};
+						//hard coded data
 
-					generateReport(project, scope.data);
-					scope.$watch(function() {
-						return angular.element($window)[0].innerWidth;
-					}, function() {
-						scope.render(scope.data);
-					});
+						scope.data = [];
 
-					scope.render = function(data) {
-						svg.selectAll('*').remove();
-						if (!data) {
-							return;
-						}
+						generateReport(project, scope.data);
+						scope.$watch(function() {
+							return angular.element($window)[0].innerWidth;
+						}, function() {
+							scope.render(scope.data);
+						});
 
-						var width = d3.select(element[0]).node().offsetWidth - margin;
-						var height = scope.data.length * (barHeight + barPadding);
-						var color = d3.scale.category20();
-						var xScale = d3.scale.linear()
-							.domain([0, d3.max(data, function(d) {
-								return d.score;
-							})])
-							.range([0, width]);
+						scope.render = function(data) {
+							svg.selectAll('*').remove();
+							if (!data) {
+								return;
+							}
 
-						svg.attr('height', height);
+							var width = d3.select(element[0]).node().offsetWidth - margin;
+							var height = scope.data.length * (barHeight + barPadding);
+							var color = d3.scale.category20();
+							var xScale = d3.scale.linear()
+								.domain([0, d3.max(data, function(d) {
+									return d.score;
+								})])
+								.range([0, width]);
 
-						svg.selectAll('rect')
-							.data(data).enter()
-								.append('rect')
-								.attr('height', barHeight)
-								.attr('width', 140)
-								.attr('x', Math.round(margin / 2))
+							svg.attr('height', height);
+
+							svg.selectAll('rect')
+								.data(data).enter()
+									.append('rect')
+									.attr('height', barHeight)
+									.attr('width', 140)
+									.attr('x', Math.round(margin / 2))
+									.attr('y', function(d, i) {
+										return i * (barHeight + barPadding);
+									})
+									.attr('fill', function(d) {
+										return color(d.score);
+									})
+									.transition()
+										.duration(1000)
+										.attr('width', function(d) {
+											return xScale(d.score);
+										});
+							svg.selectAll('text')
+								.data(data)
+								.enter()
+								.append('text')
+								.attr('fill', '#000')
 								.attr('y', function(d, i) {
-									return i * (barHeight + barPadding);
+									return i * (barHeight + barPadding) + 15;
 								})
-								.attr('fill', function(d) {
-									return color(d.score);
-								})
-								.transition()
-									.duration(1000)
-									.attr('width', function(d) {
-										return xScale(d.score);
-									});
-						svg.selectAll('text')
-							.data(data)
-							.enter()
-							.append('text')
-							.attr('fill', '#000')
-							.attr('y', function(d, i) {
-								return i * (barHeight + barPadding) + 15;
-							})
-							.attr('x', 15)
-							.text(function(d) {
-								return d.title + ': ' + d.name + ' estimated: ' + d.score;
-							});
-					};
+								.attr('x', 15)
+								.text(function(d) {
+									return d.title + ': ' + d.name + ' estimated: ' + d.score;
+								});
+						};
+					});
 				});
 			}
 		};
