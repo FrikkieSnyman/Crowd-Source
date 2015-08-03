@@ -1,6 +1,6 @@
-The installation is quite a easy process as we are using standard web technologies. We can deploy our system in one of two ways. Either we can use a docker image to load the system or we can set it up by loading all the dependancies to a machine. We are using the mean stack should you encounter any issues please consult their webpage. \url{http://mean.io}
+The installation is quite a easy process as estimate swarm uses standard web technologies. We can deploy our system in one of two ways. Either it can use a docker image to load the system or it can set up by loading all the dependancies to a machine. Estimation swarm is using the mean stack should you encounter any issues please consult their webpage. \url{http://mean.io}. The github readme also houses the installation instructions.
 \subsection{Setting up the environment}
-To use our application the following prerequisites are required.
+To use our application the following prerequisites are required. Please note that installing packages globally requires that sudo is used on linux and administrator privileges on windows.
 \begin{itemize}
 	\item NPM(Node Package manager) and node.js 
 	For the latest information on installing npm please visit \url{https://nodejs.org/download/} Once you have this setup properly it is important to make usr you have the latest version installed.
@@ -9,6 +9,18 @@ To use our application the following prerequisites are required.
 	\newline
 	npm install -g BOWER or npm install -g GULP 
 	\item MongoDB document database. Mongo has very different installation instructions thus it is best to consult the following website \url{https://www.mongodb.org}.
-	
+	\item GRUNT task manager. GRUNT can be installed through npm. 
+	\newline
+	npm install grunt -g
+	\newline
+	npm install grunt-cli -g
 \end{itemize}
-
+Estimation swarm is now ready to be started. First make sure that your Mongodb is up and running. 
+\newline
+Running the grunt command in the relevant directory will start the server. This will start the server in the default development environment on port 3000. Estimation swarm currently supports running in three environment types.
+\begin{itemize}
+	\item{Development} is used to run the server for developers and starts the necessary functionality.
+	\item{Production}
+	Production will load all the minified sources and also only non development dependancies. This is the method to use when running the server for commercial use.
+	\item{Secure} is just a enhanced version of production with added ssl security. For this environment to it requires the necessary certificates.
+\end{itemize}
