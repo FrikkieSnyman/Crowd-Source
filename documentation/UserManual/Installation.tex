@@ -1,3 +1,9 @@
+\begin{figure}[H]
+	    	\centering
+	    	\fbox{\includegraphics[width=0.5\textwidth]{MEAN}}
+	    	\caption{MEAN.js logo}
+	    	\label{fig:MEAN}
+   	\end{figure}
 The installation is quite a easy process as estimate swarm uses standard web technologies. We can deploy our system in one of two ways. Either it can use a docker image to load the system or it can set up by loading all the dependancies to a machine. Estimation swarm is using the mean stack should you encounter any issues please consult their webpage. \url{http://mean.io}. The github readme also houses the installation instructions.
 \subsection{Setting up the environment}
 To use our application the following prerequisites are required. Please note that installing packages globally requires that sudo command on linux and administrator privileges on windows.
@@ -16,7 +22,7 @@ To use our application the following prerequisites are required. Please note tha
 	\newline
 	npm install grunt-cli -g
 \end{itemize}
-Estimation swarm is now ready to be started. First make sure that your Mongodb is up and running. Now clone the project form gitHub by running the follwing command.
+Estimation swarm is now ready to be started. First make sure that your Mongodb is up and running. Now clone the project form gitHub by running the following command.
 \newline
 git clone \url{https://github.com/FrikkieSnyman/COS301_GroupProject.git}
 \newline
@@ -31,6 +37,12 @@ Running the grunt command in the relevant directory will start the server. This 
 	Production will load all the minified sources and also only non development dependancies. This is the method to use when running the server for commercial use.
 	\item{Secure} is just a enhanced version of production with added ssl security. For this environment to it requires the necessary certificates.
 \end{itemize}
-After this the server should be functioning and you can move on to getting started.
+After this the server should be functioning and you can move on to getting started. Check your favourite web browser and the server should be running on port 3000.
 \subsection{Using docker}
 This is still under development and will be implemented soon.
+\url{http://docs.docker.com/mac/started/}
+\subsection{Deploying on your server}
+Changing environment setting to suite your current need is quite easy. Under your project directory there is a config folder. It contains all the variable that can be changed for the various services. Using passport.js for authentication allows you to integrate with the various services for authentication. We currently support Facebook, Google and Twitter authentication. Please visit \url{http://passportjs.org} for further instructions on how to configure this services. We recommend using digital ocean servers to run this project on. \url{https://www.digitalocean.com}
+
+\subsection{Installation failures}
+Should the installation fail please make sure that all the MEAN.js dependancies are installed by visiting their website. If the issue cannot be resolved please log a issue on gitHub.
