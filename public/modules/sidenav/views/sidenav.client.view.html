@@ -65,7 +65,7 @@
 			</div>
 
 			<div data-ng-show="authentication.user">
-				<md-button class="sideNavItem" ng-click="go('/settings/profile');toggleLeft()"><span>Profile</span></md-button>
+				<md-button class="sideNavItem" ng-click="go('/settings/profile');toggleLeft()"><span><b>Profile</b><span style="float: right; padding-right: 2cm; font-style: italic;">{{authentication.user.username}}</span></span></md-button>
 				<md-divider></md-divider>
 
 				<md-button class="sideNavItem" ng-click="go('/projects');toggleLeft()"><span>Projects</span></md-button>
