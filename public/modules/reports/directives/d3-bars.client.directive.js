@@ -46,6 +46,7 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 						scope.data = [];
 
 						generateReport(project, scope.data);
+
 						scope.$watch(function() {
 							return angular.element($window)[0].innerWidth;
 						}, function() {
@@ -57,7 +58,6 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 							if (!data) {
 								return;
 							}
-
 							var width = d3.select(element[0]).node().offsetWidth - margin;
 							var height = scope.data.length * (barHeight + barPadding);
 							var color = d3.scale.category20();
