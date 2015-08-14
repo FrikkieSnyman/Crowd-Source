@@ -13,7 +13,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$locatio
 	$mdThemingProvider.theme('default')
 	.primaryPalette('indigo')
 	.accentPalette('yellow');
-}).constant('RESOURCE_DOMAIN', 'http://188.166.89.244');
+}).constant('RESOURCE_DOMAIN', '');
 
 //Then define the init function for starting up the application
 angular.element(document).ready(function() {
