@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('users').controller('SettingsController', ['$scope', '$http', '$location', 'Users', 'Authentication','RESOURCE_DOMAIN',
+angular.module('users').controller('SettingsController', ['$scope', '$http', '$location', 'Users', 'Authentication', 'RESOURCE_DOMAIN',
 	function($scope, $http, $location, Users, Authentication, RESOURCE_DOMAIN) {
 		$scope.user = Authentication.user;
 

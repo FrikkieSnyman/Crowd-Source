@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('sidenav').controller('SidenavController', ['$scope', '$http', '$mdDialog', '$location', 'Authentication' , 'Logindialog', '$mdUtil', '$mdSidenav', '$log',
-	function($scope, $http, $mdDialog, $location, Authentication, Logindialog, $mdUtil, $mdSidenav, $log) {
+angular.module('sidenav').controller('SidenavController', ['$scope', '$http', '$mdDialog', '$location', 'Authentication' , 'Logindialog', '$mdUtil', '$mdSidenav', '$log', 'RESOURCE_DOMAIN',
+	function($scope, $http, $mdDialog, $location, Authentication, Logindialog, $mdUtil, $mdSidenav, $log, RESOURCE_DOMAIN) {
 		// Sidenav controller logic
 		$scope.authentication = Authentication;
 
@@ -10,7 +10,7 @@ angular.module('sidenav').controller('SidenavController', ['$scope', '$http', '$
 		$scope.forgotPass = Logindialog.forgotPass;
 
 		function DialogController($scope, $mdDialog) {
-		$scope.hide = function() {
+			$scope.hide = function() {
 				$mdDialog.hide();
 			};
 			$scope.cancel = function() {
@@ -65,11 +65,11 @@ angular.module('sidenav').controller('SidenavController', ['$scope', '$http', '$
 		};
 
 		$scope.signOut = function() {
-			$http.get('/auth/signout').success(function(response) {
+			$http.get(RESOURCE_DOMAIN + '/auth/signout').success(function(response) {
 				$location.path(response);
 			});
 
-			$http.get('/auth/signout').success(function(response) {
+			$http.get(RESOURCE_DOMAIN + '/auth/signout').success(function(response) {
 				// If successful we assign null to the global user model
 				$scope.authentication.user = null;
 

@@ -21,7 +21,8 @@ var fs = require('fs'),
 	flash = require('connect-flash'),
 	config = require('./config'),
 	consolidate = require('consolidate'),
-	path = require('path');
+	path = require('path'),
+	cors = require('cors');
 
 module.exports = function(db) {
 	// Initialize express app
@@ -42,12 +43,12 @@ module.exports = function(db) {
 
 	// Passing the request url to environment locals
 	app.use(function(req, res, next) {
-		res.header('Access-Control-Allow-Origin', '*');
-		res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-		res.header('Access-Control-Allow-Headers', 'Content-Type');
 		res.locals.url = req.protocol + '://' + req.headers.host + req.url;
 		next();
+		//}
 	});
+
+	app.use(cors());
 
 	// Should be placed before express.static
 	app.use(compress({
