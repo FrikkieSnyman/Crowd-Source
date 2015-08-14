@@ -3,6 +3,13 @@
 	width: 100%;
 }
 
+.header_content {
+	position: fixed;
+	height: 100px;
+	width: 100%;
+	z-index: 99;
+}
+
 .content {
 	margin-top: 50px;
 }

@@ -1,7 +1,18 @@
 .sidenav {
 	height: 100% !important;
-	/*width: 100% !important;*/
+	z-index: 99;
+	/*width: 700px;*/
+	position: fixed;
+	
 }
+
+@media (min-width: 700px) {
+.sidenavContainer {
+	z-index: 99;
+	width: 304px;
+}
+}
+
 
 .navButton {
 	width: 100% !important;
