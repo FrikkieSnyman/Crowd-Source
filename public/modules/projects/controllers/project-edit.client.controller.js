@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('projects').controller('ProjectEditController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope',
-	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope) {
+angular.module('projects').controller('ProjectEditController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope', 'RESOURCE_DOMAIN',
+	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, RESOURCE_DOMAIN) {
 		$scope.members = true;
 		$scope.estimated = false;
 		$scope.goTo = function(route) {
@@ -11,7 +11,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		$scope.authentication = Authentication;
 		$scope.userIndex = -1;
 		var project = {'projectId': $stateParams.projectId};
-		$http({method:'POST', url:'/project', data: project}).success(function(data) {
+		$http({method:'POST', url:RESOURCE_DOMAIN + '/project', data: project}).success(function(data) {
 			if (data.length !== 0) {
 				var tmp = data[0];
 				for (var u in tmp.users) {
@@ -76,7 +76,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.sendEstimationReport = function() {
-			$http({method:'POST', url:'/reports', data: $scope.project}).success(function(data) {
+			$http({method:'POST', url:RESOURCE_DOMAIN + '/reports', data: $scope.project}).success(function(data) {
 
 			});
 		};
@@ -96,7 +96,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 
 					var project = {'projectId': $scope.project._id};
 
-					$http({method:'POST', url:'/sendInvites', data: project}).success(function(data) {
+					$http({method:'POST', url:RESOURCE_DOMAIN + '/sendInvites', data: project}).success(function(data) {
 						
 					});
 				});
