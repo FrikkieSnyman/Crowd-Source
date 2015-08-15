@@ -17,9 +17,9 @@
     <md-input-container d-no-float>
       <!-- Use floating label instead of placeholder -->
       <label>Project description</label>
-      <input ng-model="description" type="text" required>
+      <!-- Use text area instead of input for better visability of the description -->
+      <textarea ng-model="description" columns="1" type="text" required></textarea>
     </md-input-container>
-
     
     <div flex="50" flex-md="100" layout="column">
       <fieldset class="standard" flex>
