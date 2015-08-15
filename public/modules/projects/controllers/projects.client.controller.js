@@ -200,5 +200,27 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 				});
 			});
 		};
+
+		$scope.isOverflow = function() {
+			var element = document.getElementById('marquee');
+			if (element.scrollWidth > element.clientWidth) {
+				return true;
+			} else {
+				return false;
+			}
+		};
+
+		$scope.isNotOverflow = function() {
+			var element = document.getElementById('marquee');
+			if (element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth) {
+				return false;
+			} else {
+				return true;
+			}
+		};
+
+		$scope.test = function() {
+			console.log('here');
+		};
 	}
 ]);
