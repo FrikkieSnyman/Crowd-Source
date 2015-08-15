@@ -4,10 +4,12 @@
 }
 
 .header_content {
+	/*
 	position: fixed;
-	height: 100px;
+	height: 200px;
 	width: 100%;
 	z-index: 99;
+	*/
 }
 
 .content {
