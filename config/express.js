@@ -21,7 +21,8 @@ var fs = require('fs'),
 	flash = require('connect-flash'),
 	config = require('./config'),
 	consolidate = require('consolidate'),
-	path = require('path');
+	path = require('path'),
+	cors = require('cors');
 
 module.exports = function(db) {
 	// Initialize express app
@@ -44,7 +45,10 @@ module.exports = function(db) {
 	app.use(function(req, res, next) {
 		res.locals.url = req.protocol + '://' + req.headers.host + req.url;
 		next();
+		//}
 	});
+
+	app.use(cors());
 
 	// Should be placed before express.static
 	app.use(compress({

@@ -30,7 +30,6 @@ mobile_app/node_modules
 mobile_app/platforms
 mobile_app/www/lib
 
-
 #For Latex
 *.aux
 *.glo

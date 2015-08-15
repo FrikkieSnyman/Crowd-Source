@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('projects').controller('CreateProjectController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope',
-	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope) {
+angular.module('projects').controller('CreateProjectController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope', 'RESOURCE_DOMAIN',
+	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, RESOURCE_DOMAIN) {
 		$scope.authentication = Authentication;
 		$scope.people = [];
 
-		$http.get('/users/getUsers').success(function(users) {
+		$http.get(RESOURCE_DOMAIN+'/users/getUsers').success(function(users) {
 			for (var i in users) {
 				$scope.people.push(users[i].username);
 			}
