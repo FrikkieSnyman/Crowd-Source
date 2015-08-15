@@ -1,0 +1,37 @@
+{
+  "name": "EstimateSwarm",
+  "app_id": "df319f24",
+  "proxies": [
+    {
+      "path": "/auth",
+      "proxyUrl": "http://localhost/auth"
+    },
+    {
+      "path": "/projects",
+      "proxyUrl": "http://localhost/projects"
+    },
+    {
+      "path": "/users",
+      "proxyUrl": "http://localhost/users"
+    },
+    {
+      "path": "/project",
+      "proxyUrl": "http://localhost/project"
+    },
+    {
+      "path": "/reports",
+      "proxyUrl": "http://localhost/project"
+    },
+    {
+      "path": "/sendInvites",
+      "proxyUrl": "http://localhost/sendInvites"
+    }
+  ],
+  "browsers": [
+    {
+      "platform": "android",
+      "browser": "crosswalk",
+      "version": "12.41.296.5"
+    }
+  ]
+}
