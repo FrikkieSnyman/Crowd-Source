@@ -1,0 +1,28 @@
+.sidenav {
+	height: 100% !important;
+	/*width: 100% !important;*/
+}
+
+.navButton {
+	width: 100% !important;
+	text-align: left !important;
+	color: #03A9F4;
+}
+
+.navContent {
+	width: 100% !important;
+	margin:0 !important;
+	padding:0 !important;
+}
+.menu-division {
+	background-color: lightgrey !important;
+	padding:5px;
+	padding-left:20px;
+	margin: 0;
+	color:grey;
+}
+
+.logo {
+	width: 100%;
+	padding: 5px;
+}

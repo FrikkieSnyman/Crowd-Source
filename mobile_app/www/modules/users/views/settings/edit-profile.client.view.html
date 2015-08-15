@@ -1,0 +1,35 @@
+<section class="row" data-ng-controller="SettingsController">
+<md-card>
+		<md-content class = "car-header">
+		<h2>Edit your profile</h2>
+		</md-content>
+		
+		<md-content class = "car-header">
+		<form name="userForm" data-ng-submit="updateUserProfile(userForm.$valid)" autocomplete="off">
+			<md-input-container>
+		      <label>First Name</label>
+		      <input type="text" data-ng-model="user.firstName">
+		    </md-input-container>
+			<md-input-container>
+		      <label>Last Name</label>
+		      <input type="text" data-ng-model="user.lastName">
+		    </md-input-container>
+			<md-input-container>
+		      <label>Email</label>
+		      <input type="email" data-ng-model="user.email">
+		    </md-input-container>
+			<md-input-container>
+		      <label>Username</label>
+		      <input data-ng-model="user.username">
+		    </md-input-container>
+			<md-button type="submit" class="md-raised" >Save Profile</md-button>
+			<div data-ng-show="success" class="text-center text-success">
+				<strong>Profile Saved Successfully</strong>
+			</div>
+			<div data-ng-show="error" class="text-center text-danger">
+				<strong data-ng-bind="error"></strong>
+			</div>
+		</form>
+		</md-content>
+	</md-card>
+</section>
