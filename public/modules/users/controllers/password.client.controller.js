@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users').controller('PasswordController', ['$scope', '$stateParams', '$http', '$location', 'Authentication',
-	function($scope, $stateParams, $http, $location, Authentication) {
+angular.module('users').controller('PasswordController', ['$scope', '$stateParams', '$http', '$location', 'Authentication','RESOURCE_DOMAIN',
+	function($scope, $stateParams, $http, $location, Authentication,RESOURCE_DOMAIN) {
 		$scope.authentication = Authentication;
 
 		//If user is signed in then redirect back home
@@ -11,7 +11,7 @@ angular.module('users').controller('PasswordController', ['$scope', '$stateParam
 		$scope.askForPasswordReset = function() {
 			$scope.success = $scope.error = null;
 
-			$http.post('/auth/forgot', $scope.credentials).success(function(response) {
+			$http.post(RESOURCE_DOMAIN + '/auth/forgot', $scope.credentials).success(function(response) {
 				// Show user success message and clear form
 				$scope.credentials = null;
 				$scope.success = response.message;
@@ -27,7 +27,7 @@ angular.module('users').controller('PasswordController', ['$scope', '$stateParam
 		$scope.resetUserPassword = function() {
 			$scope.success = $scope.error = null;
 
-			$http.post('/auth/reset/' + $stateParams.token, $scope.passwordDetails).success(function(response) {
+			$http.post(RESOURCE_DOMAIN + '/auth/reset/' + $stateParams.token, $scope.passwordDetails).success(function(response) {
 				// If successful show success message and clear form
 				$scope.passwordDetails = null;
 
