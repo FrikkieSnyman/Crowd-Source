@@ -50,20 +50,6 @@
         </section>
       </md-content>
     </md-content>
-  <!--
-      <div layout="row" class="fullFlex">
-        <section data-ng-include="&apos;modules/sidenav/views/sidenav.client.view.html&apos;" class="sidenav"></section>
-        <div class="mainView">
-          <md-content layout ="column" tabindex="-1" role ="main" flex> 
-            <div data-ng-include="&apos;modules/core/views/header.client.view.html&apos;"></div>
-            <md-content class="container" flex="">
-                <section data-ui-view=""></section>
-            </md-content>
-          </md-content>
-        </div>
-      </div>
-    -->
-    <!--Embedding The User Object-->
     <script type="text/javascript">
       var user = {{ user | json | safe }};
     </script>
