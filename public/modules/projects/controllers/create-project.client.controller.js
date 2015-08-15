@@ -60,4 +60,4 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 			.join(' ');
 		};		
 	}
-]);
+]); 
