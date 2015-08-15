@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src &apos;self&apos; &apos;unsafe-inline&apos;; script-src &apos;self&apos; &apos;unsafe-inline&apos; &apos;unsafe-eval&apos;">
+    <title></title>
+
+    <!--<link href="lib/ionic/css/ionic.css" rel="stylesheet">-->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="lib/angular-material/angular-material.min.css" rel="stylesheet">
+    <link href="lib/angular-ui-tree/dist/angular-ui-tree.min.css" rel="stylesheet">
+    <link href="dist/application.min.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/angular-material/angular-material.min.js"></script>
+    <script src="lib/angular-aria/angular-aria.min.js"></script>
+    <script src="lib/angular-ui-tree/dist/angular-ui-tree.min.js"></script>
+    <script src="lib/angular-resource/angular-resource.js"></script>
+    <script src="lib/angular-cookies/angular-cookies.js"></script>
+    <script src="lib/angular-animate/angular-animate.js"></script>
+    <script src="lib/angular-touch/angular-touch.js"></script>
+    <script src="lib/angular-sanitize/angular-sanitize.js"></script>
+    <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="lib/angular-ui-utils/ui-utils.js"></script>
+    <script src="dist/application.js"></script>
+    <!--<script src="dist/application.js"></script>-->
+    <!--<script src="dist/application.js"></script>-->
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+  </head>
+  <body layout="row">
+    <section data-ng-include="&apos;modules/sidenav/views/sidenav.client.view.html&apos;" class="sidenav" tabindex="-1">
+    </section>
+    <md-content layout="column" tabindex="-1" role="main" flex=""> 
+      <div data-ng-include="&apos;modules/core/views/header.client.view.html&apos;">
+      </div>
+      <md-content>
+        <section class="container" flex="">
+          <section data-ui-view=""></section>
+        </section>
+      </md-content>
+    </md-content>
+  <!--
+      <div layout="row" class="fullFlex">
+        <section data-ng-include="&apos;modules/sidenav/views/sidenav.client.view.html&apos;" class="sidenav"></section>
+        <div class="mainView">
+          <md-content layout ="column" tabindex="-1" role ="main" flex> 
+            <div data-ng-include="&apos;modules/core/views/header.client.view.html&apos;"></div>
+            <md-content class="container" flex="">
+                <section data-ui-view=""></section>
+            </md-content>
+          </md-content>
+        </div>
+      </div>
+    -->
+    <!--Embedding The User Object-->
+    <script type="text/javascript">
+      var user = {{ user | json | safe }};
+    </script>
+  </body>
+</html>
