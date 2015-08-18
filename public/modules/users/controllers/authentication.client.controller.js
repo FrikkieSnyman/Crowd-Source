@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', '$mdDialog', 'Authentication','RESOURCE_DOMAIN',
-	function($scope, $http, $location, $mdDialog, Authentication, RESOURCE_DOMAIN) {
+angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', '$mdDialog', 'Authentication', 'RESOURCE_DOMAIN', '$mdToast',
+	function($scope, $http, $location, $mdDialog, Authentication, RESOURCE_DOMAIN, $mdToast) {
 		$scope.authentication = Authentication;
 
 		// If user is signed in then redirect back home

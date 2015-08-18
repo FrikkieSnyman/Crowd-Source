@@ -404,7 +404,7 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 			.join(' ');
 		};		
 	}
-]);
+]); 
 'use strict';
 
 angular.module('projects').controller('ProjectEditController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope', 'RESOURCE_DOMAIN',
@@ -935,6 +935,28 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 				});
 			});
 		};
+
+		$scope.isOverflow = function() {
+			var element = document.getElementById('marquee');
+			if (element.scrollWidth > element.clientWidth) {
+				return true;
+			} else {
+				return false;
+			}
+		};
+
+		$scope.isNotOverflow = function() {
+			var element = document.getElementById('marquee');
+			if (element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth) {
+				return false;
+			} else {
+				return true;
+			}
+		};
+
+		$scope.test = function() {
+			console.log('here');
+		};
 	}
 ]);
 
@@ -1296,11 +1318,30 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				$mdDialog.cancel();
 
 				// And redirect to the index page
+				$mdToast.show(
+					$mdToast.simple()
+						.content('Login successful')
+						.position($scope.getToastPosition())
+						.hideDelay(3000)
+				);
 				$location.path('/projects');
 			}).error(function(response) {
 				$scope.error = response.message;
 			});
 		};
+
+		$scope.toastPosition = {
+			bottom: true,
+			top: false,
+			left: false,
+			right: true
+		};
+
+		$scope.getToastPosition = function() {
+			return Object.keys($scope.toastPosition)
+			.filter(function(pos) { return $scope.toastPosition[pos]; })
+			.join(' ');
+		};	
 	}
 ]);
 'use strict';

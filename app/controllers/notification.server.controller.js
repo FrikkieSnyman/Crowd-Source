@@ -25,7 +25,7 @@ exports.sendInvites = function(req, res, next) {
 				userName = project.users[i];
 
 				User.findOne({username: userName}, function(err, user) {
-					if (err) {} else {
+					if (!err) {
 						async.waterfall([
 							function(done) {
 								res.render('templates/invite-email', {
@@ -48,6 +48,7 @@ exports.sendInvites = function(req, res, next) {
 								};
 								smtpTransport.sendMail(mailOptions, function(err) {
 									if (!err) {
+										console.log('No Error.');
 									}
 
 									done(err);
@@ -67,7 +68,7 @@ exports.sendInvites = function(req, res, next) {
 exports.sendReport = function(string, project, res) {
 	var owner = project.owner;
 	User.findOne({username : owner}, function(err, user) {
-		if (err) {} else {
+		if (!err) {
 			async.waterfall([
 				function(done) {
 					res.render('templates/report-email', {
@@ -89,13 +90,13 @@ exports.sendReport = function(string, project, res) {
 					};
 					smtpTransport.sendMail(mailOptions, function(err) {
 						if (!err) {
-							//asd
+							console.log('No error');
 						}
 						done(err);
 					});
 				}
 				], function(err) {
-					if (err) return next(err);
+					if (err) return err;
 				});
 		}
 	});
