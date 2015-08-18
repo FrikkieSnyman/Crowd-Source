@@ -37,33 +37,19 @@
         <md-grid-tile ng-repeat="project in querySearch(searchText)" class="gray" md-rowspan="1" md-colspan="1" md-colspan-sm="1" style="z-index : 1; position: absolute">
             <md-card flex class = "cardHeight">
                 <md-toolbar layout = "row" class = "cardHeader">
-                    <md-button class="md-icon-button" ng-show = "owner(project)" ng-click = "goTo('/settings/profile')">
-                        <md-tooltip>
-                            Owner
-                        </md-tooltip>
-                        <md-icon md-svg-src="modules/projects/img/icons/person.svg"></md-icon>
-                    </md-button>
                     <div style="padding: 10px; white-space: nowrap; overflow:hidden" class="md-toolbar-tools">
                         <h3>{{project.name}}</h3>
                         <md-tooltip>{{project.name}}</md-tooltip>
 
                     </div>
-                    <md-button aria-label="View/Edit" class="md-icon-button" ng-click="goTo('/projects/{{project._id}}/edit')">
-                        <md-tooltip>
-                            View/Edit
-                        </md-tooltip>
-                        <md-icon md-svg-src="modules/projects/img/icons/edit.svg"></md-icon>
-                    </md-button>
-                    <md-button aria-label="Delete" class="md-icon-button" ng-show = "owner(project)">
+                    <md-button aria-label="Delete" class="md-icon-button">
                         <md-tooltip>
                             Delete
                         </md-tooltip>
-                        <md-icon md-svg-src="modules/projects/img/icons/close.svg" ng-click="deleteProject(project)"></md-icon>
+                        <md-icon md-svg-src="modules/projects/img/icons/close.svg" ng-click="remove(project)"></md-icon>
                     </md-button>
                 </md-toolbar>
-
                 <br/>
-
                 <md-card-content class="md-padding" class="cardHeight" style="overflow:auto;"> 
                     <p>{{project.description}}</p>
                 </md-card-content>

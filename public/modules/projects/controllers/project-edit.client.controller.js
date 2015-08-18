@@ -72,6 +72,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 					return;
 				}
 			}
+			$scope.project.openForEstimation = false;
 			$scope.sendEstimationReport();
 		};
 
