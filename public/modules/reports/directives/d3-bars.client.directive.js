@@ -19,7 +19,9 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 
 						var visit = function(node, project, data) {
 							for (var i = 0; i < node.estimations.length; ++i) {
+								data.push({title: node.title, name: project.users[i], score: node.minestimations[i]});
 								data.push({title: node.title, name: project.users[i], score: node.estimations[i]});
+								data.push({title: node.title, name: project.users[i], score: node.maxestimations[i]});
 							}
 						};
 
@@ -57,7 +59,8 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 							if (!data) {
 								return;
 							}
-							var width = d3.select(element[0]).node().offsetWidth - margin;
+							var width = d3.select(element[0]).offsetWidth - margin;
+							var width = 400;
 							var height = scope.data.length * (barHeight + barPadding);
 							var color = d3.scale.category20();
 							var xScale = d3.scale.linear()
@@ -72,7 +75,7 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 								.data(data).enter()
 									.append('rect')
 									.attr('height', barHeight)
-									.attr('width', 140)
+									.attr('width', 200)
 									.attr('x', Math.round(margin / 2))
 									.attr('y', function(d, i) {
 										return i * (barHeight + barPadding);

@@ -4,6 +4,9 @@
 angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports',
 	function($scope, $stateParams, $location, Authentication, Reports) {
 		$scope.authentication = Authentication;
+		$scope.goTo = function(route) {
+			$location.path(route);
+		};
 		// Create new Report
 		$scope.querySearch = function(query) {
 			//console.log(query);

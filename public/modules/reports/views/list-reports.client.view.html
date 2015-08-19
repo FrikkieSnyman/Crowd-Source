@@ -40,7 +40,6 @@
                     <div style="padding: 10px; white-space: nowrap; overflow:hidden" class="md-toolbar-tools">
                         <h3>{{project.name}}</h3>
                         <md-tooltip>{{project.name}}</md-tooltip>
-
                     </div>
                     <md-button aria-label="Delete" class="md-icon-button">
                         <md-tooltip>
@@ -52,6 +51,9 @@
                 <br/>
                 <md-card-content class="md-padding" class="cardHeight" style="overflow:auto;"> 
                     <p>{{project.description}}</p>
+                    <md-button aria-label="View/Edit" class="md-icon-button" ng-click="goTo('/reports/{{project._id}}')">
+                    View Report
+                    </md-button>
                 </md-card-content>
             </md-card>
         </md-grid-tile>

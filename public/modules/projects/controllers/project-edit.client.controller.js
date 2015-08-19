@@ -83,6 +83,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.openForEstimation = function() {
+
 			for (var i in $scope.project.children[0].estimations) {
 				$scope.project.children[0].estimations[i] = null;
 			}
@@ -106,7 +107,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				});
 			}, function() {
 			});
-			
 		};
 
 		$scope.isOpenForEstimation = function() {
