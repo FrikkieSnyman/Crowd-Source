@@ -1,10 +1,10 @@
 <section class="row" data-ng-controller="SettingsController">
-<md-card>
-		<md-content class = "car-header">
+	<md-card>
+		<md-card-content class = "car-header">
 		<h2>Edit your profile</h2>
-		</md-content>
+		</md-card-content>
 		
-		<md-content class = "car-header">
+		<md-card-content class = "car-header">
 		<form name="userForm" data-ng-submit="updateUserProfile(userForm.$valid)" autocomplete="off">
 			<md-input-container>
 		      <label>First Name</label>
@@ -30,6 +30,6 @@
 				<strong data-ng-bind="error"></strong>
 			</div>
 		</form>
-		</md-content>
+		</md-card-content>
 	</md-card>
 </section>
