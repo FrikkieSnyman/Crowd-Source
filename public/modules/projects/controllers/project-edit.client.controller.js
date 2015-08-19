@@ -60,7 +60,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			});
 		};
 
-		$scope.addEstimator = function(ev) {
+		$scope.showAddEstimatorDialogBox = function(ev) {
 			var newScope = $scope.$new();
 			$mdDialog.show({
 				controller: DialogController,
@@ -69,6 +69,35 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				targetEvent: ev,
 				scope: newScope
 			});
+		};
+
+		$scope.updateEstimators = function() {
+			console.log($scope.people);
+			var add = [];
+			var remove = [];
+			for (var i = 0; i < $scope.people.length; ++i) {
+				if ($scope.people[i].isEstimator === true) {
+					var found = false;
+					// console.log("To add: ");
+					// console.log($scope.people[i]);
+					for (var j = 0; j < $scope.project.users.length; ++j) {
+						// console.log("Current Users: " + $scope.project.users[j]);
+						if ($scope.project.users[j] === $scope.people[i].username) {
+							// console.log("FOUND");
+							found = true;
+							break;
+						}
+					}
+
+					if (found === false) {
+						add.push($scope.people[i]);
+					}
+				}
+			}
+			// console.log("Add:");
+			// console.log(add);
+
+			$scope.saveProject();
 		};
 
 		$scope.owner = function() {
