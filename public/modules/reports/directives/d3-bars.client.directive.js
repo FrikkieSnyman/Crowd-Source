@@ -41,7 +41,6 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 						window.onresize = function() {
 							scope.$apply();
 						};
-						//hard coded data
 
 						scope.data = [];
 
