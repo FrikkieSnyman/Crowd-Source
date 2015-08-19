@@ -82,18 +82,18 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 
 			for (var i = 0; i < $scope.people.length; ++i) {
 				if ($scope.people[i].isEstimator === true) {
+					console.log("Is True: " + $scope.people[i].username);
 					var found = false;
-
-
 					// console.log("To add: ");
 					// console.log($scope.people[i]);
 					for (var j = 0; j < $scope.project.users.length; ++j) {
 						// console.log("Current Users: " + $scope.project.users[j]);
 						if ($scope.project.users[j] === $scope.people[i].username) {
 							// console.log("FOUND");
-							var index = remove.indexOf(i);
+							console.log("Is equal to user: " + $scope.people[i].username);
+							var index = remove.indexOf(j);
 							if (index > -1) {
-								console.log("Splicing at: " + index + " for " + i);
+								console.log("Splicing at: " + index + " for " + $scope.people[i].username);
 								remove.splice(index, 1);
 							}
 
@@ -112,7 +112,27 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			console.log("Remove:");
 			console.log(remove);
 
+			$scope.removeEstimatorsFromProject(remove);
+			// $scope.addEstimatorsToProject(add);
+
 			$scope.saveProject();
+		};
+
+		$scope.removeEstimatorsFromProject = function(removeArr) {
+			$scope.project.users.splice(removeArr[0], 1);
+			$scope.removeEstimatorsRecursiveDescent($scope.project.children[0], removeArr);
+		};
+
+		$scope.removeEstimatorsRecursiveDescent = function(node, removeArr) {
+			node.estimations.splice(removeArr[0], 1);
+			for (var i = 0; i < node.nodes.length; ++i) {
+				console.log("Going deeper");
+				$scope.removeEstimatorsRecursiveDescent(node.nodes[i], removeArr);
+			}
+		};
+
+		$scope.addEstimatorsToProject = function(addArr) {
+
 		};
 
 		$scope.owner = function() {
