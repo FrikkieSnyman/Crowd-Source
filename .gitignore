@@ -26,6 +26,9 @@ build/Release
 # https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
 node_modules
 public/lib
+mobile_app/node_modules
+mobile_app/platforms
+mobile_app/www/lib
 
 #For Latex
 *.aux

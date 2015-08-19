@@ -5,6 +5,28 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 	function($scope, $stateParams, $location, Authentication, Reports) {
 		$scope.authentication = Authentication;
 		// Create new Report
+		$scope.querySearch = function(query) {
+			//console.log(query);
+			var results = query ? $scope.reports.filter(createFilterFor(query)) : $scope.reports, deferred;
+			return results;
+		};
+		$scope.searchTextChange = function(text) {
+			console.log('Text changed to ' + text);
+		};
+
+		$scope.selectedItemChange = function(item) {
+			console.log(item);
+			$scope.goTo('/projects/' + item._id + '/edit');
+		};
+
+		var createFilterFor = function(query) {
+			var lowercaseQuery = angular.lowercase(query);
+			return function filterFn(item) {
+				//console.log(item);
+				var name = angular.lowercase(item.name);
+				return (name.indexOf(lowercaseQuery) === 0);
+			};
+		};
 		$scope.create = function() {
 			// Create new Report object
 			var report = new Reports ({

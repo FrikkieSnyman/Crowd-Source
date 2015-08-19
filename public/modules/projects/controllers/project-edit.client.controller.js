@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('projects').controller('ProjectEditController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope',
-	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope) {
+angular.module('projects').controller('ProjectEditController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope', 'RESOURCE_DOMAIN',
+	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, RESOURCE_DOMAIN) {
 		$scope.members = true;
 		$scope.estimated = false;
 		$scope.goTo = function(route) {
@@ -11,7 +11,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		$scope.authentication = Authentication;
 		$scope.userIndex = -1;
 		var project = {'projectId': $stateParams.projectId};
-		$http({method:'POST', url:'/project', data: project}).success(function(data) {
+		$http({method:'POST', url:RESOURCE_DOMAIN + '/project', data: project}).success(function(data) {
 			if (data.length !== 0) {
 				var tmp = data[0];
 				for (var u in tmp.users) {
@@ -72,17 +72,21 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 					return;
 				}
 			}
+			$scope.project.openForEstimation = false;
 			$scope.sendEstimationReport();
 		};
 
 		$scope.sendEstimationReport = function() {
-			$http({method:'POST', url:'/reports', data: $scope.project}).success(function(data) {
+			$http({method:'POST', url:RESOURCE_DOMAIN + '/reports', data: $scope.project}).success(function(data) {
 
 			});
 		};
 
 		$scope.openForEstimation = function() {
-			var confirm = $mdDialog.confirm()
+			for (var i in $scope.project.children[0].estimations) {
+				$scope.project.children[0].estimations[i] = null;
+			}
+			var confirm = new $mdDialog.confirm()
 			.parent(angular.element(document.body))
 			.title('Are you sure you want to open the project for estimations?')
 			.content('This will allow estimators to estimate, but will lock the project tree to its current state.')
@@ -96,20 +100,21 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 
 					var project = {'projectId': $scope.project._id};
 
-					$http({method:'POST', url:'/sendInvites', data: project}).success(function(data) {
+					$http({method:'POST', url:RESOURCE_DOMAIN + '/sendInvites', data: project}).success(function(data) {
 						
 					});
 				});
 			}, function() {
 			});
+			
 		};
 
 		$scope.isOpenForEstimation = function() {
-			if ($scope.project.$resolved !== false) {
-				return $scope.project.openForEstimation;
-			} else {
-				return false;
-			}
+			//if ($scope.project.$resolved !== false) {
+			return $scope.project.openForEstimation;
+			//} else {
+			//	return false;
+			//}
 		};
 
 		$scope.addRootNode = function() {

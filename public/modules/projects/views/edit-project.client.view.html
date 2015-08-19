@@ -69,8 +69,16 @@
               <input ng-model="node.title">
             </md-input-container>
             <md-input-container class = "treeInput" flex ="10" ng-show = "estimator()">
+              <label>Min</label>
+              <input ng-model="node.minestimations[userIndex]" ng-change="updateLocalTree(this)" ng-readonly = "estimated" required>
+            </md-input-container>
+            <md-input-container class = "treeInput" flex ="10" ng-show = "estimator()">
               <label>Qty</label>
               <input ng-model="node.estimations[userIndex]" ng-change="updateLocalTree(this)" ng-readonly = "estimated" required>
+            </md-input-container>
+            <md-input-container class = "treeInput" flex ="10" ng-show = "estimator()">
+              <label>Max</label>
+              <input ng-model="node.maxestimations[userIndex]" ng-change="updateLocalTree(this)" ng-readonly = "estimated" required>
             </md-input-container>
             <md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="showDescriptionDialog($event, node)" ng-show="owner() && !isOpenForEstimation()">
                 <md-tooltip>
@@ -121,7 +129,6 @@
         <md-button class = "md-primary md-raised" ng-click = "submitEstimation()" ng-show = "!rootIsEmpty() && estimator() && !estimated && isOpenForEstimation()" ng-disabled = "estimationForm.$invalid">
             Submit estimation
         </md-button>
-
-        </md-content>
-    </md-card>
+		</md-content>
+	</md-card>
 </div>
