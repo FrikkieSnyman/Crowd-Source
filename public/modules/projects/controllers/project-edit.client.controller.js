@@ -75,15 +75,28 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			console.log($scope.people);
 			var add = [];
 			var remove = [];
+
+			for (var k = 0; k < $scope.project.users.length; ++k) {
+				remove.push(k);
+			}
+
 			for (var i = 0; i < $scope.people.length; ++i) {
 				if ($scope.people[i].isEstimator === true) {
 					var found = false;
+
+
 					// console.log("To add: ");
 					// console.log($scope.people[i]);
 					for (var j = 0; j < $scope.project.users.length; ++j) {
 						// console.log("Current Users: " + $scope.project.users[j]);
 						if ($scope.project.users[j] === $scope.people[i].username) {
 							// console.log("FOUND");
+							var index = remove.indexOf(i);
+							if (index > -1) {
+								console.log("Splicing at: " + index + " for " + i);
+								remove.splice(index, 1);
+							}
+
 							found = true;
 							break;
 						}
@@ -94,8 +107,10 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 					}
 				}
 			}
-			// console.log("Add:");
-			// console.log(add);
+			console.log("Add:");
+			console.log(add);
+			console.log("Remove:");
+			console.log(remove);
 
 			$scope.saveProject();
 		};
