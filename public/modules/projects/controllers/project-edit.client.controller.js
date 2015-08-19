@@ -60,11 +60,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			});
 		};
 
-<<<<<<< HEAD
 		$scope.showAddEstimatorDialogBox = function(ev) {
-=======
-		$scope.addEstimator = function(ev) {
->>>>>>> 9dc5224cf98343f7a9c585fc2074db0728c3afdd
 			var newScope = $scope.$new();
 			$mdDialog.show({
 				controller: DialogController,
