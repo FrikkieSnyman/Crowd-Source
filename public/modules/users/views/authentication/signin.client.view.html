@@ -1,42 +1,51 @@
-<!-- <md-dialog aria-label="Login" data-ng-controller="AuthenticationController"> -->
-<section data-ng-controller="AuthenticationController">
-	<!-- <h3 class="col-md-12 text-center">Sign in using your social accounts</h3>
-	<div class="col-md-12 text-center">
-		<a href="/auth/facebook" class="undecorated-link">
-			<img src="/modules/users/img/buttons/facebook.png">
-		</a>
-		<a href="/auth/twitter" class="undecorated-link">
-			<img src="/modules/users/img/buttons/twitter.png">
-		</a>
-		<a href="/auth/google" class="undecorated-link">
-			<img src="/modules/users/img/buttons/google.png">
-		</a>
-		<a href="/auth/linkedin" class="undecorated-link">
-			<img src="/modules/users/img/buttons/linkedin.png">
-		</a>
-		<a href="/auth/github" class="undecorated-link">
-			<img src="/modules/users/img/buttons/github.png">
-		</a>
-	</div>
-	<h3 class="col-md-12 text-center">Or with your account</h3> -->
-	<div layout="coloum" layout-align="center center">
+<md-dialog aria-label="Sign In Dialog" data-ng-controller="AuthenticationController">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2>Sign In</h2>
+			<span flex></span>
+			<md-button class="md-icon-button" ng-click="cancel()">
+				<md-icon md-svg-src="modules/sidenav/img/close.svg" aria-label="Close dialog"></md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content>
+		<!-- <h3 class="col-md-12 text-center">Sign in using your social accounts</h3>
+		<div class="col-md-12 text-center">
+			<a href="/auth/facebook" class="undecorated-link">
+				<img src="/modules/users/img/buttons/facebook.png">
+			</a>
+			<a href="/auth/twitter" class="undecorated-link">
+				<img src="/modules/users/img/buttons/twitter.png">
+			</a>
+			<a href="/auth/google" class="undecorated-link">
+				<img src="/modules/users/img/buttons/google.png">
+			</a>
+			<a href="/auth/linkedin" class="undecorated-link">
+				<img src="/modules/users/img/buttons/linkedin.png">
+			</a>
+			<a href="/auth/github" class="undecorated-link">
+				<img src="/modules/users/img/buttons/github.png">
+			</a>
+		</div>
+		<h3 class="col-md-12 text-center">Or with your account</h3> -->
+
 		<form data-ng-submit="signin()" autocomplete="off">
 			<md-input-container>
-		    	<label>Username</label>
-		    	<input name="username" data-ng-model="credentials.username">
-		    </md-input-container>
+				<label>Username or Email</label>
+				<input name="username" data-ng-model="credentials.username">
+			</md-input-container>
 			<md-input-container>
-		    	<label>Password</label>
-		    	<input id="password" name="password" type="password" data-ng-model="credentials.password">
-		    </md-input-container> 
+				<label>Password</label>
+				<input id="password" name="password" type="password" data-ng-model="credentials.password">
+			</md-input-container>
 
-		    <div data-ng-show="error" class="errorMessage">
+			<div data-ng-show="error" class="errorMessage">
 				<strong data-ng-bind="error"></strong>
 			</div>
 
 			<md-button type="submit" class="dialogButton">Sign in</md-button>
-			<!-- <md-button class="dialogButton" ng-click="toggleForgotPass()">Forgot your password?</md-button> -->
 		</form>
-	</div>
-</section>
-<!-- </md-dialog> -->
+
+		<!-- <md-button class="dialogButton" ng-click="toggleForgotPass($event)">Forgot password?</md-button> -->
+	</md-dialog-content>
+</md-dialog>
