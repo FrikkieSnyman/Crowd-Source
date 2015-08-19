@@ -75,7 +75,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			});
 		};
 
-<<<<<<< HEAD
 		$scope.updateEstimators = function() {
 			console.log($scope.people);
 			var add = [];
@@ -120,8 +119,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			$scope.saveProject();
 		};
 
-=======
->>>>>>> 9dc5224cf98343f7a9c585fc2074db0728c3afdd
 		$scope.owner = function() {
 			if ($scope.project.$resolved !== false) {
 				if ($scope.project.owner === $scope.authentication.user.username) {
