@@ -120,10 +120,14 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		$scope.addRootNode = function() {
 			// initialise estimations array
 			var estimationsArr = [];
+			var minEstimations = [];
+			var maxEstimations = [];
 			for (var i in $scope.project.users) {
 				estimationsArr.push(null);
+				minEstimations.push(null);
+				maxEstimations.push(null);
 			}
-			$scope.project.children.push({id: 'node', title:'Root Node', nodes: [], collapsed : false, estimations : estimationsArr});
+			$scope.project.children.push({id: 'node', title:'Root Node', nodes: [], collapsed : false, estimations : estimationsArr, minestimations : minEstimations, maxestimations : maxEstimations});
 		};
 
 		$scope.update = function() {
@@ -158,16 +162,22 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			var nodeData = scope.$modelValue;
 			// console.log(nodeData);
 			var estimationsArr = [];
+			var minEstimations = [];
+			var maxEstimations = [];
 			for (var i in scope.project.users) {
 				// console.log(i);
 				estimationsArr.push(null);
+				minEstimations.push(null);
+				maxEstimations.push(null);
 			}
 			nodeData.nodes.push({
 				id: nodeData.id * 10 + nodeData.nodes.length,
 				title: nodeData.title + '.' + (nodeData.nodes.length + 1),
 				nodes: [],
 				collapsed : false,
-				estimations : estimationsArr
+				estimations : estimationsArr,
+				minestimations : minEstimations,
+				maxestimations : maxEstimations
 			});
 		};
 
@@ -275,24 +285,39 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			var currnode = $scope.project.children[0];
 			var result;
 
-			$scope.getEstimation(currnode, count, function(res) {
-				result = res;
+			$scope.getEstimation(currnode, count, function(/*res*/) {
+				// result = res;
 			});
 		};
 
 		$scope.getEstimation = function(node, userNum, callback) {
 			if (node.nodes.length <= 0) {
-				callback(node.estimations[userNum]);
+				callback(node.estimations[userNum], node.minestimations[userNum], node.maxestimations[userNum]);
 			} else {
 				node.estimations[userNum] = null;
+				node.minestimations[userNum] = null;
+				node.maxestimations[userNum] = null;
+
 				for (var i in node.nodes) {
-					$scope.getEstimation(node.nodes[i], userNum, function(result) {
+					$scope.getEstimation(node.nodes[i], userNum, function(result, minRes, maxRes) {
 						if (node.estimations[userNum] === null) {
 							node.estimations[userNum] = parseInt(result);
 						} else {
 							node.estimations[userNum] += parseInt(result);
 						}
-						callback(parseInt(result));
+
+						if (node.minestimations[userNum] === null) {
+							node.minestimations[userNum] = parseInt(minRes);
+						} else {
+							node.minestimations[userNum] += parseInt(minRes);
+						}
+
+						if (node.maxestimations[userNum] === null) {
+							node.maxestimations[userNum] = parseInt(maxRes);
+						} else {
+							node.maxestimations[userNum] += parseInt(maxRes);
+						}						
+						callback(parseInt(result), parseInt(minRes), parseInt(maxRes));
 					});
 				}
 			}
