@@ -52,14 +52,10 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 							tempIsEstimator = true;
 						}
 					}
-					// does not add owner of the project
-					// prevents deleting owner from users
-					if (users[i].username !== scope.project.owner) {
-						scope.people.push({
-							username : users[i].username,
-							isEstimator : tempIsEstimator
-						});
-					}
+					scope.people.push({
+						username : users[i].username,
+						isEstimator : tempIsEstimator
+					});
 				}
 			});
 		};
@@ -76,7 +72,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.updateEstimators = function() {
-			console.log($scope.people);
 			var add = [];
 			var remove = [];
 
