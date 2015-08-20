@@ -41,6 +41,115 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			}
 		};
 
+		$scope.initUsers = function(scope) {
+			// console.log('Hello: ' + users);
+			$http.get('/users/getUsers').success(function(users) {
+				scope.people = [];
+				for (var i in users) {
+					var tempIsEstimator = false;
+					for (var j = 0; j < scope.project.users.length; ++j) {
+						if (users[i].username === scope.project.users[j]) {
+							tempIsEstimator = true;
+						}
+					}
+					scope.people.push({
+						username : users[i].username,
+						isEstimator : tempIsEstimator
+					});
+				}
+			});
+		};
+
+		$scope.showAddEstimatorDialogBox = function(ev) {
+			var newScope = $scope.$new();
+			$mdDialog.show({
+				controller: DialogController,
+				templateUrl: 'modules/projects/views/add-estimator.client.view.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				scope: newScope
+			});
+		};
+
+		$scope.updateEstimators = function() {
+			var add = [];
+			var remove = [];
+
+			for (var k = 0; k < $scope.project.users.length; ++k) {
+				remove.push(k);
+			}
+
+			for (var i = 0; i < $scope.people.length; ++i) {
+				if ($scope.people[i].isEstimator === true) {
+					var found = false;
+					for (var j = 0; j < $scope.project.users.length; ++j) {
+						if ($scope.project.users[j] === $scope.people[i].username) {
+							var index = remove.indexOf(j);
+							if (index > -1) {
+								remove.splice(index, 1);
+							}
+
+							found = true;
+							break;
+						}
+					}
+
+					if (found === false) {
+						add.push($scope.people[i]);
+					}
+				}
+			}
+
+			$scope.removeEstimatorsFromProject(remove);
+			$scope.addEstimatorsToProject(add);
+
+			$scope.saveProject();
+		};
+
+		$scope.removeEstimatorsFromProject = function(removeArr) {
+			for (var i = removeArr.length - 1; i >= 0; --i) {
+				$scope.project.users.splice(removeArr[i], 1);
+			}
+			
+			if ($scope.project.children.length > 0) {
+				$scope.removeEstimatorsRecursiveDescent($scope.project.children[0], removeArr);
+			}
+		};
+
+		$scope.removeEstimatorsRecursiveDescent = function(node, removeArr) {
+			for (var i = removeArr.length - 1; i >= 0; --i) {
+				node.estimations.splice(removeArr[i], 1);
+				node.minestimations.splice(removeArr[i], 1);
+				node.maxestimations.splice(removeArr[i], 1);
+			}
+
+			for (var i = 0; i < node.nodes.length; ++i) {
+				$scope.removeEstimatorsRecursiveDescent(node.nodes[i], removeArr);
+			}
+		};
+
+		$scope.addEstimatorsToProject = function(addArr) {
+			for (var i = 0; i < addArr.length; ++i) {
+				$scope.project.users.push(addArr[i].username);
+			}
+
+			if ($scope.project.children.length > 0) {
+				$scope.addEstimatorsRecursiveDescent($scope.project.children[0], addArr);
+			}
+		};
+
+		$scope.addEstimatorsRecursiveDescent = function(node, addArr) {
+			for (var i = 0; i < addArr.length; ++i) {
+				node.estimations.push(null);
+				node.minestimations.push(null);
+				node.maxestimations.push(null);
+			}
+
+			for (var i = 0; i < node.nodes.length; ++i) {
+				$scope.addEstimatorsRecursiveDescent(node.nodes[i], addArr);
+			}
+		};
+
 		$scope.owner = function() {
 			if ($scope.project.$resolved !== false) {
 				if ($scope.project.owner === $scope.authentication.user.username) {

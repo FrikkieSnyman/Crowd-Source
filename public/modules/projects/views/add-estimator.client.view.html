@@ -1,0 +1,20 @@
+<md-dialog data-ng-controller="ProjectEditController" data-ng-init="initUsers(this)">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2 >Add Estimators</h2>
+			<span flex></span>
+			<md-button class="md-icon-button" ng-click="cancel()">
+				<md-icon md-svg-src="modules/projects/img/icons/close.svg" aria-label="Close dialog"></md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<md-content>
+		<md-list-item ng-repeat="person in people">
+			<p>
+				{{person.username}}
+			</p>
+			<md-checkbox class="md-secondary" ng-model="person.isEstimator"></md-checkbox> 
+		</md-list-item>
+		<md-button class="md-primary md-raised" ng-click="updateEstimators();cancel()"> Save </md-button>
+	</md-content>
+</md-dialog>
