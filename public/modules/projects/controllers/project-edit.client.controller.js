@@ -258,13 +258,13 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			$scope.project = Projects.get({
 				projectId: $stateParams.projectId
 			}, function() {
+				Headerpath.setProjectPath($scope.project.name);
+				
 				if ($scope.project.children[0].estimations[$scope.userIndex] === null) {
 					$scope.estimated = false;
 				} else {
 					$scope.estimated = true;
 				}
-
-				Headerpath.setProjectPath($scope.project.name);
 			});
 		};
 
