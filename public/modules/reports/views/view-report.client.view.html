@@ -10,7 +10,8 @@
         <br/>
         <md-tabs md-dynamic-height md-border-bottom>
       		<md-tab label="Bar Graph">
-				<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == report.user._id))">
+		        <md-card-content>
+		        <div class="imageMain" data-ng-show="((authentication.user) && (authentication.user._id == report.user._id))">
 					<a class="btn btn-primary" href="/#!/reports/{{report._id}}/edit">
 						<i class="glyphicon glyphicon-edit"></i>
 					</a>
@@ -18,10 +19,16 @@
 						<i class="glyphicon glyphicon-trash"></i>
 					</a>
 				</div>
-				<div flex id="chart">
-				<div d3-bars bar-height='25' bar-padding='0' id='barchart'></div>
-				<div box-plot id='boxPlot'></div>
+				<div d3-bars bar-height='20' bar-padding='5' id='barchart'></div>
+				
+				<div class="" ng-repeat="r in report.project.children" >
+				<h3>Stats</h3>
+					{{r.title}}: <br /> <span style="padding-left: 5em">Standard deviation: {{r.stdDeviation}} </span> <span style="padding-left: 5em">Mean: {{r.mean}}</span><br /><br />
+					<div ng-repeat="n in r.nodes">
+						{{n.title}}: <br /> <span style="padding-left: 5em">Standard deviation: {{n.stdDeviation}} </span> <span style="padding-left: 5em">Mean: {{n.mean}}</span><br /><br />
+					</div>
 				</div>
+				</md-card-content>
 			</md-tab>
 			<md-tab label="Graph option two">
 				<p>Pie</p>
