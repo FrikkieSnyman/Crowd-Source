@@ -123,15 +123,18 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.removeEstimatorsFromProject = function(removeArr) {
-			$scope.project.users.splice(removeArr[0], 1);
+			for (var i = removeArr.length - 1; i >= 0; --i) {
+				$scope.project.users.splice(removeArr[i], 1);
+			}
 			$scope.removeEstimatorsRecursiveDescent($scope.project.children[0], removeArr);
 		};
 
 		$scope.removeEstimatorsRecursiveDescent = function(node, removeArr) {
-			
-			node.estimations.splice(removeArr[0], 1);
-			node.minestimations.splice(removeArr[0], 1);
-			node.maxestimations.splice(removeArr[0], 1);
+			for (var i = node.estimations.length - 1; i >= 0; --i) {
+				node.estimations.splice(removeArr[i], 1);
+				node.minestimations.splice(removeArr[i], 1);
+				node.maxestimations.splice(removeArr[i], 1);
+			}
 			
 			for (var i = 0; i < node.nodes.length; ++i) {
 				console.log("Going deeper");
