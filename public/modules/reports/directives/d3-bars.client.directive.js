@@ -87,6 +87,7 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 										.attr('width', function(d) {
 											return xScale(d.score);
 										});
+
 							svg.selectAll('text')
 								.data(data)
 								.enter()
