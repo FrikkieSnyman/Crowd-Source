@@ -95,11 +95,52 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 ]);
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', 'Authentication', 'Menus', '$location', '$mdSidenav', '$mdUtil',
-	function($scope, Authentication, Menus, $location, $mdSidenav, $mdUtil) {
+angular.module('core').controller('HeaderController', ['$scope', 'Authentication', 'Menus', '$location', '$mdSidenav', '$mdUtil', 'Headerpath',
+	function($scope, Authentication, Menus, $location, $mdSidenav, $mdUtil, Headerpath) {
 		$scope.authentication = Authentication;
 		$scope.isCollapsed = false;
 		$scope.menu = Menus.getMenu('topbar');
+
+		$scope.getHeaderPath = function() {
+			var headerPath = $location.$$path;
+
+			if (headerPath === "/") {
+				headerPath = "Welcome";
+			} else {
+				//Remove the first instance of /
+				headerPath = headerPath.substring(headerPath.indexOf("/") + 1, headerPath.length);
+
+				if (headerPath.indexOf("edit") !== -1 && headerPath.indexOf("projects") !== -1) {
+					var projectID = headerPath.substring(headerPath.indexOf("projects") + 9, headerPath.indexOf("edit") - 1);
+
+					headerPath = headerPath.replace(projectID, Headerpath.getProjectPath());
+
+					headerPath = headerPath.substring(0, headerPath.indexOf("edit") - 1);
+				} else if (headerPath.indexOf("reports") !== -1 && headerPath.indexOf("/") !== -1) {
+					var reportID = headerPath.substring(headerPath.indexOf("reports") + 8, headerPath.length);
+
+					headerPath = headerPath.replace(reportID, Headerpath.getReportPath());
+				}
+
+				var tokens = headerPath.split("/");
+				headerPath = "";
+
+				for (var i = 0; i < tokens.length; i++) {
+					tokens[i] = capitalizeFirstLetter(tokens[i]);
+
+					headerPath += tokens[i];
+					if (i !== tokens.length - 1) {
+						headerPath += " > ";
+					}
+				};
+			}
+
+			return headerPath.trim();
+		}
+
+		var capitalizeFirstLetter = function(string) {
+			return string.charAt(0).toUpperCase() + string.slice(1);
+		}
 
 		$scope.toggleCollapsibleMenu = function() {
 			$scope.isCollapsed = !$scope.isCollapsed;
@@ -149,6 +190,34 @@ angular.module('core').controller('MainController', ['$scope',
 	function($scope) {
 		// Main controller controller logic
 		// ...
+	}
+]);
+'use strict';
+
+angular.module('core').factory('Headerpath', [
+	function() {
+		// Headerpath service logic
+		// ...
+		var paths = {
+			project: "",
+			report: ""
+		}
+
+		// Public API
+		return {
+			setProjectPath: function(path) {
+				paths.project = path;
+			},
+			setReportPath: function(path) {
+				paths.report = path
+			},
+			getProjectPath: function() {
+				return paths.project;
+			},
+			getReportPath: function() {
+				return paths.report;
+			}
+		};
 	}
 ]);
 'use strict';
@@ -351,30 +420,32 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 
 		$http.get(RESOURCE_DOMAIN+'/users/getUsers').success(function(users) {
 			for (var i in users) {
-				$scope.people.push(users[i].username);
+				$scope.people.push({
+					name: users[i].username,
+					selected: false
+				});
 			}
 		});
 
-		$scope.selected = [];
-		$scope.toggle = function(item, list) {
-			var idx = list.indexOf(item);
-			if (idx > -1) {
-				list.splice(idx, 1);
-			} else {
-				list.push(item);
-			}
-		};
+		var buildSelectedArray = function() {
+			var selected = []
 
-		$scope.exists = function(item, list) {
-			return list.indexOf(item) > -1;
-		};
+			for (var i in $scope.people) {
+				if ($scope.people[i].selected) {
+					selected.push($scope.people[i].name);
+				}
+			}
+
+			return selected;
+		}
 
 		$scope.createProject = function() {
 			//		var project = {'name': $scope.projectName, 'description': $scope.description, 'owner' : Authentication.user, 'users' : $scope.selected};
+
 			var project = new Projects ({
 				name: $scope.projectName,
 				description: $scope.description,
-				users : $scope.selected,
+				users : buildSelectedArray(),
 				owner : $scope.authentication.user.username,
 				openForEstimation : false
 			});
@@ -407,8 +478,8 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 ]); 
 'use strict';
 
-angular.module('projects').controller('ProjectEditController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope', 'RESOURCE_DOMAIN',
-	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, RESOURCE_DOMAIN) {
+angular.module('projects').controller('ProjectEditController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope', 'Headerpath', 'RESOURCE_DOMAIN',
+	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, Headerpath, RESOURCE_DOMAIN) {
 		$scope.members = true;
 		$scope.estimated = false;
 		$scope.goTo = function(route) {
@@ -448,6 +519,115 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			}
 		};
 
+		$scope.initUsers = function(scope) {
+			// console.log('Hello: ' + users);
+			$http.get('/users/getUsers').success(function(users) {
+				scope.people = [];
+				for (var i in users) {
+					var tempIsEstimator = false;
+					for (var j = 0; j < scope.project.users.length; ++j) {
+						if (users[i].username === scope.project.users[j]) {
+							tempIsEstimator = true;
+						}
+					}
+					scope.people.push({
+						username : users[i].username,
+						isEstimator : tempIsEstimator
+					});
+				}
+			});
+		};
+
+		$scope.showAddEstimatorDialogBox = function(ev) {
+			var newScope = $scope.$new();
+			$mdDialog.show({
+				controller: DialogController,
+				templateUrl: 'modules/projects/views/add-estimator.client.view.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				scope: newScope
+			});
+		};
+
+		$scope.updateEstimators = function() {
+			var add = [];
+			var remove = [];
+
+			for (var k = 0; k < $scope.project.users.length; ++k) {
+				remove.push(k);
+			}
+
+			for (var i = 0; i < $scope.people.length; ++i) {
+				if ($scope.people[i].isEstimator === true) {
+					var found = false;
+					for (var j = 0; j < $scope.project.users.length; ++j) {
+						if ($scope.project.users[j] === $scope.people[i].username) {
+							var index = remove.indexOf(j);
+							if (index > -1) {
+								remove.splice(index, 1);
+							}
+
+							found = true;
+							break;
+						}
+					}
+
+					if (found === false) {
+						add.push($scope.people[i]);
+					}
+				}
+			}
+
+			$scope.removeEstimatorsFromProject(remove);
+			$scope.addEstimatorsToProject(add);
+
+			$scope.saveProject();
+		};
+
+		$scope.removeEstimatorsFromProject = function(removeArr) {
+			for (var i = removeArr.length - 1; i >= 0; --i) {
+				$scope.project.users.splice(removeArr[i], 1);
+			}
+			
+			if ($scope.project.children.length > 0) {
+				$scope.removeEstimatorsRecursiveDescent($scope.project.children[0], removeArr);
+			}
+		};
+
+		$scope.removeEstimatorsRecursiveDescent = function(node, removeArr) {
+			for (var i = removeArr.length - 1; i >= 0; --i) {
+				node.estimations.splice(removeArr[i], 1);
+				node.minestimations.splice(removeArr[i], 1);
+				node.maxestimations.splice(removeArr[i], 1);
+			}
+
+			for (var i = 0; i < node.nodes.length; ++i) {
+				$scope.removeEstimatorsRecursiveDescent(node.nodes[i], removeArr);
+			}
+		};
+
+		$scope.addEstimatorsToProject = function(addArr) {
+			for (var i = 0; i < addArr.length; ++i) {
+				$scope.project.users.push(addArr[i].username);
+			}
+
+			if ($scope.project.children.length > 0) {
+				$scope.addEstimatorsRecursiveDescent($scope.project.children[0], addArr);
+			}
+		};
+
+		$scope.addEstimatorsRecursiveDescent = function(node, addArr) {
+			for (var i = 0; i < addArr.length; ++i) {
+				node.estimations.push(null);
+				node.minestimations.push(null);
+				node.maxestimations.push(null);
+			}
+
+			for (var i = 0; i < node.nodes.length; ++i) {
+				$scope.addEstimatorsRecursiveDescent(node.nodes[i], addArr);
+			}
+		};
+
 		$scope.owner = function() {
 			if ($scope.project.$resolved !== false) {
 				if ($scope.project.owner === $scope.authentication.user.username) {
@@ -479,6 +659,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 					return;
 				}
 			}
+			$scope.project.openForEstimation = false;
 			$scope.sendEstimationReport();
 		};
 
@@ -489,7 +670,11 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.openForEstimation = function() {
-			var confirm = $mdDialog.confirm()
+
+			for (var i in $scope.project.children[0].estimations) {
+				$scope.project.children[0].estimations[i] = null;
+			}
+			var confirm = new $mdDialog.confirm()
 			.parent(angular.element(document.body))
 			.title('Are you sure you want to open the project for estimations?')
 			.content('This will allow estimators to estimate, but will lock the project tree to its current state.')
@@ -512,20 +697,24 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.isOpenForEstimation = function() {
-			if ($scope.project.$resolved !== false) {
-				return $scope.project.openForEstimation;
-			} else {
-				return false;
-			}
+			//if ($scope.project.$resolved !== false) {
+			return $scope.project.openForEstimation;
+			//} else {
+			//	return false;
+			//}
 		};
 
 		$scope.addRootNode = function() {
 			// initialise estimations array
 			var estimationsArr = [];
+			var minEstimations = [];
+			var maxEstimations = [];
 			for (var i in $scope.project.users) {
 				estimationsArr.push(null);
+				minEstimations.push(null);
+				maxEstimations.push(null);
 			}
-			$scope.project.children.push({id: 'node', title:'Root Node', nodes: [], collapsed : false, estimations : estimationsArr});
+			$scope.project.children.push({id: 'node', title:'Root Node', nodes: [], collapsed : false, estimations : estimationsArr, minestimations : minEstimations, maxestimations : maxEstimations});
 		};
 
 		$scope.update = function() {
@@ -547,6 +736,8 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			$scope.project = Projects.get({
 				projectId: $stateParams.projectId
 			}, function() {
+				Headerpath.setProjectPath($scope.project.name);
+				
 				if ($scope.project.children[0].estimations[$scope.userIndex] === null) {
 					$scope.estimated = false;
 				} else {
@@ -560,16 +751,22 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			var nodeData = scope.$modelValue;
 			// console.log(nodeData);
 			var estimationsArr = [];
+			var minEstimations = [];
+			var maxEstimations = [];
 			for (var i in scope.project.users) {
 				// console.log(i);
 				estimationsArr.push(null);
+				minEstimations.push(null);
+				maxEstimations.push(null);
 			}
 			nodeData.nodes.push({
 				id: nodeData.id * 10 + nodeData.nodes.length,
 				title: nodeData.title + '.' + (nodeData.nodes.length + 1),
 				nodes: [],
 				collapsed : false,
-				estimations : estimationsArr
+				estimations : estimationsArr,
+				minestimations : minEstimations,
+				maxestimations : maxEstimations
 			});
 		};
 
@@ -677,24 +874,39 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			var currnode = $scope.project.children[0];
 			var result;
 
-			$scope.getEstimation(currnode, count, function(res) {
-				result = res;
+			$scope.getEstimation(currnode, count, function(/*res*/) {
+				// result = res;
 			});
 		};
 
 		$scope.getEstimation = function(node, userNum, callback) {
 			if (node.nodes.length <= 0) {
-				callback(node.estimations[userNum]);
+				callback(node.estimations[userNum], node.minestimations[userNum], node.maxestimations[userNum]);
 			} else {
 				node.estimations[userNum] = null;
+				node.minestimations[userNum] = null;
+				node.maxestimations[userNum] = null;
+
 				for (var i in node.nodes) {
-					$scope.getEstimation(node.nodes[i], userNum, function(result) {
+					$scope.getEstimation(node.nodes[i], userNum, function(result, minRes, maxRes) {
 						if (node.estimations[userNum] === null) {
 							node.estimations[userNum] = parseInt(result);
 						} else {
 							node.estimations[userNum] += parseInt(result);
 						}
-						callback(parseInt(result));
+
+						if (node.minestimations[userNum] === null) {
+							node.minestimations[userNum] = parseInt(minRes);
+						} else {
+							node.minestimations[userNum] += parseInt(minRes);
+						}
+
+						if (node.maxestimations[userNum] === null) {
+							node.maxestimations[userNum] = parseInt(maxRes);
+						} else {
+							node.maxestimations[userNum] += parseInt(maxRes);
+						}						
+						callback(parseInt(result), parseInt(minRes), parseInt(maxRes));
 					});
 				}
 			}
@@ -1002,11 +1214,35 @@ angular.module('reports').config(['$stateProvider',
 'use strict';
 
 // Reports controller
-angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports',
-	function($scope, $stateParams, $location, Authentication, Reports) {
+angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports', 'Headerpath',
+	function($scope, $stateParams, $location, Authentication, Reports, Headerpath) {
 		$scope.authentication = Authentication;
-
+		$scope.goTo = function(route) {
+			$location.path(route);
+		};
 		// Create new Report
+		$scope.querySearch = function(query) {
+			//console.log(query);
+			var results = query ? $scope.reports.filter(createFilterFor(query)) : $scope.reports, deferred;
+			return results;
+		};
+		$scope.searchTextChange = function(text) {
+			console.log('Text changed to ' + text);
+		};
+
+		$scope.selectedItemChange = function(item) {
+			console.log(item);
+			$scope.goTo('/projects/' + item._id + '/edit');
+		};
+
+		var createFilterFor = function(query) {
+			var lowercaseQuery = angular.lowercase(query);
+			return function filterFn(item) {
+				//console.log(item);
+				var name = angular.lowercase(item.name);
+				return (name.indexOf(lowercaseQuery) === 0);
+			};
+		};
 		$scope.create = function() {
 			// Create new Report object
 			var report = new Reports ({
@@ -1026,7 +1262,7 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 
 		// Remove existing Report
 		$scope.remove = function(report) {
-			if ( report ) { 
+			if (report) {
 				report.$remove();
 
 				for (var i in $scope.reports) {
@@ -1061,10 +1297,446 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 		$scope.findOne = function() {
 			$scope.report = Reports.get({ 
 				reportId: $stateParams.reportId
+			}, function() {
+				Headerpath.setReportPath($scope.report.name);
 			});
 		};
 	}
 ]);
+
+'use strict';
+
+angular.module('reports').directive('barChart', ['D3',
+	function(D3) {
+		return {
+			link: function(scope, element, attrs) {
+				D3.d3().then(function(d3) {
+					// d3 is the raw d3 object
+				});
+			}
+		};
+	}
+]);
+
+'use strict';
+angular.module('reports').directive('boxPlot', ['D3', '$window',
+	function(D3, $window) {
+		return {
+			restrict : 'EA',
+			scope : {},
+			link : function(scope, element, attrs) {
+				D3.d3().then(function(d3) {
+					scope.$parent.report.$promise.then(function() {
+						var project = scope.$parent.report.project;
+						// d3 is the raw d3 object
+						var body = d3.select(element[0]).append('p');
+						//.attr('width', 50)
+						//.attr('height', 50);
+						//d3.select("body").node().getBoundingClientRect().width
+						var bodyWidth = body.node().getBoundingClientRect().width;
+						var bodyHeight = 30;
+						var body = d3.select(element[0]);
+						var createBox = function(_range, _minOutlier, _minStdDeviation, _median, _maxStdDeviation, _maxOutlier, rgb, node) {
+							var strokeWidth = 2;
+
+							var p = body.append('p')
+							.text(node);
+
+							var bar = body.append('svg')
+							.attr('width', bodyWidth + strokeWidth)
+							.attr('height', bodyHeight + strokeWidth);
+
+							var svg = body.append('svg')
+							.attr('width', bodyWidth + strokeWidth)
+							.attr('height', bodyHeight + strokeWidth);
+
+							var middleHeight = (bodyHeight / 2);
+							var middleWidht = (bodyWidth / 2);
+							var range = _range;
+							var ratio = parseInt(bodyWidth / range);
+							var strokeWidth = 2;
+							var minOutlier = _minOutlier * ratio;
+							var minStdDeviation = _minStdDeviation * ratio;
+							var median = _median * ratio;
+							var maxStdDeviation = _maxStdDeviation * ratio;
+							var maxOutlier = _maxOutlier * ratio;
+							/*
+							Creating the left line
+							*/
+							svg.append('line')
+							.attr('x1', 0 + minOutlier)
+							.attr('y1', middleHeight)
+							.attr('x2', maxOutlier)
+							.attr('y2', middleHeight)
+							.style('stroke', 'black')
+							.style('stroke-dasharray', ('3, 3'));
+
+							var boxWidth = 200;
+							var boxHeight = bodyHeight - strokeWidth;
+							/*
+							Creating the first wisker
+							*/
+							var boxUpDownLength = boxHeight / 2;
+							svg.append('line')
+							.attr('x1', minOutlier)
+							.attr('y1', middleHeight + boxUpDownLength)
+							.attr('x2', minOutlier)
+							.attr('y2', middleHeight - boxUpDownLength)
+							.style('stroke', 'black');
+
+							/*
+							Creating the second wisker
+							*/
+							svg.append('line')
+							.attr('x1', maxOutlier)
+							.attr('y1', middleHeight + boxUpDownLength)
+							.attr('x2', maxOutlier)
+							.attr('y2', middleHeight - boxUpDownLength)
+							.style('stroke', 'black');
+
+							/*
+							Creating the square
+							 */
+							
+							var box = svg.append('rect')
+							.attr('width', maxStdDeviation - minStdDeviation)
+							.attr('height', boxHeight - strokeWidth)
+							.attr('x', minStdDeviation)
+							.attr('y', (bodyHeight / 2) - (boxHeight / 2))
+							.attr('rx', 5)
+							.attr('rx', 5)
+							.style('fill', 'yellow')
+							.style('stroke', 'black');
+
+							/*
+							Creating the median
+							*/
+							svg.append('line')
+							.attr('x1', median)
+							.attr('y1', middleHeight + boxUpDownLength - strokeWidth)
+							.attr('x2', median)
+							.attr('y2', middleHeight - boxUpDownLength - strokeWidth)
+							.style('stroke', 'black');
+
+							/*
+							Creating the bar
+							*/
+							bar.append('rect')
+							.attr('width', bodyWidth)
+							.attr('height', boxHeight)
+							.attr('x', 0)
+							.attr('y', 0)
+							.attr('rx', 5)
+							.attr('rx', 5)
+							.style('fill', 'grey')
+							.style('stroke', 'black');
+
+							/*
+							Creating the bar
+							*/
+							bar.append('rect')
+							.attr('width', maxOutlier)
+							.attr('height', boxHeight)
+							.attr('x', 0)
+							.attr('y', 0)
+							.attr('rx', 5)
+							.attr('rx', 5)
+							.style('fill', 'rgb(' + (63 - rgb) + ', ' + (81 - rgb) + ',' + (181 - rgb) + ')')
+							.style('stroke', 'black');
+							//console.log(rgb);
+							//
+
+							bar.append('text')         // append text
+							.style('fill', 'white')   // fill the text with the colour black
+							.attr('x', 10)           // set x position of left side of text
+							.attr('y', middleHeight + 5)        // set y position of bottom of text 
+							.text('Total Units: ' + _maxOutlier + ', Median: ' + parseInt(_median));
+							/*
+							bar.append('text')         // append text
+							.style('fill', 'black')   // fill the text with the colour black
+							.attr('x', median)           // set x position of left side of text
+							.attr('y', middleHeight + 5)           // set y position of bottom of text 
+							.text('Median: ' + parseInt(_median));
+							*/
+						};
+
+						//createBox(100, 10, 20, 30, 40, 50);
+						//createBox(100, 20, 30, 40, 50, 60);
+						//createBox(200, 30, 40, 50, 60, 70);
+						//
+						var maxRange = 0;
+						var minRange = 999999999;
+						var visitRange = function(node, project, data) {
+							for (var i = 0; i < node.estimations.length; ++i) {
+								var estimationMean = parseFloat((parseInt(node.minestimations[i]) + 4 * parseInt(node.estimations[i]) + parseInt(node.maxestimations[i])) / 6).toFixed(2);
+								var stdDeviation = parseFloat((parseInt(node.minestimations[i]) - parseInt(node.maxestimations[i])) / 6).toFixed(2);
+
+								var minOutlier;
+								var minStdDeviation = parseFloat((parseFloat(estimationMean) + parseFloat(stdDeviation)));
+								if (node.minestimations[i] < minStdDeviation) {
+									minOutlier = parseInt(node.minestimations[i]);
+								} else {
+									minOutlier = parseFloat(minStdDeviation);
+								}
+								var maxOutlier;
+								var maxStdDeviation = parseFloat((parseFloat(estimationMean) - parseFloat(stdDeviation)));
+								if (node.maxestimations[i] > maxStdDeviation) {
+									maxOutlier = parseInt(node.maxestimations[i]);
+								} else {
+									maxOutlier = parseFloat(maxStdDeviation);
+								}
+								if (minOutlier < minRange) {
+									minRange = minOutlier;
+								}
+								if (maxOutlier > maxRange) {
+									maxRange = maxOutlier;		
+								}
+								
+							}
+						};
+
+						var visitCalc = function(node, project, data, rgb) {
+							for (var i = 0; i < node.estimations.length; ++i) {
+								var estimationMean = parseFloat((parseInt(node.minestimations[i]) + 4 * parseInt(node.estimations[i]) + parseInt(node.maxestimations[i])) / 6).toFixed(2);
+								var stdDeviation = parseFloat((parseInt(node.minestimations[i]) - parseInt(node.maxestimations[i])) / 6).toFixed(2);
+
+								var minOutlier;
+								var minStdDeviation = parseFloat((parseFloat(estimationMean) + parseFloat(stdDeviation)));
+								if (node.minestimations[i] < minStdDeviation) {
+									minOutlier = parseInt(node.minestimations[i]);
+								} else {
+									minOutlier = parseFloat(minStdDeviation);
+								}
+								var maxOutlier;
+								var maxStdDeviation = parseFloat((parseFloat(estimationMean) - parseFloat(stdDeviation)));
+								if (node.maxestimations[i] > maxStdDeviation) {
+									maxOutlier = parseInt(node.maxestimations[i]);
+								} else {
+									maxOutlier = parseFloat(maxStdDeviation);
+								}
+								//console.log(40 + '}{' + minOutlier + '}{' + minStdDeviation + '}{' + estimationMean + '}{' + maxStdDeviation + '}{' + maxOutlier);
+								createBox(maxRange - minRange, minOutlier - minRange, minStdDeviation - minRange, estimationMean - minRange, maxStdDeviation - minRange, maxOutlier - minRange, rgb, node.title);
+							}
+						};
+
+						var traverseTree = function(node, project, data, visit, rgb) {
+							
+							if (node === null) {
+								return;
+							}
+							visit(node, project, data, rgb);
+							for (var i = 0; i < node.nodes.length; ++i) {
+								traverseTree(node.nodes[i], project, data, visit, rgb);
+								rgb = rgb - 50;
+							}
+						};
+
+						var generateReport = function(project, data , visit, rbg) {
+							var projectTree = project.children[0];
+							traverseTree(projectTree, project, data, visit , rgb);
+						};
+
+						scope.data = [];
+						generateReport(project, scope.data, visitRange); 
+						var rgb = 0;
+						generateReport(project, scope.data, visitCalc, rgb);
+
+						/*
+						var circle = svg.append('circle')
+						.attr('cx', 25)
+						.attr('cy', 25)
+						.attr('r', 25)
+						.style('fill', 'purple');
+
+						//var svg = body.append('circle')
+						//.attr('cx', 25)
+						//.attr('cy', 25)
+						//.attr('r', 25)
+						//.style('fill', 'purple');
+						var theData = [1, 2, 3, 4];
+						body.selectAll('p')
+						.data(theData)
+						.enter()
+						.append('p')
+						.text(function(d , i) {
+							return d + 'I will cahnge you forever' + 'index is ' + i;
+						});
+						
+						var xdir = 0;
+						var circleRadii = [40, 20, 10];
+						svg.selectAll('circle')
+						.data(circleRadii)
+						.enter()
+						.append('circle')
+						.attr('cx', function(x) {
+							xdir = xdir + 100;
+							return xdir;
+						})
+						.attr('cy', 50)
+						.attr('r', 25)
+						.style('fill', function(d) {
+							var color;
+							if (d === 40) {
+								color = 'green';
+							}
+							if (d === 20) {
+								color = 'red';
+							}
+							return color;
+						});
+						*/
+					
+					});
+				});
+				//element.text('this is the boxPlot directive');
+			}
+		};
+	}
+]);
+
+'use strict';
+
+angular.module('reports').directive('d3Bars', ['D3', '$window',
+	function(D3, $window) {
+		return {
+			restrict : 'EA',
+			scope : {},
+			link : function(scope, element, attrs) {
+				D3.d3().then(function(d3) {
+					scope.$parent.report.$promise.then(function() {
+						var project = scope.$parent.report.project;
+
+						var margin = parseInt(attrs.margin) || 20;
+						var barHeight = parseInt(attrs.barHeight) || 20;
+						var barPadding = parseInt(attrs.barPadding) || 10;
+						var svg = d3.select(element[0])
+							.append('svg')
+							.style('width', '100%');
+
+						var visit = function(node, project, data) {
+							for (var i = 0; i < node.estimations.length; ++i) {
+								var estimationMean = parseFloat((parseInt(node.minestimations[i]) + 4 * parseInt(node.estimations[i]) + parseInt(node.maxestimations[i])) / 6).toFixed(2);
+								data.push({title: node.title, name: project.users[i], score: estimationMean});
+							}
+						};
+
+						var traverseTree = function(node, project, data) {
+							if (node === null) {
+								return;
+							}
+							visit(node, project, data);
+							for (var i = 0; i < node.nodes.length; ++i) {
+								traverseTree(node.nodes[i], project, data);
+							}
+						};
+
+						var generateReport = function(project, data) {
+							var projectTree = project.children[0];
+							traverseTree(projectTree, project, data);
+						};
+
+						window.onresize = function() {
+							scope.$apply();
+						};
+
+						scope.data = [];
+
+						generateReport(project, scope.data);
+
+						scope.$watch(function() {
+							return angular.element($window)[0].width;
+						}, function() {
+							scope.render(scope.data);
+						});
+
+						scope.render = function(data) {
+							svg.selectAll('*').remove();
+							if (!data) {
+								return;
+							}
+
+							var width = d3.select("#chart").node().getBoundingClientRect().width
+							//var width = 400;
+							var height = scope.data.length * (barHeight + barPadding);
+							var color = d3.scale.category20();
+							var xScale = d3.scale.linear()
+								.domain([0, d3.max(data, function(d) {
+									return d.score;
+								})])
+								.range([0, width]);
+
+							svg.attr('height', height);
+
+							svg.selectAll('rect')
+								.data(data).enter()
+									.append('rect')
+									.attr('height', barHeight)
+									.attr('width', width)
+									.attr('x', Math.round(margin / 2))
+									.attr('y', function(d, i) {
+										return i * (barHeight + barPadding);
+									})
+									.attr('fill', function(d) {
+										return color(d.score);
+									})
+									.transition()
+										.duration(1000)
+										.attr('width', function(d) {
+											return xScale(d.score);
+										});
+
+							svg.selectAll('text')
+								.data(data)
+								.enter()
+								.append('text')
+								.attr('fill', '#000')
+								.attr('y', function(d, i) {
+									return i * (barHeight + barPadding) + 15;
+								})
+								.attr('x', 15)
+								.text(function(d) {
+									return d.title + ': ' + d.name + ' estimated: ' + d.score;
+								});
+						};
+					});
+				});
+			}
+		};
+	}
+]);
+
+'use strict';
+
+angular.module('reports').factory('D3', ['$document', '$q', '$rootScope',
+    function($document, $q, $rootScope) {
+		var d = $q.defer();
+		function onScriptLoad() {
+			// Load client in the browser
+			$rootScope.$apply(function() { d.resolve(window.d3); });
+		}
+		// Create a script tag with d3 as the source
+		// and call our onScriptLoad callback when it
+		// has been loaded
+		var scriptTag = $document[0].createElement('script');
+		scriptTag.type = 'text/javascript';
+		scriptTag.async = true;
+		scriptTag.src = '../../../lib/d3/d3.js';
+		scriptTag.onreadystatechange = function() {
+			if (this.readyState === 'complete') {
+				onScriptLoad();
+			}
+		};
+		scriptTag.onload = onScriptLoad;
+
+		var s = $document[0].getElementsByTagName('body')[0];
+		s.appendChild(scriptTag);
+
+		return {
+			d3: function() { return d.promise; }
+		};
+	}
+]);
+
 'use strict';
 
 //Reports service used to communicate Reports REST endpoints
@@ -1108,10 +1780,6 @@ angular.module('sidenav').controller('SidenavController', ['$scope', '$http', '$
 		// Sidenav controller logic
 		$scope.authentication = Authentication;
 
-		$scope.signin = Logindialog.signin;
-		$scope.signup = Logindialog.signup;
-		$scope.forgotPass = Logindialog.forgotPass;
-
 		function DialogController($scope, $mdDialog) {
 			$scope.hide = function() {
 				$mdDialog.hide();
@@ -1121,29 +1789,22 @@ angular.module('sidenav').controller('SidenavController', ['$scope', '$http', '$
 			};
 		}
 
-		var showAdvanced = function(ev) {
+		$scope.signinDialog = function(ev) {
 			$mdDialog.show({
 				controller: DialogController,
-				templateUrl: 'modules/sidenav/views/dialog.client.view.html',
+				templateUrl: 'modules/users/views/authentication/signin.client.view.html',
 				parent: angular.element(document.body),
 				targetEvent: ev
 			});
 		};
 
-		$scope.signinDialog = function(ev) {
-			Logindialog.signin = true;
-			Logindialog.signup = false;
-			Logindialog.forgotPass = false;
-
-			showAdvanced(ev);
-		};
-
 		$scope.signupDialog = function(ev) {
-			Logindialog.signin = false;
-			Logindialog.signup = true;
-			Logindialog.forgotPass = false;
-
-			showAdvanced(ev);
+			$mdDialog.show({
+				controller: DialogController,
+				templateUrl: 'modules/users/views/authentication/signup.client.view.html',
+				parent: angular.element(document.body),
+				targetEvent: ev
+			});
 		};
 
 		function buildToggler(navID) {
@@ -1287,15 +1948,16 @@ angular.module('users').config(['$stateProvider',
 ]);
 'use strict';
 
-angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', '$mdDialog', 'Authentication','RESOURCE_DOMAIN',
-	function($scope, $http, $location, $mdDialog, Authentication, RESOURCE_DOMAIN) {
+angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', '$mdDialog', 'Authentication', 'RESOURCE_DOMAIN', '$mdToast',
+	function($scope, $http, $location, $mdDialog, Authentication, RESOURCE_DOMAIN, $mdToast) {
 		$scope.authentication = Authentication;
 
 		// If user is signed in then redirect back home
 		if ($scope.authentication.user) $location.path('/');
 
 		$scope.signup = function() {
-			$http.post(RESOURCE_DOMAIN + '/auth/signup', $scope.credentials).success(function(response) {
+			if ($scope.confirmationPassword == $scope.credentials.password) {
+				$http.post(RESOURCE_DOMAIN + '/auth/signup', $scope.credentials).success(function(response) {
 				// If successful we assign the response to the global user model
 				$scope.authentication.user = response;
 
@@ -1307,6 +1969,9 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 			}).error(function(response) {
 				$scope.error = response.message;
 			});
+			} else {
+				$scope.error = "Your passwords do not match";
+			}
 		};
 
 		$scope.signin = function() {
@@ -1344,6 +2009,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 		};	
 	}
 ]);
+
 'use strict';
 
 angular.module('users').controller('PasswordController', ['$scope', '$stateParams', '$http', '$location', 'Authentication','RESOURCE_DOMAIN',

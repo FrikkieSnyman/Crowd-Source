@@ -1,16 +1,12 @@
 'use strict';
 
-angular.module('sidenav').controller('SidenavController', ['$scope', '$http', '$mdDialog', '$location', 'Authentication' , 'Logindialog', '$mdUtil', '$mdSidenav', '$log',
-	function($scope, $http, $mdDialog, $location, Authentication, Logindialog, $mdUtil, $mdSidenav, $log) {
+angular.module('sidenav').controller('SidenavController', ['$scope', '$http', '$mdDialog', '$location', 'Authentication' , 'Logindialog', '$mdUtil', '$mdSidenav', '$log', 'RESOURCE_DOMAIN',
+	function($scope, $http, $mdDialog, $location, Authentication, Logindialog, $mdUtil, $mdSidenav, $log, RESOURCE_DOMAIN) {
 		// Sidenav controller logic
 		$scope.authentication = Authentication;
 
-		$scope.signin = Logindialog.signin;
-		$scope.signup = Logindialog.signup;
-		$scope.forgotPass = Logindialog.forgotPass;
-
 		function DialogController($scope, $mdDialog) {
-		$scope.hide = function() {
+			$scope.hide = function() {
 				$mdDialog.hide();
 			};
 			$scope.cancel = function() {
@@ -18,29 +14,22 @@ angular.module('sidenav').controller('SidenavController', ['$scope', '$http', '$
 			};
 		}
 
-		var showAdvanced = function(ev) {
+		$scope.signinDialog = function(ev) {
 			$mdDialog.show({
 				controller: DialogController,
-				templateUrl: 'modules/sidenav/views/dialog.client.view.html',
+				templateUrl: 'modules/users/views/authentication/signin.client.view.html',
 				parent: angular.element(document.body),
 				targetEvent: ev
 			});
 		};
 
-		$scope.signinDialog = function(ev) {
-			Logindialog.signin = true;
-			Logindialog.signup = false;
-			Logindialog.forgotPass = false;
-
-			showAdvanced(ev);
-		};
-
 		$scope.signupDialog = function(ev) {
-			Logindialog.signin = false;
-			Logindialog.signup = true;
-			Logindialog.forgotPass = false;
-
-			showAdvanced(ev);
+			$mdDialog.show({
+				controller: DialogController,
+				templateUrl: 'modules/users/views/authentication/signup.client.view.html',
+				parent: angular.element(document.body),
+				targetEvent: ev
+			});
 		};
 
 		function buildToggler(navID) {
@@ -65,11 +54,11 @@ angular.module('sidenav').controller('SidenavController', ['$scope', '$http', '$
 		};
 
 		$scope.signOut = function() {
-			$http.get('/auth/signout').success(function(response) {
+			$http.get(RESOURCE_DOMAIN + '/auth/signout').success(function(response) {
 				$location.path(response);
 			});
 
-			$http.get('/auth/signout').success(function(response) {
+			$http.get(RESOURCE_DOMAIN + '/auth/signout').success(function(response) {
 				// If successful we assign null to the global user model
 				$scope.authentication.user = null;
 
