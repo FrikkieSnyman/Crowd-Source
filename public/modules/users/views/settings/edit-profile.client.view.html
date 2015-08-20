@@ -1,10 +1,6 @@
 <section class="row" data-ng-controller="SettingsController">
 	<md-card>
 		<md-card-content class = "car-header">
-		<h2>Edit your profile</h2>
-		</md-card-content>
-		
-		<md-card-content class = "car-header">
 		<form name="userForm" data-ng-submit="updateUserProfile(userForm.$valid)" autocomplete="off">
 			<md-input-container>
 		      <label>First Name</label>
@@ -22,7 +18,7 @@
 		      <label>Username</label>
 		      <input data-ng-model="user.username">
 		    </md-input-container>
-			<md-button type="submit" class="md-raised" >Save Profile</md-button>
+			<md-button type="submit" class="md-primary" >Update Profile</md-button>
 			<div data-ng-show="success" class="text-center text-success">
 				<strong>Profile Saved Successfully</strong>
 			</div>
