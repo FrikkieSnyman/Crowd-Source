@@ -1,5 +1,4 @@
 'use strict';
-<<<<<<< HEAD
 angular.module('reports').directive('boxPlot', ['D3', '$window',
 	function(D3, $window) {
 		return {
@@ -113,14 +112,14 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							bar.append('text')         // append text
 						    .style('fill', 'black')   // fill the text with the colour black
 						    .attr('x', 10)           // set x position of left side of text
-						    .attr('y', middleHeight+5)           // set y position of bottom of text 
+						    .attr('y', middleHeight + 5)           // set y position of bottom of text 
 						    .text("Total Units: " + _maxOutlier);
 
-						    bar.append('text')         // append text
-						    .style('fill', 'black')   // fill the text with the colour black
-						    .attr('x', median)           // set x position of left side of text
-						    .attr('y', middleHeight+5)           // set y position of bottom of text 
-						    .text("Median: " + parseInt(_median));
+							bar.append('text')         // append text
+							.style('fill', 'black')   // fill the text with the colour black
+							.attr('x', median)           // set x position of left side of text
+							.attr('y', middleHeight + 5)           // set y position of bottom of text 
+							.text("Median: " + parseInt(_median));
 						};
 
 						//createBox(100, 10, 20, 30, 40, 50);
