@@ -22,12 +22,17 @@
 				</md-button>
 			</div>
 			<md-list ng-hide="members">
+				<md-subheader class="md-no-sticky">
+					Estimators
+				</md-subheader>
 				<md-list-item ng-repeat="user in project.users" >
 					<p>{{user}}</p>
 				</md-list-item>
 			</md-list>
 
-			<!-- Script for tree creation -->
+			<md-divider></md-divider>
+
+			<div ui-tree>
 			<script type="text/ng-template" id="nodes_renderer.html">
 				<div ui-tree-handle class="tree-node tree-node-content" layout = "row">
 					<md-button class="md-icon-button" aria-label="Use Android" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="node.collapsed = !node.collapsed" >
