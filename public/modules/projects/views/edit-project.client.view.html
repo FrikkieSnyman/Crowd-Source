@@ -22,7 +22,7 @@
             <md-button class="md-icon-button" aria-label="More" ng-show="members" ng-click="members = !members">
                 <md-icon md-svg-icon="modules/projects/img/icons/right_arrow.svg"></md-icon>
             </md-button>
-            <h3>Project Members</h3>
+            <h3>Project Members</h3><span flex></span>
             <md-button class="md-icon-button" aria-label="More" ng-click = "showAddEstimatorDialogBox($event)">
                 <md-tooltip>
                   Edit Estimators
@@ -34,10 +34,10 @@
                 <md-list-item ng-repeat="user in project.users" >
                         <p>{{user}}</p>
                         <span flex>
-                        </span>
+                        </span><!-- 
                         <md-button class="md-icon-button" aria-label="More" ng-click="removeUser(user)">
                             <md-icon md-svg-icon="modules/projects/img/icons/close.svg"></md-icon>
-                        </md-button>
+                        </md-button> -->
                 </md-list-item>
         </md-list>
         <md-list ng-show="allUsers" ng-hide="members">
