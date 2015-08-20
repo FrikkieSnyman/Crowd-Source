@@ -201,7 +201,7 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 						};
 
 						scope.data = [];
-						generateReport(project, scope.data, visitRange);
+						generateReport(project, scope.data, visitRange); 
 						var rgb = 0;
 						generateReport(project, scope.data, visitCalc, rgb);
 
