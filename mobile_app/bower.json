@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "angular-material": "~0.10.0",
-    "angular-ui-tree": "~2.7.0",
+    "angular-ui-tree": "~2.6.0",
     "angular": "~1.4",
     "angular-resource": "~1.2",
     "angular-mocks": "~1.4.3",
@@ -18,8 +18,7 @@
     "angular-ui-utils": "~0.1.1",
     "angular-ui-router": "~0.2.11",
     "jquery": "~2.1.4",
-    "angular-material": "~0.10.0",
-    "angular-ui-tree": "~2.6.0",
-    "angular-aria": "~1.4.2"
+    "angular-aria": "~1.4.2",
+    "d3": "~3.5.6"
   }
 }

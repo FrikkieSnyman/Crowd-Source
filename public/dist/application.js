@@ -1214,8 +1214,8 @@ angular.module('reports').config(['$stateProvider',
 'use strict';
 
 // Reports controller
-angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports', 'Headerpath',
-	function($scope, $stateParams, $location, Authentication, Reports, Headerpath) {
+angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports', 'Headerpath', 'RESOURCE_DOMAIN',
+	function($scope, $stateParams, $location, Authentication, Reports, Headerpath, RESOURCE_DOMAIN) {
 		$scope.authentication = Authentication;
 		$scope.goTo = function(route) {
 			$location.path(route);
@@ -1742,7 +1742,7 @@ angular.module('reports').factory('D3', ['$document', '$q', '$rootScope',
 //Reports service used to communicate Reports REST endpoints
 angular.module('reports').factory('Reports', ['$resource', 'RESOURCE_DOMAIN',
 	function($resource, RESOURCE_DOMAIN) {
-		return $resource(RESOURCE_DOMAIN + 'reports/:reportId', {reportId: '@_id'
+		return $resource(RESOURCE_DOMAIN + '/reports/:reportId', {reportId: '@_id'
 		}, {
 			update: {
 				method: 'PUT'
