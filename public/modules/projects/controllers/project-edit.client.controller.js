@@ -81,9 +81,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			var remove = [];
 
 			for (var k = 0; k < $scope.project.users.length; ++k) {
-				if ($scope.project.users[k] !== $scope.project.owner) {
-					remove.push(k);
-				}
+				remove.push(k);
 			}
 
 			for (var i = 0; i < $scope.people.length; ++i) {
