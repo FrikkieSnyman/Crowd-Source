@@ -6,27 +6,9 @@
 				<textarea ng-model="project.description"></textarea>
 			</md-input-container>
 
-			<div layout="coloum">
-				<md-button class="md-icon-button" aria-label="More" ng-hide="members" ng-click="members = !members">
-					<md-icon md-svg-icon="modules/projects/img/icons/down_arrow.svg"></md-icon>
-				</md-button>
-				<md-button class="md-icon-button" aria-label="More" ng-show="members" ng-click="members = !members">
-					<md-icon md-svg-icon="modules/projects/img/icons/right_arrow.svg"></md-icon>
-				</md-button>
-				<h3>Estimators</h3>
-				<md-button class="md-icon-button" aria-label="More" ng-click = "getUsers()">
-					<md-tooltip>
-						Add Member
-					</md-tooltip>
-					<md-icon md-svg-icon="modules/projects/img/icons/add.svg"></md-icon>
-				</md-button>
-			</div>
-			<md-list ng-hide="members">
-				<md-subheader class="md-no-sticky">
-					Estimators
-				</md-subheader>
-				<md-list-item ng-repeat="user in project.users" >
-					<p>{{user}}</p>
+			<md-list>
+				<md-list-item ng-click="getUsers()">
+					<p>Estimators</p>
 				</md-list-item>
 			</md-list>
 
@@ -96,16 +78,16 @@
 			</form>
 
 			<div label="row">
-				<md-button class = "md-primary md-raised" ng-click = "saveProject()" ng-show = "owner() && !isOpenForEstimation()">
+				<md-button class = "md-primary" ng-click = "saveProject()" ng-show = "owner() && !isOpenForEstimation()">
 					Save Project
 				</md-button>
-				<md-button class = "md-primary md-raised" ng-click = "openForEstimation()" ng-show = "owner() && !isOpenForEstimation()">
+				<md-button class = "md-primary" ng-click = "openForEstimation()" ng-show = "owner() && !isOpenForEstimation()">
 					Open for Estimation
 				</md-button>
-				<md-button class = "md-primary md-raised" ng-click = "addRootNode()" ng-show = "owner() && rootIsEmpty()">
+				<md-button class = "md-primary" ng-click = "addRootNode()" ng-show = "owner() && rootIsEmpty()">
 					Add root node
 				</md-button>
-				<md-button class = "md-primary md-raised" ng-click = "submitEstimation()" ng-show = "!rootIsEmpty() && estimator() && !estimated && isOpenForEstimation()" ng-disabled = "estimationForm.$invalid">
+				<md-button class = "md-primary" ng-click = "submitEstimation()" ng-show = "!rootIsEmpty() && estimator() && !estimated && isOpenForEstimation()" ng-disabled = "estimationForm.$invalid">
 					Submit estimation
 				</md-button>
 			</div>
