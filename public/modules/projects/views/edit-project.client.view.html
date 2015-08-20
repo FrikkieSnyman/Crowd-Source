@@ -1,11 +1,6 @@
 <div ng-controller="ProjectEditController" flex = "100"  data-ng-init="findOne()">
 	<md-card flex>
 		<md-card-content>
-			<md-input-container flex>
-				<label>Project Description</label>
-				<textarea ng-model="project.description"></textarea>
-			</md-input-container>
-
 			<div layout="coloum">
 				<md-button class="md-icon-button" aria-label="More" ng-hide="members" ng-click="members = !members">
 					<md-icon md-svg-icon="modules/projects/img/icons/down_arrow.svg"></md-icon>
@@ -21,14 +16,16 @@
 					<md-icon md-svg-icon="modules/projects/img/icons/edit.svg"></md-icon>
 				</md-button>
 			</div>
-
 			<md-list ng-hide="members">
 				<md-list-item ng-repeat="user in project.users" >
 					<p>{{user}}</p>
 				</md-list-item>
 			</md-list>
 
-			<md-divider></md-divider>
+			<md-input-container flex>
+				<label>Project Description</label>
+				<textarea ng-model="project.description"></textarea>
+			</md-input-container>
 
 			<div ui-tree>
 			<script type="text/ng-template" id="nodes_renderer.html">
