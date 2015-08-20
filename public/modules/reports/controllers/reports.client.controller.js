@@ -1,8 +1,8 @@
 'use strict';
 
 // Reports controller
-angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports',
-	function($scope, $stateParams, $location, Authentication, Reports) {
+angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports', 'Headerpath',
+	function($scope, $stateParams, $location, Authentication, Reports, Headerpath) {
 		$scope.authentication = Authentication;
 		$scope.goTo = function(route) {
 			$location.path(route);
@@ -84,6 +84,8 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 		$scope.findOne = function() {
 			$scope.report = Reports.get({ 
 				reportId: $stateParams.reportId
+			}, function() {
+				Headerpath.setReportPath($scope.report.name);
 			});
 		};
 	}

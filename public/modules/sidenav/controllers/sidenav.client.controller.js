@@ -5,10 +5,6 @@ angular.module('sidenav').controller('SidenavController', ['$scope', '$http', '$
 		// Sidenav controller logic
 		$scope.authentication = Authentication;
 
-		$scope.signin = Logindialog.signin;
-		$scope.signup = Logindialog.signup;
-		$scope.forgotPass = Logindialog.forgotPass;
-
 		function DialogController($scope, $mdDialog) {
 			$scope.hide = function() {
 				$mdDialog.hide();
@@ -18,29 +14,22 @@ angular.module('sidenav').controller('SidenavController', ['$scope', '$http', '$
 			};
 		}
 
-		var showAdvanced = function(ev) {
+		$scope.signinDialog = function(ev) {
 			$mdDialog.show({
 				controller: DialogController,
-				templateUrl: 'modules/sidenav/views/dialog.client.view.html',
+				templateUrl: 'modules/users/views/authentication/signin.client.view.html',
 				parent: angular.element(document.body),
 				targetEvent: ev
 			});
 		};
 
-		$scope.signinDialog = function(ev) {
-			Logindialog.signin = true;
-			Logindialog.signup = false;
-			Logindialog.forgotPass = false;
-
-			showAdvanced(ev);
-		};
-
 		$scope.signupDialog = function(ev) {
-			Logindialog.signin = false;
-			Logindialog.signup = true;
-			Logindialog.forgotPass = false;
-
-			showAdvanced(ev);
+			$mdDialog.show({
+				controller: DialogController,
+				templateUrl: 'modules/users/views/authentication/signup.client.view.html',
+				parent: angular.element(document.body),
+				targetEvent: ev
+			});
 		};
 
 		function buildToggler(navID) {

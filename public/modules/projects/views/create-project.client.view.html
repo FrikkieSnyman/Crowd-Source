@@ -1,43 +1,41 @@
 <section data-ng-controller="CreateProjectController" data-ng-init="confirm = true">
-<div layout="column" flex>
-  <md-card>
-  <md-toolbar>
-    <div class="md-toolbar-tools">
-      <h2>Create Project</h2>
-    </div>
-  </md-toolbar>
-  <br/>
-  <md-content layout-padding class="autoScroll">
-  <form name="myForm">
-    <md-input-container d-no-float>
-      <!-- Use floating label instead of placeholder -->
-      <label>Project name</label>
-      <input ng-model="projectName" type="text" required>
-    </md-input-container>
-    <md-input-container d-no-float>
-      <!-- Use floating label instead of placeholder -->
-      <label>Project description</label>
-      <!-- Use text area instead of input for better visability of the description -->
-      <textarea ng-model="description" columns="1" type="text" required></textarea>
-    </md-input-container>
-    
-    <div flex="50" flex-md="100" layout="column">
-      <fieldset class="standard" flex>
-        <legend>Select estimators for this project</code></legend>
-        <div layout="row" layout-wrap>
-          <div ng-repeat="item in people" class="standard" flex="50">
-            <label>
-              <input type="checkbox" ng-checked="exists(item, selected)" ng-click="toggle(item, selected)"/>
-              {{ item }}
-            </label>
-          </div>
-        </div>
-      </fieldset>
-    </div>
-  
-    </form>
-    <md-button class="md-raised md-primary"  ng-click="createProject()" ng-disabled="myForm.$invalid">Create Project</md-button>
-  </md-content>
-  </md-card>
-</div>
+	<md-card>
+		<md-card-content>
+			<form name="myForm">
+				<md-input-container>
+					<!-- Use floating label instead of placeholder -->
+					<label>Project name</label>
+					<input ng-model="projectName" type="text" required>
+				</md-input-container>
+				
+				<md-input-container>
+					<!-- Use floating label instead of placeholder -->
+					<label>Project description</label>
+					<!-- Use text area instead of input for better visability of the description -->
+					<textarea ng-model="description" required></textarea>
+				</md-input-container>
+				
+				<md-list>
+					<md-subheader class="md-no-sticky">Estimators</md-subheader>
+					<md-list-item ng-repeat="person in people" layout="row">
+						<p> {{person.name}} </p>
+						<md-checkbox class="md-primary" ng-model="person.selected" aria-label="selected"></md-checkbox>
+					</md-list-item>
+				</md-list>
+
+				<!-- <div flex="50" flex-md="100" layout="column">
+					<div layout="row" layout-wrap>
+						<div ng-repeat="item in people" class="standard" flex="50">
+							<label>
+								<input type="checkbox" ng-checked="exists(item, selected)" ng-click="toggle(item, selected)"/>
+								{{ item }}
+							</label>
+						</div>
+					</div>
+				</div> -->
+			</form>
+
+			<md-button class="md-primary"  ng-click="createProject()" ng-disabled="myForm.$invalid">Create Project</md-button>
+		</md-card-content>
+	</md-card>
 </section>
