@@ -16,8 +16,6 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 						var bodyWidth = body.node().getBoundingClientRect().width;
 						var bodyHeight = 30;
 						var body = d3.select(element[0]);
-						//body.append('p').text('Your Report..');
-
 						var createBox = function(_range, _minOutlier, _minStdDeviation, _median, _maxStdDeviation, _maxOutlier, rgb) {
 							var strokeWidth = 2;
 							var bar = body.append('svg')

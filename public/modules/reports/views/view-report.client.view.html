@@ -1,38 +1,40 @@
 <section data-ng-controller="ReportsController" data-ng-init="findOne()">
 	<md-card flex = "100">
-		<md-card-content>
-	        <md-tabs md-dynamic-height md-border-bottom>
-	      		<md-tab label="Bar Graph">
-			        <md-card-content>
-			        <div class="imageMain" data-ng-show="((authentication.user) && (authentication.user._id == report.user._id))">
-						<a class="btn btn-primary" href="/#!/reports/{{report._id}}/edit">
-							<i class="glyphicon glyphicon-edit"></i>
-						</a>
-						<a class="btn btn-primary" data-ng-click="remove();">
-							<i class="glyphicon glyphicon-trash"></i>
-						</a>
+	    <md-toolbar>
+            <div class="md-toolbar-tools">
+            <h2 data-ng-bind="report.name"></h2>
+            <span flex></span>
+           	<p>{{currentNode.title}}</p>
+        	</div>
+        </md-toolbar>
+        <br/>
+        <md-tabs md-dynamic-height md-border-bottom>
+      		<md-tab label="Bar Graph">
+				<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == report.user._id))">
+					<a class="btn btn-primary" href="/#!/reports/{{report._id}}/edit">
+						<i class="glyphicon glyphicon-edit"></i>
+					</a>
+					<a class="btn btn-primary" data-ng-click="remove();">
+						<i class="glyphicon glyphicon-trash"></i>
+					</a>
+				</div>
+				<div flex id="chart">
+				<div d3-bars bar-height='25' bar-padding='0' id='barchart'></div>
+				</div>
+			</md-tab>
+			<md-tab label="Box Plot">
+			<div flex id="chart">
+				<div class ="chartBorder">
+					<div box-plot id='boxPlot'></div>
 					</div>
-					<div id="#chart">
-						<div d3-bars bar-height='20' bar-padding='5' id='barchart'></div>
-					</div>
-					<div class="" ng-repeat="r in report.project.children" >
-					<h3>Stats</h3>
-						{{r.title}}: <br /> <span style="padding-left: 5em">Standard deviation: {{r.stdDeviation}} </span> <span style="padding-left: 5em">Mean: {{r.mean}}</span><br /><br />
-						<div ng-repeat="n in r.nodes">
-							{{n.title}}: <br /> <span style="padding-left: 5em">Standard deviation: {{n.stdDeviation}} </span> <span style="padding-left: 5em">Mean: {{n.mean}}</span><br /><br />
-						</div>
-					</div>
-					</md-card-content>
-				</md-tab>
-				<md-tab label="Graph option two">
-					<p>Pie</p>
-				</md-tab>
-				<md-tab label="Graph option three">
-					<p>Histo</p>
-				</md-tab>
-				<md-tab label="You get the idea">
-					<p>yea</p>
-				</md-tab>
-			</md-tabs>
+				</div>
+			</md-tab>
+			<md-tab label="Graph option three">
+				<p>Histo</p>
+			</md-tab>
+			<md-tab label="You get the idea">
+				<p>yea</p>
+			</md-tab>
+		</md-tabs>
 	</md-card>
 </section>
