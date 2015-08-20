@@ -158,11 +158,8 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							}
 						};
 
-<<<<<<< HEAD
+
 						var visitCalc = function(node, project, data, rgb) {
-=======
-						var visitCalc = function(node, project, data) {
->>>>>>> a115ee092f5cacec91e1da376f8531d31133b62c
 							for (var i = 0; i < node.estimations.length; ++i) {
 								var estimationMean = parseFloat((parseInt(node.minestimations[i]) + 4 * parseInt(node.estimations[i]) + parseInt(node.maxestimations[i])) / 6).toFixed(2);
 								var stdDeviation = parseFloat((parseInt(node.minestimations[i]) - parseInt(node.maxestimations[i])) / 6).toFixed(2);
@@ -182,7 +179,6 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 									maxOutlier = parseFloat(maxStdDeviation);
 								}
 								//console.log(40 + '}{' + minOutlier + '}{' + minStdDeviation + '}{' + estimationMean + '}{' + maxStdDeviation + '}{' + maxOutlier);
-<<<<<<< HEAD
 								createBox(maxRange - minRange, minOutlier - minRange, minStdDeviation - minRange, estimationMean - minRange, maxStdDeviation - minRange, maxOutlier - minRange, rgb);
 							}
 						};
@@ -202,35 +198,12 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 						var generateReport = function(project, data , visit, rbg) {
 							var projectTree = project.children[0];
 							traverseTree(projectTree, project, data, visit , rgb);
-=======
-								createBox(maxRange - minRange, minOutlier - minRange, minStdDeviation - minRange, estimationMean - minRange, maxStdDeviation - minRange, maxOutlier - minRange);
-							}
-						};
-
-						var traverseTree = function(node, project, data, visit) {
-							if (node === null) {
-								return;
-							}
-							visit(node, project, data);
-							for (var i = 0; i < node.nodes.length; ++i) {
-								traverseTree(node.nodes[i], project, data, visit);
-							}
-						};
-
-						var generateReport = function(project, data , visit) {
-							var projectTree = project.children[0];
-							traverseTree(projectTree, project, data, visit);
->>>>>>> a115ee092f5cacec91e1da376f8531d31133b62c
 						};
 
 						scope.data = [];
 						generateReport(project, scope.data, visitRange);
-<<<<<<< HEAD
 						var rgb = 0;
 						generateReport(project, scope.data, visitCalc, rgb);
-=======
-						generateReport(project, scope.data, visitCalc);
->>>>>>> a115ee092f5cacec91e1da376f8531d31133b62c
 
 						/*
 						var circle = svg.append('circle')
