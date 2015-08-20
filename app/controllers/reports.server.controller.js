@@ -39,12 +39,7 @@ var traverseTree = function(node, project) {
 var generateReport = function(project, res) {
 	var projectTree = project.children[0];
 	traverseTree(projectTree, project);
-	string = 'TODO';
 	notification.sendReport(string, project, res);
-};
-
-var determineVarianceAndMean = function(project) {
-
 };
 /**
  * Create a Report

@@ -75,7 +75,6 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 									.append('rect')
 									.attr('height', barHeight)
 									.attr('width', 0)
-									.attr('width', 250)
 									.attr('x', Math.round(margin / 2))
 									.attr('y', function(d, i) {
 										return i * (barHeight + barPadding);
