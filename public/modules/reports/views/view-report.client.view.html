@@ -1,13 +1,5 @@
 <section data-ng-controller="ReportsController" data-ng-init="findOne()">
 	<md-card flex = "100">
-	    <md-toolbar>
-            <div class="md-toolbar-tools">
-            <h2 data-ng-bind="report.name"></h2>
-            <span flex></span>
-           	<p>{{currentNode.title}}</p>
-        	</div>
-        </md-toolbar>
-        <br/>
         <md-tabs md-dynamic-height md-border-bottom>
       		<md-tab label="Bar Graph">
 				<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == report.user._id))">
