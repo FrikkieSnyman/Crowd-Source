@@ -1,5 +1,6 @@
 <section data-ng-controller="ReportsController" data-ng-init="findOne()">
 	<md-card flex = "100">
+<<<<<<< HEAD
 		<md-card-content>
 	        <md-tabs md-dynamic-height md-border-bottom>
 	      		<md-tab label="Bar Graph">
@@ -33,5 +34,43 @@
 					<p>yea</p>
 				</md-tab>
 			</md-tabs>
+=======
+	    <md-toolbar>
+            <div class="md-toolbar-tools">
+            <h2 data-ng-bind="report.name"></h2>
+            <span flex></span>
+           	<p>{{currentNode.title}}</p>
+        	</div>
+        </md-toolbar>
+        <md-card-content>
+        <div class="imageMain" data-ng-show="((authentication.user) && (authentication.user._id == report.user._id))">
+			<a class="btn btn-primary" href="/#!/reports/{{report._id}}/edit">
+				<i class="glyphicon glyphicon-edit"></i>
+			</a>
+			<a class="btn btn-primary" data-ng-click="remove();">
+				<i class="glyphicon glyphicon-trash"></i>
+			</a>
+		</div>
+<<<<<<< HEAD
+		<div d3-bars bar-height='20' bar-padding='5' id='barchart'></div>
+		
+		<div class="" ng-repeat="r in report.project.children" >
+		<h3>Stats</h3>
+			{{r.title}}: <br /> <span style="padding-left: 5em">Standard deviation: {{r.stdDeviation}} </span> <span style="padding-left: 5em">Mean: {{r.mean}}</span><br /><br />
+			<div ng-repeat="n in r.nodes">
+				{{n.title}}: <br /> <span style="padding-left: 5em">Standard deviation: {{n.stdDeviation}} </span> <span style="padding-left: 5em">Mean: {{n.mean}}</span><br /><br />
+			</div>
+		</div>
+		</md-card-content>
+=======
+		<div flex id="chart">
+		<div d3-bars bar-height='25' bar-padding='0' id='barchart'></div>
+		</div>
+		<div box-plot id="boxPlot">
+			<div></div>
+			<p></p>
+		</div>
+>>>>>>> Added a simplt starting box plot
+>>>>>>> Working box plot
 	</md-card>
 </section>
