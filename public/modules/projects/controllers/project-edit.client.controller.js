@@ -88,18 +88,11 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 
 			for (var i = 0; i < $scope.people.length; ++i) {
 				if ($scope.people[i].isEstimator === true) {
-					console.log("Is True: " + $scope.people[i].username);
 					var found = false;
-					// console.log("To add: ");
-					// console.log($scope.people[i]);
 					for (var j = 0; j < $scope.project.users.length; ++j) {
-						// console.log("Current Users: " + $scope.project.users[j]);
 						if ($scope.project.users[j] === $scope.people[i].username) {
-							// console.log("FOUND");
-							console.log("Is equal to user: " + $scope.people[i].username);
 							var index = remove.indexOf(j);
 							if (index > -1) {
-								console.log("Splicing at: " + index + " for " + $scope.people[i].username);
 								remove.splice(index, 1);
 							}
 
@@ -113,10 +106,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 					}
 				}
 			}
-			console.log("Add:");
-			console.log(add);
-			console.log("Remove:");
-			console.log(remove);
 
 			$scope.removeEstimatorsFromProject(remove);
 			$scope.addEstimatorsToProject(add);
@@ -126,7 +115,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 
 		$scope.removeEstimatorsFromProject = function(removeArr) {
 			for (var i = removeArr.length - 1; i >= 0; --i) {
-				console.log("removing: " + removeArr[i]);
 				$scope.project.users.splice(removeArr[i], 1);
 			}
 			$scope.removeEstimatorsRecursiveDescent($scope.project.children[0], removeArr);
@@ -140,16 +128,12 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			}
 
 			for (var i = 0; i < node.nodes.length; ++i) {
-				console.log("Going deeper");
 				$scope.removeEstimatorsRecursiveDescent(node.nodes[i], removeArr);
 			}
 		};
 
 		$scope.addEstimatorsToProject = function(addArr) {
 			for (var i = 0; i < addArr.length; ++i) {
-				console.log(i);
-				console.log("adding: ");
-				console.log(addArr[i]);
 				$scope.project.users.push(addArr[i].username);
 			}
 			$scope.addEstimatorsRecursiveDescent($scope.project.children[0], addArr);
@@ -163,7 +147,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			}
 
 			for (var i = 0; i < node.nodes.length; ++i) {
-				console.log("Going deeper");
 				$scope.addEstimatorsRecursiveDescent(node.nodes[i], addArr);
 			}
 		};
