@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', '$http', 'Authentication', 'Menus', '$location', '$mdSidenav', '$mdUtil', 'RESOURCE_DOMAIN',
-	function($scope, $http, Authentication, Menus, $location, $mdSidenav, $mdUtil, RESOURCE_DOMAIN) {
+angular.module('core').controller('HeaderController', ['$scope', 'Authentication', 'Menus', '$location', '$mdSidenav', '$mdUtil', 'Headerpath',
+	function($scope, Authentication, Menus, $location, $mdSidenav, $mdUtil, Headerpath) {
 		$scope.authentication = Authentication;
 		$scope.isCollapsed = false;
 		$scope.menu = Menus.getMenu('topbar');
@@ -11,11 +11,22 @@ angular.module('core').controller('HeaderController', ['$scope', '$http', 'Authe
 
 			if (headerPath === "/") {
 				headerPath = "Welcome";
-			} else if (headerPath.indexOf("edit") !== -1 && headerPath.indexOf("projects")) {
-				var projectID = headerPath.substring(headerPath.indexOf("projects") + 9, headerPath.indexOf("edit") - 1);
-
-				
 			} else {
+				//Remove the first instance of /
+				headerPath = headerPath.substring(headerPath.indexOf("/") + 1, headerPath.length);
+
+				if (headerPath.indexOf("edit") !== -1 && headerPath.indexOf("projects") !== -1) {
+					var projectID = headerPath.substring(headerPath.indexOf("projects") + 9, headerPath.indexOf("edit") - 1);
+
+					headerPath = headerPath.replace(projectID, Headerpath.getProjectPath());
+
+					headerPath = headerPath.substring(0, headerPath.indexOf("edit") - 1);
+				} else if (headerPath.indexOf("reports") !== -1 && headerPath.indexOf("/") !== -1) {
+					var reportID = headerPath.substring(headerPath.indexOf("reports") + 8, headerPath.length);
+
+					headerPath = headerPath.replace(reportID, Headerpath.getReportPath());
+				}
+
 				var tokens = headerPath.split("/");
 				headerPath = "";
 
@@ -23,11 +34,10 @@ angular.module('core').controller('HeaderController', ['$scope', '$http', 'Authe
 					tokens[i] = capitalizeFirstLetter(tokens[i]);
 
 					headerPath += tokens[i];
-					headerPath += " > ";
+					if (i !== tokens.length - 1) {
+						headerPath += " > ";
+					}
 				};
-
-				//Remove the first instance of >
-				headerPath = headerPath.substring(headerPath.indexOf(">") + 1, headerPath.length - 3);
 			}
 
 			return headerPath.trim();
