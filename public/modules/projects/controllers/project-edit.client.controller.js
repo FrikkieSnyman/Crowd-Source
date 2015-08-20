@@ -72,6 +72,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 					return;
 				}
 			}
+			$scope.project.openForEstimation = false;
 			$scope.sendEstimationReport();
 		};
 
@@ -82,7 +83,11 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.openForEstimation = function() {
-			var confirm = $mdDialog.confirm()
+
+			for (var i in $scope.project.children[0].estimations) {
+				$scope.project.children[0].estimations[i] = null;
+			}
+			var confirm = new $mdDialog.confirm()
 			.parent(angular.element(document.body))
 			.title('Are you sure you want to open the project for estimations?')
 			.content('This will allow estimators to estimate, but will lock the project tree to its current state.')
@@ -105,11 +110,11 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.isOpenForEstimation = function() {
-			if ($scope.project.$resolved !== false) {
-				return $scope.project.openForEstimation;
-			} else {
-				return false;
-			}
+			//if ($scope.project.$resolved !== false) {
+			return $scope.project.openForEstimation;
+			//} else {
+			//	return false;
+			//}
 		};
 
 		$scope.addRootNode = function() {
