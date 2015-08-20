@@ -58,7 +58,8 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 							if (!data) {
 								return;
 							}
-							var width = d3.select(element[0]).node().offsetWidth - margin;
+							var width = (d3.select(element[0]).node().offsetWidth - margin);
+							console.log(data);
 							var height = scope.data.length * (barHeight + barPadding);
 							var color = d3.scale.category20();
 							var xScale = d3.scale.linear()
