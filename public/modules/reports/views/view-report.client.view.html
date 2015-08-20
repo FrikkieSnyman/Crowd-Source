@@ -1,36 +1,38 @@
 <section data-ng-controller="ReportsController" data-ng-init="findOne()">
 	<md-card flex = "100">
-        <md-tabs md-dynamic-height md-border-bottom>
-      		<md-tab label="Bar Graph">
-		        <md-card-content>
-		        <div class="imageMain" data-ng-show="((authentication.user) && (authentication.user._id == report.user._id))">
-					<a class="btn btn-primary" href="/#!/reports/{{report._id}}/edit">
-						<i class="glyphicon glyphicon-edit"></i>
-					</a>
-					<a class="btn btn-primary" data-ng-click="remove();">
-						<i class="glyphicon glyphicon-trash"></i>
-					</a>
-				</div>
-				<div d3-bars bar-height='20' bar-padding='5' id='barchart'></div>
-				
-				<div class="" ng-repeat="r in report.project.children" >
-				<h3>Stats</h3>
-					{{r.title}}: <br /> <span style="padding-left: 5em">Standard deviation: {{r.stdDeviation}} </span> <span style="padding-left: 5em">Mean: {{r.mean}}</span><br /><br />
-					<div ng-repeat="n in r.nodes">
-						{{n.title}}: <br /> <span style="padding-left: 5em">Standard deviation: {{n.stdDeviation}} </span> <span style="padding-left: 5em">Mean: {{n.mean}}</span><br /><br />
+		<md-card-content>
+	        <md-tabs md-dynamic-height md-border-bottom>
+	      		<md-tab label="Bar Graph">
+			        <md-card-content>
+			        <div class="imageMain" data-ng-show="((authentication.user) && (authentication.user._id == report.user._id))">
+						<a class="btn btn-primary" href="/#!/reports/{{report._id}}/edit">
+							<i class="glyphicon glyphicon-edit"></i>
+						</a>
+						<a class="btn btn-primary" data-ng-click="remove();">
+							<i class="glyphicon glyphicon-trash"></i>
+						</a>
 					</div>
-				</div>
-				</md-card-content>
-			</md-tab>
-			<md-tab label="Graph option two">
-				<p>Pie</p>
-			</md-tab>
-			<md-tab label="Graph option three">
-				<p>Histo</p>
-			</md-tab>
-			<md-tab label="You get the idea">
-				<p>yea</p>
-			</md-tab>
-		</md-tabs>
+					<div d3-bars bar-height='20' bar-padding='5' id='barchart'></div>
+					
+					<div class="" ng-repeat="r in report.project.children" >
+					<h3>Stats</h3>
+						{{r.title}}: <br /> <span style="padding-left: 5em">Standard deviation: {{r.stdDeviation}} </span> <span style="padding-left: 5em">Mean: {{r.mean}}</span><br /><br />
+						<div ng-repeat="n in r.nodes">
+							{{n.title}}: <br /> <span style="padding-left: 5em">Standard deviation: {{n.stdDeviation}} </span> <span style="padding-left: 5em">Mean: {{n.mean}}</span><br /><br />
+						</div>
+					</div>
+					</md-card-content>
+				</md-tab>
+				<md-tab label="Graph option two">
+					<p>Pie</p>
+				</md-tab>
+				<md-tab label="Graph option three">
+					<p>Histo</p>
+				</md-tab>
+				<md-tab label="You get the idea">
+					<p>yea</p>
+				</md-tab>
+			</md-tabs>
+		</md-card-content>
 	</md-card>
 </section>
