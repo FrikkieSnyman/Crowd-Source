@@ -1,13 +1,11 @@
-<div class="container" data-ng-controller="HeaderController">
-	<md-toolbar class="md-whiteframe-z2">
-		<div class="md-toolbar-tools mainToolbar" >
-			<md-button class="md-icon-button headerButton" aria-label="Settings" ng-click="toggleLeft()" hide-gt-md>
-				<md-icon md-svg-src="modules/core/img/icons/menu.svg" class="darkIcon" aria-label="Cake"></md-icon>
-			</md-button>
-			<span flex></span>
-			<md-button class="md-fab" style="positon: absolute; left: -25pt; top: 23pt; z-index: 200 !important;" aria-label="Go to project page" ng-click="goTo('projects/create')" ng-show = "onProjects()">
-				<md-icon md-svg-src="modules/core/img/icons/add.svg"></md-icon>
-			</md-button>
-		</div>
-	</md-toolbar>
-</div>
+<md-toolbar class="md-whiteframe-z2" data-ng-controller="HeaderController" flex>
+	<div class="md-toolbar-tools mainToolbar" >
+		<md-button class="md-icon-button" aria-label="Settings" ng-click="toggleLeft()" hide-gt-md>
+			<md-icon md-svg-src="modules/core/img/icons/menu.svg" class="darkIcon" aria-label="Cake"></md-icon>
+		</md-button>
+		<span flex>{{getHeaderPath()}}</span>
+		<md-button class="md-fab" style="positon: absolute; left: -25pt; top: 23pt; z-index: 200 !important;" aria-label="Go to project page" ng-click="goTo('projects/create')" ng-show = "onProjects()">
+			<md-icon md-svg-src="modules/core/img/icons/add.svg"></md-icon>
+		</md-button>
+	</div>
+</md-toolbar>

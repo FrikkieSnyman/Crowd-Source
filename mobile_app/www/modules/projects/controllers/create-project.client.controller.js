@@ -1,36 +1,38 @@
 'use strict';
 
-angular.module('projects').controller('CreateProjectController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope',
-	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope) {
+angular.module('projects').controller('CreateProjectController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope', 'RESOURCE_DOMAIN',
+	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, RESOURCE_DOMAIN) {
 		$scope.authentication = Authentication;
 		$scope.people = [];
 
-		$http.get('/users/getUsers').success(function(users) {
+		$http.get(RESOURCE_DOMAIN+'/users/getUsers').success(function(users) {
 			for (var i in users) {
-				$scope.people.push(users[i].username);
+				$scope.people.push({
+					name: users[i].username,
+					selected: false
+				});
 			}
 		});
 
-		$scope.selected = [];
-		$scope.toggle = function(item, list) {
-			var idx = list.indexOf(item);
-			if (idx > -1) {
-				list.splice(idx, 1);
-			} else {
-				list.push(item);
-			}
-		};
+		var buildSelectedArray = function() {
+			var selected = []
 
-		$scope.exists = function(item, list) {
-			return list.indexOf(item) > -1;
-		};
+			for (var i in $scope.people) {
+				if ($scope.people[i].selected) {
+					selected.push($scope.people[i].name);
+				}
+			}
+
+			return selected;
+		}
 
 		$scope.createProject = function() {
 			//		var project = {'name': $scope.projectName, 'description': $scope.description, 'owner' : Authentication.user, 'users' : $scope.selected};
+
 			var project = new Projects ({
 				name: $scope.projectName,
 				description: $scope.description,
-				users : $scope.selected,
+				users : buildSelectedArray(),
 				owner : $scope.authentication.user.username,
 				openForEstimation : false
 			});
@@ -60,4 +62,4 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 			.join(' ');
 		};		
 	}
-]);
+]); 

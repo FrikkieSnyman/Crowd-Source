@@ -59,9 +59,8 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 								return;
 							}
 
-							// var width = d3.select("#chart").node().getBoundingClientRect().width
-							var width = d3.select(element[0]).node().offsetWidth - margin;
-
+							var width = d3.select("#chart").node().getBoundingClientRect().width
+							//var width = 400;
 							var height = scope.data.length * (barHeight + barPadding);
 							var color = d3.scale.category20();
 							var xScale = d3.scale.linear()
@@ -76,7 +75,7 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 								.data(data).enter()
 									.append('rect')
 									.attr('height', barHeight)
-									.attr('width', 0)
+									.attr('width', width)
 									.attr('x', Math.round(margin / 2))
 									.attr('y', function(d, i) {
 										return i * (barHeight + barPadding);

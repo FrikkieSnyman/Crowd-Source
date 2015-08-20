@@ -1,8 +1,8 @@
 'use strict';
 
 // Projects controller
-angular.module('projects').controller('ProjectsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope',
-	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope) {
+angular.module('projects').controller('ProjectsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope', 'RESOURCE_DOMAIN',
+	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, RESOURCE_DOMAIN) {
 
 		$scope.goTo = function(route) {
 			$location.path(route);
@@ -199,6 +199,28 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 					scope: newScope
 				});
 			});
+		};
+
+		$scope.isOverflow = function() {
+			var element = document.getElementById('marquee');
+			if (element.scrollWidth > element.clientWidth) {
+				return true;
+			} else {
+				return false;
+			}
+		};
+
+		$scope.isNotOverflow = function() {
+			var element = document.getElementById('marquee');
+			if (element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth) {
+				return false;
+			} else {
+				return true;
+			}
+		};
+
+		$scope.test = function() {
+			console.log('here');
 		};
 	}
 ]);

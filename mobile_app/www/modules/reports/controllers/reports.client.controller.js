@@ -1,11 +1,35 @@
 'use strict';
 
 // Reports controller
-angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports',
-	function($scope, $stateParams, $location, Authentication, Reports) {
+angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports', 'Headerpath',
+	function($scope, $stateParams, $location, Authentication, Reports, Headerpath) {
 		$scope.authentication = Authentication;
-
+		$scope.goTo = function(route) {
+			$location.path(route);
+		};
 		// Create new Report
+		$scope.querySearch = function(query) {
+			//console.log(query);
+			var results = query ? $scope.reports.filter(createFilterFor(query)) : $scope.reports, deferred;
+			return results;
+		};
+		$scope.searchTextChange = function(text) {
+			console.log('Text changed to ' + text);
+		};
+
+		$scope.selectedItemChange = function(item) {
+			console.log(item);
+			$scope.goTo('/projects/' + item._id + '/edit');
+		};
+
+		var createFilterFor = function(query) {
+			var lowercaseQuery = angular.lowercase(query);
+			return function filterFn(item) {
+				//console.log(item);
+				var name = angular.lowercase(item.name);
+				return (name.indexOf(lowercaseQuery) === 0);
+			};
+		};
 		$scope.create = function() {
 			// Create new Report object
 			var report = new Reports ({
@@ -25,7 +49,7 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 
 		// Remove existing Report
 		$scope.remove = function(report) {
-			if ( report ) { 
+			if (report) {
 				report.$remove();
 
 				for (var i in $scope.reports) {
@@ -60,6 +84,8 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 		$scope.findOne = function() {
 			$scope.report = Reports.get({ 
 				reportId: $stateParams.reportId
+			}, function() {
+				Headerpath.setReportPath($scope.report.name);
 			});
 		};
 	}
