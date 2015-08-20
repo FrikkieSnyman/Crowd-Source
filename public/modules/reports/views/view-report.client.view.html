@@ -19,7 +19,7 @@
 		<div d3-bars bar-height='20' bar-padding='5' id='barchart'></div>
 		
 		<div class="" ng-repeat="r in report.project.children" >
-		<h3>Stats 'n shit</h3>
+		<h3>Stats</h3>
 			{{r.title}}: <br /> <span style="padding-left: 5em">Standard deviation: {{r.stdDeviation}} </span> <span style="padding-left: 5em">Mean: {{r.mean}}</span><br /><br />
 			<div ng-repeat="n in r.nodes">
 				{{n.title}}: <br /> <span style="padding-left: 5em">Standard deviation: {{n.stdDeviation}} </span> <span style="padding-left: 5em">Mean: {{n.mean}}</span><br /><br />
