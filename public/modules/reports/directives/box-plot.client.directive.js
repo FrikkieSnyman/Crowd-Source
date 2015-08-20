@@ -17,7 +17,7 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 						var bodyWidth = body.node().getBoundingClientRect().width;
 						var bodyHeight = 30;
 						var body = d3.select(element[0]);
-						body.append('p').text('Box plot!');
+						body.append('p').text('Your Report..');
 
 						var createBox = function(_range, _minOutlier, _minStdDeviation, _median, _maxStdDeviation, _maxOutlier) {
 							var strokeWidth = 2;
@@ -84,7 +84,7 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							.attr('y', (bodyHeight / 2) - (boxHeight / 2))
 							.attr('rx', 5)
 							.attr('rx', 5)
-							.style('fill', 'lightblue')
+							.style('fill', 'yellow')
 							.style('stroke', 'black');
 
 							/*
@@ -107,20 +107,20 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							.attr('y', 0)
 							.attr('rx', 5)
 							.attr('rx', 5)
-							.style('fill', 'lightblue')
+							.style('fill', '#3f51b5')
 							.style('stroke', 'black');
 
 							bar.append('text')         // append text
-						    .style('fill', 'black')   // fill the text with the colour black
-						    .attr('x', 10)           // set x position of left side of text
-						    .attr('y', middleHeight+5)           // set y position of bottom of text 
-						    .text("Total Units: " + _maxOutlier);
+							.style('fill', 'black')   // fill the text with the colour black
+							.attr('x', 10)           // set x position of left side of text
+							.attr('y', middleHeight + 5)           // set y position of bottom of text 
+							.text('Total Units: ' + _maxOutlier);
 
-						    bar.append('text')         // append text
-						    .style('fill', 'black')   // fill the text with the colour black
-						    .attr('x', median)           // set x position of left side of text
-						    .attr('y', middleHeight+5)           // set y position of bottom of text 
-						    .text("Median: " + parseInt(_median));
+							bar.append('text')         // append text
+							.style('fill', 'black')   // fill the text with the colour black
+							.attr('x', median)           // set x position of left side of text
+							.attr('y', middleHeight + 5)           // set y position of bottom of text 
+							.text('Median: ' + parseInt(_median));
 						};
 
 						//createBox(100, 10, 20, 30, 40, 50);
