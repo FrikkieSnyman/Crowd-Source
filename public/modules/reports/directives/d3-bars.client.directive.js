@@ -12,7 +12,7 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 
 						var margin = parseInt(attrs.margin) || 20;
 						var barHeight = parseInt(attrs.barHeight) || 20;
-						var barPadding = parseInt(attrs.barPadding) || 5;
+						var barPadding = parseInt(attrs.barPadding) || 10;
 						var svg = d3.select(element[0])
 							.append('svg')
 							.style('width', '100%');
@@ -48,7 +48,7 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 						generateReport(project, scope.data);
 
 						scope.$watch(function() {
-							return angular.element($window)[0].innerWidth;
+							return angular.element($window)[0].width;
 						}, function() {
 							scope.render(scope.data);
 						});
@@ -58,8 +58,9 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 							if (!data) {
 								return;
 							}
-							var width = (d3.select(element[0]).node().offsetWidth - margin);
-							console.log(data);
+
+							var width = d3.select("#chart").node().getBoundingClientRect().width
+							//var width = 400;
 							var height = scope.data.length * (barHeight + barPadding);
 							var color = d3.scale.category20();
 							var xScale = d3.scale.linear()
@@ -75,6 +76,7 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 									.append('rect')
 									.attr('height', barHeight)
 									.attr('width', 0)
+									.attr('width', 250)
 									.attr('x', Math.round(margin / 2))
 									.attr('y', function(d, i) {
 										return i * (barHeight + barPadding);
