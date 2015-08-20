@@ -1,4 +1,5 @@
 'use strict';
+<<<<<<< HEAD
 angular.module('reports').directive('boxPlot', ['D3', '$window',
 	function(D3, $window) {
 		return {
