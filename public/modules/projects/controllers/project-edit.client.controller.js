@@ -128,7 +128,11 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.removeEstimatorsRecursiveDescent = function(node, removeArr) {
+			
 			node.estimations.splice(removeArr[0], 1);
+			node.minestimations.splice(removeArr[0], 1);
+			node.maxestimations.splice(removeArr[0], 1);
+			
 			for (var i = 0; i < node.nodes.length; ++i) {
 				console.log("Going deeper");
 				$scope.removeEstimatorsRecursiveDescent(node.nodes[i], removeArr);
