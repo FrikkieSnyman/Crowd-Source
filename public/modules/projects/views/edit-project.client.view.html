@@ -21,14 +21,11 @@
 					<md-icon md-svg-icon="modules/projects/img/icons/add.svg"></md-icon>
 				</md-button>
 			</div>
-
 			<md-list ng-hide="members">
 				<md-list-item ng-repeat="user in project.users" >
 					<p>{{user}}</p>
 				</md-list-item>
 			</md-list>
-
-
 
 			<!-- Script for tree creation -->
 			<script type="text/ng-template" id="nodes_renderer.html">
