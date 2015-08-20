@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('projects').controller('ProjectEditController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope', 'RESOURCE_DOMAIN',
-	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, RESOURCE_DOMAIN) {
+angular.module('projects').controller('ProjectEditController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope', 'Headerpath', 'RESOURCE_DOMAIN',
+	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, Headerpath, RESOURCE_DOMAIN) {
 		$scope.members = true;
 		$scope.estimated = false;
 		$scope.goTo = function(route) {
@@ -154,6 +154,8 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				} else {
 					$scope.estimated = true;
 				}
+
+				Headerpath.setProjectPath($scope.project.name);
 			});
 		};
 
