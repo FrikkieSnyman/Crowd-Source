@@ -19,9 +19,8 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 
 						var visit = function(node, project, data) {
 							for (var i = 0; i < node.estimations.length; ++i) {
-								data.push({title: node.title, name: project.users[i], score: node.minestimations[i]});
-								data.push({title: node.title, name: project.users[i], score: node.estimations[i]});
-								data.push({title: node.title, name: project.users[i], score: node.maxestimations[i]});
+								var estimationMean = parseFloat((parseInt(node.minestimations[i]) + 4 * parseInt(node.estimations[i]) + parseInt(node.maxestimations[i])) / 6).toFixed(2);
+								data.push({title: node.title, name: project.users[i], score: estimationMean});
 							}
 						};
 
