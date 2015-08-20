@@ -17,9 +17,9 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 						var bodyWidth = body.node().getBoundingClientRect().width;
 						var bodyHeight = 30;
 						var body = d3.select(element[0]);
-						body.append('p').text('Your Report..');
+						//body.append('p').text('Your Report..');
 
-						var createBox = function(_range, _minOutlier, _minStdDeviation, _median, _maxStdDeviation, _maxOutlier) {
+						var createBox = function(_range, _minOutlier, _minStdDeviation, _median, _maxStdDeviation, _maxOutlier, rgb) {
 							var strokeWidth = 2;
 							var bar = body.append('svg')
 							.attr('width', bodyWidth + strokeWidth)
@@ -107,20 +107,22 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							.attr('y', 0)
 							.attr('rx', 5)
 							.attr('rx', 5)
-							.style('fill', '#3f51b5')
+							.style('fill', 'rgb(' + (63 - rgb) + ', ' + (81 - rgb) + ',' + (181 - rgb) + ')')
 							.style('stroke', 'black');
+							console.log(rgb);
 
 							bar.append('text')         // append text
 							.style('fill', 'black')   // fill the text with the colour black
 							.attr('x', 10)           // set x position of left side of text
 							.attr('y', middleHeight + 5)           // set y position of bottom of text 
-							.text('Total Units: ' + _maxOutlier);
-
+							.text('Total Units: ' + _maxOutlier + ', Median: ' + parseInt(_median));
+							/*
 							bar.append('text')         // append text
 							.style('fill', 'black')   // fill the text with the colour black
 							.attr('x', median)           // set x position of left side of text
 							.attr('y', middleHeight + 5)           // set y position of bottom of text 
 							.text('Median: ' + parseInt(_median));
+							*/
 						};
 
 						//createBox(100, 10, 20, 30, 40, 50);
@@ -158,7 +160,7 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							}
 						};
 
-						var visitCalc = function(node, project, data) {
+						var visitCalc = function(node, project, data, rgb) {
 							for (var i = 0; i < node.estimations.length; ++i) {
 								var estimationMean = parseFloat((parseInt(node.minestimations[i]) + 4 * parseInt(node.estimations[i]) + parseInt(node.maxestimations[i])) / 6).toFixed(2);
 								var stdDeviation = parseFloat((parseInt(node.minestimations[i]) - parseInt(node.maxestimations[i])) / 6).toFixed(2);
@@ -178,28 +180,31 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 									maxOutlier = parseFloat(maxStdDeviation);
 								}
 								//console.log(40 + '}{' + minOutlier + '}{' + minStdDeviation + '}{' + estimationMean + '}{' + maxStdDeviation + '}{' + maxOutlier);
-								createBox(maxRange - minRange, minOutlier - minRange, minStdDeviation - minRange, estimationMean - minRange, maxStdDeviation - minRange, maxOutlier - minRange);
+								createBox(maxRange - minRange, minOutlier - minRange, minStdDeviation - minRange, estimationMean - minRange, maxStdDeviation - minRange, maxOutlier - minRange, rgb);
 							}
 						};
 
-						var traverseTree = function(node, project, data, visit) {
+						var traverseTree = function(node, project, data, visit, rgb) {
+							
 							if (node === null) {
 								return;
 							}
-							visit(node, project, data);
+							visit(node, project, data, rgb);
 							for (var i = 0; i < node.nodes.length; ++i) {
-								traverseTree(node.nodes[i], project, data, visit);
+								traverseTree(node.nodes[i], project, data, visit, rgb);
+								rgb = rgb - 50;
 							}
 						};
 
-						var generateReport = function(project, data , visit) {
+						var generateReport = function(project, data , visit, rbg) {
 							var projectTree = project.children[0];
-							traverseTree(projectTree, project, data, visit);
+							traverseTree(projectTree, project, data, visit , rgb);
 						};
 
 						scope.data = [];
 						generateReport(project, scope.data, visitRange);
-						generateReport(project, scope.data, visitCalc);
+						var rgb = 0;
+						generateReport(project, scope.data, visitCalc, rgb);
 
 						/*
 						var circle = svg.append('circle')
