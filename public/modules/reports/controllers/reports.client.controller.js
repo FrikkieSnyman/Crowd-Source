@@ -49,7 +49,7 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 
 		// Remove existing Report
 		$scope.remove = function(report) {
-			if ( report ) { 
+			if (report) {
 				report.$remove();
 
 				for (var i in $scope.reports) {

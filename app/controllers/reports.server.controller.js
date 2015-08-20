@@ -11,15 +11,19 @@ var mongoose = require('mongoose'),
 
 var string = '';
 var visit = function(node, project) {
-	// string = string + '<br />Estimations for ' + node.title;
-	string = string + '\r\n\r\nEstimations for: ' + node.title;
-	// string.push('Estimations for: ' + node.title);
+	var sumOfAverages = 0;
+	var stddev = [];
 	for (var i = 0; i < node.estimations.length; ++i) {
-		// string = string + '<br />' + project.users[i] + ' ' + node.estimations[i];
-		string = string + '\r\n\r\n' + project.users[i] + ': ' + node.estimations[i];
-		// string.push(project.users[i] + ' ' + node.estimations[i]);
+		sumOfAverages += (parseInt(node.minestimations[i]) + 4 * parseInt(node.estimations[i]) + parseInt(node.maxestimations[i]) ) / 6;
 	}
+	node.mean = (sumOfAverages / node.estimations.length).toFixed(2);
 
+	var squareSum = 0;
+	for (i = 0; i < node.estimations.length; ++i) {
+		stddev[i] = (parseInt(node.maxestimations[i]) - parseInt(node.minestimations[i])) / 6;
+		squareSum += stddev[i] * stddev[i];
+	}
+	node.stdDeviation = Math.sqrt(squareSum).toFixed(2);
 };
 
 var traverseTree = function(node, project) {
@@ -36,7 +40,12 @@ var generateReport = function(project, res) {
 	var projectTree = project.children[0];
 	string = '';
 	traverseTree(projectTree, project);
+	string = 'TODO';
 	notification.sendReport(string, project, res);
+};
+
+var determineVarianceAndMean = function(project) {
+
 };
 /**
  * Create a Report
@@ -46,6 +55,7 @@ exports.create = function(req, res) {
 	delete req.body.$resolved;
 
 	var report = new Report(req.body);
+	generateReport(req.body, res);
 	report.project = req.body;
 	report.user = req.user;
 
@@ -59,7 +69,6 @@ exports.create = function(req, res) {
 			res.jsonp(report);
 		}
 	});
-	generateReport(req.body, res);
 };
 
 /**
