@@ -1,8 +1,8 @@
 'use strict';
 
 // Reports controller
-angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports', 'Headerpath',
-	function($scope, $stateParams, $location, Authentication, Reports, Headerpath) {
+angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports', 'Headerpath', 'RESOURCE_DOMAIN',
+	function($scope, $stateParams, $location, Authentication, Reports, Headerpath, RESOURCE_DOMAIN) {
 		$scope.authentication = Authentication;
 		$scope.goTo = function(route) {
 			$location.path(route);
