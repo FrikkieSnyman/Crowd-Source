@@ -110,7 +110,10 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			for (var i = removeArr.length - 1; i >= 0; --i) {
 				$scope.project.users.splice(removeArr[i], 1);
 			}
-			$scope.removeEstimatorsRecursiveDescent($scope.project.children[0], removeArr);
+			
+			if ($scope.project.children.length > 0) {
+				$scope.removeEstimatorsRecursiveDescent($scope.project.children[0], removeArr);
+			}
 		};
 
 		$scope.removeEstimatorsRecursiveDescent = function(node, removeArr) {
@@ -129,7 +132,10 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			for (var i = 0; i < addArr.length; ++i) {
 				$scope.project.users.push(addArr[i].username);
 			}
-			$scope.addEstimatorsRecursiveDescent($scope.project.children[0], addArr);
+
+			if ($scope.project.children.length > 0) {
+				$scope.addEstimatorsRecursiveDescent($scope.project.children[0], addArr);
+			}
 		};
 
 		$scope.addEstimatorsRecursiveDescent = function(node, addArr) {
