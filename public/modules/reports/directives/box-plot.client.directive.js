@@ -112,14 +112,14 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							bar.append('text')         // append text
 						    .style('fill', 'black')   // fill the text with the colour black
 						    .attr('x', 10)           // set x position of left side of text
-						    .attr('y', middleHeight + 5)           // set y position of bottom of text 
+						    .attr('y', middleHeight+5)           // set y position of bottom of text 
 						    .text("Total Units: " + _maxOutlier);
 
-							bar.append('text')         // append text
-							.style('fill', 'black')   // fill the text with the colour black
-							.attr('x', median)           // set x position of left side of text
-							.attr('y', middleHeight + 5)           // set y position of bottom of text 
-							.text("Median: " + parseInt(_median));
+						    bar.append('text')         // append text
+						    .style('fill', 'black')   // fill the text with the colour black
+						    .attr('x', median)           // set x position of left side of text
+						    .attr('y', middleHeight+5)           // set y position of bottom of text 
+						    .text("Median: " + parseInt(_median));
 						};
 
 						//createBox(100, 10, 20, 30, 40, 50);
@@ -199,49 +199,6 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 						scope.data = [];
 						generateReport(project, scope.data, visitRange);
 						generateReport(project, scope.data, visitCalc);
-
-						var visit = function(node, project, data) {
-							for (var i = 0; i < node.estimations.length; ++i) {
-								var estimationMean = parseFloat((parseInt(node.minestimations[i]) + 4 * parseInt(node.estimations[i]) + parseInt(node.maxestimations[i])) / 6).toFixed(2);
-								var stdDeviation = parseFloat((parseInt(node.minestimations[i]) - parseInt(node.maxestimations[i])) / 6).toFixed(2);
-
-								var minOutlier;
-								var minStdDeviation = parseFloat((parseFloat(estimationMean) + parseFloat(stdDeviation)));
-								if (node.minestimations[i] < minStdDeviation) {
-									minOutlier = parseInt(node.minestimations[i]);
-								} else {
-									minOutlier = parseFloat(minStdDeviation);
-								}
-								var maxOutlier;
-								var maxStdDeviation = parseFloat((parseFloat(estimationMean) - parseFloat(stdDeviation)));
-								if (node.maxestimations[i] > maxStdDeviation) {
-									maxOutlier = parseInt(node.maxestimations[i]);
-								} else {
-									maxOutlier = parseFloat(maxStdDeviation);
-								}
-								console.log(40 + '}{' + minOutlier + '}{' + minStdDeviation + '}{' + estimationMean + '}{' + maxStdDeviation + '}{' + maxOutlier);
-								createBox(50, minOutlier, minStdDeviation, estimationMean, maxStdDeviation, maxOutlier);
-							}
-						};
-
-						var traverseTree = function(node, project, data) {
-							if (node === null) {
-								return;
-							}
-							visit(node, project, data);
-							for (var i = 0; i < node.nodes.length; ++i) {
-								traverseTree(node.nodes[i], project, data);
-							}
-						};
-
-						var generateReport = function(project, data) {
-							var projectTree = project.children[0];
-							traverseTree(projectTree, project, data);
-						};
-
-						scope.data = [];
-
-						generateReport(project, scope.data);
 
 						/*
 						var circle = svg.append('circle')
