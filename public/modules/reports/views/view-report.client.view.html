@@ -1,13 +1,5 @@
 <section data-ng-controller="ReportsController" data-ng-init="findOne()">
 	<md-card flex = "100">
-	    <md-toolbar>
-            <div class="md-toolbar-tools">
-            <h2 data-ng-bind="report.name"></h2>
-            <span flex></span>
-           	<p>{{currentNode.title}}</p>
-        	</div>
-        </md-toolbar>
-        <br/>
 		<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == report.user._id))">
 			<a class="btn btn-primary" href="/#!/reports/{{report._id}}/edit">
 				<i class="glyphicon glyphicon-edit"></i>
