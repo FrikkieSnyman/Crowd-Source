@@ -16,8 +16,12 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 						var bodyWidth = body.node().getBoundingClientRect().width;
 						var bodyHeight = 30;
 						var body = d3.select(element[0]);
-						var createBox = function(_range, _minOutlier, _minStdDeviation, _median, _maxStdDeviation, _maxOutlier, rgb) {
+						var createBox = function(_range, _minOutlier, _minStdDeviation, _median, _maxStdDeviation, _maxOutlier, rgb, node) {
 							var strokeWidth = 2;
+
+							var p = body.append('p')
+							.text(node);
+
 							var bar = body.append('svg')
 							.attr('width', bodyWidth + strokeWidth)
 							.attr('height', bodyHeight + strokeWidth);
@@ -95,7 +99,20 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							.style('stroke', 'black');
 
 							/*
-							Creating the
+							Creating the bar
+							*/
+							bar.append('rect')
+							.attr('width', bodyWidth)
+							.attr('height', boxHeight)
+							.attr('x', 0)
+							.attr('y', 0)
+							.attr('rx', 5)
+							.attr('rx', 5)
+							.style('fill', 'grey')
+							.style('stroke', 'black');
+
+							/*
+							Creating the bar
 							*/
 							bar.append('rect')
 							.attr('width', maxOutlier)
@@ -106,12 +123,13 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							.attr('rx', 5)
 							.style('fill', 'rgb(' + (63 - rgb) + ', ' + (81 - rgb) + ',' + (181 - rgb) + ')')
 							.style('stroke', 'black');
-							console.log(rgb);
+							//console.log(rgb);
+							//
 
 							bar.append('text')         // append text
-							.style('fill', 'black')   // fill the text with the colour black
+							.style('fill', 'white')   // fill the text with the colour black
 							.attr('x', 10)           // set x position of left side of text
-							.attr('y', middleHeight + 5)           // set y position of bottom of text 
+							.attr('y', middleHeight + 5)        // set y position of bottom of text 
 							.text('Total Units: ' + _maxOutlier + ', Median: ' + parseInt(_median));
 							/*
 							bar.append('text')         // append text
@@ -177,7 +195,7 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 									maxOutlier = parseFloat(maxStdDeviation);
 								}
 								//console.log(40 + '}{' + minOutlier + '}{' + minStdDeviation + '}{' + estimationMean + '}{' + maxStdDeviation + '}{' + maxOutlier);
-								createBox(maxRange - minRange, minOutlier - minRange, minStdDeviation - minRange, estimationMean - minRange, maxStdDeviation - minRange, maxOutlier - minRange, rgb);
+								createBox(maxRange - minRange, minOutlier - minRange, minStdDeviation - minRange, estimationMean - minRange, maxStdDeviation - minRange, maxOutlier - minRange, rgb, node.title);
 							}
 						};
 
