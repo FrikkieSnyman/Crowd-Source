@@ -81,7 +81,9 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			var remove = [];
 
 			for (var k = 0; k < $scope.project.users.length; ++k) {
-				remove.push(k);
+				if ($scope.project.users[k] !== $scope.project.owner) {
+					remove.push(k);
+				}
 			}
 
 			for (var i = 0; i < $scope.people.length; ++i) {
@@ -117,20 +119,21 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			console.log(remove);
 
 			$scope.removeEstimatorsFromProject(remove);
-			// $scope.addEstimatorsToProject(add);
+			$scope.addEstimatorsToProject(add);
 
 			$scope.saveProject();
 		};
 
 		$scope.removeEstimatorsFromProject = function(removeArr) {
 			for (var i = removeArr.length - 1; i >= 0; --i) {
+				console.log("removing: " + removeArr[i]);
 				$scope.project.users.splice(removeArr[i], 1);
 			}
 			$scope.removeEstimatorsRecursiveDescent($scope.project.children[0], removeArr);
 		};
 
 		$scope.removeEstimatorsRecursiveDescent = function(node, removeArr) {
-			for (var i = node.estimations.length - 1; i >= 0; --i) {
+			for (var i = removeArr.length - 1; i >= 0; --i) {
 				node.estimations.splice(removeArr[i], 1);
 				node.minestimations.splice(removeArr[i], 1);
 				node.maxestimations.splice(removeArr[i], 1);
@@ -143,7 +146,26 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.addEstimatorsToProject = function(addArr) {
+			for (var i = 0; i < addArr.length; ++i) {
+				console.log(i);
+				console.log("adding: ");
+				console.log(addArr[i]);
+				$scope.project.users.push(addArr[i].username);
+			}
+			$scope.addEstimatorsRecursiveDescent($scope.project.children[0], addArr);
+		};
 
+		$scope.addEstimatorsRecursiveDescent = function(node, addArr) {
+			for (var i = 0; i < addArr.length; ++i) {
+				node.estimations.push(null);
+				node.minestimations.push(null);
+				node.maxestimations.push(null);
+			}
+
+			for (var i = 0; i < node.nodes.length; ++i) {
+				console.log("Going deeper");
+				$scope.addEstimatorsRecursiveDescent(node.nodes[i], addArr);
+			}
 		};
 
 		$scope.owner = function() {
