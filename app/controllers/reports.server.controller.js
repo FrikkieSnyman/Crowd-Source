@@ -38,14 +38,8 @@ var traverseTree = function(node, project) {
 
 var generateReport = function(project, res) {
 	var projectTree = project.children[0];
-	string = '';
 	traverseTree(projectTree, project);
-	string = 'TODO';
 	notification.sendReport(string, project, res);
-};
-
-var determineVarianceAndMean = function(project) {
-
 };
 /**
  * Create a Report
@@ -53,7 +47,7 @@ var determineVarianceAndMean = function(project) {
 exports.create = function(req, res) {
 	delete req.body.$promise;
 	delete req.body.$resolved;
-
+	string = 'Visit ' + req.headers.host + '/#!/reports/' + req.body._id + ' to view report';
 	var report = new Report(req.body);
 	generateReport(req.body, res);
 	report.project = req.body;
