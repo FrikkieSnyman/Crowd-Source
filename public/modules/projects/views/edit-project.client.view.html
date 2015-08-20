@@ -1,31 +1,21 @@
 <div ng-controller="ProjectEditController" flex = "100"  data-ng-init="findOne()">
 	<md-card flex>
 		<md-card-content>
-			<div layout="coloum">
-				<md-button class="md-icon-button" aria-label="More" ng-hide="members" ng-click="members = !members">
-					<md-icon md-svg-icon="modules/projects/img/icons/down_arrow.svg"></md-icon>
-				</md-button>
-				<md-button class="md-icon-button" aria-label="More" ng-show="members" ng-click="members = !members">
-					<md-icon md-svg-icon="modules/projects/img/icons/right_arrow.svg"></md-icon>
-				</md-button>
-				<h3>Estimators</h3>
-				<md-button class="md-icon-button" aria-label="More" ng-click = "showAddEstimatorDialogBox($event)">
-					<md-tooltip>
-					  Edit Estimators
-					</md-tooltip>
-					<md-icon md-svg-icon="modules/projects/img/icons/edit.svg"></md-icon>
-				</md-button>
-			</div>
-			<md-list ng-hide="members">
+			<md-input-container flex>
+				<label>Project Description</label>
+				<textarea ng-model="project.description"></textarea>
+			</md-input-container>
+
+			<md-list>
+				<md-subheader class="md-no-sticky">
+					Estimators
+				</md-subheader>
 				<md-list-item ng-repeat="user in project.users" >
 					<p>{{user}}</p>
 				</md-list-item>
 			</md-list>
 
-			<md-input-container flex>
-				<label>Project Description</label>
-				<textarea ng-model="project.description"></textarea>
-			</md-input-container>
+			<md-divider></md-divider>
 
 			<div ui-tree>
 			<!-- Nested node template -->
