@@ -7,16 +7,12 @@
 			</md-input-container>
 
 			<md-list>
-				<md-subheader class="md-no-sticky">
-					Estimators
-				</md-subheader>
-				<md-list-item ng-repeat="user in project.users" >
-					<p>{{user}}</p>
+				<md-list-item ng-click="getUsers()">
+					<p>Estimators</p>
 				</md-list-item>
 			</md-list>
 
 			<md-divider></md-divider>
-			
 
 			<!-- Script for tree creation -->
 			<div ui-tree>
