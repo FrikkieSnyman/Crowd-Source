@@ -7,6 +7,7 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 			link : function(scope, element, attrs) {
 				D3.d3().then(function(d3) {
 					scope.$parent.report.$promise.then(function() {
+						var project = scope.$parent.report.project;
 						// d3 is the raw d3 object
 						var body = d3.select(element[0]).append('p');
 						//.attr('width', 50)
@@ -93,6 +94,49 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 						createBox(100, 10, 20, 30, 40, 50);
 						createBox(100, 20, 30, 40, 50, 60);
 						createBox(200, 30, 40, 50, 60, 70);
+
+						var visit = function(node, project, data) {
+							for (var i = 0; i < node.estimations.length; ++i) {
+								var estimationMean = parseFloat((parseInt(node.minestimations[i]) + 4 * parseInt(node.estimations[i]) + parseInt(node.maxestimations[i])) / 6).toFixed(2);
+								var stdDeviation = parseFloat((parseInt(node.minestimations[i]) - parseInt(node.maxestimations[i])) / 6).toFixed(2);
+
+								var minOutlier;
+								var minStdDeviation = parseFloat((parseFloat(estimationMean) + parseFloat(stdDeviation)));
+								if (node.minestimations[i] < minStdDeviation) {
+									minOutlier = parseInt(node.minestimations[i]);
+								} else {
+									minOutlier = parseFloat(minStdDeviation);
+								}
+								var maxOutlier;
+								var maxStdDeviation = parseFloat((parseFloat(estimationMean) - parseFloat(stdDeviation)));
+								if (node.maxestimations[i] > maxStdDeviation) {
+									maxOutlier = parseInt(node.maxestimations[i]);
+								} else {
+									maxOutlier = parseFloat(maxStdDeviation);
+								}
+								console.log(40 + '}{' + minOutlier + '}{' + minStdDeviation + '}{' + estimationMean + '}{' + maxStdDeviation + '}{' + maxOutlier);
+								createBox(50, minOutlier, minStdDeviation, estimationMean, maxStdDeviation, maxOutlier);
+							}
+						};
+
+						var traverseTree = function(node, project, data) {
+							if (node === null) {
+								return;
+							}
+							visit(node, project, data);
+							for (var i = 0; i < node.nodes.length; ++i) {
+								traverseTree(node.nodes[i], project, data);
+							}
+						};
+
+						var generateReport = function(project, data) {
+							var projectTree = project.children[0];
+							traverseTree(projectTree, project, data);
+						};
+
+						scope.data = [];
+
+						generateReport(project, scope.data);
 
 						/*
 						var circle = svg.append('circle')
