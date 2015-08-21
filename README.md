@@ -1,6 +1,9 @@
 
 # COS301_GroupProject
 
+Sample project can be found at
+http://188.166.89.244
+
 [![Build Status](https://travis-ci.org/FrikkieSnyman/COS301_GroupProject.svg?branch=master)](https://travis-ci.org/FrikkieSnyman/COS301_GroupProject)
 [![Dependency Status](https://gemnasium.com/FrikkieSnyman/COS301_GroupProject.svg)](https://gemnasium.com/FrikkieSnyman/COS301_GroupProject)
 [![Stories in Ready](https://badge.waffle.io/FrikkieSnyman/COS301_GroupProject.png?label=ready&title=Ready)](https://waffle.io/FrikkieSnyman/COS301_GroupProject)
