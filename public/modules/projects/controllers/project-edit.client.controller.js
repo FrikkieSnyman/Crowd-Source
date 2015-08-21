@@ -40,10 +40,10 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				}
 			}
 		};
-
+// method:'POST', url:RESOURCE_DOMAIN +
 		$scope.initUsers = function(scope) {
-			// console.log('Hello: ' + users);
-			$http.get('/users/getUsers').success(function(users) {
+			$http.get(RESOURCE_DOMAIN + '/users/getUsers').success(function(users) {
+			// $http(method:'GET', url:RESOURCE_DOMAIN + '/users/getUsers').success(function(users) {
 				scope.people = [];
 				for (var i in users) {
 					var tempIsEstimator = false;
