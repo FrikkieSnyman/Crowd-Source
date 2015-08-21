@@ -7,6 +7,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 		$scope.goTo = function(route) {
 			$location.path(route);
 		};
+		
 		$scope.owner = function(project) {
 			if (Authentication.user.username === project.owner) {
 				return true;
@@ -14,57 +15,25 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 				return false;
 			}
 		};
+
 		$scope.createProject = function() {
 			//		var project = {'name': $scope.projectName, 'description': $scope.description, 'owner' : Authentication.user, 'users' : $scope.selected};
 			var project = new Projects ({
-			name: $scope.projectName,
-			description: $scope.description,
-			users : $scope.selected
-		});
+				name: $scope.projectName,
+				description: $scope.description,
+				users : $scope.selected
+			});
 			project.$save(function(response) {
-				$location.path('projects/' + project._id + '/edit');
-				$mdToast.show(
-				$mdToast.simple()
-				.content('Project created')
-				.position($scope.getToastPosition())
-				.hideDelay(3000)
-				);
-			}, function(errorResponse) {
-			$scope.error = errorResponse.data.message;
-		});
-			/*
-				$http({method:'POST', url:'/projects', data: project}).success(function(res) {
-					if (res === false) {
-						if (project.owner === '') {
-							$mdToast.show(
-							$mdToast.simple()
-							.content('Need to be logged in to create a project')
-							.position($scope.getToastPosition())
-							.hideDelay(3000)
-							);
-						} else {
-							$mdToast.show(
-							$mdToast.simple()
-							.content('There already exists a project with that name')
-							.position($scope.getToastPosition())
-							.hideDelay(3000)
-							);
-						}
-					} else {
-						var invites = {'projectName': $scope.projectName, 'users': $scope.selected};
-						//$http({method:'POST', url:'/email', data: invites});
-
-						$mdToast.show(
-						$mdToast.simple()
-						.content('Project created')
-						.position($scope.getToastPosition())
-						.hideDelay(3000)
-						);
-
-						$scope.goTo('/project/' + project._id);
-					}
-				});
-*/
+					$location.path('projects/' + project._id + '/edit');
+					$mdToast.show(
+					$mdToast.simple()
+					.content('Project created')
+					.position($scope.getToastPosition())
+					.hideDelay(3000)
+					);
+				}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
 		};
 
 		$scope.deleteProject = function(project) {
@@ -147,6 +116,7 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 		$scope.querySearch = function(query) {
 			//console.log(query);
 			var results = query ? $scope.projects.filter(createFilterFor(query)) : $scope.projects, deferred;
+			var indices = [];
 			return results;
 		};
 
@@ -217,10 +187,6 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 			} else {
 				return true;
 			}
-		};
-
-		$scope.test = function() {
-			console.log('here');
 		};
 	}
 ]);
