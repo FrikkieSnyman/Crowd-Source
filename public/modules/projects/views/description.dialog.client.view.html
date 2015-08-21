@@ -13,7 +13,7 @@
 			<div>
 				<md-input-container flex>
 					<label> Node Description </label>
-					<textarea ng-model="currentNode.description" columns="1" ng-disabled="false" ></textarea> 
+					<textarea ng-model="currentNode.description" columns="1" ng-readonly="isOpenForEstimation()" ng-disabled="false" ></textarea> 
 				</md-input-container>
 				<span flex></span>
 			</div>
@@ -23,7 +23,7 @@
 			<md-button ng-click="cancel()" class="md-primary">
 				Close
 			</md-button>
-			<md-button ng-click="saveProject(); cancel()" class="md-primary">
+			<md-button ng-click="saveProject(); cancel()" ng-show="owner() && !isOpenForEstimation()" class="md-primary">
 				Save
 			</md-button>
 		</div>

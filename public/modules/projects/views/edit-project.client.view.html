@@ -43,7 +43,7 @@
 						<label>Max</label>
 						<input ng-model="node.maxestimations[userIndex]" ng-change="updateLocalTree(this)" ng-readonly = "estimated" required>
 					</md-input-container>
-					<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="showDescriptionDialog($event, node)" ng-show="owner() && !isOpenForEstimation()">
+					<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="showDescriptionDialog($event, node)">
 						<md-tooltip>
 							Edit Description
 						</md-tooltip>
