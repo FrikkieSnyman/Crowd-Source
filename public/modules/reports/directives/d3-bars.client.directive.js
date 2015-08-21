@@ -59,7 +59,6 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 								return;
 							}
 
-							// var width = d3.select("#chart").node().getBoundingClientRect().width
 							var width = d3.select(element[0]).node().offsetWidth - margin;
 
 							var height = scope.data.length * (barHeight + barPadding);
