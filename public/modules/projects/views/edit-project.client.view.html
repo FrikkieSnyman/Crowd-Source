@@ -1,134 +1,96 @@
 <div ng-controller="ProjectEditController" flex = "100"  data-ng-init="findOne()">
-    <md-card flex = "100">
-        <md-toolbar>
-            <div class="md-toolbar-tools">
-              <h2>{{project.name}}</h2>
-              <span flex></span>
-              <p>{{currentNode.title}}</p>
-            </div>
-          </md-toolbar>
-        <br/>
-        <md-content layout-padding class="autoScroll">
-            <md-input-container flex>
-                <label>Project Description</label>
-            <input ng-model="project.description">
-        </md-input-container>
-        <md-divider>
-        </md-divider>
-        <md-content layout = "coloum">
-            <md-button class="md-icon-button" aria-label="More" ng-hide="members" ng-click="members = !members">
-                <md-icon md-svg-icon="modules/projects/img/icons/down_arrow.svg"></md-icon>
-            </md-button>
-            <md-button class="md-icon-button" aria-label="More" ng-show="members" ng-click="members = !members">
-                <md-icon md-svg-icon="modules/projects/img/icons/right_arrow.svg"></md-icon>
-            </md-button>
-            <h3>Project Members</h3>
-            <md-button class="md-icon-button" aria-label="More" ng-click = "getUsers()">
-                <md-tooltip>
-                  Add Member
-                </md-tooltip>
-                <md-icon md-svg-icon="modules/projects/img/icons/add.svg"></md-icon>
-            </md-button>
-        </md-content>
-        <md-list ng-hide="members">
-                <md-list-item ng-repeat="user in project.users" >
-                        <p>{{user}}</p>
-                        <span flex>
-                        </span>
-                        <md-button class="md-icon-button" aria-label="More" ng-click="removeUser(user)">
-                            <md-icon md-svg-icon="modules/projects/img/icons/close.svg"></md-icon>
-                        </md-button>
-                </md-list-item>
-        </md-list>
-        <md-list ng-show="allUsers" ng-hide="members">
-                <md-list-item ng-repeat="user in allUsers" >
-                <p>{{user.email}}</p>
-                <md-button class="md-icon-button" aria-label="More" ng-click="addUser(user);allUsers = !allUsers">
-                     <md-icon md-svg-icon="modules/projects/img/icons/add.svg"></md-icon>
-                </md-button>
-                </md-list-item>
-        </md-list>
-        <md-divider>
-        </md-divider>
-        <div ui-tree>
-        <!-- Nested node template -->
-        <script type="text/ng-template" id="nodes_renderer.html">
-          <div ui-tree-handle class="tree-node tree-node-content" layout = "row">
-            <md-button class="md-icon-button" aria-label="Use Android" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="node.collapsed = !node.collapsed" >
-                <md-tooltip ng-show="!node.collapsed">
-                  Close
-                </md-tooltip>
-                <md-tooltip ng-show="node.collapsed" >
-                  Expand
-                </md-tooltip>
-                <md-icon md-svg-src="modules/projects/img/icons/right_arrow.svg" ng-show="node.collapsed" data-nodrag></md-icon>
-                <md-icon md-svg-src="modules/projects/img/icons/down_arrow.svg" ng-show="!node.collapsed" data-nodrag></md-icon>
-            </md-button>
-            <md-input-container class = "treeInput" flex>
-              <label>Title</label>
-              <input ng-model="node.title">
-            </md-input-container>
-            <md-input-container class = "treeInput" flex ="10" ng-show = "estimator() && isOpenForEstimation()">
-              <label>Min</label>
-              <input ng-model="node.minestimations[userIndex]" ng-change="updateLocalTree(this)" ng-readonly = "estimated" required>
-            </md-input-container>
-            <md-input-container class = "treeInput" flex ="10" ng-show = "estimator() && isOpenForEstimation()">
-              <label>Qty</label>
-              <input ng-model="node.estimations[userIndex]" ng-change="updateLocalTree(this)" ng-readonly = "estimated" required>
-            </md-input-container>
-            <md-input-container class = "treeInput" flex ="10" ng-show = "estimator() && isOpenForEstimation()">
-              <label>Max</label>
-              <input ng-model="node.maxestimations[userIndex]" ng-change="updateLocalTree(this)" ng-readonly = "estimated" required>
-            </md-input-container>
-            <md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="showDescriptionDialog($event, node)" ng-show="owner() && !isOpenForEstimation()">
-                <md-tooltip>
-                    Edit Description
-                </md-tooltip>
-                <md-icon md-svg-src="modules/projects/img/icons/info.svg"></md-icon>
-            </md-button>
-            <md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="undoToolTip(this,removeNode,newSubItem)" ng-show="owner() && !isOpenForEstimation()">
-                <md-tooltip>
-                  Remove
-                </md-tooltip>
-                <md-icon md-svg-src="modules/projects/img/icons/close.svg"></md-icon>
-            </md-button>
-            <md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="newSubItem(this);apply()" ng-show="owner() && !isOpenForEstimation()">
-                <md-tooltip>
-                  Add
-                </md-tooltip>
-                <md-icon  md-svg-src="modules/projects/img/icons/add.svg"></md-icon>
-            </md-button>
-          </div>
-          <ol ui-tree-nodes="" ng-model="node.nodes" ng-show="!node.collapsed">
-            <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
-            </li>
-          </ol>
-        </script>
-        <form name = "estimationForm">
-        <div>
-          <div>
-            <div ui-tree id="tree-root" data-drag-enabled="owner() && !isOpenForEstimation()">
-              <ol ui-tree-nodes ng-model="project.children">
-                <li ng-repeat="node in project.children" ui-tree-node ng-include="'nodes_renderer.html'"></li>
-              </ol>
-            </div>
-          </div>
-        </div>
-        </form>
-        <!-- Nested node template -->
-        <md-content label="row">
-        <md-button class = "md-primary md-raised" ng-click = "saveProject()" ng-show = "owner() && !isOpenForEstimation()">
-            Save Project
-        </md-button>
-        <md-button class = "md-primary md-raised" ng-click = "openForEstimation()" ng-show = "owner() && !isOpenForEstimation()">
-            Open for Estimation
-        </md-button>
-        <md-button class = "md-primary md-raised" ng-click = "addRootNode()" ng-show = "owner() && rootIsEmpty()">
-            Add root node
-        </md-button>
-        <md-button class = "md-primary md-raised" ng-click = "submitEstimation()" ng-show = "!rootIsEmpty() && estimator() && !estimated && isOpenForEstimation()" ng-disabled = "estimationForm.$invalid">
-            Submit estimation
-        </md-button>
-		</md-content>
+	<md-card flex>
+		<md-card-content>
+			<md-input-container flex>
+				<label>Project Description</label>
+				<textarea ng-model="project.description"></textarea>
+			</md-input-container>
+
+			<md-list>
+				<md-list-item ng-click="showAddEstimatorDialogBox()">
+					<p>Estimators</p>
+				</md-list-item>
+			</md-list>
+
+			<md-divider></md-divider>
+
+			<div ui-tree>
+			<script type="text/ng-template" id="nodes_renderer.html">
+				<div ui-tree-handle class="tree-node tree-node-content" layout = "row">
+					<md-button class="md-icon-button" aria-label="Use Android" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="node.collapsed = !node.collapsed" >
+						<md-tooltip ng-show="!node.collapsed">
+							Close
+						</md-tooltip>
+						<md-tooltip ng-show="node.collapsed" >
+							Expand
+						</md-tooltip>
+						<md-icon md-svg-src="modules/projects/img/icons/right_arrow.svg" ng-show="node.collapsed" data-nodrag></md-icon>
+						<md-icon md-svg-src="modules/projects/img/icons/down_arrow.svg" ng-show="!node.collapsed" data-nodrag></md-icon>
+					</md-button>
+					<md-input-container class = "treeInput" flex>
+						<label>Title</label>
+						<input ng-model="node.title">
+					</md-input-container>
+					<md-input-container class = "treeInput" flex ="10" ng-show = "estimator() && isOpenForEstimation()">
+						<label>Min</label>
+						<input ng-model="node.minestimations[userIndex]" ng-change="updateLocalTree(this, node)" ng-readonly = "estimated" ng-disabled="node.nodes.length > 0" required>
+					</md-input-container>
+					<md-input-container class = "treeInput" flex ="10" ng-show = "estimator() && isOpenForEstimation()">
+						<label>Qty</label>
+						<input ng-model="node.estimations[userIndex]" ng-change="updateLocalTree(this, node)" ng-readonly = "estimated" ng-disabled="node.nodes.length > 0" required>
+					</md-input-container>
+					<md-input-container class = "treeInput" flex ="10" ng-show = "estimator() && isOpenForEstimation()">
+						<label>Max</label>
+						<input ng-model="node.maxestimations[userIndex]" ng-change="updateLocalTree(this, node)" ng-readonly = "estimated" ng-disabled="node.nodes.length > 0" required>
+					</md-input-container>
+					<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="showDescriptionDialog($event, node)" ng-show="owner() && !isOpenForEstimation()">
+						<md-tooltip>
+							Edit Description
+						</md-tooltip>
+						<md-icon md-svg-src="modules/projects/img/icons/info.svg"></md-icon>
+					</md-button>
+					<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="undoToolTip(this,removeNode,newSubItem)" ng-show="owner() && !isOpenForEstimation()">
+						<md-tooltip>
+							Remove
+						</md-tooltip>
+						<md-icon md-svg-src="modules/projects/img/icons/close.svg"></md-icon>
+					</md-button>
+					<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="newSubItem(this);apply()" ng-show="owner() && !isOpenForEstimation()">
+						<md-tooltip>
+							Add
+						</md-tooltip>
+						<md-icon md-svg-src="modules/projects/img/icons/add.svg"></md-icon>
+					</md-button>
+				</div>
+				<ol ui-tree-nodes="" ng-model="node.nodes" ng-show="!node.collapsed">
+					<li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+				</ol>
+			</script>
+
+			<form name = "estimationForm">
+				<div>
+					<div ui-tree id="tree-root" data-drag-enabled="owner() && !isOpenForEstimation()">
+						<ol ui-tree-nodes ng-model="project.children">
+							<li ng-repeat="node in project.children" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+						</ol>
+					</div>
+				</div>
+			</form>
+
+			<div label="row">
+				<md-button class = "md-primary" ng-click = "saveProject()" ng-show = "owner() && !isOpenForEstimation()">
+					Save Project
+				</md-button>
+				<md-button class = "md-primary" ng-click = "openForEstimation()" ng-show = "owner() && !isOpenForEstimation()">
+					Open for Estimation
+				</md-button>
+				<md-button class = "md-primary" ng-click = "addRootNode()" ng-show = "owner() && rootIsEmpty()">
+					Add root node
+				</md-button>
+				<md-button class = "md-primary" ng-click = "submitEstimation()" ng-show = "!rootIsEmpty() && estimator() && !estimated && isOpenForEstimation()" ng-disabled = "estimationForm.$invalid">
+					Submit estimation
+				</md-button>
+			</div>
+		</md-card-content>
 	</md-card>
 </div>
