@@ -8,6 +8,28 @@ var mongoose = require('mongoose'),
 	Project = mongoose.model('Project'),
 	_ = require('lodash');
 
+var owner = function(project, req) {
+	var user = req.user;
+	if (user.username === project.owner) {
+		return true;
+	} else {
+		return false;
+	}
+};
+
+var estimator = function(project, req) {
+	var user = req.user.username;
+	for (var i = 0; i < project.users.length; ++i) {
+		if (user === project.users[i]) {
+			return true;
+		}
+	}
+	return false;
+};
+
+var openForEstimation = function(project) {
+	return project.openForEstimation;
+};
 /**
  * Create a Project
  */
@@ -73,6 +95,12 @@ exports.delete = function(req, res) {
  */
 exports.list = function(req, res) {
 	Project.find().sort('name').populate('user', 'displayName').exec(function(err, projects) {
+		for (var i = projects.length - 1; i >= 0; --i) {
+			var tmpProject = projects[i];
+			if (!((owner(tmpProject, req)) || ((estimator(tmpProject, req)) && (openForEstimation(tmpProject))))) {
+				projects.splice(i, 1);
+			}
+		}
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -89,7 +117,7 @@ exports.list = function(req, res) {
 exports.projectByID = function(req, res, next, id) { 
 	Project.findById(id).populate('user', 'displayName').exec(function(err, project) {
 		if (err) return next(err);
-		if (! project) return next(new Error('Failed to load Project ' + id));
+		if (!project) return next(new Error('Failed to load Project ' + id));
 		req.project = project ;
 		next();
 	});
