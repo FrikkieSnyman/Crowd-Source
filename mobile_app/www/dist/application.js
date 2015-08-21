@@ -518,10 +518,10 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				}
 			}
 		};
-
+// method:'POST', url:RESOURCE_DOMAIN +
 		$scope.initUsers = function(scope) {
-			// console.log('Hello: ' + users);
-			$http.get('/users/getUsers').success(function(users) {
+			$http.get(RESOURCE_DOMAIN + '/users/getUsers').success(function(users) {
+			// $http(method:'GET', url:RESOURCE_DOMAIN + '/users/getUsers').success(function(users) {
 				scope.people = [];
 				for (var i in users) {
 					var tempIsEstimator = false;
@@ -1214,8 +1214,8 @@ angular.module('reports').config(['$stateProvider',
 'use strict';
 
 // Reports controller
-angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports', 'Headerpath',
-	function($scope, $stateParams, $location, Authentication, Reports, Headerpath) {
+angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports', 'Headerpath', 'RESOURCE_DOMAIN',
+	function($scope, $stateParams, $location, Authentication, Reports, Headerpath, RESOURCE_DOMAIN) {
 		$scope.authentication = Authentication;
 		$scope.goTo = function(route) {
 			$location.path(route);
