@@ -13,20 +13,37 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 						//.attr('width', 50)
 						//.attr('height', 50);
 						//d3.select("body").node().getBoundingClientRect().width
-						var bodyWidth = body.node().getBoundingClientRect().width;
+						
+
+						
 						var bodyHeight = 30;
 						var body = d3.select(element[0]);
-						var createBox = function(_range, _minOutlier, _minStdDeviation, _median, _maxStdDeviation, _maxOutlier, rgb, node) {
+						
+						// body
+						// .style("color", "green") // make the body green
+						// .transition().duration(10000)
+						// .style("color", "red"); // then transition to red
+						var createBox = function(_range, _minOutlier, _minStdDeviation, _median, _maxStdDeviation, _maxOutlier, rgb, node, level) {
+							var bodyWidth = body.node().getBoundingClientRect().width;
 							var strokeWidth = 2;
-
-							var p = body.append('p')
+							var indentFactor = 20;
+							var offset = level*indentFactor;
+							console.log(level);
+							bodyWidth = bodyWidth - offset;
+							
+							var div =  body.append('div')
+							.attr('width', bodyWidth + strokeWidth)
+							.attr('height', bodyHeight + strokeWidth)
+							.style('padding-left', offset + 'px');;
+							
+							var p = div.append('p')
 							.text(node);
-
-							var bar = body.append('svg')
+							
+							var bar = div.append('svg')
 							.attr('width', bodyWidth + strokeWidth)
 							.attr('height', bodyHeight + strokeWidth);
 
-							var svg = body.append('svg')
+							var svg =div.append('svg')
 							.attr('width', bodyWidth + strokeWidth)
 							.attr('height', bodyHeight + strokeWidth);
 
@@ -77,14 +94,13 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							/*
 							Creating the square
 							 */
-							
 							var box = svg.append('rect')
 							.attr('width', maxStdDeviation - minStdDeviation)
 							.attr('height', boxHeight - strokeWidth)
 							.attr('x', minStdDeviation)
 							.attr('y', (bodyHeight / 2) - (boxHeight / 2))
-							.attr('rx', 5)
-							.attr('rx', 5)
+							.attr('rx', 2)
+							.attr('rx', 2)
 							.style('fill', 'yellow')
 							.style('stroke', 'black');
 
@@ -102,6 +118,8 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							Creating the bar
 							*/
 							bar.append('rect')
+							.attr('width', 0)
+							.transition().duration(2000)
 							.attr('width', bodyWidth)
 							.attr('height', boxHeight)
 							.attr('x', 0)
@@ -115,13 +133,15 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							Creating the bar
 							*/
 							bar.append('rect')
+							.attr('width', 0)
+							.transition().duration(2000)
 							.attr('width', maxOutlier)
 							.attr('height', boxHeight)
 							.attr('x', 0)
 							.attr('y', 0)
 							.attr('rx', 5)
 							.attr('rx', 5)
-							.style('fill', 'rgb(' + (63 - rgb) + ', ' + (81 - rgb) + ',' + (181 - rgb) + ')')
+							.style('fill', 'rgb(' + (63 - rgb) + ', ' + (81 - rgb) + ',' + (181) + ')')
 							.style('stroke', 'black');
 							//console.log(rgb);
 							//
@@ -175,51 +195,71 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							}
 						};
 
-						var visitCalc = function(node, project, data, rgb) {
-							for (var i = 0; i < node.estimations.length; ++i) {
-								var estimationMean = parseFloat((parseInt(node.minestimations[i]) + 4 * parseInt(node.estimations[i]) + parseInt(node.maxestimations[i])) / 6).toFixed(2);
-								var stdDeviation = parseFloat((parseInt(node.minestimations[i]) - parseInt(node.maxestimations[i])) / 6).toFixed(2);
-
-								var minOutlier;
-								var minStdDeviation = parseFloat((parseFloat(estimationMean) + parseFloat(stdDeviation)));
-								if (node.minestimations[i] < minStdDeviation) {
-									minOutlier = parseInt(node.minestimations[i]);
-								} else {
-									minOutlier = parseFloat(minStdDeviation);
-								}
-								var maxOutlier;
-								var maxStdDeviation = parseFloat((parseFloat(estimationMean) - parseFloat(stdDeviation)));
-								if (node.maxestimations[i] > maxStdDeviation) {
-									maxOutlier = parseInt(node.maxestimations[i]);
-								} else {
-									maxOutlier = parseFloat(maxStdDeviation);
-								}
+						var visitCalc = function(node, project, data, rgb, level) {
+							var estimationMean = 0;
+							var stdDeviation = 0;
+							var minOutlier = 0;
+							var minStdDeviation = 0; 
+							var maxOutlier = 0;
+							var maxStdDeviation = 0;
+							var i = 1;
+							var est = 0;
+							var min = 0;
+							var max = 0;
+							for (i = 0; i < node.estimations.length; ++i) {
 								//console.log(40 + '}{' + minOutlier + '}{' + minStdDeviation + '}{' + estimationMean + '}{' + maxStdDeviation + '}{' + maxOutlier);
-								createBox(maxRange - minRange, minOutlier - minRange, minStdDeviation - minRange, estimationMean - minRange, maxStdDeviation - minRange, maxOutlier - minRange, rgb, node.title);
+								est += parseInt(node.estimations[i]);
+								min += parseInt(node.minestimations[i]);
+								max += parseInt(node.maxestimations[i]);
 							}
+							//console.log(est);
+							est = est/i;
+							//console.log(est);
+							min = min/i;
+							max = max/i;
+							
+							estimationMean = parseFloat((parseInt(min) + 4 * parseInt(est) + parseInt(max)) / 6).toFixed(2);
+							//console.log(estimationMean);
+							stdDeviation = parseFloat((parseInt(min) - parseInt(max)) / 6).toFixed(2);
+
+							minStdDeviation = parseFloat((parseFloat(estimationMean) + parseFloat(stdDeviation)));
+							if (min < minStdDeviation) {
+								minOutlier = parseInt(min);
+							} else {
+								minOutlier = parseFloat(minStdDeviation);
+							}
+							
+							maxStdDeviation = parseFloat((parseFloat(estimationMean) - parseFloat(stdDeviation)));
+							if (max > maxStdDeviation) {
+								maxOutlier = parseInt(max);
+							} else {
+								maxOutlier = parseFloat(maxStdDeviation);
+							}
+							//console.log(40 + '}{' + minOutlier + '}{' + minStdDeviation + '}{' + estimationMean + '}{' + maxStdDeviation + '}{' + maxOutlier);
+							createBox(maxRange - minRange, minOutlier - minRange, minStdDeviation - minRange, estimationMean - minRange, maxStdDeviation - minRange, maxOutlier - minRange, rgb, node.title, level);
 						};
 
-						var traverseTree = function(node, project, data, visit, rgb) {
+						var traverseTree = function(node, project, data, visit, rgb, level) {
 							
 							if (node === null) {
 								return;
 							}
-							visit(node, project, data, rgb);
+							visit(node, project, data, rgb,	level);
 							for (var i = 0; i < node.nodes.length; ++i) {
-								traverseTree(node.nodes[i], project, data, visit, rgb);
-								rgb = rgb - 50;
+								traverseTree(node.nodes[i], project, data, visit, rgb - 1, level + 1);
 							}
 						};
 
-						var generateReport = function(project, data , visit, rbg) {
+						var generateReport = function(project, data , visit, rbg, level) {
 							var projectTree = project.children[0];
-							traverseTree(projectTree, project, data, visit , rgb);
+							traverseTree(projectTree, project, data, visit , rgb, level);
 						};
-
+									
 						scope.data = [];
 						generateReport(project, scope.data, visitRange); 
 						var rgb = 0;
-						generateReport(project, scope.data, visitCalc, rgb);
+						var level = 0;
+						generateReport(project, scope.data, visitCalc, rgb, level);
 
 						/*
 						var circle = svg.append('circle')
