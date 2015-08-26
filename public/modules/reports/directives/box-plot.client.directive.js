@@ -14,8 +14,15 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 						//.attr('height', 50);
 						//d3.select("body").node().getBoundingClientRect().width
 						
+
+						
 						var bodyHeight = 30;
 						var body = d3.select(element[0]);
+						
+						// body
+						// .style("color", "green") // make the body green
+						// .transition().duration(10000)
+						// .style("color", "red"); // then transition to red
 						var createBox = function(_range, _minOutlier, _minStdDeviation, _median, _maxStdDeviation, _maxOutlier, rgb, node, level) {
 							var bodyWidth = body.node().getBoundingClientRect().width;
 							var strokeWidth = 2;
@@ -111,6 +118,8 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							Creating the bar
 							*/
 							bar.append('rect')
+							.attr('width', 0)
+							.transition().duration(2000)
 							.attr('width', bodyWidth)
 							.attr('height', boxHeight)
 							.attr('x', 0)
@@ -124,6 +133,8 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							Creating the bar
 							*/
 							bar.append('rect')
+							.attr('width', 0)
+							.transition().duration(2000)
 							.attr('width', maxOutlier)
 							.attr('height', boxHeight)
 							.attr('x', 0)
