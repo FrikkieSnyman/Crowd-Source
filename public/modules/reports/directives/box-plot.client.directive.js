@@ -83,8 +83,8 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							.attr('height', boxHeight - strokeWidth)
 							.attr('x', minStdDeviation)
 							.attr('y', (bodyHeight / 2) - (boxHeight / 2))
-							.attr('rx', 5)
-							.attr('rx', 5)
+							.attr('rx', 2)
+							.attr('rx', 2)
 							.style('fill', 'yellow')
 							.style('stroke', 'black');
 
@@ -176,27 +176,47 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 						};
 
 						var visitCalc = function(node, project, data, rgb) {
-							for (var i = 0; i < node.estimations.length; ++i) {
-								var estimationMean = parseFloat((parseInt(node.minestimations[i]) + 4 * parseInt(node.estimations[i]) + parseInt(node.maxestimations[i])) / 6).toFixed(2);
-								var stdDeviation = parseFloat((parseInt(node.minestimations[i]) - parseInt(node.maxestimations[i])) / 6).toFixed(2);
-
-								var minOutlier;
-								var minStdDeviation = parseFloat((parseFloat(estimationMean) + parseFloat(stdDeviation)));
-								if (node.minestimations[i] < minStdDeviation) {
-									minOutlier = parseInt(node.minestimations[i]);
-								} else {
-									minOutlier = parseFloat(minStdDeviation);
-								}
-								var maxOutlier;
-								var maxStdDeviation = parseFloat((parseFloat(estimationMean) - parseFloat(stdDeviation)));
-								if (node.maxestimations[i] > maxStdDeviation) {
-									maxOutlier = parseInt(node.maxestimations[i]);
-								} else {
-									maxOutlier = parseFloat(maxStdDeviation);
-								}
+							var estimationMean = 0;
+							var stdDeviation = 0;
+							var minOutlier = 0;
+							var minStdDeviation = 0; 
+							var maxOutlier = 0;
+							var maxStdDeviation = 0;
+							var i = 1;
+							var est = 0;
+							var min = 0;
+							var max = 0;
+							for (i = 0; i < node.estimations.length; ++i) {
 								//console.log(40 + '}{' + minOutlier + '}{' + minStdDeviation + '}{' + estimationMean + '}{' + maxStdDeviation + '}{' + maxOutlier);
-								createBox(maxRange - minRange, minOutlier - minRange, minStdDeviation - minRange, estimationMean - minRange, maxStdDeviation - minRange, maxOutlier - minRange, rgb, node.title);
+								est += parseInt(node.estimations[i]);
+								min += parseInt(node.minestimations[i]);
+								max += parseInt(node.maxestimations[i]);
 							}
+							//console.log(est);
+							est = est/i;
+							//console.log(est);
+							min = min/i;
+							max = max/i;
+							
+							estimationMean = parseFloat((parseInt(min) + 4 * parseInt(est) + parseInt(max)) / 6).toFixed(2);
+							//console.log(estimationMean);
+							stdDeviation = parseFloat((parseInt(min) - parseInt(max)) / 6).toFixed(2);
+
+							minStdDeviation = parseFloat((parseFloat(estimationMean) + parseFloat(stdDeviation)));
+							if (min < minStdDeviation) {
+								minOutlier = parseInt(min);
+							} else {
+								minOutlier = parseFloat(minStdDeviation);
+							}
+							
+							maxStdDeviation = parseFloat((parseFloat(estimationMean) - parseFloat(stdDeviation)));
+							if (max > maxStdDeviation) {
+								maxOutlier = parseInt(max);
+							} else {
+								maxOutlier = parseFloat(maxStdDeviation);
+							}
+							//console.log(40 + '}{' + minOutlier + '}{' + minStdDeviation + '}{' + estimationMean + '}{' + maxStdDeviation + '}{' + maxOutlier);
+							createBox(maxRange - minRange, minOutlier - minRange, minStdDeviation - minRange, estimationMean - minRange, maxStdDeviation - minRange, maxOutlier - minRange, rgb, node.title);
 						};
 
 						var traverseTree = function(node, project, data, visit, rgb) {
@@ -215,7 +235,7 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							var projectTree = project.children[0];
 							traverseTree(projectTree, project, data, visit , rgb);
 						};
-
+									
 						scope.data = [];
 						generateReport(project, scope.data, visitRange); 
 						var rgb = 0;
