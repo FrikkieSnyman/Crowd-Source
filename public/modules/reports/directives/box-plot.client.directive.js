@@ -13,20 +13,30 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 						//.attr('width', 50)
 						//.attr('height', 50);
 						//d3.select("body").node().getBoundingClientRect().width
-						var bodyWidth = body.node().getBoundingClientRect().width;
+						
 						var bodyHeight = 30;
 						var body = d3.select(element[0]);
-						var createBox = function(_range, _minOutlier, _minStdDeviation, _median, _maxStdDeviation, _maxOutlier, rgb, node) {
+						var createBox = function(_range, _minOutlier, _minStdDeviation, _median, _maxStdDeviation, _maxOutlier, rgb, node, level) {
+							var bodyWidth = body.node().getBoundingClientRect().width;
 							var strokeWidth = 2;
-
-							var p = body.append('p')
+							var indentFactor = 20;
+							var offset = level*indentFactor;
+							console.log(level);
+							bodyWidth = bodyWidth - offset;
+							
+							var div =  body.append('div')
+							.attr('width', bodyWidth + strokeWidth)
+							.attr('height', bodyHeight + strokeWidth)
+							.style('padding-left', offset + 'px');;
+							
+							var p = div.append('p')
 							.text(node);
-
-							var bar = body.append('svg')
+							
+							var bar = div.append('svg')
 							.attr('width', bodyWidth + strokeWidth)
 							.attr('height', bodyHeight + strokeWidth);
 
-							var svg = body.append('svg')
+							var svg =div.append('svg')
 							.attr('width', bodyWidth + strokeWidth)
 							.attr('height', bodyHeight + strokeWidth);
 
@@ -77,7 +87,6 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							/*
 							Creating the square
 							 */
-							
 							var box = svg.append('rect')
 							.attr('width', maxStdDeviation - minStdDeviation)
 							.attr('height', boxHeight - strokeWidth)
@@ -175,7 +184,7 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							}
 						};
 
-						var visitCalc = function(node, project, data, rgb) {
+						var visitCalc = function(node, project, data, rgb, level) {
 							var estimationMean = 0;
 							var stdDeviation = 0;
 							var minOutlier = 0;
@@ -216,30 +225,30 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 								maxOutlier = parseFloat(maxStdDeviation);
 							}
 							//console.log(40 + '}{' + minOutlier + '}{' + minStdDeviation + '}{' + estimationMean + '}{' + maxStdDeviation + '}{' + maxOutlier);
-							createBox(maxRange - minRange, minOutlier - minRange, minStdDeviation - minRange, estimationMean - minRange, maxStdDeviation - minRange, maxOutlier - minRange, rgb, node.title);
+							createBox(maxRange - minRange, minOutlier - minRange, minStdDeviation - minRange, estimationMean - minRange, maxStdDeviation - minRange, maxOutlier - minRange, rgb, node.title, level);
 						};
 
-						var traverseTree = function(node, project, data, visit, rgb) {
+						var traverseTree = function(node, project, data, visit, rgb, level) {
 							
 							if (node === null) {
 								return;
 							}
-							visit(node, project, data, rgb);
+							visit(node, project, data, rgb,	level);
 							for (var i = 0; i < node.nodes.length; ++i) {
-								traverseTree(node.nodes[i], project, data, visit, rgb);
-								rgb = rgb - 50;
+								traverseTree(node.nodes[i], project, data, visit, rgb - 50, level + 1);
 							}
 						};
 
-						var generateReport = function(project, data , visit, rbg) {
+						var generateReport = function(project, data , visit, rbg, level) {
 							var projectTree = project.children[0];
-							traverseTree(projectTree, project, data, visit , rgb);
+							traverseTree(projectTree, project, data, visit , rgb, level);
 						};
 									
 						scope.data = [];
 						generateReport(project, scope.data, visitRange); 
 						var rgb = 0;
-						generateReport(project, scope.data, visitCalc, rgb);
+						var level = 0;
+						generateReport(project, scope.data, visitCalc, rgb, level);
 
 						/*
 						var circle = svg.append('circle')
