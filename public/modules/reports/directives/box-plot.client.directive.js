@@ -130,7 +130,7 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							.attr('y', 0)
 							.attr('rx', 5)
 							.attr('rx', 5)
-							.style('fill', 'rgb(' + (63 - rgb) + ', ' + (81 - rgb) + ',' + (181 - rgb) + ')')
+							.style('fill', 'rgb(' + (63 - rgb) + ', ' + (81 - rgb) + ',' + (181) + ')')
 							.style('stroke', 'black');
 							//console.log(rgb);
 							//
@@ -235,7 +235,7 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							}
 							visit(node, project, data, rgb,	level);
 							for (var i = 0; i < node.nodes.length; ++i) {
-								traverseTree(node.nodes[i], project, data, visit, rgb - 50, level + 1);
+								traverseTree(node.nodes[i], project, data, visit, rgb - 1, level + 1);
 							}
 						};
 
