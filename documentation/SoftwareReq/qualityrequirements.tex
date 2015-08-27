@@ -2,26 +2,105 @@
 \subsubsection{Critical}
 	{\bfseries Flexibility:}
 	The client plans on expanding the system if it is successfully deployed within the company and it improves their experience with regards to making estimations for internal projects. The client should have the ability to develop plug-ins to expand the functionality of the system e.g. artificial intelligence, more parameters for estimation, more detailed creation of project tree etc.
-	\\ \\
+	% \\ \\
+		\begin{itemize}
+			\item{\bfseries Contracts Based Development:}
+				Contracts will be enforced across services as well as data structure constraints.
+			\item{\bfseries Support Plug-in Framework:}
+				This will allow additional functionality to easily be added into the system
+			\item{\bfseries Database Abstraction:}
+				The system will provide a database abstraction layer.
+		\end{itemize}
+		\begin{center}
+		\line(1, 0){250}
+		\end{center}
 	{\bfseries Usability:}
 	Usability is important since the process of making estimations should not be cumbersome and frustrating for the users. The system is meant to improve the process of making estimations and user experience is very important to ensure that users give the correct-, honest estimations without rushing the process, because it's tedious, and possibly affecting the outcome of the estimation decisions.
-	\\ \\
+	% \\ \\
+		\begin{itemize}
+			\item{\bfseries Templating:}
+				Templates will be used to address usability by providing a consistent UI.
+			\item{\bfseries UI Components Framework:}
+				The system will make use of rich dynamic JavaScript libraries in order to provide improved the usability of the system.
+			\item{\bfseries Off-load Rendering Responsibilities to Client:}
+				Rendering of pages will be handled on the client side.
+		\end{itemize}
+		\begin{center}
+		\line(1, 0){250}
+		\end{center}
 	{\bfseries Reliability:}
 	The system must be produced to be reliable, so that the client always has a reference to estimations made, without being concerned whether the system is running or not. The system needs to be reliable since the access to the data and results will be sporadic and can occur at almost any time.
-	\\ \\
+	% \\ \\
+	% \begin{itemize}
+	% \end{itemize}
+	\begin{center}
+	\line(1, 0){250}
+	\end{center}
 	{\bfseries Integrability:}
 	The system should be integrable with other systems in the future therefore the system will need to make use of standard protocols.
-	\\ \\
+	% \\ \\
+		\begin{itemize}
+			\item{\bfseries REST Web-services:}
+				To address integrability RESTful web services will be employed in the system, with the request and result objects encoded in JSON. This will allow for easier development of multiple clients as well as allow other systems to use the provided services.
+		\end{itemize}
+		\begin{center}
+		\line(1, 0){250}
+		\end{center}
 	{\bfseries Maintainability:}
 	The client wants to improve the system and continue development on the system. This requires the system to be maintainable, to enable the client to easily integrate new functionality and code. Maintainability is coupled with the flexibility and testability of the system.
+		\begin{itemize}
+			\item{\bfseries Minimize Technology suite:}
+				A minimal suite of technologies will be used to improve the maintainability of the system as well as minimize the complexity of the system and reduce the chance of interference of between technologies.
+			\item{\bfseries Automated Persistence Mapping:}
+				Automated persistence mapping will be used simplify the replacement of persistence technologies, reduce code bulk and also to avoid polluting application logic with persistence logic.
+			\item{\bfseries Templating:}
+				To provide a consistent UI experience and standard.
+			\item{\bfseries UI Components Framework:}
+				The system will make use of rich dynamic JavaScript libraries.
+		\end{itemize}
+		\begin{center}
+		\line(1, 0){250}
+		\end{center}
 \subsubsection{Important}
 	{\bfseries Scalability:}
 	The client does not require the system to be used by a large amount of people at the same time. According to the requirements of the client at most ten people will be making estimations at the same time, but because we plan on making the system open-source scalability should be kept in mind such that the system will be somewhat scalable.
-	\\ \\
+	% \\ \\
+		\begin{itemize}
+			\item{\bfseries Caching:}
+				Caching of resources will be used.
+			\item{\bfseries Connection pooling:}
+				Database connection pooling will be used to address scalability by reusing resources.
+			\item{\bfseries Asynchronous Processing:}
+				To address scalability the system will make use of asynchronous processing to avoid having to wait for for certain non-critical time consuming tasks to be completed whilst other more important requests are being made.
+		\end{itemize}
+		\begin{center}
+		\line(1, 0){250}
+		\end{center}
 	{\bfseries Auditability:}
 	The client wants to see which team member has made estimations and what their estimations were, this is important to help manage the contributions and view (possibly discussing) the confidence levels of specific team members' estimations.
-	\\ \\
+	% \\ \\
+	\begin{itemize}
+		\item{\bfseries Logging:}
+			Logging will be used to capture audit data for the system.
+	\end{itemize}
+	\begin{center}
+	\line(1, 0){250}
+	\end{center}
 	{\bfseries Testability:}
 	This is an important quality for the system to have with regards to the flexibility of the system. This quality will improve the flexibility of the system for easy integration of new modules and functionality by allowing features to be tested.
+		\begin{itemize}
+			\item{\bfseries Development Framework:}
+				The framework being used includes many testing suites that allow effortless testing of modules.
+		\end{itemize}
+		\begin{center}
+		\line(1, 0){250}
+		\end{center}
 \subsubsection{Nice to have}
 	{\bfseries Deployability:} The system should be deployable on Linux, the estimation should be persisted to a database and it should authenticate the user by querying a repository provided by the client.
+		\begin{itemize}
+			\item{\bfseries Database Abstraction:}
+				The system will provide a database abstraction layer.
+		\end{itemize}
+		\begin{center}
+		\line(1, 0){250}
+		\end{center}
