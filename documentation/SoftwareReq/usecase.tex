@@ -105,17 +105,17 @@ Users with sufficient privileges can retrieve projects to view them, or to be us
    	\end{figure}
 \end{itemize}
 
-\paragraph{Hide project}
-Projects can be effectively deleted by hiding them, seeing as projects are not physically removed from the database. This action can only be done by authorised user.
+\paragraph{Delete project}
+Projects can be removed from the database entirely by deleting them. This action can only be done by authorised user such as the owner of a project.
 
 \begin{itemize}
 	\item Services contract:\\ \\
-	The hideProjectRequest contains a reference to the Project that must be hidden, which can be obtained by calling the getProject function.
+	The deleteProjectRequest contains a reference to the Project that must be deleted, which can be obtained by calling the getProject function.
 	\begin{figure}[H]
     	\centering
-    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContracthideProject}}
-    	\caption{hideProject services contract}
-    	\label{fig:hideProject_services_contract}
+    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractDeleteProject}}
+    	\caption{deleteProject services contract}
+    	\label{fig:deleteProject_services_contract}
    	\end{figure}
 \end{itemize}
 
@@ -156,6 +156,7 @@ The domain model for the Project module requires that tasks being created and ad
 	\caption{Project domain model}
 	\label{fig:Project_domain_model}
 \end{figure}
+
 %============================
 %Estimation
 %============================
@@ -198,6 +199,20 @@ The domain model for the Project module requires that tasks being created and ad
 	    	\caption{Estimation Domain}
 	    	\label{fig:Estimation_Domain.png}
    	\end{figure}
+
+\paragraph{Add/Remove estimators - priority: critical}
+Users with sufficient privileges can edit the estimators of a project. The changes to the estimators will then be propogated through the project tree and persisted to the database if the user chooses so.
+
+\begin{itemize}
+	\item Services contract:\\ \\
+	The user will be provided with a list of the current estimators as well as a list of possible estimators. The user will choose which estimators to add or remove.
+	\begin{figure}[H]
+    	\centering
+    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractcreateProject}}
+    	\caption{createProject services contract}
+    	\label{fig:addremove_estimators_services_contract}
+   	\end{figure}
+\end{itemize}
 
 %============================
 %Report
