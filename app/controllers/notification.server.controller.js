@@ -20,47 +20,56 @@ exports.sendInvites = function(req, res, next) {
 			});
 		} else {
 			var userName;
+			
+			var funcDone = function(user, done) {
+				res.render('templates/invite-email', {
+					name: user.displayName,
+					//name: 'No_Name',
+					appName: config.app.title,
+					projectName: project.name,
+					url: 'http://' + req.headers.host + '/#!/projects/' + project._id + '/edit'
+				}, function(err, emailHTML) {
+					done(err, emailHTML, user);
+				});
+			};
+			
+			var funcEmail = function(emailHTML, user, done) {
+				var smtpTransport = nodemailer.createTransport(config.mailer.options);
+				var mailOptions = {
+					to: user.email,
+					from: config.mailer.from,
+					subject: 'Estimation Invite',
+					html: emailHTML
+				};
+				smtpTransport.sendMail(mailOptions, function(err) {
+					if (!err) {
+						console.log('No Error.');
+					}
+
+					done(err, user);
+				});
+			};
+			
+			var funcError = function(err) {
+				if (err) {
+					return next(err);
+				}
+			};
+			
+			var funcPromise = function(err, user) {
+				if (!err) {
+					async.waterfall([
+						async.apply(funcDone,user),
+						// If valid email, send reset email using service
+						funcEmail
+					],funcError );
+				}
+			};
 
 			for (var i = project.users.length - 1; i >= 0; i--) {
 				userName = project.users[i];
 
-				User.findOne({username: userName}, function(err, user) {
-					if (!err) {
-						async.waterfall([
-							function(done) {
-								res.render('templates/invite-email', {
-									name: user.displayName,
-									appName: config.app.title,
-									projectName: project.name,
-									url: 'http://' + req.headers.host + '/#!/projects/' + project._id + '/edit'
-								}, function(err, emailHTML) {
-									done(err, emailHTML, user);
-								});
-							},
-							// If valid email, send reset email using service
-							function(emailHTML, user, done) {
-								var smtpTransport = nodemailer.createTransport(config.mailer.options);
-								var mailOptions = {
-									to: user.email,
-									from: config.mailer.from,
-									subject: 'Estimation Invite',
-									html: emailHTML
-								};
-								smtpTransport.sendMail(mailOptions, function(err) {
-									if (!err) {
-										console.log('No Error.');
-									}
-
-									done(err);
-								});
-							}
-						], function(err) {
-							if (err) {
-								return next(err);
-							}
-						});
-					}
-				});
+				User.findOne({username: userName}, funcPromise);
 			}
 		}
 	});

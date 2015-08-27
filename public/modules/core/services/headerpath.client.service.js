@@ -5,9 +5,9 @@ angular.module('core').factory('Headerpath', [
 		// Headerpath service logic
 		// ...
 		var paths = {
-			project: "",
-			report: ""
-		}
+			project: '',
+			report: ''
+		};
 
 		// Public API
 		return {
@@ -15,7 +15,7 @@ angular.module('core').factory('Headerpath', [
 				paths.project = path;
 			},
 			setReportPath: function(path) {
-				paths.report = path
+				paths.report = path;
 			},
 			getProjectPath: function() {
 				return paths.project;
