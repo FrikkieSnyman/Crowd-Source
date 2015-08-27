@@ -15,7 +15,7 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 		});
 
 		var buildSelectedArray = function() {
-			var selected = []
+			var selected = [];
 
 			for (var i in $scope.people) {
 				if ($scope.people[i].selected) {
@@ -24,7 +24,7 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 			}
 
 			return selected;
-		}
+		};
 
 		$scope.createProject = function() {
 			//		var project = {'name': $scope.projectName, 'description': $scope.description, 'owner' : Authentication.user, 'users' : $scope.selected};

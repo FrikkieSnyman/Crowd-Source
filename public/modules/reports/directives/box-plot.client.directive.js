@@ -13,12 +13,11 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 						//.attr('width', 50)
 						//.attr('height', 50);
 						//d3.select("body").node().getBoundingClientRect().width
-						
-
-						
+												
 						var bodyHeight = 30;
-						var body = d3.select(element[0]);
-						
+						body = d3.select(element[0]);
+					
+
 						// body
 						// .style("color", "green") // make the body green
 						// .transition().duration(10000)
@@ -34,7 +33,7 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							var div =  body.append('div')
 							.attr('width', bodyWidth + strokeWidth)
 							.attr('height', bodyHeight + strokeWidth)
-							.style('padding-left', offset + 'px');;
+							.style('padding-left', offset + 'px');
 							
 							var p = div.append('p')
 							.text(node);
@@ -51,7 +50,7 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							var middleWidht = (bodyWidth / 2);
 							var range = _range;
 							var ratio = parseInt(bodyWidth / range);
-							var strokeWidth = 2;
+							strokeWidth = 2;
 							var minOutlier = _minOutlier * ratio;
 							var minStdDeviation = _minStdDeviation * ratio;
 							var median = _median * ratio;
