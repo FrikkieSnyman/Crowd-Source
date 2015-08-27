@@ -8,7 +8,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 		if ($scope.authentication.user) $location.path('/');
 
 		$scope.signup = function() {
-			if ($scope.confirmationPassword == $scope.credentials.password) {
+			if ($scope.confirmationPassword === $scope.credentials.password) {
 				$http.post(RESOURCE_DOMAIN + '/auth/signup', $scope.credentials).success(function(response) {
 				// If successful we assign the response to the global user model
 				$scope.authentication.user = response;
@@ -22,7 +22,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				$scope.error = response.message;
 			});
 			} else {
-				$scope.error = "Your passwords do not match";
+				$scope.error = 'Your passwords do not match';
 			}
 		};
 
