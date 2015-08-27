@@ -2,7 +2,7 @@
 %User Management
 %============================
 \subsection{User Management}
-This module is responsible for reading data from the client's user database. It will do this by making use of ldap.js. The module will log a user into the system, given the correct credentials. This system will provide an authorization interface to other modules, to see if user with a given userID has the needed privileges. This module will also give an interface to other modules, to retrieve the user's details, given the user's userID. 
+This module is responsible for reading data from the client's user database. It will do this by making use of passport.js. The module will log a user into the system, given the correct credentials. This system will provide an authorization interface to other modules, to see if user with a given userID has the needed privileges. This module will also give an interface to other modules, to retrieve the user's details, given the user's userID. 
 
 \subsubsection{Scope}
 The scope of the Project module is shown in the figure below:
@@ -52,6 +52,10 @@ This will get the details from the both the external and internal databases, to 
     	\caption{RetrieveUserDetails services contract}
     	\label{fig:RetrieveUserDetails_services_contract}
    	\end{figure}
+\end{itemize}
+
+\paragraph{register - priority: important}
+	Reigstrations of users are being handled by passport.js. This functionality is based on the strategy used for usermanagement, seeing as it will be unavailable if the LDAP strategy is used with passport.js.
 \end{itemize}
 
 \subsubsection{Domain model}
