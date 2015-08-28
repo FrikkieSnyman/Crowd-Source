@@ -242,7 +242,22 @@ The domain model for the Project module requires that tasks being created and ad
 	    	\label{fig:closeEstimationServicesContract}
 	   	\end{figure}
 
-	\end{itemize}	
+	\end{itemize}
+
+	\paragraph{persistEstimation- priority: critical}
+	This function will be called by closeEstimation, which then persists the estimation to the database.
+
+	\begin{itemize}
+		\item Services contract:\\ \\
+		The persistEstimationRequest contains the project that must be closed.
+		\begin{figure}[H]
+	    	\centering
+	    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractPersistEstimation}}
+	    	\caption{persistEstimation services contract}
+	    	\label{fig:persistEstimationServicesContract}
+	   	\end{figure}
+
+	\end{itemize}
 
 
 \subsubsection{Domain model}
