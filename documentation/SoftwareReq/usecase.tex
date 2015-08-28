@@ -157,18 +157,21 @@ The domain model for the Project module requires that tasks being created and ad
 	    	\label{fig:Estimation_Scope}
    	\end{figure}
 \subsubsection{Use cases}
+
+
 	\paragraph{openEstimation- priority: critical}
-	This enables users to reopen projects for other users to estimate. The reason for this is to control when another user sees the project in his/her projects list and is able to estimate on the project for another round.
+	This enables users to publish projects for other users to estimate. The reason for this is to control when another user sees the project in his/her projects list and is able to estimate on the project.
 
 	\begin{itemize}
 		\item Services contract:\\ \\
-		The reopenEstimationRequest will simply contain the userID of the person publishing the project as well as the projectID of the project being published.
+		The OpenEstimationRequest will simply contain the userID of the person publishing the project as well as the projectID of the project being published. The openEstimationResult will contain minimal information, possibly only whether the publish was successfull.
 		\begin{figure}[H]
 	    	\centering
 	    	\fbox{\includegraphics[width=1.0\textwidth]{publishProject}}
 	    	\caption{openEstimation services contract}
 	    	\label{fig:publishProject}
 	   	\end{figure}
+
 	\end{itemize}
 
 
@@ -210,12 +213,14 @@ The domain model for the Project module requires that tasks being created and ad
 	   	\end{figure}
 	\end{itemize}
 
+
 	\paragraph{reopenEstimation- priority: critical}
-	This enables users to publish projects for other users to estimate. The reason for this is to control when another user sees the project in his/her projects list and is able to estimate on the project.
+	This enables users to reopen projects for other users to estimate. The reason for this is to control when another user sees the project in his/her projects list and is able to estimate on the project for another round.
 
 	\begin{itemize}
 		\item Services contract:\\ \\
-		The OpenEstimationRequest will simply contain the userID of the person publishing the project as well as the projectID of the project being published. The openEstimationResult will contain minimal information, possibly only whether the publish was successfull.
+		The reopenEstimationRequest will simply contain the userID of the person publishing the project as well as the projectID of the project being published.
+		
 		\begin{figure}[H]
 	    	\centering
 	    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractReopenEstimation}}
@@ -223,6 +228,22 @@ The domain model for the Project module requires that tasks being created and ad
 	    	\label{fig:publishProject}
 	   	\end{figure}
 	\end{itemize}
+
+	\paragraph{closeEstimation- priority: critical}
+	Once all estimators have completed estimation, this function should fire automatically, so that no more further estimation can be done on the project until the owner decides to reopen estimation.
+
+	\begin{itemize}
+		\item Services contract:\\ \\
+		The closeEstimationRequest contains the project that must be closed.
+		\begin{figure}[H]
+	    	\centering
+	    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractCloseEstimation}}
+	    	\caption{closeEstimation services contract}
+	    	\label{fig:closeEstimationServicesContract}
+	   	\end{figure}
+
+	\end{itemize}	
+
 
 \subsubsection{Domain model}
 	\begin{figure}[H]
