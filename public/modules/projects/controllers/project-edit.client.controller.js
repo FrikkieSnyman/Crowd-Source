@@ -398,14 +398,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			var count = $scope.userIndex;
 			var currnode = $scope.project.children[0];
 			var result;
-			// console.log("User index: " + count);
-			// if (node.estimations[count] === null || node.estimations[count] == undefined) {
-			// 	node.userEdited[count] = false;
-			// }
-			// else {
-			// 	node.userEdited = true;
-			// }
-			
 			$scope.getEstimation(currnode, count, function(/*res*/) {
 				// result = res;
 			});
@@ -414,6 +406,14 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		var minMaxDefaultRange = 2;
 		$scope.getEstimation = function(node, userNum, callback) {
 			if (node.nodes.length <= 0) {
+				if (node.estimations[userNum] !== null && node.minestimations[userNum] === null) {
+					node.minestimations[userNum] = (node.estimations[userNum] - minMaxDefaultRange > 0) ? node.estimations[userNum] - minMaxDefaultRange : 0;
+				}
+
+				if (node.estimations[userNum] !== null && node.maxestimations[userNum] === null) {
+					node.maxestimations[userNum] = ((node.estimations[userNum] - 1 + 1) + (minMaxDefaultRange/* - 1 + 1*/) > 0) ? (node.estimations[userNum] - 1 + 1) + (minMaxDefaultRange/* - 1 + 1*/) : 0;
+				}
+
 				callback(node.estimations[userNum], node.minestimations[userNum], node.maxestimations[userNum]);
 			} else {
 				node.estimations[userNum] = null;
