@@ -9,7 +9,6 @@ angular.module('reports').directive('treePlot', ['D3', '$window',
 				D3.d3().then(function(d3) {
 					scope.$parent.report.$promise.then(function() {
 						var project = scope.$parent.report.project;
-						var p = d3.select(element[0]).append('p').text("Hello frikkie");
 						
 						var margin = {top: 20, right: 120, bottom: 20, left: 120},
 							width = 960 - margin.right - margin.left,
@@ -38,12 +37,15 @@ angular.module('reports').directive('treePlot', ['D3', '$window',
 						root.y0 = 0;
 					
 						function collapse(d) {
+							if(d.nodes)
+							{
+								d.children = d.nodes;
+							}
 							if (d.children) {
-							d.children = d.nodes;
-							d.name = d.title;
-							d._children = d.children;
-							d._children.forEach(collapse);
-							d.children = null;
+								d.name = d.title;
+								d._children = d.children;
+								d._children.forEach(collapse);
+								d.children = null;
 							}
 						}
 					
@@ -59,7 +61,20 @@ angular.module('reports').directive('treePlot', ['D3', '$window',
 							links = tree.links(nodes);
 						
 						// Normalize for fixed-depth.
-						nodes.forEach(function(d) { d.y = d.depth * 180; });
+						nodes.forEach(function(d) { //iterate through the nodes
+							if(d.parent != null){ //if the node has a parent
+								for(var i = 0; i < d.parent.children.length; i++){ //check parent children
+									if(d.parent.children[i].name == d.name){ //find current node
+										d.downset = i + 1; //index is how far node must be moved down
+									}
+								}
+								d.parentDownset = d.parent.downset; //must also account for parent downset
+							}
+							if(d.downset == null){ d.downset = 0; }
+							if(d.parentDownset == null){ d.parentDownset = 0; }
+							d.x = (d.downset * 40) + (d.parentDownset * 40) + 30;
+							d.y = d.depth * 180;
+						});
 						
 						// Update the nodes…
 						var node = svg.selectAll("g.node")
