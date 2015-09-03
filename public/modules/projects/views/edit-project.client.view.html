@@ -33,15 +33,15 @@
 					</md-input-container>
 					<md-input-container class = "treeInput" flex ="10" ng-show = "estimator() && isOpenForEstimation()">
 						<label>Min</label>
-						<input type="number" ng-model="node.minestimations[userIndex]" ng-change="updateLocalTree(this, node)" ng-readonly = "estimated" ng-disabled="node.nodes.length > 0" required>
+						<input type="number" ng-model="node.minestimations[userIndex]" ng-change="updateLocalTree(this, node)" ng-readonly = "estimated" ng-disabled="node.nodes.length > 0" min="0" max="{{node.estimations[userIndex]}}" required>
 					</md-input-container>
 					<md-input-container class = "treeInput" flex ="10" ng-show = "estimator() && isOpenForEstimation()">
 						<label>Qty</label>
-						<input type="number" ng-model="node.estimations[userIndex]" ng-change="updateLocalTree(this, node)" ng-readonly = "estimated" ng-disabled="node.nodes.length > 0" required>
+						<input type="number" ng-model="node.estimations[userIndex]" ng-change="updateLocalTree(this, node)" ng-readonly = "estimated" ng-disabled="node.nodes.length > 0" min="0" required>
 					</md-input-container>
 					<md-input-container class = "treeInput" flex ="10" ng-show = "estimator() && isOpenForEstimation()">
 						<label>Max</label>
-						<input type="number" ng-model="node.maxestimations[userIndex]" ng-change="updateLocalTree(this, node)" ng-readonly = "estimated" ng-disabled="node.nodes.length > 0" required>
+						<input type="number" ng-model="node.maxestimations[userIndex]" ng-change="updateLocalTree(this, node)" ng-readonly = "estimated" ng-disabled="node.nodes.length > 0" min="{{ (node.estimations[userIndex] === null) ? 0 : node.estimations[userIndex] }}" required>
 					</md-input-container>
 					<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="showDescriptionDialog($event, node)" ng-show="owner() && !isOpenForEstimation()">
 						<md-tooltip>

@@ -398,17 +398,14 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			var count = $scope.userIndex;
 			var currnode = $scope.project.children[0];
 			var result;
-			console.log("User index: " + count);
-			if (node.estimations[count] === null || node.estimations[count] == undefined) {
-				node.userEdited[count] = false;
-			}
-			else {
-				node.userEdited = true;
-			}
-
-			console.log("estimations: " + node.estimations[count]);
-			console.log("user edited: " + node.userEdited);
-
+			// console.log("User index: " + count);
+			// if (node.estimations[count] === null || node.estimations[count] == undefined) {
+			// 	node.userEdited[count] = false;
+			// }
+			// else {
+			// 	node.userEdited = true;
+			// }
+			
 			$scope.getEstimation(currnode, count, function(/*res*/) {
 				// result = res;
 			});
