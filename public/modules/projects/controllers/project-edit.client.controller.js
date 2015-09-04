@@ -80,6 +80,8 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 					}
 					scope.people.push({
 						username : users[i].username,
+						firstName : users[i].firstName,
+						lastName : users[i].lastName,
 						isEstimator : tempIsEstimator
 					});
 				}
@@ -293,6 +295,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				} else {
 					$scope.estimated = true;
 				}
+				$scope.initUsers($scope);
 			});
 		};
 
