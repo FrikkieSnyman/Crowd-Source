@@ -33,14 +33,14 @@
 						<p> {{person.username}} </p>
 					</div>
 				</md-list-item>
-				<md-list-item class="md-2-line" ng-repeat="person in people">
+				<md-list-item class="md-2-line" ng-repeat="person in people" ng-show="showEstimators == true && person.isEstimator == true">
+					<md-icon class="md-avatar" md-svg-src="modules/projects/img/icons/person.svg" ng-show="showEstimators" data-nodrag></md-icon>
 					<div class="md-list-item-text">
 						<h3> {{person.firstName}} {{person.lastName}} </h3>
 						<p> {{person.username}} </p>
 					</div>
 				</md-list-item>
 			</md-list>
-
 
 			<md-button class="md-primary" ng-click="showAddEstimatorDialogBox()" ng-show="owner() && !isOpenForEstimation()" ng-disabled = "estimationForm.$invalid">
 				Edit Estimators
