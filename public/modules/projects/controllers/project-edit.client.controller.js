@@ -31,6 +31,12 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			}
 		});
 
+		$scope.showEstimators = true;
+
+		$scope.toggleEstimatorsMenu = function() {
+			$scope.showEstimators = (!$scope.showEstimators);
+		};
+
 		$scope.rootIsEmpty = function() {
 			if ($scope.project.$resolved !== false) {
 				if ($scope.project.children.length < 1) {
@@ -69,7 +75,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				templateUrl: 'modules/projects/views/add-estimator.client.view.html',
 				parent: angular.element(document.body),
 				targetEvent: ev,
-				scope: newScope
+				scope: newScope,
 			});
 		};
 
@@ -83,6 +89,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 
 			for (var i = 0; i < $scope.people.length; ++i) {
 				if ($scope.people[i].isEstimator === true) {
+					console.log($scope.people[i].username);
 					var found = false;
 					for (var j = 0; j < $scope.project.users.length; ++j) {
 						if ($scope.project.users[j] === $scope.people[i].username) {
