@@ -114,7 +114,7 @@ md-fab-toolbar .md-fab-toolbar-wrapper {
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-	display: none; <- Crashes Chrome on hover 
+	display: none;
 	-webkit-appearance: none;
 	margin: 0;
 }
