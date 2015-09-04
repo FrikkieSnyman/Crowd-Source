@@ -60,13 +60,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 
 		$scope.showEstimators = true;
 
-<<<<<<< HEAD
-=======
-		$scope.toggleEstimatorsMenu = function() {
-			$scope.showEstimators = (!$scope.showEstimators);
-		};
-
->>>>>>> Can now show/hide estimators list
 		$scope.rootIsEmpty = function() {
 			if ($scope.project.$resolved !== false) {
 				if ($scope.project.children.length < 1) {
