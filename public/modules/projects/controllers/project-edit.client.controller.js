@@ -49,7 +49,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 
 		$scope.initUsers = function(scope) {
 			$http.get(RESOURCE_DOMAIN + '/users/getUsers').success(function(users) {
-			// $http(method:'GET', url:RESOURCE_DOMAIN + '/users/getUsers').success(function(users) {
 				scope.people = [];
 				for (var i in users) {
 					var tempIsEstimator = false;
