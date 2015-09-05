@@ -1,8 +1,8 @@
 'use strict';
 
 // Projects controller
-angular.module('projects').controller('ProjectsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope', 'RESOURCE_DOMAIN',
-	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, RESOURCE_DOMAIN) {
+angular.module('projects').controller('ProjectsController', ['$interval','$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope', 'RESOURCE_DOMAIN',
+	function($interval, $scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, RESOURCE_DOMAIN) {
 
 		$scope.goTo = function(route) {
 			$location.path(route);
@@ -15,6 +15,34 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 				return false;
 			}
 		};
+
+		$scope.showAlert = function(ev, desc) {
+			$mdDialog.show(
+			  $mdDialog.alert()
+				.parent(angular.element(document.querySelector('#popupContainer')))
+				.clickOutsideToClose(true)
+				.title('Description')
+				.content(desc)
+				.ariaLabel('Description')
+				.ok('Close')
+				.targetEvent(ev)
+			);
+		};
+
+		$scope.mode = 'query';
+		$scope.determinateValue = 30;
+		$scope.determinateValue2 = 30;
+		$interval(function() {
+			$scope.determinateValue += 1;
+			$scope.determinateValue2 += 1.5;
+			if ($scope.determinateValue > 100) {
+				$scope.determinateValue = 30;
+				$scope.determinateValue2 = 30;
+			}
+		}, 100, 0, true);
+		$interval(function() {
+			$scope.mode = ($scope.mode == 'query' ? 'determinate' : 'query');
+		}, 7200, 0, true);
 
 		$scope.createProject = function() {
 			//		var project = {'name': $scope.projectName, 'description': $scope.description, 'owner' : Authentication.user, 'users' : $scope.selected};
