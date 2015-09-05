@@ -35,19 +35,19 @@
 					<md-input-container class = "treeInput" flex ="10" ng-show = "estimator() && isOpenForEstimation()">
 						<label ng-if="!node.nodes.length > 0">Min</label>
 						<input type="number" ng-model="node.minestimations[userIndex]" ng-change="updateLocalTree(this, node)" ng-readonly = "estimated" ng-if="!node.nodes.length > 0" min="0" max="{{node.estimations[userIndex]}}" required>
-						<label ng-bind="node.minestimations[userIndex]" ng-if="node.nodes.length > 0"></label>
+						<label ng-bind="checkNaN(node.minestimations[userIndex])" ng-if="node.nodes.length > 0"></label>
 					</md-input-container>
 
 					<md-input-container class = "treeInput" flex ="10" ng-show = "estimator() && isOpenForEstimation()">
 						<label ng-if="!node.nodes.length > 0">Est</label>
 						<input type="number" ng-model="node.estimations[userIndex]" ng-change="updateLocalTree(this, node)" ng-readonly = "estimated" ng-if="!node.nodes.length > 0" min="{{ (node.minestimations[userIndex] === null) ? 0 : node.minestimations[userIndex] }}" max="{{ (node.maxestimations[userIndex] === null) ? 1000 : node.maxestimations[userIndex] }}" required>
-						<label ng-bind="node.estimations[userIndex]" ng-if="node.nodes.length > 0"></label>
+						<label ng-bind="checkNaN(node.estimations[userIndex])" ng-if="node.nodes.length > 0"></label>
 					</md-input-container>
 
 					<md-input-container class = "treeInput" flex ="10" ng-show = "estimator() && isOpenForEstimation()">
 						<label ng-if="!node.nodes.length > 0">Max</label>
 						<input type="number" ng-model="node.maxestimations[userIndex]" ng-change="updateLocalTree(this, node)" ng-readonly = "estimated" ng-if="!node.nodes.length > 0" min="{{ (node.estimations[userIndex] === null) ? 0 : node.estimations[userIndex] }}" required>
-						<label ng-bind="node.maxestimations[userIndex]" ng-if="node.nodes.length > 0"></label>
+						<label ng-bind="checkNaN(node.maxestimations[userIndex])" ng-if="node.nodes.length > 0"></label>
 					</md-input-container>
 
 					<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="showDescriptionDialog($event, node)" ng-show="owner() && !isOpenForEstimation()">

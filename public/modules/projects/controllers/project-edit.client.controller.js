@@ -378,6 +378,14 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			};
 		}
 
+		$scope.checkNaN = function(number) {
+			if (isNaN(number)) {
+				return 0;
+			} else {
+				return number;
+			}
+		};
+
 		$scope.showDescriptionDialog = function(ev, node) {
 			$scope.currentNode = node;
 
@@ -411,7 +419,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				node.estimations[userNum] = null;
 				node.minestimations[userNum] = null;
 				node.maxestimations[userNum] = null;
-				
+
 				var func =  function(result, minRes, maxRes) {
 					if (node.estimations[userNum] === null) {
 						node.estimations[userNum] = parseInt(result);
@@ -429,7 +437,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 						node.maxestimations[userNum] = parseInt(maxRes);
 					} else {
 						node.maxestimations[userNum] += parseInt(maxRes);
-					}						
+					}
 					callback(parseInt(result), parseInt(minRes), parseInt(maxRes));
 				};
 
