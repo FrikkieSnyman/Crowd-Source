@@ -63,10 +63,17 @@
 					</md-button>
 				</md-toolbar>
 
-				<br/>
-
-				<md-card-content class="md-padding" class="cardHeight" style="overflow:auto;"> 
-					<p>{{project.description}}</p>
+				<md-card-content class="md-padding" class="cardHeight" style="overflow:ellipsis;"> 
+					<p>Owner: {{project.owner}} </p>
+					<p ng-show="{{project.openForEstimation}}">Status: Open for Estimation </p>
+					<p ng-hide="{{project.openForEstimation}}">Status: Closed for Estimation </p>
+					<p ng-show="{{project.openForEstimation}}"></p>
+					</br>
+					<md-progress-linear class="md-accent" md-mode="{{mode}}" value="{{determinateValue}}"></md-progress-linear>
+					<md-button aria-label="View" class="md-button" ng-click="showAlert($event, '{{project.description}}')" flex>
+						View Description
+					</md-button>
+					<!--<p>{{project.description}}</p>-->
 				</md-card-content>
 			</md-card>
 		</md-grid-tile>
