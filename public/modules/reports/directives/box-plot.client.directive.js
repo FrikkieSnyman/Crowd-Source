@@ -5,7 +5,7 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 			restrict : 'EA',
 			scope : {},
 			link : function(scope, element, attrs) {
-				D3.d3().then(function(d3) {
+								D3.d3().then(function(d3) {
 					scope.$parent.report.$promise.then(function() {
 						var project = scope.$parent.report.project;
 						// d3 is the raw d3 object
