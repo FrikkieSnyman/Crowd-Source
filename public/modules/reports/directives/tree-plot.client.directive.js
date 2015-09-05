@@ -39,17 +39,25 @@ angular.module('reports').directive('treePlot', ['D3', '$window',
 						// Normalize for fixed-depth.
 						nodes.forEach(function(d) { //iterate through the nodes
 							if(d.parent){ //if the node has a parent
-								for(var i = 0; i < d.parent.children.length; i++){ //check parent children
-									if(d.parent.children[i].name === d.name){ //find current node
-										d.downset = i + 1; //index is how far node must be moved down
+								var found = false;
+								d.downset = 0;
+								for(var i = 0; i < d.parent.children.length; i++) { //check parent children
+									if(d.parent.children[i].name === d.name) { //find current node
+										found = true;
+										d.downset = d.downset + i; //index is how far node must be moved down
+									}
+									if(found === false) {
+										if(d.parent.children[i].children)
+											d.downset += d.parent.children[i].children.length;
+										var z = 0;
 									}
 								}
 								d.parentDownset = d.parent.downset; //must also account for parent downset
 							}
 							if(!d.downset){ d.downset = 0; }
 							if(!d.parentDownset){ d.parentDownset = 0; }
-							d.x = (d.downset * 40) + (d.parentDownset * 40) + 30;
-							d.y = d.depth * 180;
+							d.x = (d.downset * 40) + (d.parentDownset * 40);
+							d.y = d.depth * 100;
 						});
 					
 						
@@ -70,11 +78,13 @@ angular.module('reports').directive('treePlot', ['D3', '$window',
 							.style('fill', function(d) { return d._children ? 'lightsteelblue' : '#fff'; });
 						
 						nodeEnter.append('text')
-							.attr('x', function(d) { return d.children || d._children ? -10 : 10; })
+							.attr('x', function(d) { return d.children || d._children ? 0 : 0; })
+							.attr('y',-15)
 							.attr('dy', '.35em')
 							.attr('text-anchor', function(d) { return d.children || d._children ? 'end' : 'start'; })
 							.text(function(d) { return d.name; })
 							.style('fill-opacity', 1e-6);
+						
 						
 						// Transition nodes to their new position.
 						var nodeUpdate = node.transition()
@@ -134,10 +144,12 @@ angular.module('reports').directive('treePlot', ['D3', '$window',
 						}
 						
 						
-						root = project;
+						root = project.children[0];
+						root.name = project.name;
+						root.children = root.nodes;
 						root.x0 = height / 2;
 						root.y0 = 0;
-					
+						// Collapses every node and works out the deviation from the normal.
 						function collapse(d) {
 							if(d.nodes)
 							{

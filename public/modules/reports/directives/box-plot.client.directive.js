@@ -27,7 +27,7 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							var strokeWidth = 2;
 							var indentFactor = 20;
 							var offset = level*indentFactor;
-							console.log(level);
+							//console.log(level);
 							bodyWidth = bodyWidth - offset;
 							
 							var div =  body.append('div')
