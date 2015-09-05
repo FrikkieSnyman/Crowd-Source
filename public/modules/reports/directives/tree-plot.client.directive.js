@@ -36,30 +36,8 @@ angular.module('reports').directive('treePlot', ['D3', '$window',
 						var nodes = tree.nodes(root).reverse(),
 							links = tree.links(nodes);
 						
-						// Normalize for fixed-depth.
-						nodes.forEach(function(d) { //iterate through the nodes
-							if(d.parent){ //if the node has a parent
-								var found = false;
-								d.downset = 0;
-								for(var i = 0; i < d.parent.children.length; i++) { //check parent children
-									if(d.parent.children[i].name === d.name) { //find current node
-										found = true;
-										d.downset = d.downset + i; //index is how far node must be moved down
-									}
-									if(found === false) {
-										if(d.parent.children[i].children)
-											d.downset += d.parent.children[i].children.length;
-										var z = 0;
-									}
-								}
-								d.parentDownset = d.parent.downset; //must also account for parent downset
-							}
-							if(!d.downset){ d.downset = 0; }
-							if(!d.parentDownset){ d.parentDownset = 0; }
-							d.x = (d.downset * 40) + (d.parentDownset * 40);
-							d.y = d.depth * 100;
-						});
-					
+						 // Normalize for fixed-depth.
+  						nodes.forEach(function(d) { d.y = d.depth * 180; });			
 						
 						//d3.select(self.frameElement).style('height', '800px');
 						
