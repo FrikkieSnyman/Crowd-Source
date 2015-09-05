@@ -44,6 +44,16 @@ angular.module('projects').controller('ProjectsController', ['$interval','$scope
 			$scope.mode = ($scope.mode == 'query' ? 'determinate' : 'query');
 		}, 7200, 0, true);
 
+		$scope.getEstimationProgress = function(project) {
+			var nrEst = 0;
+			if(project.children[0].estimations[0] != null) {
+				nrEst = project.children[0].estimations.length;
+			}
+			var nrUsers = project.users.length;
+			console.log(nrEst);
+			console.log(nrUsers);
+		};
+
 		$scope.createProject = function() {
 			//		var project = {'name': $scope.projectName, 'description': $scope.description, 'owner' : Authentication.user, 'users' : $scope.selected};
 			var project = new Projects ({
