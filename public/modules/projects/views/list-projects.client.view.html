@@ -68,6 +68,9 @@
 					<p ng-show="{{project.openForEstimation}}">Status: Open for Estimation </p>
 					<p ng-hide="{{project.openForEstimation}}">Status: Closed for Estimation </p>
 					<p ng-show="{{project.openForEstimation}}"></p>
+					<md-button aria-label="View" class="md-button" ng-click="getEstimationProgress(project)" flex>
+						View
+					</md-button>
 					</br>
 					<md-progress-linear class="md-accent" md-mode="{{mode}}" value="{{determinateValue}}"></md-progress-linear>
 					<md-button aria-label="View" class="md-button" ng-click="showAlert($event, '{{project.description}}')" flex>
