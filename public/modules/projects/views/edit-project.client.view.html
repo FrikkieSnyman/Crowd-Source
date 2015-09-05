@@ -36,7 +36,7 @@
 						<input type="number" ng-model="node.minestimations[userIndex]" ng-change="updateLocalTree(this, node)" ng-readonly = "estimated" ng-disabled="node.nodes.length > 0" min="0" max="{{node.estimations[userIndex]}}" required>
 					</md-input-container>
 					<md-input-container class = "treeInput" flex ="10" ng-show = "estimator() && isOpenForEstimation()">
-						<label>Qty</label>
+						<label>Est</label>
 						<input type="number" ng-model="node.estimations[userIndex]" ng-change="updateLocalTree(this, node)" ng-readonly = "estimated" ng-disabled="node.nodes.length > 0" min="{{ (node.minestimations[userIndex] === null) ? 0 : node.minestimations[userIndex] }}" max="{{ (node.maxestimations[userIndex] === null) ? 1000 : node.maxestimations[userIndex] }}" required>
 					</md-input-container>
 					<md-input-container class = "treeInput" flex ="10" ng-show = "estimator() && isOpenForEstimation()">
