@@ -8,21 +8,23 @@
 			</md-button>
 		</div>
 	</md-toolbar>
-	<md-dialog-content>
-
-      <md-list-item class="md-3-line" ng-repeat="c in currentNode.chat">
-        <div class="md-list-item-text">
-          <h3><b>{{ c.user }}</b></h3>
-          <p>{{ c.msg }}</p>
-        </div>
-      </md-list-item>
+	<md-dialog-content scrollTop="scrollHeight">
+		<md-list-item ng-if="currentNode.chat === undefined">
+			<p class="md-caption">No messages to display</p>
+		</md-list-item>
+		<md-list-item class="md-2-line" ng-repeat="c in currentNode.chat">
+			<div class="md-list-item-text">
+			  <h3><b>{{ c.user }}</b></h3>
+			  <p>{{ c.msg }}</p>
+			</div>
+		</md-list-item>
 
 		<md-list-item>
 			<md-input-container flex>
 				<label> Add to discussion </label>
-				<textarea ng-model="chat" columns="1"></textarea> 
+				<textarea ng-model="chat" columns="1" autofocus></textarea> 
 			</md-input-container>
-			<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="submitChat(currentNode, chat)" ng-disabled="chat === ''">
+			<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="submitChat(this, currentNode, chat); cancel();" ng-disabled="chat === '' ">
 				<md-tooltip>
 					Send
 				</md-tooltip>

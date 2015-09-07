@@ -415,13 +415,13 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			});
 		};
 
-		$scope.submitChat = function(node, msg) {
+		$scope.submitChat = function(scope, node, msg) {
 			if (node.chat === undefined) {
 				node.chat = [];
 			}
 			node.chat.push({'user':$scope.authentication.user.username, 'msg':msg});
-			$scope.chat = '';
-			$scope.saveProject();
+			scope.saveProject();
+			scope.chat = '';
 		};
 
 		$scope.updateLocalTree = function(scope, node) {
