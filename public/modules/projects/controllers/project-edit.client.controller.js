@@ -296,12 +296,16 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			}, function() {
 				Headerpath.setProjectPath($scope.project.name);
 				
+				// if ($scope.project.children.length < 1) {
+				// 	$scope.addRootNode();
+				// }
+				$scope.initUsers($scope);
+
 				if ($scope.project.children[0].estimations[$scope.userIndex] === null) {
 					$scope.estimated = false;
 				} else {
 					$scope.estimated = true;
 				}
-				$scope.initUsers($scope);
 			});
 		};
 
