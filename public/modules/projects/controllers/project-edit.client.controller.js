@@ -40,7 +40,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				}
 			}
 		};
-// method:'POST', url:RESOURCE_DOMAIN +
+
 		$scope.initUsers = function(scope) {
 			$http.get(RESOURCE_DOMAIN + '/users/getUsers').success(function(users) {
 			// $http(method:'GET', url:RESOURCE_DOMAIN + '/users/getUsers').success(function(users) {
@@ -54,6 +54,8 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 					}
 					scope.people.push({
 						username : users[i].username,
+						firstName : users[i].firstName,
+						lastName : users[i].lastName,
 						isEstimator : tempIsEstimator
 					});
 				}
@@ -268,6 +270,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				} else {
 					$scope.estimated = true;
 				}
+				$scope.initUsers($scope);
 			});
 		};
 
