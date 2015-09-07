@@ -19,11 +19,11 @@
 						<md-tooltip>Add/Remove Estimators</md-tooltip>
 					</md-button> -->
 				</md-list-item>
-				<md-list-item class="md-2-line" ng-repeat="person in project.users" ng-show="showEstimators == true">
-					<md-icon class="md-avatar" md-svg-src="modules/projects/img/icons/person.svg" ng-show="showEstimators" data-nodrag></md-icon>
-					<div class="md-list-item-text">
-						<h3> {{person.firstName}} {{person.lastName}} </h3>
-						<p> {{person.username}} </p>
+				<md-list-item ng-repeat="person in project.users" ng-show="showEstimators == true">
+					<md-icon class="md-avatar" md-svg-src="modules/projects/img/icons/person.svg" ng-show="showEstimators"></md-icon>
+					<div class="md-list-item-text" flex>
+						<!-- <h3> {{person.firstName}} {{person.lastName}} </h3> -->
+						<p> {{person}} </p>
 					</div>
 				</md-list-item>
 			</md-list>
