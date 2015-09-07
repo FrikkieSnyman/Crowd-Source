@@ -409,8 +409,9 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 					if (!node.chat) {
 						node.chat = [];
 					}
-					node.chat.push({'user':newScope.authentication.user.displayName, 'msg':msg});
+					$scope.currentNode.chat.push({'user':newScope.authentication.user.displayName, 'msg':msg});
 					newScope.saveProject();
+					newScope.chat = '';
 				};
 				$mdDialog.show({
 					controller: DialogController,
