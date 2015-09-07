@@ -74,7 +74,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				templateUrl: 'modules/projects/views/add-estimator.client.view.html',
 				parent: angular.element(document.body),
 				targetEvent: ev,
-				scope: newScope,
+				scope: newScope
 			});
 		};
 
