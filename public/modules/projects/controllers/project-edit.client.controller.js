@@ -411,15 +411,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			$scope.chat = '';
 			$scope.setCurrentNode(node, function() {
 				var newScope = $scope.$new();
-				// newScope.project = $scope.project;
-				newScope.submitChat = function(node, msg) {
-					if (!$scope.currentNode.chat) {
-						$scope.currentNode.chat = [];
-					}
-					$scope.currentNode.chat.push({'user':$scope.authentication.user.displayName, 'msg':msg});
-					$scope.saveProject();
-					newScope.chat = '';
-				};
 				$mdDialog.show({
 					controller: DialogController,
 					templateUrl: 'modules/projects/views/chat.dialog.client.view.html',
@@ -428,6 +419,15 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 					scope: newScope
 				});
 			});
+		};
+
+		$scope.submitChat = function(node, msg) {
+			if (node.chat === undefined) {
+				node.chat = [];
+			}
+			node.chat.push({'user':$scope.authentication.user.username, 'msg':msg});
+			$scope.chat = '';
+			$scope.saveProject();
 		};
 
 		$scope.updateLocalTree = function(scope, node) {
