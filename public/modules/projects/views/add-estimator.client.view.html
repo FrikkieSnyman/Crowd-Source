@@ -9,18 +9,18 @@
 			</md-button>
 		</div>
 	</md-toolbar>
-	<md-content>
+	<md-dialog-content>
 		<md-list-item ng-repeat="person in people" ng-if="owner()">
-			<p ng-if="owner()">
-				{{person.username}}
+			<p>
+				{{ person.username }}
 			</p>
 			<md-checkbox class="md-secondary" ng-model="person.isEstimator" ng-show="owner()"></md-checkbox> 
 		</md-list-item>
 		<md-button class="md-primary md-raised" ng-click="updateEstimators();cancel()" ng-show="owner()"> Save </md-button>
-		<div class="md-list-item-text" ng-repeat="person in people" ng-if="!owner()" style="padding-left: 2%;">
-			<p ng-if="person.isEstimator">
+		<md-list-item ng-repeat="person in people" ng-if="person.isEstimator && !owner()">
+			<p>
 				{{ person.username }}
 			</p>
-		</div>
-	</md-content>
+		</md-list-item>
+	</md-dialog-content>
 </md-dialog>
