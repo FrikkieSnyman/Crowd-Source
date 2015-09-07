@@ -316,6 +316,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				} else {
 					$scope.estimated = true;
 				}
+				$scope.initUsers($scope);
 			});
 		};
 
