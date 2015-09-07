@@ -29,6 +29,7 @@ angular.module('projects').controller('ProjectsController', ['$interval','$scope
 			);
 		};
 
+
 		$scope.getEstimationProgress = function(project) {
 			var nrEst = 0;
 			if(project.children[0].estimations[0] != null) {
