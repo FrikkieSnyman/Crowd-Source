@@ -9,6 +9,8 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 			for (var i in users) {
 				$scope.people.push({
 					name: users[i].username,
+					firstName : users[i].firstName,
+					lastName : users[i].lastName,
 					selected: false
 				});
 			}
@@ -19,7 +21,11 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 
 			for (var i in $scope.people) {
 				if ($scope.people[i].selected) {
-					selected.push($scope.people[i].name);
+					selected.push({
+						username : $scope.people[i].name,
+						firstName : $scope.people[i].firstName,
+						lastName : $scope.people[i].lastName
+					});
 				}
 			}
 

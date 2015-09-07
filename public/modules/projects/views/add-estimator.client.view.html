@@ -9,8 +9,8 @@
 			</md-button>
 		</div>
 	</md-toolbar>
-	<md-dialog-content>
-		<md-list-item class="md-2-line" ng-repeat="person in people">
+	<md-content>
+		<md-list-item class="md-2-line" ng-repeat="person in people" > <!-- ng-show="person.isEstimator" -->
 			<div class="md-list-item-text">
 				<h3> {{person.firstName}} {{person.lastName}} </h3>
 				<p> {{person.username}} </p>

@@ -17,8 +17,11 @@
 				
 				<md-list>
 					<md-subheader class="md-no-sticky">Estimators</md-subheader>
-					<md-list-item ng-repeat="person in people" layout="row">
-						<p> {{person.name}} </p>
+					<md-list-item class="md-2-line" ng-repeat="person in people" layout="row">
+						<div class="md-list-item-text">
+							<h3>{{person.firstName}} {{person.lastName}}</h3>
+							<p> {{person.name}} </p>
+						</div>	
 						<md-checkbox class="md-primary" ng-model="person.selected" aria-label="selected"></md-checkbox>
 					</md-list-item>
 				</md-list>
