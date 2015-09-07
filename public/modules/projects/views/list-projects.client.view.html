@@ -68,9 +68,9 @@
 					<p ng-show="{{project.openForEstimation}}">Status: Open for Estimation </p>
 					<p ng-hide="{{project.openForEstimation}}">Status: Closed for Estimation </p>
 					<p ng-show="{{project.openForEstimation}}"></p>
+					<p ng-hide="getEstimationProgress(project)"></p>
+					<progress value="{{val}}" max="{{project.users.length}}"></progress>
 
-					<progress ng-show="getEstimationProgress(project)" value="{{val}}" max="100"></progress>
-					
 					<md-button aria-label="View" class="md-button" ng-click="showAlert($event, '{{project.description}}')" flex>
 						View Description
 					</md-button>

@@ -32,16 +32,18 @@ angular.module('projects').controller('ProjectsController', ['$interval','$scope
 
 		$scope.getEstimationProgress = function(project) {
 			var nrEst = 0;
-			if(project.children[0].estimations[0] != null) {
-				nrEst = project.children[0].estimations.length;
+			var i;
+			for(i = 0; i < project.children[0].estimations.length; i++) {
+				if(project.children[0].estimations[i] != null) {
+					nrEst++;
+				}
 			}
 			var nrUsers = project.users.length;
-			var perc = (nrEst/nrUsers) * 100;
-			$scope.val = perc;
-			console.log(nrEst);
-			console.log(nrUsers);
-			console.log(perc);
+			$scope.val = nrEst;
+			$scope.max = nrUsers;
 			return true;
+			//to check out maybe
+			//http://stackoverflow.com/questions/25275999/how-to-update-angular-progress-bar-every-time-i-click
 		};
 
 		$scope.createProject = function() {
