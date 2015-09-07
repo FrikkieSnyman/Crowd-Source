@@ -301,13 +301,12 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			}, function() {
 				Headerpath.setProjectPath($scope.project.name);
 				$scope.initUsers();
-
+				
 				if ($scope.project.children[0].estimations[$scope.userIndex] === null) {
 					$scope.estimated = false;
 				} else {
 					$scope.estimated = true;
 				}
-				$scope.initUsers($scope);
 			});
 		};
 
