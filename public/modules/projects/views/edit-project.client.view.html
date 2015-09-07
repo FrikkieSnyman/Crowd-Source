@@ -3,7 +3,7 @@
 		<md-card-content>
 			<md-input-container flex>
 				<label>Project Description</label>
-				<textarea ng-model="project.description"></textarea>
+				<textarea ng-model="project.description" ng-readonly = "isOpenForEstimation()"></textarea>
 			</md-input-container>
 
 			<md-list>
@@ -29,7 +29,7 @@
 					</md-button>
 					<md-input-container class = "treeInput" flex>
 						<label>Title</label>
-						<input ng-model="node.title">
+						<input ng-model="node.title" ng-readonly = "isOpenForEstimation()">
 					</md-input-container>
 
 					<md-input-container class = "treeInput" flex ="10" ng-show = "estimator() && isOpenForEstimation()">
@@ -50,11 +50,17 @@
 						<label ng-bind="checkNaN(node.maxestimations[userIndex])" ng-if="node.nodes.length > 0"></label>
 					</md-input-container>
 
-					<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="showDescriptionDialog($event, node)" ng-show="owner() && !isOpenForEstimation()">
+					<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="showDescriptionDialog($event, node)">
 						<md-tooltip>
 							Edit Description
 						</md-tooltip>
 						<md-icon md-svg-src="modules/projects/img/icons/info.svg"></md-icon>
+					</md-button>
+					<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="showDescriptionDialog($event, node)" ng-show="false && isOpenForEstimation()">
+						<md-tooltip>
+							Discuss
+						</md-tooltip>
+						<md-icon md-svg-src="modules/projects/img/icons/chat.svg"></md-icon>
 					</md-button>
 					<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="undoToolTip(this,removeNode,newSubItem)" ng-show="owner() && !isOpenForEstimation()">
 						<md-tooltip>

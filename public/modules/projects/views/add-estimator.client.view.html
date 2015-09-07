@@ -1,20 +1,26 @@
 <md-dialog data-ng-controller="ProjectEditController" data-ng-init="initUsers(this)">
 	<md-toolbar>
 		<div class="md-toolbar-tools">
-			<h2 >Add Estimators</h2>
+			<h2 ng-if="owner()">Add Estimators</h2>
+			<h2 ng-if="!owner()">Estimators</h2>
 			<span flex></span>
 			<md-button class="md-icon-button" ng-click="cancel()">
 				<md-icon md-svg-src="modules/projects/img/icons/close.svg" aria-label="Close dialog"></md-icon>
 			</md-button>
 		</div>
 	</md-toolbar>
-	<md-content>
-		<md-list-item ng-repeat="person in people">
+	<md-dialog-content>
+		<md-list-item ng-repeat="person in people" ng-if="owner()">
 			<p>
-				{{person.username}}
+				{{ person.username }}
 			</p>
-			<md-checkbox class="md-secondary" ng-model="person.isEstimator"></md-checkbox> 
+			<md-checkbox class="md-secondary" ng-model="person.isEstimator" ng-show="owner()"></md-checkbox> 
 		</md-list-item>
-		<md-button class="md-primary md-raised" ng-click="updateEstimators();cancel()" ng-disabled="!owner()"> Save </md-button>
-	</md-content>
+		<md-button class="md-primary md-raised" ng-click="updateEstimators();cancel()" ng-show="owner()"> Save </md-button>
+		<md-list-item ng-repeat="person in people" ng-if="person.isEstimator && !owner()">
+			<p>
+				{{ person.username }}
+			</p>
+		</md-list-item>
+	</md-dialog-content>
 </md-dialog>
