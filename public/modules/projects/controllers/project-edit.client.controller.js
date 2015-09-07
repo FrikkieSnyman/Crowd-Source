@@ -42,7 +42,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			if (data.length !== 0) {
 				var tmp = data[0];
 				for (var u in tmp.users) {
-					if (tmp.users[u] === $scope.authentication.user.username) {
+					if (tmp.users[u].username === $scope.authentication.user.username) {
 						$scope.userIndex = u;
 					}
 				}
@@ -80,8 +80,13 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				$scope.userDetails = [];
 				for (var i in users) {
 					var tempIsEstimator = false;
+<<<<<<< HEAD
 					for (var j = 0; j < $scope.project.users.length; ++j) {
 						if (users[i].username === $scope.project.users[j]) {
+=======
+					for (var j = 0; j < scope.project.users.length; ++j) {
+						if (users[i].username === scope.project.users[j].username) {
+>>>>>>> User list displays first and last name and also uses project.users array
 							tempIsEstimator = true;
 						}
 					}
@@ -106,7 +111,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				templateUrl: 'modules/projects/views/add-estimator.client.view.html',
 				parent: angular.element(document.body),
 				targetEvent: ev,
-				scope: newScope,
+				scope: newScope
 			});
 		};
 
@@ -122,7 +127,11 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				if ($scope.people[i].isEstimator === true) {
 					var found = false;
 					for (var j = 0; j < $scope.project.users.length; ++j) {
+<<<<<<< HEAD
 						if ($scope.project.users[j]/*.username*/ === $scope.people[i].username) {
+=======
+						if ($scope.project.users[j].username === $scope.people[i].username) {
+>>>>>>> User list displays first and last name and also uses project.users array
 							var index = remove.indexOf(j);
 							if (index > -1) {
 								remove.splice(index, 1);
