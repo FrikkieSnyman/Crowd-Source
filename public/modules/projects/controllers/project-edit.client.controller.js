@@ -47,10 +47,9 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				}
 			}
 		};
-// method:'POST', url:RESOURCE_DOMAIN +
+
 		$scope.initUsers = function(scope) {
 			$http.get(RESOURCE_DOMAIN + '/users/getUsers').success(function(users) {
-			// $http(method:'GET', url:RESOURCE_DOMAIN + '/users/getUsers').success(function(users) {
 				scope.people = [];
 				for (var i in users) {
 					var tempIsEstimator = false;
@@ -117,7 +116,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			for (var i = removeArr.length - 1; i >= 0; --i) {
 				$scope.project.users.splice(removeArr[i], 1);
 			}
-			
+
 			if ($scope.project.children.length > 0) {
 				$scope.removeEstimatorsRecursiveDescent($scope.project.children[0], removeArr);
 			}
@@ -394,7 +393,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 
 		$scope.showDescriptionDialog = function(ev, node) {
 			$scope.currentNode = node;
-
 			$scope.setCurrentNode(node, function() {
 				var newScope = $scope.$new();
 
@@ -406,6 +404,30 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 					scope: newScope
 				});
 			});
+		};
+
+		$scope.showChatDialog = function(ev, node) {
+			$scope.currentNode = node;
+			$scope.chat = '';
+			$scope.setCurrentNode(node, function() {
+				var newScope = $scope.$new();
+				$mdDialog.show({
+					controller: DialogController,
+					templateUrl: 'modules/projects/views/chat.dialog.client.view.html',
+					parent: angular.element(document.body),
+					targetEvent: ev,
+					scope: newScope
+				});
+			});
+		};
+
+		$scope.submitChat = function(node, msg) {
+			if (node.chat === undefined) {
+				node.chat = [];
+			}
+			node.chat.push({'user':$scope.authentication.user.username, 'msg':msg});
+			$scope.chat = '';
+			$scope.saveProject();
 		};
 
 		$scope.updateLocalTree = function(scope, node) {
