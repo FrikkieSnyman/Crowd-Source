@@ -15,7 +15,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			if (data.length !== 0) {
 				var tmp = data[0];
 				for (var u in tmp.users) {
-					if (tmp.users[u] === $scope.authentication.user.username) {
+					if (tmp.users[u].username === $scope.authentication.user.username) {
 						$scope.userIndex = u;
 					}
 				}
@@ -53,7 +53,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				for (var i in users) {
 					var tempIsEstimator = false;
 					for (var j = 0; j < scope.project.users.length; ++j) {
-						if (users[i].username === scope.project.users[j]) {
+						if (users[i].username === scope.project.users[j].username) {
 							tempIsEstimator = true;
 						}
 					}
@@ -74,7 +74,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				templateUrl: 'modules/projects/views/add-estimator.client.view.html',
 				parent: angular.element(document.body),
 				targetEvent: ev,
-				scope: newScope,
+				scope: newScope
 			});
 		};
 
@@ -90,7 +90,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				if ($scope.people[i].isEstimator === true) {
 					var found = false;
 					for (var j = 0; j < $scope.project.users.length; ++j) {
-						if ($scope.project.users[j] === $scope.people[i].username) {
+						if ($scope.project.users[j].username === $scope.people[i].username) {
 							var index = remove.indexOf(j);
 							if (index > -1) {
 								remove.splice(index, 1);
@@ -139,7 +139,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		$scope.addEstimatorsToProject = function(addArr) {
 			var i;
 			for (i = 0; i < addArr.length; ++i) {
-				$scope.project.users.push(addArr[i].username);
+				$scope.project.users.push(addArr[i]);
 			}
 
 			if ($scope.project.children.length > 0) {
@@ -269,11 +269,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				projectId: $stateParams.projectId
 			}, function() {
 				Headerpath.setProjectPath($scope.project.name);
-				
-				// if ($scope.project.children.length < 1) {
-				// 	$scope.addRootNode();
-				// }
-				$scope.initUsers($scope);
 
 				if ($scope.project.children[0].estimations[$scope.userIndex] === null) {
 					$scope.estimated = false;
