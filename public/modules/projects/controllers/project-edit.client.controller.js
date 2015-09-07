@@ -405,12 +405,13 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			$scope.chat = '';
 			$scope.setCurrentNode(node, function() {
 				var newScope = $scope.$new();
+				// newScope.project = $scope.project;
 				newScope.submitChat = function(node, msg) {
-					if (!node.chat) {
-						node.chat = [];
+					if (!$scope.currentNode.chat) {
+						$scope.currentNode.chat = [];
 					}
-					$scope.currentNode.chat.push({'user':newScope.authentication.user.displayName, 'msg':msg});
-					newScope.saveProject();
+					$scope.currentNode.chat.push({'user':$scope.authentication.user.displayName, 'msg':msg});
+					$scope.saveProject();
 					newScope.chat = '';
 				};
 				$mdDialog.show({
