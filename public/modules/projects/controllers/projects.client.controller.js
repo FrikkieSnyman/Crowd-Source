@@ -29,29 +29,18 @@ angular.module('projects').controller('ProjectsController', ['$interval','$scope
 			);
 		};
 
-		$scope.mode = 'query';
-		$scope.determinateValue = 30;
-		$scope.determinateValue2 = 30;
-		$interval(function() {
-			$scope.determinateValue += 1;
-			$scope.determinateValue2 += 1.5;
-			if ($scope.determinateValue > 100) {
-				$scope.determinateValue = 30;
-				$scope.determinateValue2 = 30;
-			}
-		}, 100, 0, true);
-		$interval(function() {
-			$scope.mode = ($scope.mode == 'query' ? 'determinate' : 'query');
-		}, 7200, 0, true);
-
 		$scope.getEstimationProgress = function(project) {
 			var nrEst = 0;
 			if(project.children[0].estimations[0] != null) {
 				nrEst = project.children[0].estimations.length;
 			}
 			var nrUsers = project.users.length;
+			var perc = (nrEst/nrUsers) * 100;
+			$scope.val = perc;
 			console.log(nrEst);
 			console.log(nrUsers);
+			console.log(perc);
+			return true;
 		};
 
 		$scope.createProject = function() {
