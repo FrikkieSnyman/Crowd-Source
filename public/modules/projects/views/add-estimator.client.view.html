@@ -9,20 +9,20 @@
 		</div>
 	</md-toolbar>
 	<md-content>
-		<md-list-item class="md-2-line" ng-repeat="person in people" ng-show="person.isEstimator">
+		<md-list-item class="md-2-line" ng-repeat="person in people" > <!-- ng-show="person.isEstimator" -->
 			<div class="md-list-item-text">
 				<h3> {{person.firstName}} {{person.lastName}} </h3>
 				<p> {{person.username}} </p>
 			</div>
 			<md-checkbox class="md-secondary" ng-model="person.isEstimator"></md-checkbox>
 		</md-list-item>
-		<md-list-item class="md-2-line" ng-repeat="person in people" ng-show="!person.isEstimator">
+<!-- 		<md-list-item class="md-2-line" ng-repeat="person in people" ng-show="!person.isEstimator">
 			<div class="md-list-item-text">
 				<h3> {{person.firstName}} {{person.lastName}} </h3>
 				<p> {{person.username}} </p>
 			</div>
 			<md-checkbox class="md-secondary" ng-model="person.isEstimator"></md-checkbox>
-		</md-list-item>
+		</md-list-item> -->
 		<md-button class="md-primary" ng-click="updateEstimators();cancel();" ng-disabled="!owner()"> Save </md-button>
 	</md-content>
 </md-dialog>
