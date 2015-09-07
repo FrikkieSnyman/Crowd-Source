@@ -56,6 +56,12 @@
 						</md-tooltip>
 						<md-icon md-svg-src="modules/projects/img/icons/info.svg"></md-icon>
 					</md-button>
+					<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="showDescriptionDialog($event, node)" ng-show="isOpenForEstimation()">
+						<md-tooltip>
+							Discuss
+						</md-tooltip>
+						<md-icon md-svg-src="modules/projects/img/icons/chat.svg"></md-icon>
+					</md-button>
 					<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="undoToolTip(this,removeNode,newSubItem)" ng-show="owner() && !isOpenForEstimation()">
 						<md-tooltip>
 							Remove
