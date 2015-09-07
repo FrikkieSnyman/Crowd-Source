@@ -24,7 +24,7 @@
 				<label> Add to discussion </label>
 				<textarea ng-model="chat" columns="1" autofocus></textarea> 
 			</md-input-container>
-			<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="submitChat(currentNode, chat); showChatDialog($event,currentNode);" ng-disabled="chat === '' ">
+			<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="this.submitChat(currentNode, chat);" ng-disabled="chat === '' ">
 				<md-tooltip>
 					Send
 				</md-tooltip>
