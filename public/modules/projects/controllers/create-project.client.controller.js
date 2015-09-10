@@ -21,11 +21,7 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 
 			for (var i in $scope.people) {
 				if ($scope.people[i].selected) {
-					selected.push({
-						username : $scope.people[i].name,
-						firstName : $scope.people[i].firstName,
-						lastName : $scope.people[i].lastName
-					});
+					selected.push($scope.people[i].name);
 				}
 			}
 

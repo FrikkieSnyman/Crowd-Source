@@ -80,13 +80,8 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				$scope.userDetails = [];
 				for (var i in users) {
 					var tempIsEstimator = false;
-<<<<<<< HEAD
 					for (var j = 0; j < $scope.project.users.length; ++j) {
 						if (users[i].username === $scope.project.users[j]) {
-=======
-					for (var j = 0; j < scope.project.users.length; ++j) {
-						if (users[i].username === scope.project.users[j].username) {
->>>>>>> User list displays first and last name and also uses project.users array
 							tempIsEstimator = true;
 						}
 					}
@@ -156,7 +151,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 
 		$scope.removeEstimatorsFromProject = function(removeArr) {
 			for (var i = removeArr.length - 1; i >= 0; --i) {
-				$scope.project.users.splice(removeArr[i], 1);
+				$scope.project.users.splice(removeArr[i].username, 1);
 			}
 
 			if ($scope.project.children.length > 0) {
@@ -180,7 +175,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		$scope.addEstimatorsToProject = function(addArr) {
 			var i;
 			for (i = 0; i < addArr.length; ++i) {
-				$scope.project.users.push(addArr[i]);
+				$scope.project.users.push(addArr[i].username);
 			}
 
 			if ($scope.project.children.length > 0) {
@@ -320,14 +315,11 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.newSubItem = function(scope) {
-			// console.log(scope.project.users);
 			var nodeData = scope.$modelValue;
-			// console.log(nodeData);
 			var estimationsArr = [];
 			var minEstimations = [];
 			var maxEstimations = [];
 			for (var i in scope.project.users) {
-				// console.log(i);
 				estimationsArr.push(null);
 				minEstimations.push(null);
 				maxEstimations.push(null);
