@@ -34,7 +34,7 @@ angular.module('projects').controller('ProjectsController', ['$interval','$scope
 			var nrEst = 0;
 			var i;
 			for(i = 0; i < project.children[0].estimations.length; i++) {
-				if(project.children[0].estimations[i] != null) {
+				if(project.children[0].estimations[i] !== null) {
 					nrEst++;
 				}
 			}
