@@ -1,8 +1,8 @@
 'use strict';
 
 // Projects controller
-angular.module('projects').controller('ProjectsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope', 'RESOURCE_DOMAIN',
-	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, RESOURCE_DOMAIN) {
+angular.module('projects').controller('ProjectsController', ['$interval','$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope', 'RESOURCE_DOMAIN',
+	function($interval, $scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, RESOURCE_DOMAIN) {
 
 		$scope.goTo = function(route) {
 			$location.path(route);
@@ -14,6 +14,35 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 			} else {
 				return false;
 			}
+		};
+
+		$scope.showAlert = function(ev, desc, title) {
+			$mdDialog.show(
+			  $mdDialog.alert()
+				.parent(angular.element(document.querySelector('#popupContainer')))
+				.clickOutsideToClose(true)
+				.title(title)
+				.content(desc)
+				.ariaLabel(title)
+				.ok('Close')
+				.targetEvent(ev)
+			);
+		};
+
+
+		$scope.getEstimationProgress = function(project) {
+			var nrEst = 0;
+			var i;
+			for(i = 0; i < project.children[0].estimations.length; i++) {
+				if(project.children[0].estimations[i] !== null) {
+					nrEst++;
+				}
+			}
+			var nrUsers = project.users.length;
+			$scope.perc = nrEst/nrUsers * 100;
+			$scope.val = nrEst;
+			$scope.max = nrUsers;
+			return true;
 		};
 
 		$scope.createProject = function() {
