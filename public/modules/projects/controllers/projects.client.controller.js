@@ -16,14 +16,14 @@ angular.module('projects').controller('ProjectsController', ['$interval','$scope
 			}
 		};
 
-		$scope.showAlert = function(ev, desc) {
+		$scope.showAlert = function(ev, desc, title) {
 			$mdDialog.show(
 			  $mdDialog.alert()
 				.parent(angular.element(document.querySelector('#popupContainer')))
 				.clickOutsideToClose(true)
-				.title('Description')
+				.title(title)
 				.content(desc)
-				.ariaLabel('Description')
+				.ariaLabel(title)
 				.ok('Close')
 				.targetEvent(ev)
 			);
@@ -39,11 +39,10 @@ angular.module('projects').controller('ProjectsController', ['$interval','$scope
 				}
 			}
 			var nrUsers = project.users.length;
+			$scope.perc = nrEst/nrUsers * 100;
 			$scope.val = nrEst;
 			$scope.max = nrUsers;
 			return true;
-			//to check out maybe
-			//http://stackoverflow.com/questions/25275999/how-to-update-angular-progress-bar-every-time-i-click
 		};
 
 		$scope.createProject = function() {

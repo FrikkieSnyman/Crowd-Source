@@ -69,11 +69,14 @@
 					<p ng-hide="{{project.openForEstimation}}">Status: Closed for Estimation </p>
 					<p ng-show="{{project.openForEstimation}}"></p>
 					<p ng-hide="getEstimationProgress(project)"></p>
-					<progress value="{{val}}" max="{{project.users.length}}"></progress>
-
-					<md-button aria-label="View" class="md-button" ng-click="showAlert($event, '{{project.description}}')" flex>
+					<p ng-show="{{project.openForEstimation}}">Estimation progress:  
+					<md-progress-linear md-mode="determinate" value="{{perc}}"></md-progress-linear>
+					<p><md-button aria-label="View" class="md-button" ng-click="showAlert($event, '{{project.users}}', 'Estimators')" flex>
+						Estimators
+					</md-button></p>
+					<p><md-button aria-label="View" class="md-button" ng-click="showAlert($event, '{{project.description}}', 'Description')" flex>
 						View Description
-					</md-button>
+					</md-button></p>
 					<!--<p>{{project.description}}</p>-->
 				</md-card-content>
 			</md-card>
