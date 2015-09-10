@@ -10,7 +10,7 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 					scope.$parent.report.$promise.then(function() {
 						var project = scope.$parent.report.project;
 						var data = [];
-						
+						var body = d3.select(element[0]);
 						function getData() {
 						
 						// loop to populate data array with 
@@ -41,7 +41,7 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 								bottom: 30,
 								left: 50
 							},
-							width = 960 - margin.left - margin.right,
+							width = body.node().getBoundingClientRect().width - margin.left - margin.right,
 							height = 500 - margin.top - margin.bottom;
 						
 						var x = d3.scale.linear()
