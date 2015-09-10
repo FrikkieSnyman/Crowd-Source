@@ -12,58 +12,61 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 						var data = [];
 						var body = d3.select(element[0]);
 						function getData() {
-						
-						// loop to populate data array with 
-						// probabily - quantile pairs
-						for (var i = 0; i < 100000; i++) {
-							var q = normal(); // calc random draw from normal dist
-							var p = gaussian(q); // calc prob of rand draw
-							var el = {
-								'q': q,
-								'p': p
-							};
-							data.push(el);
-						}
-						var mean = parseInt(0);
-						var stdDe = parseInt(0);
-						
-						var calc = function(callback){
-							for(var i in project.children){
-								//console.log(project.children[i])
-								var node = project.children[i];
-								for(var j in node.estimations)
-								{
-									//console.log(node.estimations[j]);
-									var min = parseInt(node.minestimations[j]);
-									var max = parseInt(node.maxestimations[j]);
-									var est = parseInt(node.maxestimations[j]);
-									mean = parseFloat(mean) + parseFloat((parseFloat(min) + 4 * parseFloat(est) + parseFloat(max)) / 6).toFixed(2);
-									stdDe = parseFloat(stdDe) + parseFloat((parseFloat(min) - parseFloat(max)) / 6);
-									console.log(mean);
-									console.log(stdDe);			
+								
+							var mean = parseInt(0);
+							var stdDe = parseInt(0);
+							
+							var calc = function(callback){
+								for(var i in project.children){
+									//console.log(project.children[i])
+									var node = project.children[i];
+									for(var j in node.estimations)
+									{
+										//console.log(node.estimations[j]);
+										var min = parseInt(node.minestimations[j]);
+										var max = parseInt(node.maxestimations[j]);
+										var est = parseInt(node.maxestimations[j]);
+										mean = parseFloat(mean) + parseFloat((parseFloat(min) + 4 * parseFloat(est) + parseFloat(max)) / 6).toFixed(2);
+										stdDe = parseFloat(stdDe) + Math.pow(parseFloat((parseFloat(min) - parseFloat(max)) / 6),2);
+										
+									}
 								}
+								stdDe = Math.sqrt(stdDe);
+								console.log(mean);
+								console.log(stdDe);	
+								callback();
 							}
-							callback();
-						}
-						var dist = function(stdDe,x,mean){
-							stdDe = parseFloat(stdDe);
-							//console.log(stdDe);
-							x = parseFloat(x);
-							mean = parseFloat(mean);
-							return ( 1 / ( stdDe * Math.sqrt( 2 * Math.PI) ) 
-								*
-								Math.pow(Math.E,( -1 * ( Math.pow((x-mean),2) / ( 2 * Math.pow(stdDe,2) ) ) ) ) );
-						}
-						calc(function(){
-							console.log(dist(stdDe,7.17,mean));
-						});
-						
-						
-						// need to sort for plotting
-						//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
-						data.sort(function(x, y) {
-							return x.q - y.q;
-						});	
+							var dist = function(stdDe,x,mean){
+								stdDe = parseFloat(stdDe);
+								//console.log(stdDe);
+								x = parseFloat(x);
+								mean = parseFloat(mean);
+								return ( 1 / ( stdDe * Math.sqrt( 2 * Math.PI) ) 
+									*
+									Math.pow(Math.E,( -1 * ( Math.pow((x-mean),2) / ( 2 * Math.pow(stdDe,2) ) ) ) ) );
+							}
+							calc(function(){
+								console.log(dist(stdDe,90,mean));
+								// loop to populate data array with 
+								// probabily - quantile pairs
+								for (var i = 100; i < 300; i++) {
+									var q = i; // calc random draw from normal dist
+									var p = dist(stdDe,i,mean); // calc prob of rand draw
+									var el = {
+										'q': q,
+										'p': p
+									};
+									data.push(el);
+								}
+							});
+									
+							
+							
+							// need to sort for plotting
+							//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+							data.sort(function(x, y) {
+								return x.q - y.q;
+							});	
 						}
 
 						getData(); // popuate data 
