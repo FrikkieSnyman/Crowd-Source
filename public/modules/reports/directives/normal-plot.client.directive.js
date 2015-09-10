@@ -16,6 +16,9 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 							var mean = parseInt(0);
 							var stdDe = parseInt(0);
 							
+							var minVal = Infinity;
+							var maxVal = -Infinity;
+							
 							var calc = function(callback){
 								for(var i in project.children){
 									//console.log(project.children[i])
@@ -32,8 +35,8 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 									}
 								}
 								stdDe = Math.sqrt(stdDe);
-								console.log(mean);
-								console.log(stdDe);	
+								//console.log(mean);
+								//console.log(stdDe);	
 								callback();
 							}
 							var dist = function(stdDe,x,mean){
@@ -49,7 +52,10 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 								console.log(dist(stdDe,90,mean));
 								// loop to populate data array with 
 								// probabily - quantile pairs
-								for (var i = 100; i < 300; i++) {
+								minVal = parseFloat(mean) - 4*parseFloat(stdDe);
+								maxVal = parseFloat(mean) + 4*parseFloat(stdDe);
+								console.log("Min " + minVal + " mean " + mean + " Max " + maxVal);
+								for (var i = minVal; i <= maxVal; i = i + 0.01) {
 									var q = i; // calc random draw from normal dist
 									var p = dist(stdDe,i,mean); // calc prob of rand draw
 									var el = {
@@ -58,6 +64,7 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 									};
 									data.push(el);
 								}
+								//data.push({'q':mean,'p':1});
 							});
 									
 							
