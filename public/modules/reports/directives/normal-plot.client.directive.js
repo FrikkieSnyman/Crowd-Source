@@ -24,6 +24,40 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 							};
 							data.push(el);
 						}
+						var mean = parseInt(0);
+						var stdDe = parseInt(0);
+						
+						var calc = function(callback){
+							for(var i in project.children){
+								//console.log(project.children[i])
+								var node = project.children[i];
+								for(var j in node.estimations)
+								{
+									//console.log(node.estimations[j]);
+									var min = parseInt(node.minestimations[j]);
+									var max = parseInt(node.maxestimations[j]);
+									var est = parseInt(node.maxestimations[j]);
+									mean = parseFloat(mean) + parseFloat((parseInt(min) + 4 * parseInt(est) + parseInt(max)) / 6).toFixed(2);
+									stdDe = parseFloat(stdDe) + parseFloat((parseInt(min) - parseInt(max)) / 6);
+									console.log(mean);
+									console.log(stdDe);			
+								}
+							}
+							callback();
+						}
+						var dist = function(stdDe,x,mean){
+							stdDe = parseFloat(stdDe);
+							//console.log(stdDe);
+							x = parseFloat(x);
+							mean = parseFloat(mean);
+							return ( 1 / ( stdDe * Math.sqrt( 2 * Math.PI) ) 
+								*
+								Math.pow(Math.E,( -1 * ( Math.pow((x-mean),2) / ( 2 * Math.pow(stdDe,2) ) ) ) ) );
+						}
+						calc(function(){
+							console.log(dist(stdDe,68,mean));
+						});
+						
 						
 						// need to sort for plotting
 						//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
