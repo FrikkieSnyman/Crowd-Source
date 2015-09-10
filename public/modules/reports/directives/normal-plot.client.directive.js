@@ -37,8 +37,8 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 									var min = parseInt(node.minestimations[j]);
 									var max = parseInt(node.maxestimations[j]);
 									var est = parseInt(node.maxestimations[j]);
-									mean = parseFloat(mean) + parseFloat((parseInt(min) + 4 * parseInt(est) + parseInt(max)) / 6).toFixed(2);
-									stdDe = parseFloat(stdDe) + parseFloat((parseInt(min) - parseInt(max)) / 6);
+									mean = parseFloat(mean) + parseFloat((parseFloat(min) + 4 * parseFloat(est) + parseFloat(max)) / 6).toFixed(2);
+									stdDe = parseFloat(stdDe) + parseFloat((parseFloat(min) - parseFloat(max)) / 6);
 									console.log(mean);
 									console.log(stdDe);			
 								}
@@ -55,7 +55,7 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 								Math.pow(Math.E,( -1 * ( Math.pow((x-mean),2) / ( 2 * Math.pow(stdDe,2) ) ) ) ) );
 						}
 						calc(function(){
-							console.log(dist(stdDe,68,mean));
+							console.log(dist(stdDe,7.17,mean));
 						});
 						
 						
