@@ -4,6 +4,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, Headerpath, RESOURCE_DOMAIN) {
 		$scope.members = true;
 		$scope.estimated = false;
+
 		$scope.goTo = function(route) {
 			$location.path(route);
 		};
