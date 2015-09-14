@@ -5,13 +5,15 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		$scope.members = true;
 		$scope.estimated = false;
 
+		Socket.on('project.updated', function(project) {
+			if (project._id === $scope.project._id) {
+	    		$scope.project.children = project.children;
+	    	}
+		});
+
 		$scope.goTo = function(route) {
 			$location.path(route);
 		};
-
-		Socket.on('project.created', function(project) {
-		    console.log(project);
-		});
 
 		$scope.authentication = Authentication;
 		$scope.userIndex = -1;
@@ -248,7 +250,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 
 		$scope.update = function() {
 			var project = $scope.project;
-
 			project.$update(function() {
 				$location.path('projects/' + project._id);
 			}, function(errorResponse) {
@@ -276,14 +277,14 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.newSubItem = function(scope) {
-			// console.log(scope.project.users);
+		
 			var nodeData = scope.$modelValue;
-			// console.log(nodeData);
+		
 			var estimationsArr = [];
 			var minEstimations = [];
 			var maxEstimations = [];
 			for (var i in scope.project.users) {
-				// console.log(i);
+			
 				estimationsArr.push(null);
 				minEstimations.push(null);
 				maxEstimations.push(null);
@@ -337,29 +338,29 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 					.hideDelay(3000)
 				);
 			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
+				$scope.error = errorResponse;
 			});
 		};
 
 		$scope.querySearch = function(query) {
-			//console.log(query);
+		
 			var results = query ? $scope.projects.filter(createFilterFor(query)) : $scope.projects, deferred;
 			return results;
 		};
 
 		$scope.searchTextChange = function(text) {
-			console.log('Text changed to ' + text);
+		
 		};
 
 		$scope.selectedItemChange = function(item) {
-			console.log(item);
+		
 			$scope.goTo('/projects/' + item._id + '/edit');
 		};
 
 		var createFilterFor = function(query) {
 			var lowercaseQuery = angular.lowercase(query);
 			return function filterFn(item) {
-				//console.log(item);
+			
 				var name = angular.lowercase(item.name);
 				return (name.indexOf(lowercaseQuery) === 0);
 			};
@@ -487,7 +488,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		$scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
 			if (!$scope.confirm) {
 				event.preventDefault();
-				//console.log(newUrl);
+			
 				var confirm = $mdDialog.confirm()
 				.parent(angular.element(document.body))
 				.title('Are you sure you want to leave this page?')

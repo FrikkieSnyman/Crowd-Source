@@ -60,7 +60,7 @@ exports.read = function(req, res) {
  */
 exports.update = function(req, res) {
 	var project = req.project ;
-
+	var socketio = req.app.get('socketio');
 	project = _.extend(project , req.body);
 
 	project.save(function(err) {
@@ -69,8 +69,8 @@ exports.update = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			var socketio = req.app.get('socketio');
-			socketio.sockets.emit('project.created', project);
+			project.__v += 1;
+			socketio.sockets.emit('project.updated', project);
 			res.jsonp(project);
 		}
 	});
