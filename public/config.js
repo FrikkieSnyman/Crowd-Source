@@ -13,7 +13,8 @@ var ApplicationConfiguration = (function() {
 	'ui.utils',
 	'ngMaterial',
 	'ui.tree',
-	'ngAria',];
+	'ngAria',
+	'btford.socket-io',];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {

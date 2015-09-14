@@ -69,6 +69,8 @@ exports.update = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+			var socketio = req.app.get('socketio');
+			socketio.sockets.emit('project.created', project);
 			res.jsonp(project);
 		}
 	});
