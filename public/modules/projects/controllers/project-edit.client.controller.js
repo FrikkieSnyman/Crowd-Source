@@ -1,13 +1,17 @@
 'use strict';
 
-angular.module('projects').controller('ProjectEditController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope', 'Headerpath', 'RESOURCE_DOMAIN',
-	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, Headerpath, RESOURCE_DOMAIN) {
+angular.module('projects').controller('ProjectEditController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope', 'Headerpath', 'RESOURCE_DOMAIN', 'Socket',
+	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, Headerpath, RESOURCE_DOMAIN, Socket) {
 		$scope.members = true;
 		$scope.estimated = false;
 
 		$scope.goTo = function(route) {
 			$location.path(route);
 		};
+
+		Socket.on('project.created', function(project) {
+		    console.log(project);
+		});
 
 		$scope.authentication = Authentication;
 		$scope.userIndex = -1;
