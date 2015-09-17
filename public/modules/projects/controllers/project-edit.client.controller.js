@@ -4,10 +4,11 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, Headerpath, RESOURCE_DOMAIN, Socket) {
 		$scope.members = true;
 		$scope.estimated = false;
-
+		$rootScope.project = $scope.project;
 		Socket.on('project.updated', function(project) {
 			if (project._id === $scope.project._id) {
 	    		$scope.project.children = project.children;
+	    		$rootScope.project = $scope.project;
 	    	}
 		});
 
@@ -411,7 +412,14 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			$scope.chat = '';
 			$scope.setCurrentNode(node, function() {
 				var newScope = $scope.$new();
-				// newScope.project = $scope.project;
+				newScope.project = $scope.project;
+				Socket.on('project.updated', function(project) {
+					if (project._id === $scope.project._id) {
+			    		newScope.project = $scope.project;
+			    		newScope.setCurrentNode(node, function(){});
+			    	}
+				});
+
 				newScope.submitChat = function(node, msg) {
 					if (!$scope.currentNode.chat) {
 						$scope.currentNode.chat = [];

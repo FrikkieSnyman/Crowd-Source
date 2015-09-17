@@ -63,14 +63,13 @@ exports.update = function(req, res) {
 	var socketio = req.app.get('socketio');
 	project = _.extend(project , req.body);
 
-	project.save(function(err) {
+	project.save(function(err, proj) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			project.__v += 1;
-			socketio.sockets.emit('project.updated', project);
+			socketio.sockets.emit('project.updated', proj);
 			res.jsonp(project);
 		}
 	});
