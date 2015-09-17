@@ -222,11 +222,11 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.isOpenForEstimation = function() {
-			//if ($scope.project.$resolved !== false) {
+			if ($scope.project.$resolved !== false) {
 			return $scope.project.openForEstimation;
-			//} else {
-			//	return false;
-			//}
+			} else {
+				return false;
+			}
 		};
 
 		$scope.addRootNode = function() {
