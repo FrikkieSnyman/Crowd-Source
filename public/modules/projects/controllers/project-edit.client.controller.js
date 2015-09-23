@@ -342,7 +342,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			}
 			nodeData.nodes.push({
 				id: nodeData.id * 10 + nodeData.nodes.length,
-				title: nodeData.title + '.' + (nodeData.nodes.length + 1),
+				title: '',
 				nodes: [],
 				collapsed : false,
 				estimations : estimationsArr,
