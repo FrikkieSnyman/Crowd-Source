@@ -42,6 +42,7 @@ md-fab-toolbar .md-fab-toolbar-wrapper {
 
 .cardHeader {
 	border-radius: 2px 2px 0 0 !important;
+	z-index: 1 !important;
 }
 
 .searchBar {
