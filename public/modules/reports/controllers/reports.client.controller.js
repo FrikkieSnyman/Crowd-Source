@@ -1,8 +1,8 @@
 'use strict';
 
 // Reports controller
-angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports', 'Headerpath', 'RESOURCE_DOMAIN',
-	function($scope, $stateParams, $location, Authentication, Reports, Headerpath, RESOURCE_DOMAIN) {
+angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports', 'Headerpath', 'RESOURCE_DOMAIN','$mdDialog',
+	function($scope, $stateParams, $location, Authentication, Reports, Headerpath, RESOURCE_DOMAIN, $mdDialog) {
 		$scope.authentication = Authentication;
 		$scope.goTo = function(route) {
 			$location.path(route);
@@ -88,5 +88,29 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 				Headerpath.setReportPath($scope.report.name);
 			});
 		};
+		$scope.getInfoDialog = function(ev,htmlDocumnet)
+		{
+			$mdDialog.show({
+			templateUrl: htmlDocumnet,
+			controller: DialogController,
+			parent: angular.element(document.body),
+			targetEvent: ev,
+			clickOutsideToClose:true
+			})
+			.then(function(answer) {
+			$scope.status = 'You said the information was "' + answer + '".';
+			}, function() {
+			$scope.status = 'You cancelled the dialog.';
+			});			
+		};
+		
+		function DialogController($scope, $mdDialog) {
+			$scope.hide = function() {
+				$mdDialog.hide();
+			};
+			$scope.cancel = function() {
+				$mdDialog.cancel();
+			};
+		}
 	}
 ]);
