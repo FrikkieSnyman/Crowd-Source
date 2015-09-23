@@ -4,13 +4,33 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, Headerpath, RESOURCE_DOMAIN, Socket) {
 		$scope.members = true;
 		$scope.estimated = false;
-		$rootScope.project = $scope.project;
 		Socket.on('project.updated', function(project) {
 			if (project._id === $scope.project._id) {
-	    		$scope.project.children = project.children;
-	    		$rootScope.project = $scope.project;
+				$scope.updateChildren(project.children[0], $scope.project.children[0]);
 	    	}
 		});
+
+		$scope.visit = function(node, scopeNode) {
+			
+			for (var i = 0; i < node.estimations.length; ++i) {
+				if (i !== parseInt($scope.userIndex)) {
+					console.log(i+ ' ' + $scope.userIndex);
+					scopeNode.estimations[i] = node.estimations[i];
+					scopeNode.minestimations[i] = node.minestimations[i];
+					scopeNode.maxestimations[i] = node.maxestimations[i];
+				}
+			}
+		};
+
+		$scope.updateChildren = function(node, scopeNode) {
+			if (node === null) {
+				return;
+			}
+			$scope.visit(node, scopeNode);
+			for (var i = 0; i < node.nodes.length; ++i) {
+				$scope.updateChildren(node.nodes[i], scopeNode.nodes[i]);
+			}
+		};
 
 		$scope.goTo = function(route) {
 			$location.path(route);
