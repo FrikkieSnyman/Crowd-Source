@@ -49,12 +49,12 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 							};
 							
 							calc(function(){
-								console.log(dist(stdDe,90,mean));
+								//console.log(dist(stdDe,90,mean));
 								// loop to populate data array with 
 								// probabily - quantile pairs
 								minVal = parseFloat(mean) - 4*parseFloat(stdDe);
 								maxVal = parseFloat(mean) + 4*parseFloat(stdDe);
-								console.log('Min ' + minVal + ' mean ' + mean + ' Max ' + maxVal);
+								//console.log('Min ' + minVal + ' mean ' + mean + ' Max ' + maxVal);
 								for (var i = minVal; i <= maxVal; i = i + 0.01) {
 									var q = i; // calc random draw from normal dist
 									var p = dist(stdDe,i,mean); // calc prob of rand draw

@@ -86,7 +86,7 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 								})
 							.classed('bar', true)
 							.style('margin-left', function(d){
-								console.log(d);
+								//console.log(d);
 								return Math.round(margin / 2) * d.level*2 + Math.round(margin / 2) + 'px';
 							});
 							var svg = innerDiv.append('svg')
