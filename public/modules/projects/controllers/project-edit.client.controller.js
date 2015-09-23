@@ -6,15 +6,14 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		$scope.estimated = false;
 		Socket.on('project.updated', function(project) {
 			if (project._id === $scope.project._id) {
+				$scope.project.__v = project.__v;
 				$scope.updateChildren(project.children[0], $scope.project.children[0]);
 	    	}
 		});
 
 		$scope.visit = function(node, scopeNode) {
-			
 			for (var i = 0; i < node.estimations.length; ++i) {
 				if (i !== parseInt($scope.userIndex)) {
-					console.log(i+ ' ' + $scope.userIndex);
 					scopeNode.estimations[i] = node.estimations[i];
 					scopeNode.minestimations[i] = node.minestimations[i];
 					scopeNode.maxestimations[i] = node.maxestimations[i];
