@@ -29,6 +29,17 @@ angular.module('projects').controller('ProjectsController', ['$interval','$scope
 			);
 		};
 
+		$scope.showEstimatorDialogBox = function(ev, project) {
+			var newScope = $scope.$new();
+			newScope.proj = project;
+			$mdDialog.show({
+				controller: DialogController,
+				templateUrl: 'modules/projects/views/show-estimator.client.view.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				scope: newScope
+			});
+		};
 
 		$scope.getEstimationProgress = function(project) {
 			var nrEst = 0;
