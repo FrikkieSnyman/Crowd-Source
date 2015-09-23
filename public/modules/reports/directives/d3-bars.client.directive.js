@@ -78,7 +78,7 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 							//Append the div's to the main div 
 							var innerDiv = tmp.append('div')
 								.style('width', '100%');
-							
+								
 							//Add two childern to the div
 							innerDiv.append('p')
 							.text(function(d) {
