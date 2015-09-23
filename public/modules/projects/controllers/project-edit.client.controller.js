@@ -4,6 +4,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, Headerpath, RESOURCE_DOMAIN, Socket) {
 		$scope.members = true;
 		$scope.estimated = false;
+		$rootScope.project = $scope.project;
 		Socket.on('project.updated', function(project) {
 			if (project._id === $scope.project._id) {
 				$scope.project.__v = project.__v;
@@ -12,6 +13,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		});
 
 		$scope.visit = function(node, scopeNode) {
+			scopeNode.chat = node.chat;
 			for (var i = 0; i < node.estimations.length; ++i) {
 				if (i !== parseInt($scope.userIndex)) {
 					scopeNode.estimations[i] = node.estimations[i];
@@ -265,7 +267,16 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				minEstimations.push(null);
 				maxEstimations.push(null);
 			}
-			$scope.project.children.push({id: 'node', title:'Root Node', nodes: [], collapsed : false, estimations : estimationsArr, minestimations : minEstimations, maxestimations : maxEstimations});
+			$scope.project.children.push({
+				id: new Date().getTime(),
+				title:'Root Node',
+				nodes: [],
+				chat : [],
+				collapsed : false,
+				estimations : estimationsArr,
+				minestimations : minEstimations,
+				maxestimations : maxEstimations
+			});
 		};
 
 		$scope.update = function() {
@@ -310,9 +321,10 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				maxEstimations.push(null);
 			}
 			nodeData.nodes.push({
-				id: nodeData.id * 10 + nodeData.nodes.length,
+				id: new Date().getTime(),
 				title: nodeData.title + '.' + (nodeData.nodes.length + 1),
 				nodes: [],
+				chat : [],
 				collapsed : false,
 				estimations : estimationsArr,
 				minestimations : minEstimations,
@@ -427,32 +439,12 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.showChatDialog = function(ev, node) {
-			$scope.currentNode = node;
-			$scope.chat = '';
 			$scope.setCurrentNode(node, function() {
-				var newScope = $scope.$new();
-				newScope.project = $scope.project;
-				Socket.on('project.updated', function(project) {
-					if (project._id === $scope.project._id) {
-			    		newScope.project = $scope.project;
-			    		newScope.setCurrentNode(node, function(){});
-			    	}
-				});
-
-				newScope.submitChat = function(node, msg) {
-					if (!$scope.currentNode.chat) {
-						$scope.currentNode.chat = [];
-					}
-					$scope.currentNode.chat.push({'user':$scope.authentication.user.displayName, 'msg':msg});
-					$scope.saveProject();
-					newScope.chat = '';
-				};
 				$mdDialog.show({
 					controller: DialogController,
 					templateUrl: 'modules/projects/views/chat.dialog.client.view.html',
 					parent: angular.element(document.body),
-					targetEvent: ev,
-					scope: newScope
+					targetEvent: ev
 				});
 			});
 		};
@@ -506,7 +498,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 
 		$scope.setCurrentNode = function(node, callback) {
 			$scope.currentNode = node;
-
+			$rootScope.currentNode = node;
 			if (callback !== undefined) {
 				callback();
 			}
