@@ -1,0 +1,20 @@
+<md-dialog data-ng-controller="ProjectsController">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2>Estimators</h2>
+			<span flex></span>
+			<md-button class="md-icon-button" ng-click="cancel()">
+				<md-icon md-svg-src="modules/projects/img/icons/close.svg" aria-label="Close dialog"></md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content>
+		<md-list>
+			<md-list-item ng-repeat="person in proj.users">
+				<p>
+					{{ person }}
+				</p>
+			</md-list-item>
+		</md-list>
+	</md-dialog-content>
+</md-dialog>
