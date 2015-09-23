@@ -6,7 +6,7 @@
 				<textarea ng-model="project.description" ng-readonly = "isOpenForEstimation()"></textarea>
 			</md-input-container>
 
-			<md-list>
+			<md-list data-ng-init="initUsers()">
 				<md-list-item>
 					<md-button class="md-icon-button" aria-label="Use Android">
 						<md-icon md-svg-src="modules/projects/img/icons/right_arrow.svg" ng-show="!showEstimators" ng-click="toggleEstimatorsMenu()"> </md-icon>
@@ -19,18 +19,11 @@
 						<md-tooltip>Add/Remove Estimators</md-tooltip>
 					</md-button> -->
 				</md-list-item>
-				<md-list-item class="md-2-line" ng-repeat="person in project.users" ng-show="showEstimators == true">
-					<md-icon class="md-avatar" md-svg-src="modules/projects/img/icons/person.svg" ng-show="showEstimators" data-nodrag></md-icon>
-					<div class="md-list-item-text">
-						<h3> {{person.firstName}} {{person.lastName}} </h3>
-						<p> {{person.username}} </p>
-					</div>
-				</md-list-item>
-				<md-list-item class="md-2-line" ng-repeat="person in people" ng-show="showEstimators == true && person.isEstimator == true">
-					<md-icon class="md-avatar" md-svg-src="modules/projects/img/icons/person.svg" ng-show="showEstimators" data-nodrag></md-icon>
-					<div class="md-list-item-text">
-						<h3> {{person.firstName}} {{person.lastName}} </h3>
-						<p> {{person.username}} </p>
+				<md-list-item class="md-2-line estimatorList" ng-repeat="person in project.users" ng-show="showEstimators == true">
+					<span flex="5"></span>
+					<div class="md-list-item-text" flex>
+						<h3> {{userDetails[person].firstName}} {{userDetails[person].lastName}} </h3>
+						<p> {{person}} </p>
 					</div>
 				</md-list-item>
 			</md-list>
@@ -41,6 +34,7 @@
 			</md-button>
 
 			<md-divider></md-divider>
+
 
 			<div ui-tree>
 			<script type="text/ng-template" id="nodes_renderer.html">
