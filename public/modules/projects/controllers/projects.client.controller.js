@@ -195,19 +195,15 @@ angular.module('projects').controller('ProjectsController', ['$interval','$scope
 			};
 		}
 
-		$scope.showDescriptionDialog = function(ev, node) {
-			$scope.currentNode = node;
-
-			$scope.setCurrentNode(node, function() {
-				var newScope = $scope.$new();
-
-				$mdDialog.show({
-					controller: DialogController,
-					templateUrl: 'modules/projects/views/description.dialog.client.view.html',
-					parent: angular.element(document.body),
-					targetEvent: ev,
-					scope: newScope
-				});
+		$scope.showDescriptionDialog = function(ev, project) {
+			var newScope = $scope.$new();
+			newScope.proj = project;
+			$mdDialog.show({
+				controller: DialogController,
+				templateUrl: 'modules/projects/views/show-description.dialog.client.view.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				scope: newScope
 			});
 		};
 
