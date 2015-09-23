@@ -53,3 +53,11 @@
 .imageMain {
 	border-radius: 5px;
 }
+
+.fullHeight {
+	height: 100%;
+}
+
+.paddingBottom {
+	padding-bottom: 10px;
+}
