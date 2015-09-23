@@ -50,6 +50,8 @@
                 </md-toolbar>
                 <br/>
                 <md-card-content class="md-padding" class="cardHeight" style="overflow:auto;"> 
+                    <p>Owner: {{project.project.owner}} </p>
+                    <p>Min: {{project.project.children[0].minestimations[0]}} Exp: {{project.project.children[0].estimations[0]}} Max: {{project.project.children[0].maxestimations[0]}} </p>
                     <md-button aria-label="View/Edit" class="md-button" ng-click="goTo('/reports/{{project._id}}')" flex>
                     View Report
                     </md-button>
