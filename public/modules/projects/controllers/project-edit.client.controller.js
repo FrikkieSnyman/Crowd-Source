@@ -302,7 +302,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			}, function() {
 				Headerpath.setProjectPath($scope.project.name);
 				$scope.initUsers();
-
+				$scope.addRootNode();
 				if ($scope.project.children[0].estimations[$scope.userIndex] === null) {
 					$scope.estimated = false;
 				} else {
