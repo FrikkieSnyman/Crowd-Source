@@ -3,7 +3,6 @@
 // Projects controller
 angular.module('projects').controller('ProjectsController', ['$interval','$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope', 'RESOURCE_DOMAIN',
 	function($interval, $scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, RESOURCE_DOMAIN) {
-
 		$scope.goTo = function(route) {
 			$location.path(route);
 		};
