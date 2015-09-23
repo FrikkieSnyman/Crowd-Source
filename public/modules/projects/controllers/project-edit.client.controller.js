@@ -60,6 +60,8 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			}
 		});
 
+		$scope.showEstimators = true;
+
 		$scope.rootIsEmpty = function() {
 			if ($scope.project.$resolved !== false) {
 				if ($scope.project.children.length < 1) {
@@ -70,20 +72,32 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			}
 		};
 
-		$scope.initUsers = function(scope) {
+		$scope.toggleEstimatorsList = function() {
+			$scope.showEstimators = !$scope.showEstimators;
+		};
+
+		$scope.initUsers = function() {
 			$http.get(RESOURCE_DOMAIN + '/users/getUsers').success(function(users) {
-				scope.people = [];
+				$scope.people = [];
+				$scope.userDetails = [];
 				for (var i in users) {
 					var tempIsEstimator = false;
-					for (var j = 0; j < scope.project.users.length; ++j) {
-						if (users[i].username === scope.project.users[j]) {
+					for (var j = 0; j < $scope.project.users.length; ++j) {
+						if (users[i].username === $scope.project.users[j]) {
 							tempIsEstimator = true;
 						}
 					}
-					scope.people.push({
+					$scope.people.push({
 						username : users[i].username,
-						isEstimator : tempIsEstimator
+						firstName : users[i].firstName,
+						lastName : users[i].lastName,
+						isEstimator : tempIsEstimator,
+						unchangedIsEstimator : tempIsEstimator
 					});
+					$scope.userDetails[users[i].username] = {
+						firstName : users[i].firstName,
+						lastName : users[i].lastName
+					};
 				}
 			});
 		};
@@ -111,7 +125,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				if ($scope.people[i].isEstimator === true) {
 					var found = false;
 					for (var j = 0; j < $scope.project.users.length; ++j) {
-						if ($scope.project.users[j] === $scope.people[i].username) {
+						if ($scope.project.users[j]/*.username*/ === $scope.people[i].username) {
 							var index = remove.indexOf(j);
 							if (index > -1) {
 								remove.splice(index, 1);
@@ -123,7 +137,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 					}
 
 					if (found === false) {
-						add.push($scope.people[i]);
+						add.push($scope.people[i].username);
 					}
 				}
 			}
@@ -160,7 +174,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		$scope.addEstimatorsToProject = function(addArr) {
 			var i;
 			for (i = 0; i < addArr.length; ++i) {
-				$scope.project.users.push(addArr[i].username);
+				$scope.project.users.push(addArr[i]);
 			}
 
 			if ($scope.project.children.length > 0) {
@@ -298,7 +312,8 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				projectId: $stateParams.projectId
 			}, function() {
 				Headerpath.setProjectPath($scope.project.name);
-				
+				$scope.initUsers();
+
 				if ($scope.project.children[0].estimations[$scope.userIndex] === null) {
 					$scope.estimated = false;
 				} else {
@@ -308,14 +323,14 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.newSubItem = function(scope) {
-		
+			// console.log(scope.project.users);
 			var nodeData = scope.$modelValue;
-		
+			// console.log(nodeData);
 			var estimationsArr = [];
 			var minEstimations = [];
 			var maxEstimations = [];
 			for (var i in scope.project.users) {
-			
+				// console.log(i);
 				estimationsArr.push(null);
 				minEstimations.push(null);
 				maxEstimations.push(null);
