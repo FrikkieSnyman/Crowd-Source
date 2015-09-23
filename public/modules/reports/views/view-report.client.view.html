@@ -10,7 +10,7 @@
 						<i class="glyphicon glyphicon-trash"></i>
 					</a>
 				</div>
-				<md-button  class="md-raised">
+				<md-button  class="md-raised" ng-click="getInfoDialog($event,'/modules/reports/views/barinfo.client.view.html')">
 					Info
 				</md-button>
 				<div flex id="chart">
@@ -19,7 +19,7 @@
 			</md-tab>
 			<md-tab label="Box Plot">
 			<div flex id="chart">
-				<md-button  class="md-raised">
+				<md-button  class="md-raised" ng-click="getInfoDialog($event,'/modules/reports/views/boxinfo.client.view.html')">
 					Info
 				</md-button>
 				<div class ="chartBorder">
@@ -28,7 +28,7 @@
 				</div>
 			</md-tab>
 			<md-tab label="Tree Plot">
-				<md-button  class="md-raised">
+				<md-button  class="md-raised" ng-click="getInfoDialog($event,'/modules/reports/views/treeinfo.client.view.html')">
 					Info
 				</md-button>
 				<div tree-plot>
