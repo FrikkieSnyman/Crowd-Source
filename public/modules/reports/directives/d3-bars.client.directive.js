@@ -84,7 +84,11 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 							.text(function(d) {
 									return d.title + ' user ' + d.name + ' estimated: ' + d.score;
 								})
-								.classed('bar', true);
+							.classed('bar', true)
+							.style('margin-left', function(d){
+								console.log(d);
+								return Math.round(margin / 2) * d.level*2 + Math.round(margin / 2) + 'px';
+							});
 							var svg = innerDiv.append('svg')
 								.style('width', '100%')
 								.attr('height',barHeight);
@@ -93,7 +97,7 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 								.attr('height', barHeight)
 								.attr('width', 0)
 								.attr('x', function(d){
-									return Math.round(margin / 2) * d.level + Math.round(margin / 2);
+									return Math.round(margin / 2) * d.level*2 + Math.round(margin / 2);
 								})
 								.attr('fill', function(d) {
 									return color(d.score);
