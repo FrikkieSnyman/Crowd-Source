@@ -84,10 +84,12 @@ md-fab-toolbar .md-fab-toolbar-wrapper {
 	border: 1px solid #dae2ea;
 	background: #f8faff;
 	color: #7c9eb2;
+	padding: 5px;
+	height: 60px;
 }
 
 .tree-node-content {
-	margin: 10px;
+	margin: 5px;
 }
 .tree-handle {
 	padding: 10px;
@@ -105,7 +107,8 @@ md-fab-toolbar .md-fab-toolbar-wrapper {
 }
 
 .treeInput {
-	padding: 0 !important; 
+	padding: 0 !important;
+	height: 100% !important;
 }
 
 .searchBar {

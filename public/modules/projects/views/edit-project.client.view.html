@@ -39,7 +39,7 @@
 			<div ui-tree>
 			<script type="text/ng-template" id="nodes_renderer.html">
 				<div ui-tree-handle class="tree-node tree-node-content" layout = "row">
-					<md-button class="md-icon-button" aria-label="Use Android" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="node.collapsed = !node.collapsed" >
+					<md-button class="md-icon-button treeInput" aria-label="Use Android" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="node.collapsed = !node.collapsed" >
 						<md-tooltip ng-show="!node.collapsed">
 							Close
 						</md-tooltip>
@@ -72,25 +72,25 @@
 						<label ng-bind="checkNaN(node.maxestimations[userIndex])" ng-if="node.nodes.length > 0"></label>
 					</md-input-container>
 
-					<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="showDescriptionDialog($event, node)">
+					<md-button class="md-icon-button treeInput" aria-label="Use Android" data-nodrag ng-click="showDescriptionDialog($event, node)">
 						<md-tooltip>
 							Edit Description
 						</md-tooltip>
 						<md-icon md-svg-src="modules/projects/img/icons/info.svg"></md-icon>
 					</md-button>
-					<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="showChatDialog($event, node)" ng-show="isOpenForEstimation() && false">
+					<md-button class="md-icon-button treeInput" aria-label="Use Android" data-nodrag ng-click="showChatDialog($event, node)" ng-show="isOpenForEstimation() && false">
 						<md-tooltip>
 							Discuss
 						</md-tooltip>
 						<md-icon md-svg-src="modules/projects/img/icons/chat.svg"></md-icon>
 					</md-button>
-					<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="undoToolTip(this,removeNode,newSubItem)" ng-show="owner() && !isOpenForEstimation()">
+					<md-button class="md-icon-button treeInput" aria-label="Use Android" data-nodrag ng-click="undoToolTip(this,removeNode,newSubItem)" ng-show="owner() && !isOpenForEstimation()">
 						<md-tooltip>
 							Remove
 						</md-tooltip>
 						<md-icon md-svg-src="modules/projects/img/icons/close.svg"></md-icon>
 					</md-button>
-					<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="newSubItem(this);apply()" ng-show="owner() && !isOpenForEstimation()">
+					<md-button class="md-icon-button treeInput" aria-label="Use Android" data-nodrag ng-click="newSubItem(this);apply()" ng-show="owner() && !isOpenForEstimation()">
 						<md-tooltip>
 							Add
 						</md-tooltip>
