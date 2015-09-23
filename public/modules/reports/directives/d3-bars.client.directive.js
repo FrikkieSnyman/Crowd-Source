@@ -17,26 +17,26 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 							.append('div')
 							.style('width', '100%');
 
-						var visit = function(node, project, data) {
+						var visit = function(node, project, data, level) {
 							for (var i = 0; i < node.estimations.length; ++i) {
 								var estimationMean = parseFloat((parseInt(node.minestimations[i]) + 4 * parseInt(node.estimations[i]) + parseInt(node.maxestimations[i])) / 6).toFixed(2);
-								data.push({title: node.title, name: project.users[i], score: estimationMean});
+								data.push({title: node.title, name: project.users[i], score: estimationMean, level: level});
 							}
 						};
 
-						var traverseTree = function(node, project, data) {
+						var traverseTree = function(node, project, data, level) {
 							if (node === null) {
 								return;
 							}
-							visit(node, project, data);
+							visit(node, project, data, level);
 							for (var i = 0; i < node.nodes.length; ++i) {
-								traverseTree(node.nodes[i], project, data);
+								traverseTree(node.nodes[i], project, data, level + 1);
 							}
 						};
 
 						var generateReport = function(project, data) {
 							var projectTree = project.children[0];
-							traverseTree(projectTree, project, data);
+							traverseTree(projectTree, project, data, 0);
 						};
 
 						window.onresize = function() {
@@ -82,7 +82,7 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 							//Add two childern to the div
 							innerDiv.append('p')
 							.text(function(d) {
-									return d.title + ': ' + d.name + ' estimated: ' + d.score;
+									return d.title + ' user ' + d.name + ' estimated: ' + d.score;
 								})
 								.classed('bar', true);
 							var svg = innerDiv.append('svg')
@@ -91,8 +91,10 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 								
 							svg.append('rect')
 								.attr('height', barHeight)
-								.attr('width', width)
-								.attr('x', Math.round(margin / 2))
+								.attr('width', 0)
+								.attr('x', function(d){
+									return Math.round(margin / 2) * d.level + Math.round(margin / 2);
+								})
 								.attr('fill', function(d) {
 									return color(d.score);
 								})
