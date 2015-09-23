@@ -42,7 +42,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			if (data.length !== 0) {
 				var tmp = data[0];
 				for (var u in tmp.users) {
-					if (tmp.users[u].username === $scope.authentication.user.username) {
+					if (tmp.users[u] === $scope.authentication.user.username) {
 						$scope.userIndex = u;
 					}
 				}
@@ -89,7 +89,8 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 						username : users[i].username,
 						firstName : users[i].firstName,
 						lastName : users[i].lastName,
-						isEstimator : tempIsEstimator
+						isEstimator : tempIsEstimator,
+						unchangedIsEstimator : tempIsEstimator
 					});
 					$scope.userDetails[users[i].username] = {
 						firstName : users[i].firstName,
@@ -122,11 +123,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				if ($scope.people[i].isEstimator === true) {
 					var found = false;
 					for (var j = 0; j < $scope.project.users.length; ++j) {
-<<<<<<< HEAD
 						if ($scope.project.users[j]/*.username*/ === $scope.people[i].username) {
-=======
-						if ($scope.project.users[j].username === $scope.people[i].username) {
->>>>>>> User list displays first and last name and also uses project.users array
 							var index = remove.indexOf(j);
 							if (index > -1) {
 								remove.splice(index, 1);
@@ -151,7 +148,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 
 		$scope.removeEstimatorsFromProject = function(removeArr) {
 			for (var i = removeArr.length - 1; i >= 0; --i) {
-				$scope.project.users.splice(removeArr[i].username, 1);
+				$scope.project.users.splice(removeArr[i], 1);
 			}
 
 			if ($scope.project.children.length > 0) {
@@ -175,7 +172,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		$scope.addEstimatorsToProject = function(addArr) {
 			var i;
 			for (i = 0; i < addArr.length; ++i) {
-				$scope.project.users.push(addArr[i].username);
+				$scope.project.users.push(addArr[i]);
 			}
 
 			if ($scope.project.children.length > 0) {
@@ -305,7 +302,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			}, function() {
 				Headerpath.setProjectPath($scope.project.name);
 				$scope.initUsers();
-				
+
 				if ($scope.project.children[0].estimations[$scope.userIndex] === null) {
 					$scope.estimated = false;
 				} else {
@@ -315,11 +312,14 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.newSubItem = function(scope) {
+			// console.log(scope.project.users);
 			var nodeData = scope.$modelValue;
+			// console.log(nodeData);
 			var estimationsArr = [];
 			var minEstimations = [];
 			var maxEstimations = [];
 			for (var i in scope.project.users) {
+				// console.log(i);
 				estimationsArr.push(null);
 				minEstimations.push(null);
 				maxEstimations.push(null);
