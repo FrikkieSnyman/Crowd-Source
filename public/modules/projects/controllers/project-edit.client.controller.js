@@ -70,6 +70,10 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			}
 		};
 
+		$scope.toggleEstimatorsList = function() {
+			$scope.showEstimators = !$scope.showEstimators;
+		};
+
 		$scope.initUsers = function() {
 			$http.get(RESOURCE_DOMAIN + '/users/getUsers').success(function(users) {
 				$scope.people = [];
