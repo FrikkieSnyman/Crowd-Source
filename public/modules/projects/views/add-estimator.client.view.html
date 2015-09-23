@@ -1,7 +1,7 @@
-<md-dialog data-ng-controller="ProjectEditController" data-ng-init="initUsers(this)">
+<md-dialog data-ng-controller="ProjectEditController">
 	<md-toolbar>
 		<div class="md-toolbar-tools">
-			<h2 ng-if="owner()">Add Estimators</h2>
+			<h2 ng-if="owner()">Edit Estimators</h2>
 			<h2 ng-if="!owner()">Estimators</h2>
 			<span flex></span>
 			<md-button class="md-icon-button" ng-click="cancel()">
@@ -10,24 +10,22 @@
 		</div>
 	</md-toolbar>
 	<md-content>
-		<md-list-item class="md-2-line" ng-repeat="person in people" > <!-- ng-show="person.isEstimator" -->
+		<md-list-item class="md-2-line estimatorList" ng-repeat="person in people" ng-show="person.isEstimator">
 			<div class="md-list-item-text">
 				<h3> {{person.firstName}} {{person.lastName}} </h3>
 				<p> {{person.username}} </p>
 			</div>
 			<md-checkbox class="md-secondary" ng-model="person.isEstimator"></md-checkbox>
 		</md-list-item>
-<<<<<<< HEAD
-<!-- 		<md-list-item class="md-2-line" ng-repeat="person in people" ng-show="!person.isEstimator">
-=======
-		<!-- <md-list-item class="md-2-line" ng-repeat="person in people" ng-show="!person.isEstimator">
->>>>>>> Estimator list now displays usernames
+		<md-list-item class="md-2-line" ng-repeat="person in people" ng-show="!person.isEstimator">
 			<div class="md-list-item-text">
 				<h3> {{person.firstName}} {{person.lastName}} </h3>
 				<p> {{person.username}} </p>
 			</div>
 			<md-checkbox class="md-secondary" ng-model="person.isEstimator"></md-checkbox>
-		</md-list-item> -->
-		<md-button class="md-primary" ng-click="updateEstimators();cancel();" ng-disabled="!owner()"> Save </md-button>
+		</md-list-item>
 	</md-content>
+	<div>
+		<md-button class="md-primary" ng-click="updateEstimators();cancel();" ng-disabled="!owner()"> Save </md-button>
+	</div>
 </md-dialog>
