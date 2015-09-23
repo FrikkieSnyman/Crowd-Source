@@ -58,7 +58,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			}
 		});
 
-		$scope.showEstimators = true;
+		$scope.showEstimators = false;
 
 		$scope.rootIsEmpty = function() {
 			if ($scope.project.$resolved !== false) {
