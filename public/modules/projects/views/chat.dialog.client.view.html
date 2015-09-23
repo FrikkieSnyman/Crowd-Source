@@ -1,0 +1,35 @@
+<md-dialog>
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2>Discussion</h2>
+			<span flex></span>
+			<md-button class="md-icon-button" ng-click="cancel();">
+				<md-icon md-svg-src="modules/projects/img/icons/close.svg" aria-label="Close dialog"></md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content scrollTop="scrollHeight">
+		<md-list-item ng-if="currentNode.chat === undefined">
+			<p class="md-caption">No messages to display</p>
+		</md-list-item>
+		<md-list-item class="md-2-line" ng-repeat="c in currentNode.chat">
+			<div class="md-list-item-text">
+			  <h3><b>{{ c.user }}</b></h3>
+			  <p>{{ c.msg }}</p>
+			</div>
+		</md-list-item>
+	<md-dialog-content>
+		<md-list-item>
+			<md-input-container flex>
+				<label> Add to discussion </label>
+				<textarea ng-model="chat" columns="1" autofocus></textarea> 
+			</md-input-container>
+			<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="submitChat(currentNode, chat); showChatDialog($event, currentNode);" ng-disabled="chat === '' ">
+				<md-tooltip>
+					Send
+				</md-tooltip>
+				<md-icon md-svg-src="modules/projects/img/icons/send.svg"></md-icon>
+			</md-button>
+		</md-list-item>
+	</md-dialog-content>
+</md-dialog>

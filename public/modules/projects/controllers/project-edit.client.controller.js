@@ -1,9 +1,36 @@
 'use strict';
 
-angular.module('projects').controller('ProjectEditController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope', 'Headerpath', 'RESOURCE_DOMAIN',
-	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, Headerpath, RESOURCE_DOMAIN) {
+angular.module('projects').controller('ProjectEditController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope', 'Headerpath', 'RESOURCE_DOMAIN', 'Socket',
+	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, Headerpath, RESOURCE_DOMAIN, Socket) {
 		$scope.members = true;
 		$scope.estimated = false;
+		Socket.on('project.updated', function(project) {
+			if (project._id === $scope.project._id) {
+				$scope.project.__v = project.__v;
+				$scope.updateChildren(project.children[0], $scope.project.children[0]);
+	    	}
+		});
+
+		$scope.visit = function(node, scopeNode) {
+			for (var i = 0; i < node.estimations.length; ++i) {
+				if (i !== parseInt($scope.userIndex)) {
+					scopeNode.estimations[i] = node.estimations[i];
+					scopeNode.minestimations[i] = node.minestimations[i];
+					scopeNode.maxestimations[i] = node.maxestimations[i];
+				}
+			}
+		};
+
+		$scope.updateChildren = function(node, scopeNode) {
+			if (node === null) {
+				return;
+			}
+			$scope.visit(node, scopeNode);
+			for (var i = 0; i < node.nodes.length; ++i) {
+				$scope.updateChildren(node.nodes[i], scopeNode.nodes[i]);
+			}
+		};
+
 		$scope.goTo = function(route) {
 			$location.path(route);
 		};
@@ -40,10 +67,9 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				}
 			}
 		};
-// method:'POST', url:RESOURCE_DOMAIN +
+
 		$scope.initUsers = function(scope) {
 			$http.get(RESOURCE_DOMAIN + '/users/getUsers').success(function(users) {
-			// $http(method:'GET', url:RESOURCE_DOMAIN + '/users/getUsers').success(function(users) {
 				scope.people = [];
 				for (var i in users) {
 					var tempIsEstimator = false;
@@ -110,7 +136,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			for (var i = removeArr.length - 1; i >= 0; --i) {
 				$scope.project.users.splice(removeArr[i], 1);
 			}
-			
+
 			if ($scope.project.children.length > 0) {
 				$scope.removeEstimatorsRecursiveDescent($scope.project.children[0], removeArr);
 			}
@@ -244,7 +270,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 
 		$scope.update = function() {
 			var project = $scope.project;
-
 			project.$update(function() {
 				$location.path('projects/' + project._id);
 			}, function(errorResponse) {
@@ -272,14 +297,14 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.newSubItem = function(scope) {
-			// console.log(scope.project.users);
+		
 			var nodeData = scope.$modelValue;
-			// console.log(nodeData);
+		
 			var estimationsArr = [];
 			var minEstimations = [];
 			var maxEstimations = [];
 			for (var i in scope.project.users) {
-				// console.log(i);
+			
 				estimationsArr.push(null);
 				minEstimations.push(null);
 				maxEstimations.push(null);
@@ -333,29 +358,29 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 					.hideDelay(3000)
 				);
 			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
+				$scope.error = errorResponse;
 			});
 		};
 
 		$scope.querySearch = function(query) {
-			//console.log(query);
+		
 			var results = query ? $scope.projects.filter(createFilterFor(query)) : $scope.projects, deferred;
 			return results;
 		};
 
 		$scope.searchTextChange = function(text) {
-			console.log('Text changed to ' + text);
+		
 		};
 
 		$scope.selectedItemChange = function(item) {
-			console.log(item);
+		
 			$scope.goTo('/projects/' + item._id + '/edit');
 		};
 
 		var createFilterFor = function(query) {
 			var lowercaseQuery = angular.lowercase(query);
 			return function filterFn(item) {
-				//console.log(item);
+			
 				var name = angular.lowercase(item.name);
 				return (name.indexOf(lowercaseQuery) === 0);
 			};
@@ -388,13 +413,43 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 
 		$scope.showDescriptionDialog = function(ev, node) {
 			$scope.currentNode = node;
-
 			$scope.setCurrentNode(node, function() {
 				var newScope = $scope.$new();
 
 				$mdDialog.show({
 					controller: DialogController,
 					templateUrl: 'modules/projects/views/description.dialog.client.view.html',
+					parent: angular.element(document.body),
+					targetEvent: ev,
+					scope: newScope
+				});
+			});
+		};
+
+		$scope.showChatDialog = function(ev, node) {
+			$scope.currentNode = node;
+			$scope.chat = '';
+			$scope.setCurrentNode(node, function() {
+				var newScope = $scope.$new();
+				newScope.project = $scope.project;
+				Socket.on('project.updated', function(project) {
+					if (project._id === $scope.project._id) {
+			    		newScope.project = $scope.project;
+			    		newScope.setCurrentNode(node, function(){});
+			    	}
+				});
+
+				newScope.submitChat = function(node, msg) {
+					if (!$scope.currentNode.chat) {
+						$scope.currentNode.chat = [];
+					}
+					$scope.currentNode.chat.push({'user':$scope.authentication.user.displayName, 'msg':msg});
+					$scope.saveProject();
+					newScope.chat = '';
+				};
+				$mdDialog.show({
+					controller: DialogController,
+					templateUrl: 'modules/projects/views/chat.dialog.client.view.html',
 					parent: angular.element(document.body),
 					targetEvent: ev,
 					scope: newScope
@@ -460,7 +515,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		$scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
 			if (!$scope.confirm) {
 				event.preventDefault();
-				//console.log(newUrl);
+			
 				var confirm = $mdDialog.confirm()
 				.parent(angular.element(document.body))
 				.title('Are you sure you want to leave this page?')
