@@ -7,12 +7,34 @@
 			</md-input-container>
 
 			<md-list>
-				<md-list-item ng-click="showAddEstimatorDialogBox()">
-					<p>Estimators</p>
+				<md-list-item>
+					<md-button class="md-icon-button" aria-label="Use Android" ng-click="toggleEstimatorsList()">
+						<md-icon md-svg-src="modules/projects/img/icons/right_arrow.svg" ng-show="!showEstimators"> </md-icon>
+						<md-icon md-svg-src="modules/projects/img/icons/down_arrow.svg" ng-show="showEstimators"> </md-icon>
+						<md-tooltip>Show/Hide Estimators</md-tooltip>
+					</md-button>
+					<h3>Estimators</h3>
+					<!-- <md-button class="md-icon-button" aria-label="Use Android">
+						<md-icon md-svg-src="modules/projects/img/icons/edit.svg" ng-click="showAddEstimatorDialogBox()"> </md-icon>
+						<md-tooltip>Add/Remove Estimators</md-tooltip>
+					</md-button> -->
+				</md-list-item>
+				<md-list-item class="md-2-line estimatorList" ng-repeat="person in project.users" ng-show="showEstimators == true">
+					<span flex="5"></span>
+					<div class="md-list-item-text" flex>
+						<h3> {{userDetails[person].firstName}} {{userDetails[person].lastName}} </h3>
+						<p> {{person}} </p>
+					</div>
 				</md-list-item>
 			</md-list>
 
+
+			<md-button class="md-primary" ng-click="showAddEstimatorDialogBox()" ng-show="owner() && !isOpenForEstimation()" ng-disabled = "estimationForm.$invalid">
+				Edit Estimators
+			</md-button>
+
 			<md-divider></md-divider>
+
 
 			<div ui-tree>
 			<script type="text/ng-template" id="nodes_renderer.html">

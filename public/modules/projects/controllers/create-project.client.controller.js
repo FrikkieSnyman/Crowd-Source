@@ -9,6 +9,8 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 			for (var i in users) {
 				$scope.people.push({
 					name: users[i].username,
+					firstName : users[i].firstName,
+					lastName : users[i].lastName,
 					selected: false
 				});
 			}
