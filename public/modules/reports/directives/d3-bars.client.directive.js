@@ -80,11 +80,11 @@ angular.module('reports').directive('d3Bars', ['D3', '$window',
 								.style('width', '100%');
 							
 							//Add two childern to the div
-							innerDiv.append('text')
+							innerDiv.append('p')
 							.text(function(d) {
 									return d.title + ': ' + d.name + ' estimated: ' + d.score;
 								})
-							innerDiv.append('br')
+								.classed('bar', true);
 							var svg = innerDiv.append('svg')
 								.style('width', '100%')
 								.attr('height',barHeight);
