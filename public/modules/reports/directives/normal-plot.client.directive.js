@@ -57,7 +57,7 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 								//console.log('Min ' + minVal + ' mean ' + mean + ' Max ' + maxVal);
 								for (var i = minVal; i <= maxVal; i = i + 0.01) {
 									var q = i; // calc random draw from normal dist
-									var p = dist(stdDe,i,mean); // calc prob of rand draw
+									var p = dist(stdDe,i,mean) * 100; // calc prob of rand draw
 									var el = {
 										'q': q,
 										'p': p
