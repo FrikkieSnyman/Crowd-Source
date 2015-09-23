@@ -41,7 +41,8 @@ md-fab-toolbar .md-fab-toolbar-wrapper {
 }
 
 .cardHeader {
-	border-radius: 5px 5px 0 0 !important;
+	border-radius: 2px 2px 0 0 !important;
+	z-index: 1 !important;
 }
 
 .searchBar {
@@ -109,7 +110,7 @@ md-fab-toolbar .md-fab-toolbar-wrapper {
 }
 
 .searchBar {
-  margin: 10px;
+ 	margin: 10px;
 }
 
 input::-webkit-outer-spin-button,
