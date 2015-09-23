@@ -302,13 +302,29 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			}, function() {
 				Headerpath.setProjectPath($scope.project.name);
 				$scope.initUsers();
-				$scope.addRootNode();
+
+				if ($scope.project.children.length <= 0) {
+					$scope.addRootNode();
+				}
+
 				if ($scope.project.children[0].estimations[$scope.userIndex] === null) {
 					$scope.estimated = false;
 				} else {
 					$scope.estimated = true;
 				}
 			});
+		};
+
+		$scope.addFeature = function() {
+			var estimationsArr = [];
+			var minEstimations = [];
+			var maxEstimations = [];
+			for (var i in $scope.project.users) {
+				estimationsArr.push(null);
+				minEstimations.push(null);
+				maxEstimations.push(null);
+			}
+			$scope.project.children[0].nodes.push({id: 'node', title:'', nodes: [], collapsed : false, estimations : estimationsArr, minestimations : minEstimations, maxestimations : maxEstimations});
 		};
 
 		$scope.newSubItem = function(scope) {
