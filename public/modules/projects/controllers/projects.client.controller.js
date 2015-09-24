@@ -3,7 +3,6 @@
 // Projects controller
 angular.module('projects').controller('ProjectsController', ['$interval','$scope', '$stateParams', '$location', 'Authentication', 'Projects', '$http', '$mdToast', '$mdDialog', '$timeout', '$rootScope', 'RESOURCE_DOMAIN',
 	function($interval, $scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, RESOURCE_DOMAIN) {
-
 		$scope.goTo = function(route) {
 			$location.path(route);
 		};
@@ -29,6 +28,17 @@ angular.module('projects').controller('ProjectsController', ['$interval','$scope
 			);
 		};
 
+		$scope.showEstimatorDialogBox = function(ev, project) {
+			var newScope = $scope.$new();
+			newScope.proj = project;
+			$mdDialog.show({
+				controller: DialogController,
+				templateUrl: 'modules/projects/views/show-estimator.client.view.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				scope: newScope
+			});
+		};
 
 		$scope.getEstimationProgress = function(project) {
 			var nrEst = 0;
@@ -184,19 +194,15 @@ angular.module('projects').controller('ProjectsController', ['$interval','$scope
 			};
 		}
 
-		$scope.showDescriptionDialog = function(ev, node) {
-			$scope.currentNode = node;
-
-			$scope.setCurrentNode(node, function() {
-				var newScope = $scope.$new();
-
-				$mdDialog.show({
-					controller: DialogController,
-					templateUrl: 'modules/projects/views/description.dialog.client.view.html',
-					parent: angular.element(document.body),
-					targetEvent: ev,
-					scope: newScope
-				});
+		$scope.showDescriptionDialog = function(ev, project) {
+			var newScope = $scope.$new();
+			newScope.proj = project;
+			$mdDialog.show({
+				controller: DialogController,
+				templateUrl: 'modules/projects/views/show-description.dialog.client.view.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				scope: newScope
 			});
 		};
 
