@@ -55,15 +55,15 @@ md-fab-toolbar .md-fab-toolbar-wrapper {
 }
 
 .angular-ui-tree-handle {
-	background: #f8faff;
-	border: 1px solid #dae2ea;
+	background: #E8EAF6;
+	border: 1px solid #ffffff;
 	color: #7c9eb2;
 	padding: 10px 10px;
 }
 
 .angular-ui-tree-handle:hover {
 	color: #438eb9;
-	background: #f4f6f7;
+	background: #C5CAE9;
 	border-color: #dce2e8;
 }
 
@@ -82,8 +82,9 @@ md-fab-toolbar .md-fab-toolbar-wrapper {
 
 /* --- Tree --- */
 .tree-node {
-	border: 1px solid #dae2ea;
-	background: #f8faff;
+	border: 1px solid #ffffff;
+	border-radius: 4px 4px 4px 4px !important;
+	background: #E8EAF6;
 	color: #7c9eb2;
 	padding: 5px;
 	height: 60px;
