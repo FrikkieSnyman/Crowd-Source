@@ -34,7 +34,7 @@
 			</md-button>
 
 			<md-divider></md-divider>
-			<md-list>
+			<md-list ng-show="estimator() && isOpenForEstimation()">
 				<md-list-item ng-click="showEstimation = !showEstimation">
 					<md-button class="md-icon-button" aria-label="Use Android">
 						<md-icon md-svg-src="modules/projects/img/icons/right_arrow.svg" ng-show="!showEstimation"> </md-icon>
