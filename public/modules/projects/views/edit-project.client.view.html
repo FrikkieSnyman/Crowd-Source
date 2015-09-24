@@ -34,7 +34,64 @@
 			</md-button>
 
 			<md-divider></md-divider>
+			<md-list>
+				<md-list-item>
+					<md-button class="md-icon-button" aria-label="Use Android" ng-click="showEstimation = !showEstimation">
+						<md-icon md-svg-src="modules/projects/img/icons/right_arrow.svg" ng-show="!showEstimation"> </md-icon>
+						<md-icon md-svg-src="modules/projects/img/icons/down_arrow.svg" ng-show="showEstimation"> </md-icon>
+						<md-tooltip>Show/Hide Estimation</md-tooltip>
+					</md-button>
+					<h3>Estimations</h3>
+				</md-list-item>
 
+				<md-list-item class="md-2-line" ng-show="showEstimation">
+					<span flex="5"></span>
+					<div class="md-list-item-text">
+						<h3>Minimum</h3>
+						<p>
+							{{
+								(project.children[0].minestimations[userIndex] > 0) 
+								? 
+								project.children[0].minestimations[userIndex] 
+								: 
+								"Not all features have been estimated on"
+							}}
+						</p>
+					</div>
+				</md-list-item>
+				<md-list-item class="md-2-line" ng-show="showEstimation">
+					<span flex="5"></span>
+					<div class="md-list-item-text">
+						<h3>Expected</h3>
+						<p>
+							{{
+								(project.children[0].estimations[userIndex] > 0) 
+								? 
+								project.children[0].estimations[userIndex] 
+								: 
+								"Not all features have been estimated on"
+							}}
+						</p>
+					</div>
+				</md-list-item>
+				<md-list-item class="md-2-line" ng-show="showEstimation">
+					<span flex="5"></span>
+					<div class="md-list-item-text">
+						<h3>Maximum</h3>
+						<p>
+							{{
+								(project.children[0].maxestimations[userIndex] > 0) 
+								? 
+								project.children[0].maxestimations[userIndex] 
+								: 
+								"Not all features have been estimated on"
+							}}
+						</p>
+					</div>
+				</md-list-item>
+
+			</md-list>
+			<md-divider ng-show="estimator() && isOpenForEstimation()"></md-divider>
 
 			<div ui-tree>
 			<script type="text/ng-template" id="nodes_renderer.html">
