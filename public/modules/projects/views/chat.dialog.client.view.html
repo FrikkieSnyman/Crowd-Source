@@ -10,15 +10,17 @@
 			</div>
 		</md-toolbar>
 		<md-dialog-content scrollTop="scrollHeight">
-			<md-list-item ng-if="currentNode.chat.length === 0">
-				<p class="md-caption">No messages to display</p>
-			</md-list-item>
-			<md-list-item class="md-2-line" ng-repeat="c in currentNode.chat">
-				<div class="md-list-item-text">
-				  <h3><b>{{ c.user }}</b></h3>
-				  <p>{{ c.msg }}</p>
-				</div>
-			</md-list-item>
+			<md-list>
+				<md-list-item ng-if="currentNode.chat.length === 0">
+					<p class="md-caption">No messages to display</p>
+				</md-list-item>
+				<md-list-item class="md-2-line" ng-repeat="c in currentNode.chat">
+					<div class="md-list-item-text">
+					  <h3>{{ c.user }}</h3>
+					  <p>{{ c.msg }}</p>
+					</div>
+				</md-list-item>
+			</md-list>
 		<md-dialog-content>
 			<md-list-item>
 				<md-input-container flex>
