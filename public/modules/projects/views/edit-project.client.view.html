@@ -119,7 +119,7 @@
 				<md-button class = "md-primary" ng-click = "openForEstimation()" ng-show = "owner() && !isOpenForEstimation()">
 					Open for Estimation
 				</md-button>
-				<md-button class="md-primary" ng-click="addFeature()" ng-show = "owner() && !isOpenForEstimation()">
+				<md-button class="md-primary" ng-click="newSubItem(this)" ng-show = "owner() && !isOpenForEstimation()">
 					Add Feature
 				</md-button>
 				<md-button class = "md-primary" ng-click = "submitEstimation()" ng-show = "!rootIsEmpty() && estimator() && !estimated && isOpenForEstimation()" ng-disabled = "estimationForm.$invalid">

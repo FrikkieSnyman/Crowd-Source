@@ -326,21 +326,12 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			});
 		};
 
-		$scope.addFeature = function() {
-			var estimationsArr = [];
-			var minEstimations = [];
-			var maxEstimations = [];
-			for (var i in $scope.project.users) {
-				estimationsArr.push(null);
-				minEstimations.push(null);
-				maxEstimations.push(null);
-			}
-			$scope.project.children[0].nodes.push({id: 'node', title:'', nodes: [], collapsed : false, estimations : estimationsArr, minestimations : minEstimations, maxestimations : maxEstimations});
-		};
-
 		$scope.newSubItem = function(scope) {
 			// console.log(scope.project.users);
 			var nodeData = scope.$modelValue;
+			if (nodeData === undefined) {
+				nodeData = $scope.project.children[0];
+			}
 			// console.log(nodeData);
 			var estimationsArr = [];
 			var minEstimations = [];
