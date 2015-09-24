@@ -33,7 +33,7 @@
 				Edit Estimators
 			</md-button>
 
-			<md-divider></md-divider>
+			<md-divider ng-hide="project.children[0].nodes[0] == null"></md-divider>
 
 
 			<div ui-tree>
@@ -103,7 +103,7 @@
 			</script>
 
 			<form name = "estimationForm">
-				<div>
+				<div ng-hide="project.children[0].nodes[0] == null">
 					<div ui-tree id="tree-root" data-drag-enabled="owner() && !isOpenForEstimation()">
 						<ol ui-tree-nodes ng-model="project.children[0].nodes">
 							<li ng-repeat="node in project.children[0].nodes" ui-tree-node ng-include="'nodes_renderer.html'"></li>
