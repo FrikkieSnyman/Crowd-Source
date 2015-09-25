@@ -47,15 +47,15 @@
 	<section data-ng-include="'/modules/sidenav/views/sidenav.client.view.html'" 
 	class ="sidenav" tabindex="-1">
 	</section>
-	<md-content layout ="column" tabindex="-1" role ="main" flex>	
+	<section layout ="column" tabindex="-1" role ="main" flex>	
 		<div data-ng-include="'/modules/core/views/header.client.view.html'">
 		</div>
-		<md-content>
+		<md-content flex>
 			<section class="container" flex>
 				{% block content %}{% endblock %}
 			</section>
 		</md-content>
-	</md-content>
+	</section>
 	<!--Embedding The User Object-->
 	<script type="text/javascript">
 		var user = {{ user | json | safe }};
@@ -68,6 +68,8 @@
 	<!--Livereload script rendered -->
 	<script type="text/javascript" src="http://{{request.hostname}}:35729/livereload.js"></script>
 	{% endif %}
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="/lib/angular-socket-io/socket.min.js"></script>
 </body>
 
 </html>

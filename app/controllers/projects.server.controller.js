@@ -60,15 +60,16 @@ exports.read = function(req, res) {
  */
 exports.update = function(req, res) {
 	var project = req.project ;
-
+	var socketio = req.app.get('socketio');
 	project = _.extend(project , req.body);
 
-	project.save(function(err) {
+	project.save(function(err, proj) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+			socketio.sockets.emit('project.updated', proj);
 			res.jsonp(project);
 		}
 	});
@@ -127,7 +128,7 @@ exports.projectByID = function(req, res, next, id) {
  * Project authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	console.log(req.project);
+	
 	if (req.project.user.id !== req.user.id) {
 		return res.status(403).send('User is not authorized');
 	}
