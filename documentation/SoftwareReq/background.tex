@@ -1,1 +1,38 @@
+\subsection{Reason for the project}
 The biggest reason leading to this project, is that EpiUse Advance is having trouble providing a quote to their potential clients with confidence. Oftentimes, it would happen that EpiUse Advance would have difficulty specifying to their clients the costs involved in developing their proposed tasks. This project aims to relieve this issue from EpiUse Advance.
+\newline
+The Estimations are provided by a panel of experts in the field. Each expert presents their input on the project task separately. After each expert has mad a estimation the results are compared. The results are compared by making use of the Delphi Wide-Band method. We will now proceed to take a look at how we are solving the client requirements.
+\subsection{Delphi Wide-Band}
+The Wide band method was originated by Barry Boehem and Johan A.Fraquhar in the early 1970's. The method consists of 6 steps.
+\begin{itemize}
+	\item{Coordinator presents each expert with a specification and an estimation form.}
+	\item{Coordinator calls a group meeting in which the experts discuss estimation issues with the coordinator and each other.}
+	\item{Experts fill out forms anonymously.}
+	\item{Coordinator prepares and distributes a summary of the estimates.}
+	\item{Coordinator calls a group meeting, specifically focusing on having the experts discuss points where their estimates vary widely.}
+	\item{Experts fill out forms, again anonymously, and steps 4 to 6 are iterated for as many rounds as appropriate.}
+\end{itemize}
+Our project aim to provided a interface based on modern technologies to implement this method of estimation for a project. After a completed round of all 6 steps a report is created. This report makes use of the mathematical model behind the Delphi Wide-Band method. Each estimator provides three values. A min, max and a estimated value.
+\begin{itemize}
+	\item{Values For Estimators}
+	\\Minimum value: \[E_{min_i}\]
+	Value: \[E_i\]
+	Maximum value: \[E_{max_i}\]
+	\item{Assume a normal distribution}
+	\[ P(x) = \frac{1}{s\sqrt{2\pi}}e^{-\frac{(x-u)^2}{2s^2}}\]
+	This will provide us with a normal distribution and indicate the spread of our estimations. If our estimations are closely grouped it will yield a much higher probability. If they are not grouped well we can expect a low probability.
+	\\s indicates the variation.
+	\\u indicates the mean.
+	\item{The mean}
+	is calculated from estimations  of all estimators.
+	\[ u_i = \frac{(E_{min_i}+4E_i+E_{max_i})}{6}\]
+	Then computing the sum of these estimations multiplied by the weight of that estimator.
+	\[ u = \sum_{i} w_iu_i\]
+	\item{Standard Veriation}
+	\[ s_i = \frac{(E_{min_i}-E_{max_i})}{6}\]
+	This will calculate what the standard deviation is and gives us a clear indication of where the outliers are.
+	\[ s = \sqrt{\sum_{i} w_i^2s_i^2}\]
+	\item{Panel wide expected value}
+	Finally we calculate the panel wide expected value.
+	\[E_p = \frac{1}{N}\sum_{i}e_i\]
+\end{itemize}
