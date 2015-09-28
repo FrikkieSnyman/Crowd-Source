@@ -145,3 +145,11 @@ exports.getProject = function(req, res) {
 		res.send(project);
 	});
 };
+
+exports.clearEstimated = function(projectId) {
+	Project.remove({_id : projectId}, function(err, project) {
+		if (err) {
+			console.log(err);
+		}
+	});
+};

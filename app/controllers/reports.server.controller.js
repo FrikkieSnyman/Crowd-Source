@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Report = mongoose.model('Report'),
 	notification = require('./notification.server.controller'),
+	Project = require('./projects.server.controller'),
 	_ = require('lodash');
 
 var string = '';
@@ -44,7 +45,7 @@ var generateReport = function(project, res) {
 /**
  * Create a Report
  */
-exports.create = function(req, res) {
+exports.create = function(req, res) { 
 	delete req.body.$promise;
 	delete req.body.$resolved;
 	string = 'Visit ' + req.headers.host + '/#!/reports/' + req.body._id + ' to view report';
@@ -61,6 +62,7 @@ exports.create = function(req, res) {
 			});
 		} else {
 			res.jsonp(report);
+			Project.clearEstimated(report.project._id);
 		}
 	});
 };
