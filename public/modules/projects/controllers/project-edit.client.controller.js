@@ -215,9 +215,10 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.submitEstimation = function() {
-			$scope.saveProject();
-			$scope.estimated = true;
-			$scope.determineEstimations();
+			$scope.saveProject(function() {
+				$scope.estimated = true;
+				$scope.determineEstimations();	
+			});
 		};
 
 		$scope.determineEstimations = function() {
@@ -227,7 +228,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 					return;
 				}
 			}
-			$scope.project.openForEstimation = false;
+			// $scope.project.openForEstimation = false;
 			$scope.sendEstimationReport();
 		};
 
@@ -384,7 +385,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			.join(' ');
 		};
 
-		$scope.saveProject = function() {
+		$scope.saveProject = function(callback) {
 			$scope.project.$update(function(response) {
 				$mdToast.show(
 					$mdToast.simple()
@@ -392,6 +393,9 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 					.position($scope.getToastPosition())
 					.hideDelay(3000)
 				);
+				if (callback !== undefined) {
+					callback();
+				}
 			}, function(errorResponse) {
 				$scope.error = errorResponse;
 			});
