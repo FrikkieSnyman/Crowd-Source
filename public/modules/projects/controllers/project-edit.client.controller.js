@@ -402,7 +402,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.querySearch = function(query) {
-		
 			var results = query ? $scope.projects.filter(createFilterFor(query)) : $scope.projects, deferred;
 			return results;
 		};

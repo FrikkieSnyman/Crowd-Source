@@ -51,7 +51,10 @@
                 <br/>
                 <md-card-content class="md-padding" class="cardHeight" style="overflow:auto;"> 
                     <md-button aria-label="View/Edit" class="md-button" ng-click="goTo('/reports/{{project._id}}')" flex>
-                    View Report
+                        View Report
+                    </md-button>
+                    <md-button aria-label="View/Edit" class="md-button" ng-click="" ng-show="isOwner(project)" flex>
+                        Reopen for Estimation
                     </md-button>
                 </md-card-content>
             </md-card>

@@ -7,6 +7,15 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 		$scope.goTo = function(route) {
 			$location.path(route);
 		};
+
+		$scope.isOwner = function(project) {
+			if ($scope.authentication.user.username !== undefined) {
+				if (project.project.owner === $scope.authentication.user.username) {
+					return true;
+				}
+			}
+				return false;
+		}
 		// Create new Report
 		$scope.querySearch = function(query) {
 			//console.log(query);
