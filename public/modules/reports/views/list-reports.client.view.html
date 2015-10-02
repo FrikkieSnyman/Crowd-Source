@@ -53,7 +53,7 @@
                     <md-button aria-label="View/Edit" class="md-button" ng-click="goTo('/reports/{{project._id}}')" flex>
                         View Report
                     </md-button>
-                    <md-button aria-label="View/Edit" class="md-button" ng-click="" ng-show="isOwner(project)" flex>
+                    <md-button aria-label="View/Edit" class="md-button" ng-click="reopenEstimation(project)" ng-show="isOwner(project)" flex>
                         Reopen for Estimation
                     </md-button>
                 </md-card-content>

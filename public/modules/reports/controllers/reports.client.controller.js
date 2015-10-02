@@ -1,8 +1,8 @@
 'use strict';
 
 // Reports controller
-angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports', 'Headerpath', 'RESOURCE_DOMAIN',
-	function($scope, $stateParams, $location, Authentication, Reports, Headerpath, RESOURCE_DOMAIN) {
+angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports', 'Headerpath', 'RESOURCE_DOMAIN', 'Projects', '$mdToast',
+	function($scope, $stateParams, $location, Authentication, Reports, Headerpath, RESOURCE_DOMAIN, Projects, $mdToast) {
 		$scope.authentication = Authentication;
 		$scope.goTo = function(route) {
 			$location.path(route);
@@ -14,8 +14,33 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 					return true;
 				}
 			}
-				return false;
-		}
+			return false;
+		};
+
+		$scope.reopenEstimation = function(project) {
+			var reProject = project.project;
+			console.log("here");
+			var project = new Projects ({
+				name: reProject.name,
+				description: reProject.description,
+				users : reProject.users,
+				owner : $scope.authentication.user.username,
+				openForEstimation : false,
+				children : reProject.children
+			});
+			project.$save(function(response) {
+				$location.path('projects/' + project._id + '/edit');
+				$mdToast.show(
+					$mdToast.simple()
+						.content('Project created')
+						.position($scope.getToastPosition())
+						.hideDelay(3000)
+				);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
 		// Create new Report
 		$scope.querySearch = function(query) {
 			//console.log(query);
@@ -96,6 +121,18 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 			}, function() {
 				Headerpath.setReportPath($scope.report.name);
 			});
+		};
+		$scope.toastPosition = {
+			bottom: true,
+			top: false,
+			left: false,
+			right: true
+		};
+
+		$scope.getToastPosition = function() {
+			return Object.keys($scope.toastPosition)
+			.filter(function(pos) { return $scope.toastPosition[pos]; })
+			.join(' ');
 		};
 	}
 ]);
