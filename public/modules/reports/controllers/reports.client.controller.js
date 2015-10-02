@@ -19,14 +19,14 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 
 		$scope.reopenEstimation = function(project) {
 			var reProject = project.project;
-			console.log("here");
-			var project = new Projects ({
-				name: reProject.name,
+			project = new Projects ({
+				name: reProject.name + ' Round ' + (parseInt(reProject.round) + 1),
 				description: reProject.description,
 				users : reProject.users,
 				owner : $scope.authentication.user.username,
 				openForEstimation : false,
-				children : reProject.children
+				children : reProject.children,
+				round : parseInt(reProject.round) + 1
 			});
 			project.$save(function(response) {
 				$location.path('projects/' + project._id + '/edit');
