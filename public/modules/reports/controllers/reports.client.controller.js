@@ -7,12 +7,15 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 		$scope.goTo = function(route) {
 			$location.path(route);
 		};
+
+		
+		
 		// Create new Report
 		$scope.querySearch = function(query) {
 			//console.log(query);
 			var results = query ? $scope.reports.filter(createFilterFor(query)) : $scope.reports, deferred;
 			return results;
-		};
+		}; 
 		$scope.searchTextChange = function(text) {
 			console.log('Text changed to ' + text);
 		};
