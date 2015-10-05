@@ -8,12 +8,11 @@
 					<input ng-model="projectName" type="text" required>
 				</md-input-container>
 				
-				<md-input-container>
-					<!-- Use floating label instead of placeholder -->
-					<label>Project description</label>
-					<!-- Use text area instead of input for better visability of the description -->
-					<textarea ng-model="description" required></textarea>
-				</md-input-container>
+				<div>
+					<label> Node Description </label>
+					<div text-angular ng-model="description" ta-disabled="isOpenForEstimation()"></div>
+					<span flex></span>
+				</div>
 				
 				<md-list>
 					<md-subheader class="md-no-sticky">Estimators</md-subheader>
