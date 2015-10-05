@@ -33,7 +33,7 @@
 
 		<md-grid-list
 			md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3"
-			md-row-height-gt-md="1:0.9" md-row-height="1:1"
+			md-row-height-gt-md="1:1" md-row-height="1:1"
 			md-gutter="16px" md-gutter-gt-sm="16px" >
 
 			<md-grid-tile flex ng-repeat="project in querySearch(searchText)" md-rowspan="1" md-colspan="1" md-colspan-sm="1">
@@ -54,8 +54,22 @@
 					</md-toolbar>
 
 					<md-card-content flex style="overflow:ellipsis;">
-						<p>Average estimation: {{project.project.children[0].mean}}</p>
-						<p>Number of estimatiors: {{project.project.users.length}}</p>
+						<md-list>
+							<md-list-item class="md-2-line">
+								<span flex="5"></span>
+								<div class="md-list-item-text" flex>
+									<h3>Average estimation</h3>
+									<p>{{project.project.children[0].mean}}</p>
+								</div>
+							</md-list-item>
+							<md-list-item class="md-2-line">
+								<span flex="5"></span>
+								<div class="md-list-item-text" flex>
+									<h3> Number of estimatiors  </h3>
+									<p> {{project.project.users.length}} </p>
+								</div>
+							</md-list-item>
+						</md-list>
 					</md-card-content>
 
 					<div class="md-actions" layout="row" layout-align="end center">
