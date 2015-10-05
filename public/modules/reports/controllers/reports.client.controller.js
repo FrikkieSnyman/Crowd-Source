@@ -99,8 +99,7 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 			clickOutsideToClose:true
 			})
 			.then(function(answer) {
-				console.log(answer);
-				$rootScope.$broadcast('updateGraph',{});
+				$rootScope.$broadcast('updateGraph',answer);
 			$scope.status = 'You said the information was "' + answer + '".';
 			}, function() {
 			$scope.status = 'You cancelled the dialog.';
