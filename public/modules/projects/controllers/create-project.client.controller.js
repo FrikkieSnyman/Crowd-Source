@@ -36,7 +36,8 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 				description: $scope.description,
 				users : buildSelectedArray(),
 				owner : $scope.authentication.user.username,
-				openForEstimation : false
+				openForEstimation : false,
+				round : 1
 			});
 			project.$save(function(response) {
 				$location.path('projects/' + project._id + '/edit');
