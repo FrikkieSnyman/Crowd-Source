@@ -60,7 +60,8 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			}
 		});
 
-		$scope.showEstimators = true;
+		$scope.showEstimators = false;
+		$scope.showEstimation = false;
 
 		$scope.rootIsEmpty = function() {
 			if ($scope.project.$resolved !== false) {
@@ -314,6 +315,10 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				Headerpath.setProjectPath($scope.project.name);
 				$scope.initUsers();
 
+				if ($scope.project.children.length <= 0) {
+					$scope.addRootNode();
+				}
+
 				if ($scope.project.children[0].estimations[$scope.userIndex] === null) {
 					$scope.estimated = false;
 				} else {
@@ -325,6 +330,9 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		$scope.newSubItem = function(scope) {
 			// console.log(scope.project.users);
 			var nodeData = scope.$modelValue;
+			if (nodeData === undefined) {
+				nodeData = $scope.project.children[0];
+			}
 			// console.log(nodeData);
 			var estimationsArr = [];
 			var minEstimations = [];
@@ -337,7 +345,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			}
 			nodeData.nodes.push({
 				id: new Date().getTime(),
-				title: nodeData.title + '.' + (nodeData.nodes.length + 1),
+				title: '',
 				nodes: [],
 				chat : [],
 				collapsed : false,
