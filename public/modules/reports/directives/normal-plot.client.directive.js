@@ -4,14 +4,21 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 	function(D3, $window) {
 		return {
 			restrict: 'EA',
-			scope: {},
+			scope: {
+				updateGraph: '='
+			},
 			link: function postLink(scope, element, attrs) {
+				
+				scope.$on('updateGraph',function(event, data){
+					console.log("hello fiets i will update you!");
+				});
+			
 				D3.d3().then(function(d3) {
 					scope.$parent.report.$promise.then(function() {
 						var project = scope.$parent.report.project;
 						var data = [];
 						var body = d3.select(element[0]);
-						function getData() {
+						function getData(project) {
 								
 							var mean = parseInt(0);
 							var stdDe = parseInt(0);
@@ -55,15 +62,17 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 								minVal = parseFloat(mean) - 4*parseFloat(stdDe);
 								maxVal = parseFloat(mean) + 4*parseFloat(stdDe);
 								//console.log('Min ' + minVal + ' mean ' + mean + ' Max ' + maxVal);
+								var tmp = [];
 								for (var i = minVal; i <= maxVal; i = i + 0.01) {
 									var q = i; // calc random draw from normal dist
-									var p = dist(stdDe,i,mean) * 100; // calc prob of rand draw
+									var p = dist(stdDe,i,mean); // calc prob of rand draw
 									var el = {
 										'q': q,
 										'p': p
 									};
-									data.push(el);
+									tmp.push(el);
 								}
+								data.push(tmp);
 								//data.push({'q':mean,'p':1});
 							});
 									
@@ -76,7 +85,7 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 							});	
 						}
 
-						getData(); // popuate data 
+						getData(project); // popuate data 
 						
 						// line chart based on http://bl.ocks.org/mbostock/3883245
 						var margin = {
@@ -116,10 +125,10 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 							.append('g')
 							.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 						
-						x.domain(d3.extent(data, function(d) {
+						x.domain(d3.extent(data[0], function(d) {
 							return d.q;
 						}));
-						y.domain(d3.extent(data, function(d) {
+						y.domain(d3.extent(data[0], function(d) {
 							return d.p;
 						}));
 						
@@ -133,7 +142,7 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 							.call(yAxis);
 						
 						svg.append('path')
-							.datum(data)
+							.datum(data[0])
 							.attr('class', 'line')
 							.attr('d', line);
 						

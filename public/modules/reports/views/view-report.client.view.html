@@ -38,10 +38,10 @@
 				<md-button  class="md-raised" ng-click="getInfoDialog($event,'/modules/reports/views/normalinfo.client.view.html')" >
 					Info
 				</md-button>
-				<md-button  class="md-raised" ng-click="Show ">
+				<md-button  class="md-raised" ng-click="getInfoDialog($event,'/modules/reports/views/normalcompare.client.view.html')" >
 					Compare
 				</md-button>
-				<div normal-plot>
+				<div normal-plot object-to-inject="updateGraph">
 				</div>
 			</md-tab>
 		</md-tabs>

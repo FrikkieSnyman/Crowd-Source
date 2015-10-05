@@ -1,9 +1,10 @@
 'use strict';
 
 // Reports controller
-angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports', 'Headerpath', 'RESOURCE_DOMAIN','$mdDialog',
-	function($scope, $stateParams, $location, Authentication, Reports, Headerpath, RESOURCE_DOMAIN, $mdDialog) {
+angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports', 'Headerpath', 'RESOURCE_DOMAIN','$mdDialog','$rootScope',
+	function($scope, $stateParams, $location, Authentication, Reports, Headerpath, RESOURCE_DOMAIN, $mdDialog, $rootScope) {
 		$scope.authentication = Authentication;
+		
 		$scope.goTo = function(route) {
 			$location.path(route);
 		};
@@ -98,18 +99,23 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 			clickOutsideToClose:true
 			})
 			.then(function(answer) {
+				console.log(answer);
+				$rootScope.$broadcast('updateGraph',{});
 			$scope.status = 'You said the information was "' + answer + '".';
 			}, function() {
 			$scope.status = 'You cancelled the dialog.';
 			});			
 		};
-		
 		function DialogController($scope, $mdDialog) {
 			$scope.hide = function() {
 				$mdDialog.hide();
 			};
 			$scope.cancel = function() {
 				$mdDialog.cancel();
+			};
+			$scope.select = function(report) {
+				//console.log(report);
+				$mdDialog.hide(report);
 			};
 		}
 	}
