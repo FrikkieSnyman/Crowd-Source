@@ -1,8 +1,8 @@
 'use strict';
 
 // Reports controller
-angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports', 'Headerpath', 'RESOURCE_DOMAIN', 'Projects', '$mdToast',
-	function($scope, $stateParams, $location, Authentication, Reports, Headerpath, RESOURCE_DOMAIN, Projects, $mdToast) {
+angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports', 'Headerpath', 'RESOURCE_DOMAIN', 'Projects', '$mdToast','$http',
+	function($scope, $stateParams, $location, Authentication, Reports, Headerpath, RESOURCE_DOMAIN, Projects, $mdToast, $http) {
 		$scope.authentication = Authentication;
 		$scope.goTo = function(route) {
 			$location.path(route);
@@ -21,38 +21,13 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 			return project.reopened;
 		};
 
-		$scope.clearEstimations = function(project) {
-			$scope.clearChild(project.project.children[0]);
-			return project.project;
-		};
-		$scope.visit = function(node) {
-			for (var i = 0; i < node.estimations.length; ++i) {
-				node.estimations[i] = null;
-				node.minestimations[i] = null;
-				node.maxestimations[i] = null;
-			}
-		};
-
-		$scope.clearChild = function(node) {
-			if (node === null) {
-				return;
-			}
-			$scope.visit(node);
-			for (var i = 0; i < node.nodes.length; ++i) {
-				$scope.clearChild(node.nodes[i]);
-			}
-		};
-
-
 		$scope.reopenEstimation = function(project) {
 			project.reopened = true;
 			$scope.report = project;
 			$scope.update();
-			var newProject = project.project;
-			newProject = $scope.clearEstimations(newProject);
 			var reProject = project.project;
-			project = new Projects ({
-				name: reProject.name + ' Round ' + (parseInt(reProject.round) + 1),
+			var newproject = new Projects ({
+				name: reProject.name,
 				description: reProject.description,
 				users : reProject.users,
 				owner : $scope.authentication.user.username,
@@ -60,16 +35,14 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 				children : reProject.children,
 				round : parseInt(reProject.round) + 1
 			});
-			project.$save(function(response) {
-				$location.path('projects/' + project._id + '/edit');
+			$http({method:'POST', url:RESOURCE_DOMAIN + '/project/reopen', data: newproject}).success(function(data) {
+				$location.path('projects/' + data._id + '/edit');
 				$mdToast.show(
 					$mdToast.simple()
 						.content('Project created')
 						.position($scope.getToastPosition())
 						.hideDelay(3000)
 				);
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
 			});
 		};
 

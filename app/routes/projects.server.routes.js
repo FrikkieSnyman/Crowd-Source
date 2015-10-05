@@ -11,6 +11,9 @@ module.exports = function(app) {
 
 	app.route('/project').post(projects.getProject);
 
+	app.route('/project/reopen')
+		.post(projects.reopen);
+
 	app.route('/projects/:projectId')
 		.get(projects.read)
 		.put(users.requiresLogin, projects.update)

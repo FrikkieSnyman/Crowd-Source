@@ -16,7 +16,7 @@
         <md-item-template style="white-space: nowrap; overflow: hidden">
             <span class="item-title">
                 <span>
-                    <strong>{{item.name  | uppercase}}</strong> 
+                    <strong>{{item.name | uppercase}}</strong> 
                 </span>
             </span>
             <span class="item-metadata">
@@ -38,7 +38,7 @@
             <md-card flex class = "cardHeight">
                 <md-toolbar layout = "row" class = "cardHeader">
                     <div style="padding: 10px; white-space: nowrap; overflow:hidden" class="md-toolbar-tools">
-                        <h3>{{project.name}}</h3>
+                        <h3>{{project.name}} round: {{ project.project.round }}</h3>
                         <md-tooltip>{{project.name}}</md-tooltip>
                     </div>
                     <md-button aria-label="Delete" class="md-icon-button">
@@ -53,7 +53,7 @@
                     <md-button aria-label="View/Edit" class="md-button" ng-click="goTo('/reports/{{project._id}}')" flex>
                         View Report
                     </md-button>
-                    <md-button aria-label="View/Edit" class="md-button" ng-click="reopenEstimation(project)" ng-show="isOwner(project) && !alreadyOpened(project)" flex>
+                    <md-button aria-label="View/Edit" class="md-button" ng-click="reopenEstimation(project)" ng-show="isOwner(project) && !alreadyOpened(project)" flex> 
                         Reopen for Estimation
                     </md-button>
                     <md-button aria-label="View/Edit" class="md-button" ng-disabled="true" ng-show="isOwner(project) && alreadyOpened(project)" flex>

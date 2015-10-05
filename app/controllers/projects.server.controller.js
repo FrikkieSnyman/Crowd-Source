@@ -30,6 +30,30 @@ var estimator = function(project, req) {
 var openForEstimation = function(project) {
 	return project.openForEstimation;
 };
+
+var visit = function(node) {
+	for (var i = 0; i < node.estimations.length; ++i) {
+		node.estimations[i] = null;
+		node.minestimations[i] = null;
+		node.maxestimations[i] = null;
+	}
+};
+
+var clearChild = function(node) {
+	if (node === null) {
+		return;
+	}
+	visit(node);
+	for (var i = 0; i < node.nodes.length; ++i) {
+		clearChild(node.nodes[i]);
+	}
+};
+
+var clearEstimations = function(project) {
+	clearChild(project.children[0]);
+	return project;
+};
+
 /**
  * Create a Project
  */
@@ -145,6 +169,21 @@ exports.getProject = function(req, res) {
 		res.send(project);
 	});
 };
+ 
+ exports.reopen = function(req, res) {
+ 	var tmp = clearEstimations(req.body);
+ 	var newProject = new Project(tmp);
+ 	console.log(newProject);
+ 	newProject.save(function(err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(newProject);
+		}
+	});
+ };
 
 exports.clearEstimated = function(projectId) {
 	Project.remove({_id : projectId}, function(err, project) {
