@@ -12,7 +12,7 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 			
 				D3.d3().then(function(d3) {
 					scope.$parent.report.$promise.then(function() {
-						var color = d3.scale.category20();
+						
 						var project = scope.$parent.report.project;
 						var data = [];
 						var body = d3.select(element[0]);
@@ -71,7 +71,7 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 									};
 									tmp.push(el);
 								}
-								tmp.index = counter;
+								tmp.index = mean;
 								data.push(tmp);
 								counter++;
 								mainCallback();
@@ -90,8 +90,9 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 						
 						
 						// line chart based on http://bl.ocks.org/mbostock/3883245
-						
+						var color = d3.scale.category20();
 						var getColor =  function(d) {
+							
 							return color(d.index);
 						};
 						
