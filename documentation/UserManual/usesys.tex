@@ -1,8 +1,8 @@
 \subsection{Creating a project}
 \begin{itemize}
-	\item{Navigate to project list page}
+	\item{Navigate to projects list page}
 	\newline
-	After you have signed in you will be navigated to the projects list page, if you are navigating there from another page, you can simply click on the projects tab on the left side navigation bar.
+	After you have signed in you will be navigated to the projects list page, if you wish to navigating there from another page, you can simply click on the projects tab on the left side navigation bar.
 	\begin{figure}[H]
 	    	\centering
 	    	\fbox{\includegraphics[width=0.5\textwidth]{projectsList}}
@@ -11,7 +11,7 @@
    	\end{figure}
 	\item{Add a new project}
 	\newline
-	On the project list page, you can simply click on the "add project" button that is in the top right hand corner of the screen.
+	On the projects list page, you can simply click on the "add project" button that is in the top right hand corner of the screen.
 	\begin{figure}[H]
 	    	\centering
 	    	\fbox{\includegraphics[width=0.5\textwidth]{addButton}}
@@ -32,7 +32,7 @@
 \begin{itemize}
 	\item{Create Project Tree}
 	\newline
-	From here you will have to create a project tree that represent the project that you need an estimation on. You can do this by adding nodes, by clicking on the "Add node" buttons, to the project tree and naming them appropriately. You can save the tree by clicking on the "Save Project" button to continue editing the tree at a later point. When you are satisfied with the tree, you can open it for estimation, by clicking on the "Open For Estimation" button. After the project has been opened for estimation, it can not be edited again. Emails will be sent out the users that were chosen to estimate on the project to inform them that the project is now available for estimation.
+	From here you will have to create a project tree that represents the project that you need an estimation on. You can do this by adding features, this is done by clicking the "Add feature" button, once this is done each feature can be expanded further by clicking on the "+" button on the individual nodes. Features can then be given a name, represented by the title field and a description. You can save the tree by clicking on the "Save Project" button to continue editing the tree at a later point. When you are satisfied with the tree, you can open it for estimation, by clicking on the "Open For Estimation" button. After the project has been opened for estimation, it can not be edited again. Emails will be sent out the users that were chosen to estimate on the project to inform them that the project is now available for estimation.
 	\begin{figure}[H]
 	    	\centering
 	    	\fbox{\includegraphics[width=0.5\textwidth]{createTree}}
@@ -41,11 +41,47 @@
    	\end{figure}
 	\item{Estimating}
 	\newline
-	The estimators can nou estimate on each of the leaf nodes of the project. These values on the leaf nodes then buble up to their parent nodes, all the way up the tree to the root node. This value at the highest root node, then gives the total value of the whole tree, i.e. the total estimation that the estimator estimated on the project. When the estimator is done, he/she can click on the "Submit Estimation" button to submit his/her estimation to the project owner.
+	The estimators can now estimate on each of the leaf nodes of the project. The values on the leaf nodes then bubble up to their respective parent nodes. The values in the "Project Estimation Total" list reflect the total estimations for the entire project for the current estimator. When the estimator is done, he/she can click on the "Submit Estimation" button to submit his/her estimation to the project owner.
 	\begin{figure}[H]
 	    	\centering
 	    	\fbox{\includegraphics[width=0.5\textwidth]{estimate}}
 	    	\caption{Estimation Page}
 	    	\label{fig:Learning rate 0.1}
    	\end{figure}
+\end{itemize}
+\subsection{Reports}
+After the estimation has been completed a report will be generated based on the current structure of the project. This report will automatically provide you with four graphs. each graph deals with a different aspect of the Delphi Wide Band method. 
+\begin{itemize}
+	\item{Bar Graph}
+		\begin{figure}[H]
+	    	\centering
+	    	\fbox{\includegraphics[width=0.5\textwidth]{bargraph}}
+	    	\caption{Bar Graph}
+	    	\label{fig:Bar Graph}
+   	\end{figure}
+	The purpose of the bar graph is to give a user the indication of who has estimated what value. Each estimator's estimation will be indicated as a bar. The bar graph also indicated the structure of the project. 
+	\item{Box Plot}
+	\begin{figure}[H]
+	    	\centering
+	    	\fbox{\includegraphics[width=0.5\textwidth]{boxplot}}
+	    	\caption{Box Plot}
+	    	\label{fig:Box Plot}
+   	\end{figure}
+	The purpose of the box plot is to show each item in the project tree and indicate if users are estimating the same amount or not. The box plot that have small whiskers indicate that the users generally agree on a item. If a whisker does not fall outside the box plot it indicates that all estimations are within one standard deviation of the mean(Average). The box plot also makes use of a bar graph to indicate what the mean is and how much a particular item is contributing to the main goal of the project.
+	\item{Tree Plot}
+	\begin{figure}[H]
+	    	\centering
+	    	\fbox{\includegraphics[width=0.5\textwidth]{treeplot}}
+	    	\caption{Tree Plot}
+	    	\label{fig:Tree Plot}
+   	\end{figure}
+	The Tree Plot is a collapsable and expandable graph of the tree's structure. it purpose is to allow a user to interrogate a specific aspect of the project. These interrogations will generally lead to a indication of where problems lies in a project. Nodes can be collapsed and expanded as the user requires it. 
+	\item{Delphi Wide Band Normal Distribution}
+	\begin{figure}[H]
+	    	\centering
+	    	\fbox{\includegraphics[width=0.5\textwidth]{normaldist}}
+	    	\caption{Delphi Wide Band Normal Distribution}
+	    	\label{fig:Delphi Wide Band Normal Distribution}
+   	\end{figure}
+	The normal distribution is a important part of the delphi wide band method. It indicates to the user if there is consensus regarding project as a whole. Typically a value between 10 percent to 20 percent indicate that the users have consensus. Anything lower than 10 percent indicate that there is still room for improvement. The higher the value of the y axis is the closer estimations are grouped together. The lower y axis value is the estimations is spread out and generally users do not agree on particular project.
 \end{itemize}

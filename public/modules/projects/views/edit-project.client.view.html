@@ -7,17 +7,13 @@
 			</md-input-container>
 
 			<md-list>
-				<md-list-item>
-					<md-button class="md-icon-button" aria-label="Use Android" ng-click="toggleEstimatorsList()">
+				<md-list-item ng-click="toggleEstimatorsList()">
+					<md-button class="md-icon-button" aria-label="Use Android">
 						<md-icon md-svg-src="modules/projects/img/icons/right_arrow.svg" ng-show="!showEstimators"> </md-icon>
 						<md-icon md-svg-src="modules/projects/img/icons/down_arrow.svg" ng-show="showEstimators"> </md-icon>
 						<md-tooltip>Show/Hide Estimators</md-tooltip>
 					</md-button>
 					<h3>Estimators</h3>
-					<!-- <md-button class="md-icon-button" aria-label="Use Android">
-						<md-icon md-svg-src="modules/projects/img/icons/edit.svg" ng-click="showAddEstimatorDialogBox()"> </md-icon>
-						<md-tooltip>Add/Remove Estimators</md-tooltip>
-					</md-button> -->
 				</md-list-item>
 				<md-list-item class="md-2-line estimatorList" ng-repeat="person in project.users" ng-show="showEstimators == true">
 					<span flex="5"></span>
@@ -34,12 +30,69 @@
 			</md-button>
 
 			<md-divider></md-divider>
+			<md-list ng-show="estimator() && isOpenForEstimation()">
+				<md-list-item ng-click="showEstimation = !showEstimation">
+					<md-button class="md-icon-button" aria-label="Use Android">
+						<md-icon md-svg-src="modules/projects/img/icons/right_arrow.svg" ng-show="!showEstimation"> </md-icon>
+						<md-icon md-svg-src="modules/projects/img/icons/down_arrow.svg" ng-show="showEstimation"> </md-icon>
+						<md-tooltip>Show/Hide Estimation</md-tooltip>
+					</md-button>
+					<h3>Project Estimation Total</h3>
+				</md-list-item>
 
+				<md-list-item class="md-2-line" ng-show="showEstimation">
+					<span flex="5"></span>
+					<div class="md-list-item-text">
+						<h3>Minimum</h3>
+						<p>
+							{{
+								(project.children[0].minestimations[userIndex] > 0) 
+								? 
+								project.children[0].minestimations[userIndex] 
+								: 
+								"Not all features have been estimated on"
+							}}
+						</p>
+					</div>
+				</md-list-item>
+				<md-list-item class="md-2-line" ng-show="showEstimation">
+					<span flex="5"></span>
+					<div class="md-list-item-text">
+						<h3>Expected</h3>
+						<p>
+							{{
+								(project.children[0].estimations[userIndex] > 0) 
+								? 
+								project.children[0].estimations[userIndex] 
+								: 
+								"Not all features have been estimated on"
+							}}
+						</p>
+					</div>
+				</md-list-item>
+				<md-list-item class="md-2-line" ng-show="showEstimation">
+					<span flex="5"></span>
+					<div class="md-list-item-text">
+						<h3>Maximum</h3>
+						<p>
+							{{
+								(project.children[0].maxestimations[userIndex] > 0) 
+								? 
+								project.children[0].maxestimations[userIndex] 
+								: 
+								"Not all features have been estimated on"
+							}}
+						</p>
+					</div>
+				</md-list-item>
+
+			</md-list>
+			<md-divider ng-show="estimator() && isOpenForEstimation()"></md-divider>
 
 			<div ui-tree>
 			<script type="text/ng-template" id="nodes_renderer.html">
 				<div ui-tree-handle class="tree-node tree-node-content" layout = "row">
-					<md-button class="md-icon-button" aria-label="Use Android" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="node.collapsed = !node.collapsed" >
+					<md-button class="md-icon-button treeInput" aria-label="Use Android" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="node.collapsed = !node.collapsed" >
 						<md-tooltip ng-show="!node.collapsed">
 							Close
 						</md-tooltip>
@@ -72,25 +125,25 @@
 						<label ng-bind="checkNaN(node.maxestimations[userIndex])" ng-if="node.nodes.length > 0"></label>
 					</md-input-container>
 
-					<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="showDescriptionDialog($event, node)">
+					<md-button class="md-icon-button treeInput" aria-label="Use Android" data-nodrag ng-click="showDescriptionDialog($event, node)">
 						<md-tooltip>
 							Edit Description
 						</md-tooltip>
 						<md-icon md-svg-src="modules/projects/img/icons/info.svg"></md-icon>
 					</md-button>
-					<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="showChatDialog($event, node)" ng-show="isOpenForEstimation()">
+					<md-button class="md-icon-button treeInput" aria-label="Use Android" data-nodrag ng-click="showChatDialog($event, node)" ng-show="isOpenForEstimation()">
 						<md-tooltip>
 							Discuss
 						</md-tooltip>
 						<md-icon md-svg-src="modules/projects/img/icons/chat.svg"></md-icon>
 					</md-button>
-					<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="undoToolTip(this,removeNode,newSubItem)" ng-show="owner() && !isOpenForEstimation()">
+					<md-button class="md-icon-button treeInput" aria-label="Use Android" data-nodrag ng-click="undoToolTip(this,removeNode,newSubItem)" ng-show="owner() && !isOpenForEstimation()">
 						<md-tooltip>
 							Remove
 						</md-tooltip>
 						<md-icon md-svg-src="modules/projects/img/icons/close.svg"></md-icon>
 					</md-button>
-					<md-button class="md-icon-button" aria-label="Use Android" data-nodrag ng-click="newSubItem(this);apply()" ng-show="owner() && !isOpenForEstimation()">
+					<md-button class="md-icon-button treeInput" aria-label="Use Android" data-nodrag ng-click="newSubItem(this);apply()" ng-show="owner() && !isOpenForEstimation()">
 						<md-tooltip>
 							Add
 						</md-tooltip>
@@ -103,10 +156,10 @@
 			</script>
 
 			<form name = "estimationForm">
-				<div>
+				<div ng-hide="project.children[0].nodes[0] == null">
 					<div ui-tree id="tree-root" data-drag-enabled="owner() && !isOpenForEstimation()">
-						<ol ui-tree-nodes ng-model="project.children">
-							<li ng-repeat="node in project.children" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+						<ol ui-tree-nodes ng-model="project.children[0].nodes">
+							<li ng-repeat="node in project.children[0].nodes" ui-tree-node ng-include="'nodes_renderer.html'"></li>
 						</ol>
 					</div>
 				</div>
@@ -119,8 +172,8 @@
 				<md-button class = "md-primary" ng-click = "openForEstimation()" ng-show = "owner() && !isOpenForEstimation()">
 					Open for Estimation
 				</md-button>
-				<md-button class = "md-primary" ng-click = "addRootNode()" ng-show = "owner() && rootIsEmpty()">
-					Add root node
+				<md-button class="md-primary" ng-click="newSubItem(this)" ng-show = "owner() && !isOpenForEstimation()">
+					Add Feature
 				</md-button>
 				<md-button class = "md-primary" ng-click = "submitEstimation()" ng-show = "!rootIsEmpty() && estimator() && !estimated && isOpenForEstimation()" ng-disabled = "estimationForm.$invalid">
 					Submit estimation

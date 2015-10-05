@@ -87,9 +87,6 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 							});	
 						}
 
-						
-						
-						// line chart based on http://bl.ocks.org/mbostock/3883245
 						var color = d3.scale.category20();
 						var getColor =  function(d) {
 							

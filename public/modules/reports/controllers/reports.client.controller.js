@@ -1,19 +1,57 @@
 'use strict';
 
 // Reports controller
-angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports', 'Headerpath', 'RESOURCE_DOMAIN','$mdDialog','$rootScope',
-	function($scope, $stateParams, $location, Authentication, Reports, Headerpath, RESOURCE_DOMAIN, $mdDialog, $rootScope) {
+angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports', 'Headerpath', 'RESOURCE_DOMAIN','$mdDialog','$rootScope', 'Projects', '$mdToast','$http',
+	function($scope, $stateParams, $location, Authentication, Reports, Headerpath, RESOURCE_DOMAIN, $mdDialog, $rootScope, Projects, $mdToast, $http) {
 		$scope.authentication = Authentication;
 		
 		$scope.goTo = function(route) {
 			$location.path(route);
+		};
+
+		$scope.isOwner = function(project) {
+			if ($scope.authentication.user.username !== undefined) {
+				if (project.project.owner === $scope.authentication.user.username) {
+					return true;
+				}
+			}
+			return false;
+		};
+
+		$scope.alreadyOpened = function(project) {
+			return project.reopened;
+		};
+
+		$scope.reopenEstimation = function(project) {
+			project.reopened = true;
+			$scope.report = project;
+			$scope.update();
+			var reProject = project.project;
+			var newproject = new Projects ({
+				name: reProject.name,
+				description: reProject.description,
+				users : reProject.users,
+				owner : $scope.authentication.user.username,
+				openForEstimation : false,
+				children : reProject.children,
+				round : parseInt(reProject.round) + 1
+			});
+			$http({method:'POST', url:RESOURCE_DOMAIN + '/project/reopen', data: newproject}).success(function(data) {
+				$location.path('projects/' + data._id + '/edit');
+				$mdToast.show(
+					$mdToast.simple()
+						.content('Project created')
+						.position($scope.getToastPosition())
+						.hideDelay(3000)
+				);
+			});
 		};
 		// Create new Report
 		$scope.querySearch = function(query) {
 			//console.log(query);
 			var results = query ? $scope.reports.filter(createFilterFor(query)) : $scope.reports, deferred;
 			return results;
-		};
+		}; 
 		$scope.searchTextChange = function(text) {
 			console.log('Text changed to ' + text);
 		};
@@ -34,7 +72,8 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 		$scope.create = function() {
 			// Create new Report object
 			var report = new Reports ({
-				name: this.name
+				name: this.name,
+				reopen : true
 			});
 
 			// Redirect after save
@@ -70,7 +109,7 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 			var report = $scope.report;
 
 			report.$update(function() {
-				$location.path('reports/' + report._id);
+				// $location.path('reports/' + report._id);
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -89,6 +128,7 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 				Headerpath.setReportPath($scope.report.name);
 			});
 		};
+<<<<<<< HEAD
 		$scope.getInfoDialog = function(ev,htmlDocumnet)
 		{
 			$mdDialog.show({
@@ -117,5 +157,19 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 				$mdDialog.hide(report);
 			};
 		}
+=======
+		$scope.toastPosition = {
+			bottom: true,
+			top: false,
+			left: false,
+			right: true
+		};
+
+		$scope.getToastPosition = function() {
+			return Object.keys($scope.toastPosition)
+			.filter(function(pos) { return $scope.toastPosition[pos]; })
+			.join(' ');
+		};
+>>>>>>> master
 	}
 ]);
