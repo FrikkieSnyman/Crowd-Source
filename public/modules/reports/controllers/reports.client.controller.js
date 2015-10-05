@@ -17,7 +17,39 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 			return false;
 		};
 
+		$scope.alreadyOpened = function(project) {
+			return project.reopened;
+		};
+
+		$scope.clearEstimations = function(project) {
+			$scope.clearChild(project.project.children[0]);
+			return project.project;
+		};
+		$scope.visit = function(node) {
+			for (var i = 0; i < node.estimations.length; ++i) {
+				node.estimations[i] = null;
+				node.minestimations[i] = null;
+				node.maxestimations[i] = null;
+			}
+		};
+
+		$scope.clearChild = function(node) {
+			if (node === null) {
+				return;
+			}
+			$scope.visit(node);
+			for (var i = 0; i < node.nodes.length; ++i) {
+				$scope.clearChild(node.nodes[i]);
+			}
+		};
+
+
 		$scope.reopenEstimation = function(project) {
+			project.reopened = true;
+			$scope.report = project;
+			$scope.update();
+			var newProject = project.project;
+			newProject = $scope.clearEstimations(newProject);
 			var reProject = project.project;
 			project = new Projects ({
 				name: reProject.name + ' Round ' + (parseInt(reProject.round) + 1),
@@ -67,7 +99,8 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 		$scope.create = function() {
 			// Create new Report object
 			var report = new Reports ({
-				name: this.name
+				name: this.name,
+				reopen : true
 			});
 
 			// Redirect after save
@@ -103,7 +136,7 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 			var report = $scope.report;
 
 			report.$update(function() {
-				$location.path('reports/' + report._id);
+				// $location.path('reports/' + report._id);
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});

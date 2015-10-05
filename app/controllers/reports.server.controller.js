@@ -48,8 +48,9 @@ var generateReport = function(project, res) {
 exports.create = function(req, res) { 
 	delete req.body.$promise;
 	delete req.body.$resolved;
-	string = 'Visit ' + req.headers.host + '/#!/reports/' + req.body._id + ' to view report';
+	string = 'Visit ' + req.headers.host + '/#!/reports/' + req.body._id + ' to view report'; 
 	var report = new Report(req.body);
+	report.reopened = false;
 	generateReport(req.body, res);
 	report.project = req.body;
 	report.user = req.user;
