@@ -365,10 +365,12 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			var toast = $mdToast.simple()
 				.content('Node deleted')
 				.action('UNDO')
-				.highlightAction(false)
+				.highlightAction(true)
 				.position($scope.getToastPosition());
-			$mdToast.show(toast).then(function() {
-				$scope.project.children = $.extend(true, [], tree);
+			$mdToast.show(toast).then(function(response) {
+				if (response === 'ok') {
+					$scope.project.children = $.extend(true, [], tree);
+				}
 			});
 		};
 
