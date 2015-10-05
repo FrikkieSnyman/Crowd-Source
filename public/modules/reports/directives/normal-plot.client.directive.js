@@ -72,6 +72,8 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 									tmp.push(el);
 								}
 								tmp.index = mean;
+								tmp.desc = project.name;
+								tmp.round = project.round;
 								data.push(tmp);
 								counter++;
 								mainCallback();
@@ -128,6 +130,8 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 									return y(d.p);
 								});
 							
+							
+							
 							var svg = d3.select(element[0]).append('svg')
 								.attr('width', width + margin.left + margin.right)
 								.attr('height', height + margin.top + margin.bottom)
@@ -165,15 +169,21 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 									.attr('d', line)
 									.attr('stroke',getColor);
 							}	
+							
+							d3.select('md-list').remove();
+							var div = d3.select(element[0]).append('md-list');
+							
+							for(var k in data){
+								var item = div.append('md-list-item');
+								item.append('p').text(data[k].desc +" Round " + data[k].round);
+							}
 						};
 						
 						getData(project,drawGraph); 
 						
 						scope.$on('updateGraph',function(event, report){
 							//console.log(data);
-							getData(report.project,drawGraph);
-							
-							
+							//getData(report.project,drawGraph).attr('color',getColor);
 						});
 						
 					});
