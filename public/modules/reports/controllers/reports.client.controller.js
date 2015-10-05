@@ -128,7 +128,7 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 				Headerpath.setReportPath($scope.report.name);
 			});
 		};
-<<<<<<< HEAD
+		
 		$scope.getInfoDialog = function(ev,htmlDocumnet)
 		{
 			$mdDialog.show({
@@ -157,7 +157,7 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 				$mdDialog.hide(report);
 			};
 		}
-=======
+		
 		$scope.toastPosition = {
 			bottom: true,
 			top: false,
@@ -170,6 +170,6 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 			.filter(function(pos) { return $scope.toastPosition[pos]; })
 			.join(' ');
 		};
->>>>>>> master
+		
 	}
 ]);
