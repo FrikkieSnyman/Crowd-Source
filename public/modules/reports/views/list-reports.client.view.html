@@ -1,63 +1,70 @@
 <section data-ng-controller="ReportsController" data-ng-init="find();confirm = true">
-    <md-autocomplete 
-        ng-disabled="isDisabled"
-        md-no-cache="noCache"
-        md-selected-item="selectedItem"
-        md-search-text-change="searchTextChange(searchText)"
-        md-search-text="searchText"
-        md-selected-item-change="selectedItemChange(item)"
-        md-items="item in querySearch(searchText)"
-        md-item-text="item.name"
-        md-min-length="0"
-        placeholder="Search"
-        md-menu-class="autocomplete-custom-template"
-        class="searchBar"
-        md-autofocus="false">
-        <md-item-template style="white-space: nowrap; overflow: hidden">
-            <span class="item-title">
-                <span>
-                    <strong>{{item.name  | uppercase}}</strong> 
-                </span>
-            </span>
-            <span class="item-metadata">
-                <span class="item-metastat">
-                    {{item.description}}
-                </span>
-            </span>
-        </md-item-template>
-        <md-not-found>
-            No matches found for "{{searchText}}".
-        </md-not-found>
-    </md-autocomplete>
-    
-    <md-grid-list
-        md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3"
-        md-row-height-gt-md="1:1" md-row-height="1:1"
-        md-gutter="10px" md-gutter-gt-sm="10px" >
+	<md-content class="paddingBottom">
+		<md-autocomplete 
+			ng-disabled="isDisabled"
+			md-no-cache="noCache"
+			md-selected-item="selectedItem"
+			md-search-text-change="searchTextChange(searchText)"
+			md-search-text="searchText"
+			md-selected-item-change="selectedItemChange(item)"
+			md-items="item in querySearch(searchText)"
+			md-item-text="item.name"
+			md-min-length="0"
+			placeholder="Search"
+			md-menu-class="autocomplete-custom-template"
+			class="searchBar"
+			md-autofocus="false">
+			<md-item-template style="white-space: nowrap; overflow: hidden">
+				<span class="item-title">
+					<span>
+						<strong>{{item.name  | uppercase}}</strong> 
+					</span>
+				</span>
+				<span class="item-metadata">
+					<span class="item-metastat">
+						{{item.description}}
+					</span>
+				</span>
+			</md-item-template>
+			<md-not-found>
+				No matches found for "{{searchText}}".
+			</md-not-found>
+		</md-autocomplete>
 
-        <md-grid-tile ng-repeat="project in querySearch(searchText)" class="gray" md-rowspan="1" md-colspan="1" md-colspan-sm="1" style="z-index : 1; position: absolute">
-            <md-card flex class = "cardHeight">
-                <md-toolbar layout = "row" class = "cardHeader">
-                    <div style="padding: 10px; white-space: nowrap; overflow:hidden" class="md-toolbar-tools">
-                        <h3>{{project.name}}</h3>
-                        <md-tooltip>{{project.name}}</md-tooltip>
-                    </div>
-                    <md-button aria-label="Delete" class="md-icon-button">
-                        <md-tooltip>
-                            Delete
-                        </md-tooltip>
-                        <md-icon md-svg-src="modules/projects/img/icons/close.svg" ng-click="remove(project)"></md-icon>
-                    </md-button>
-                </md-toolbar>
-                <br/>
-                <md-card-content class="md-padding" class="cardHeight" style="overflow:auto;"> 
-                    <p>Owner: {{project.project.owner}} </p>
-                    <p>Min: {{project.project.children[0].minestimations[0]}} Exp: {{project.project.children[0].estimations[0]}} Max: {{project.project.children[0].maxestimations[0]}} </p>
-                    <md-button aria-label="View/Edit" class="md-button" ng-click="goTo('/reports/{{project._id}}')" flex>
-                    View Report
-                    </md-button>
-                </md-card-content>
-            </md-card>
-        </md-grid-tile>
-    </md-grid-list>
+		<md-grid-list
+			md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3"
+			md-row-height-gt-md="1:0.9" md-row-height="1:1"
+			md-gutter="16px" md-gutter-gt-sm="16px" >
+
+			<md-grid-tile flex ng-repeat="project in querySearch(searchText)" md-rowspan="1" md-colspan="1" md-colspan-sm="1">
+				<md-card flex style="height:100%">
+					<md-toolbar class="cardHeader">
+						<div class="md-toolbar-tools">
+							<div style="padding: 10px; white-space: nowrap; overflow:hidden" class="md-toolbar-tools">
+								<h3>{{project.name}}</h3>
+								<md-tooltip>{{project.name}}</md-tooltip>
+							</div>
+							<md-button aria-label="Delete" class="md-icon-button">
+								<md-tooltip>
+									Delete
+								</md-tooltip>
+								<md-icon md-svg-src="modules/projects/img/icons/close.svg" ng-click="remove(project)"></md-icon>
+							</md-button>
+						</div>
+					</md-toolbar>
+
+					<md-card-content flex style="overflow:ellipsis;">
+						<p>Average estimation: {{project.project.children[0].mean}}</p>
+						<p>Number of estimatiors: {{project.project.users.length}}</p>
+					</md-card-content>
+
+					<div class="md-actions" layout="row" layout-align="end center">
+						<md-button aria-label="View/Edit" class="md-button" ng-click="goTo('/reports/{{project._id}}')" flex>
+							View Report
+						</md-button>
+					</div>
+				</md-card>
+			</md-grid-tile>
+		</md-grid-list>
+	</md-content>
 </section>
