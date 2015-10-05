@@ -8,6 +8,7 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 				updateGraph: '='
 			},
 			link: function postLink(scope, element, attrs) {
+				var counter = 0;
 			
 				D3.d3().then(function(d3) {
 					scope.$parent.report.$promise.then(function() {
@@ -70,7 +71,9 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 									};
 									tmp.push(el);
 								}
+								tmp.index = counter;
 								data.push(tmp);
+								counter++;
 								mainCallback();
 								//data.push({'q':mean,'p':1});
 							});
@@ -87,6 +90,11 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 						
 						
 						// line chart based on http://bl.ocks.org/mbostock/3883245
+						
+						var getColor =  function(d) {
+							return color(d.index);
+						};
+						
 						var drawGraph = function(){
 							
 							body.select('svg').remove();
@@ -151,17 +159,15 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 								.attr('class', 'y axis')
 								.call(yAxis);
 								
-							for(var i in data)
+							for(var j in data)
 							{
 								svg.append('path')
-									.datum(data[i])
+									.datum(data[j])
 									.attr('class', 'line')
 									.attr('d', line)
-									.attr('stroke', function(d) {
-										return color(i*100);
-									});
+									.attr('stroke',getColor);
 							}	
-						}
+						};
 						
 						getData(project,drawGraph); 
 						
