@@ -2,7 +2,7 @@
 %User Management
 %============================
 \subsection{User Management}
-This module is responsible for reading data from the client's user database. It will do this by making use of ldap.js. The module will log a user into the system, given the correct credentials. This system will provide an authorization interface to other modules, to see if user with a given userID has the needed privileges. This module will also give an interface to other modules, to retrieve the user's details, given the user's userID. 
+This module is responsible for reading data from the client's user database. It will do this by making use of passport.js. The module will log a user into the system, given the correct credentials. This system will provide an authorization interface to other modules, to see if user with a given userID has the needed privileges. This module will also give an interface to other modules, to retrieve the user's details, given the user's userID. 
 
 \subsubsection{Scope}
 The scope of the Project module is shown in the figure below:
@@ -54,6 +54,10 @@ This will get the details from the both the external and internal databases, to 
    	\end{figure}
 \end{itemize}
 
+\paragraph{register - priority: important}
+	Reigstrations of users are being handled by passport.js. This functionality is based on the strategy used for usermanagement, seeing as it will be unavailable if the LDAP strategy is used with passport.js.
+
+
 \subsubsection{Domain model}
 There is no domain model for this module, because it is purely an adapter that provides services to other modules in the system. The module does not persist information into the database.
 
@@ -101,17 +105,17 @@ Users with sufficient privileges can retrieve projects to view them, or to be us
    	\end{figure}
 \end{itemize}
 
-\paragraph{Hide project}
-Projects can be effectively deleted by hiding them, seeing as projects are not physically removed from the database. This action can only be done by authorised user.
+\paragraph{Delete project - priority: important}
+Projects can be removed from the database entirely by deleting them. This action can only be done by authorised user such as the owner of a project.
 
 \begin{itemize}
 	\item Services contract:\\ \\
-	The hideProjectRequest contains a reference to the Project that must be hidden, which can be obtained by calling the getProject function.
+	The deleteProjectRequest contains a reference to the Project that must be deleted, which can be obtained by calling the getProject function.
 	\begin{figure}[H]
     	\centering
-    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContracthideProject}}
-    	\caption{hideProject services contract}
-    	\label{fig:hideProject_services_contract}
+    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractDeleteProject}}
+    	\caption{deleteProject services contract}
+    	\label{fig:deleteProject_services_contract}
    	\end{figure}
 \end{itemize}
 
@@ -130,17 +134,17 @@ This enables users to update projects, if they have sufficient privileges, by ad
    	\end{figure}
 \end{itemize}
 
-\paragraph{Publish project - priority: critical}
-This enables users to publish projects for other users to estimate. The reason for this is to control when another user sees the project in his/her projects list and is able to estimate on the project.
+\paragraph{Discuss task - priority: important}
+Tasks that form part of projects can be discussed on in a chat system. All discussions are saved to the database and update in real-time.
 
 \begin{itemize}
 	\item Services contract:\\ \\
-	The publishProjectRequest will simply contain the userID of the person publishing the project as well as the projectID of the project being published. The publishProjectResult will contain minimal information, possibly only whether the publish was successfull.
+	The discussTaskRequest contains information about the task that is being discussed. The taskID must exist within the project
 	\begin{figure}[H]
     	\centering
-    	\fbox{\includegraphics[width=1.0\textwidth]{publishProject}}
-    	\caption{Publish project services contract}
-    	\label{fig:publishProject}
+    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractDiscussTask}}
+    	\caption{discussTask services contract}
+    	\label{fig:discussTask_services_contract}
    	\end{figure}
 \end{itemize}
 
@@ -152,6 +156,7 @@ The domain model for the Project module requires that tasks being created and ad
 	\caption{Project domain model}
 	\label{fig:Project_domain_model}
 \end{figure}
+
 %============================
 %Estimation
 %============================
@@ -166,6 +171,24 @@ The domain model for the Project module requires that tasks being created and ad
 	    	\label{fig:Estimation_Scope}
    	\end{figure}
 \subsubsection{Use cases}
+
+
+	\paragraph{openEstimation- priority: critical}
+	This enables users to publish projects for other users to estimate. The reason for this is to control when another user sees the project in his/her projects list and is able to estimate on the project.
+
+	\begin{itemize}
+		\item Services contract:\\ \\
+		The OpenEstimationRequest will simply contain the userID of the person publishing the project as well as the projectID of the project being published. The openEstimationResult will contain minimal information, possibly only whether the publish was successfull.
+		\begin{figure}[H]
+	    	\centering
+	    	\fbox{\includegraphics[width=1.0\textwidth]{publishProject}}
+	    	\caption{openEstimation services contract}
+	    	\label{fig:publishProject}
+	   	\end{figure}
+
+	\end{itemize}
+
+
 	\paragraph{estimateTask - priority:critical}This system will allow a user to place an estimation on a task.
 	\begin{figure}[H]
 	    	\centering
@@ -173,20 +196,84 @@ The domain model for the Project module requires that tasks being created and ad
 	    	\caption{Estimate Task}
 	    	\label{fig:Estimation_estimateTask.png}
    	\end{figure}
-	\paragraph{calculateTotalEstimation - priority:critical}This system will traverse the project tree and calculate the total estimation of a project.
+
+	\paragraph{calculateTotalEstimation - priority:important}This system will traverse the project tree and calculate the total estimation of a project.
 	\begin{figure}[H]
 	    	\centering
 	    	\fbox{\includegraphics[width=0.9\textwidth]{Estimation_calculateTotalEstimation}}
 	    	\caption{Calculate total estimation}
 	    	\label{fig:Estimation_calculateTotalEstimation.png}
    	\end{figure}
-	\paragraph{viewEstimation - priority:critical}A user will be able to view his/her previous estimations for each project as a whole or for a specific node in the tree. Estimations made by other users will be hidden and only revealed when the project owner publishes the results. ViewEstimation will make use of the calculateTotalEstimation to calculate the estimation for a specific node in the project tree.
+
+	\paragraph{viewEstimation - priority:important}A user will be able to view his/her previous estimations for each project as a whole or for a specific node in the tree. Estimations made by other users will be hidden and only revealed when the project owner publishes the results. ViewEstimation will make use of the calculateTotalEstimation to calculate the estimation for a specific node in the project tree.
 	\begin{figure}[H]
 	    	\centering
 	    	\fbox{\includegraphics[width=0.9\textwidth]{Estimation_viewEstimation}}
 	    	\caption{View estimation for user}
 	    	\label{fig:Estimation_viewEstimation.png}
    	\end{figure}
+
+	\paragraph{Add/Remove estimators - priority: important}
+	Users with sufficient privileges can edit the estimators of a project. The changes to the estimators will then be propogated through the project tree and persisted to the database if the user chooses so.
+
+	\begin{itemize}
+		\item Services contract:\\ \\
+		The user will be provided with a list of the current estimators as well as a list of possible estimators. The user will choose which estimators to add or remove.
+		\begin{figure}[H]
+	    	\centering
+	    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractAddRemoveEstimator}}
+	    	\caption{addRemoveEstimator services contract}
+	    	\label{fig:addremove_estimators_services_contract}
+	   	\end{figure}
+	\end{itemize}
+
+
+	\paragraph{reopenEstimation- priority: critical}
+	This enables users to reopen projects for other users to estimate. The reason for this is to control when another user sees the project in his/her projects list and is able to estimate on the project for another round.
+
+	\begin{itemize}
+		\item Services contract:\\ \\
+		The reopenEstimationRequest will simply contain the userID of the person publishing the project as well as the projectID of the project being published.
+		
+		\begin{figure}[H]
+	    	\centering
+	    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractReopenEstimation}}
+	    	\caption{reopenEstimation services contract}
+	    	\label{fig:publishProject}
+	   	\end{figure}
+	\end{itemize}
+
+	\paragraph{closeEstimation- priority: critical}
+	Once all estimators have completed estimation, this function should fire automatically, so that no more further estimation can be done on the project until the owner decides to reopen estimation.
+
+	\begin{itemize}
+		\item Services contract:\\ \\
+		The closeEstimationRequest contains the project that must be closed.
+		\begin{figure}[H]
+	    	\centering
+	    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractCloseEstimation}}
+	    	\caption{closeEstimation services contract}
+	    	\label{fig:closeEstimationServicesContract}
+	   	\end{figure}
+
+	\end{itemize}
+
+	\paragraph{persistEstimation- priority: critical}
+	This function will be called by closeEstimation, which then persists the estimation to the database.
+
+	\begin{itemize}
+		\item Services contract:\\ \\
+		The persistEstimationRequest contains the project that must be closed.
+		\begin{figure}[H]
+	    	\centering
+	    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractPersistEstimation}}
+	    	\caption{persistEstimation services contract}
+	    	\label{fig:persistEstimationServicesContract}
+	   	\end{figure}
+
+	\end{itemize}
+
+
 \subsubsection{Domain model}
 	\begin{figure}[H]
 	    	\centering
@@ -194,7 +281,6 @@ The domain model for the Project module requires that tasks being created and ad
 	    	\caption{Estimation Domain}
 	    	\label{fig:Estimation_Domain.png}
    	\end{figure}
-
 %============================
 %Report
 %============================
@@ -220,6 +306,8 @@ The scope of this module will be accessible to any user at this point in the dev
    	\end{figure}
 	\paragraph{Generate Graphs - priority:critical}
 	User accessing this function will receive a series of graphs of the data for the chosen project. 
+	This will include for example a Bar Graph and Box Plot. The statistical data from the Delphi wide-band method 
+	will be used as input to the graphs.
 	\begin{figure}[H]
 	    	\centering
 	    	\fbox{\includegraphics[width=0.8\textwidth]{Report_GraphGeneration}}
