@@ -368,7 +368,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				.position($scope.getToastPosition());
 			$mdToast.show(toast).then(function(response) {
 				if (response === 'ok') {
-					$scope.project.children = angular.merge($scope.project.children, tree)
+					$scope.project.children = angular.merge($scope.project.children, tree);
 				}
 			});
 		};
