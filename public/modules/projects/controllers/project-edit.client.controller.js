@@ -357,9 +357,8 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.undoToolTip = function(node, removeNode, newSubItem) {
-			//debugger;
-			var tree = $.extend(true, [], $scope.project.children);
-
+			var tree = {};
+			tree = angular.merge(tree, $scope.project.children);
 			removeNode(node);
 
 			var toast = $mdToast.simple()
@@ -369,7 +368,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				.position($scope.getToastPosition());
 			$mdToast.show(toast).then(function(response) {
 				if (response === 'ok') {
-					$scope.project.children = $.extend(true, [], tree);
+					$scope.project.children = angular.merge($scope.project.children, tree)
 				}
 			});
 		};
