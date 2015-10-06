@@ -1,0 +1,45 @@
+<md-dialog aria-label="Mango (Fruit)" ng-controller="CompareController">
+  <form>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Select the report you would like to comapre with.</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon md-svg-src="modules/projects/img/icons/close.svg" aria-label="Close dialog"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content style="max-width:800px;max-height:810px; ">
+          <md-autocomplete 
+          ng-disabled="isDisabled"
+          md-no-cache="noCache"
+          md-selected-item="selectedItem"
+          md-search-text-change="searchTextChange(searchText)"
+          md-search-text="searchText"
+          md-selected-item-change="selectedItemChange(item)"
+          md-items="item in querySearch(searchText)"
+          md-item-text="item.name"
+          md-min-length="0"
+          placeholder="Search"
+          md-menu-class="autocomplete-custom-template"
+          class="searchBar"
+          md-autofocus="false">
+          <md-item-template style="white-space: nowrap; overflow: hidden">
+              <span class="item-title">
+                  <span>
+                      <strong>{{item.name  | uppercase}}</strong> 
+                  </span>
+              </span>
+              <span class="item-metadata">
+                  <span class="item-metastat">
+                      Round {{item.project.round}}
+                  </span>
+              </span>
+          </md-item-template>
+          <md-not-found>
+              No matches found for "{{searchText}}".
+          </md-not-found>
+      </md-autocomplete>
+  </md-dialog-content>
+  </form>
+</md-dialog>
