@@ -175,7 +175,7 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 							
 							for(var k in data){
 								var item = div.append('md-list-item');
-								item.append('p').text(data[i].desc +" Round " + data[k].round);
+								item.append('p').text(data[i].desc + 'Round ' + data[k].round);
 							}
 						};
 						
