@@ -22,6 +22,10 @@ exports.create = function(req, res) {
 			});
 		} else {
 			res.jsonp(organisation);
+
+			for (var i = organisation.members.length - 1; i >= 0; i--) {
+				organisation.members[i]
+			};
 		}
 	});
 };

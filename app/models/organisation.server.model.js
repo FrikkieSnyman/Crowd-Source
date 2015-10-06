@@ -10,20 +10,13 @@ var mongoose = require('mongoose'),
  * Organisation Schema
  */
 var OrganisationSchema = new Schema({
-	name: {
-		type: String,
-		default: '',
-		required: 'Please fill Organisation name',
-		trim: true
-	},
-	created: {
-		type: Date,
-		default: Date.now
-	},
-	user: {
-		type: Schema.ObjectId,
-		ref: 'User'
-	}
+	name: String,
+	description : String,
+	created: Date,
+	user: Object,
+	owner: String,
+	members: [],
+	projects: []
 });
 
 mongoose.model('Organisation', OrganisationSchema);

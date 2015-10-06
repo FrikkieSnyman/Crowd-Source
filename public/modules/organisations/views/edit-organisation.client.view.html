@@ -1,23 +1,32 @@
-<section data-ng-controller="OrganisationsController" data-ng-init="findOne()">
-    <div class="page-header">
-        <h1>Edit Organisation</h1>
-    </div>
-    <div class="col-md-12">
-        <form class="form-horizontal" data-ng-submit="update()" novalidate>
-            <fieldset>
-                <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="organisation.name" id="name" class="form-control" placeholder="Name" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Update" class="btn btn-default">
-                </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
-            </fieldset>
-        </form>
-    </div>
-</section>
+<div ng-controller="OrganisationsController" flex = "100" data-ng-init="findOne()">
+	<md-card flex>
+		<md-card-content>
+			<md-input-container flex>
+				<label>Organisation Description</label>
+				<textarea ng-model="organisation.description"></textarea>
+			</md-input-container>
+
+			<md-list>
+				<md-list-item ng-click="toggleMemberList()">
+					<md-button class="md-icon-button" aria-label="Use Android">
+						<md-icon md-svg-src="modules/projects/img/icons/right_arrow.svg" ng-show="!showMembers"> </md-icon>
+						<md-icon md-svg-src="modules/projects/img/icons/down_arrow.svg" ng-show="showMembers"> </md-icon>
+						<md-tooltip>Show/Hide Members</md-tooltip>
+					</md-button>
+					<h3>Members</h3>
+				</md-list-item>
+				<md-list-item class="md-2-line estimatorList" ng-repeat="member in organisation.members" ng-show="showMembers == true">
+					<span flex="5"></span>
+					<div class="md-list-item-text" flex>
+						<h3> {{userDetails[member].firstName}} {{userDetails[member].lastName}} </h3>
+						<p> {{member}} </p>
+					</div>
+				</md-list-item>
+			</md-list>
+
+			<md-button class="md-primary" ng-click="showAddMemberDialogBox()" ng-show="owner(organisation)">
+				Edit Members
+			</md-button>
+		</md-card-content>
+	</md-card>
+</div>

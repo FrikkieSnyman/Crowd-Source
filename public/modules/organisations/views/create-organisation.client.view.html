@@ -1,23 +1,30 @@
-<section data-ng-controller="OrganisationsController">
-    <div class="page-header">
-        <h1>New Organisation</h1>
-    </div>
-    <div class="col-md-12">
-        <form class="form-horizontal" data-ng-submit="create()" novalidate>
-            <fieldset>
-                <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-default">
-                </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
-            </fieldset>
-        </form>
-    </div>
+<section data-ng-controller="OrganisationsController" data-ng-init="confirm = true">
+    <md-card>
+        <md-card-content>
+            <form name="myForm">
+                <md-input-container>
+                    <label>Organisation name</label>
+                    <input ng-model="name" type="text" required>
+                </md-input-container>
+                
+                <md-input-container>
+                    <label>Organisation description</label>
+                    <textarea ng-model="description" required></textarea>
+                </md-input-container>
+                
+                <md-list>
+                    <md-subheader class="md-no-sticky">Members</md-subheader>
+                    <md-list-item class="md-2-line" ng-repeat="person in people" layout="row">
+                        <div class="md-list-item-text">
+                            <h3>{{person.firstName}} {{person.lastName}}</h3>
+                            <p> {{person.name}} </p>
+                        </div>  
+                        <md-checkbox class="md-primary" ng-model="person.selected" aria-label="selected"></md-checkbox>
+                    </md-list-item>
+                </md-list>
+            </form>
+
+            <md-button class="md-primary"  ng-click="create()" ng-disabled="myForm.$invalid">Create Organisation</md-button>
+        </md-card-content>
+    </md-card>
 </section>
