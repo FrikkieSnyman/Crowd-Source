@@ -4,6 +4,10 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, RESOURCE_DOMAIN) {
 		$scope.authentication = Authentication;
 		$scope.people = [];
+		$scope.userOrganisations = [];
+
+		$scope.userOrganisations = Authentication.user.organisations;
+		$scope.userOrganisations.push("None");
 
 		$http.get(RESOURCE_DOMAIN+'/users/getUsers').success(function(users) {
 			for (var i in users) {

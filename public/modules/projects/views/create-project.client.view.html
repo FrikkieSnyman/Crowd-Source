@@ -14,6 +14,15 @@
 					<!-- Use text area instead of input for better visability of the description -->
 					<textarea ng-model="description" required></textarea>
 				</md-input-container>
+
+				<md-input-container>
+					<label>Organisation</label>
+					<md-select ng-model="userOrganisations">
+						<md-option ng-repeat="organisation in userOrganisations" value="{{organisation.name}}">
+							{{organisation.name}}
+						</md-option>
+					</md-select>
+				</md-input-container>
 				
 				<md-list>
 					<md-subheader class="md-no-sticky">Estimators</md-subheader>
