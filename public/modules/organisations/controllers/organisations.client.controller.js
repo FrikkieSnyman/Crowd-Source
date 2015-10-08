@@ -165,7 +165,7 @@ angular.module('organisations').controller('OrganisationsController', ['$scope',
 			}
 
 			for (var i = 0; i < $scope.people.length; ++i) {
-				if ($scope.people[i].isEstimator === true) {
+				if ($scope.people[i].isMember === true) {
 					var found = false;
 					for (var j = 0; j < $scope.organisation.members.length; ++j) {
 						if ($scope.organisation.members[j]/*.username*/ === $scope.people[i].username) {
@@ -200,6 +200,15 @@ angular.module('organisations').controller('OrganisationsController', ['$scope',
 				$scope.error = errorResponse;
 			});
 		};
+
+		// $scope.update = function() {
+		// 	var organisation = $scope.organisation;
+		// 	organisation.$update(function() {
+		// 		$location.path('organisations/' + organisation._id);
+		// 	}, function(errorResponse) {
+		// 		$scope.error = errorResponse.data.message;
+		// 	});
+		// };
 
 		$scope.showAddMemberDialogBox = function(ev) {
 			var newScope = $scope.$new();
