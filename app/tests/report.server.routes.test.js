@@ -199,7 +199,7 @@ describe('Report CRUD tests', function() {
 				});
 		});
 	});
-/*
+
 	it('should be able to delete Report instance if signed in', function(done) {
 		agent.post('/auth/signin')
 			.send(credentials)
@@ -259,7 +259,7 @@ describe('Report CRUD tests', function() {
 
 		});
 	});
-	*/
+	
 	afterEach(function(done) {
 		User.remove().exec();
 		Report.remove().exec();
