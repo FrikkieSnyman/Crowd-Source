@@ -38,7 +38,8 @@ describe('Project CRUD tests', function() {
 		// Save a user to the test db and create new Project
 		user.save(function() {
 			project = {
-				name: 'Project Name'
+				name: 'Project Name',
+				owner : 'Full'
 			};
 
 			done();
@@ -164,7 +165,7 @@ describe('Project CRUD tests', function() {
 					});
 			});
 	});
-	/*
+	
 	it('should be able to get a list of Projects if not signed in', function(done) {
 		// Create new Project model instance
 		var projectObj = new Project(project);
@@ -183,7 +184,7 @@ describe('Project CRUD tests', function() {
 
 		});
 	});
-	*/
+	
 
 
 	it('should be able to get a single Project if not signed in', function(done) {

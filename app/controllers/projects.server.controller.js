@@ -122,8 +122,10 @@ exports.list = function(req, res) {
 	Project.find().sort('name').populate('user', 'displayName').exec(function(err, projects) {
 		for (var i = projects.length - 1; i >= 0; --i) {
 			var tmpProject = projects[i];
-			if (!((owner(tmpProject, req)) || ((estimator(tmpProject, req)) && (openForEstimation(tmpProject))))) {
-				projects.splice(i, 1);
+			if(req.user){
+				if (!((owner(tmpProject, req)) || ((estimator(tmpProject, req)) && (openForEstimation(tmpProject))))) {
+					projects.splice(i, 1);
+				}
 			}
 		}
 		if (err) {
