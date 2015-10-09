@@ -60,7 +60,6 @@ var clearEstimations = function(project) {
 exports.create = function(req, res) {
 	var project = new Project(req.body);
 	project.user = req.user;
-
 	project.save(function(err) {
 		if (err) {
 			return res.status(400).send({
@@ -133,6 +132,7 @@ exports.list = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+			//console.log(projects);
 			res.jsonp(projects);
 		}
 	});

@@ -30,7 +30,8 @@ describe('Project Model Unit Tests:', function() {
 		user.save(function() { 
 			project = new Project({
 				name: 'Project Name',
-				user: user
+				user: user,
+				owner : "Full"
 			});
 
 			done();
