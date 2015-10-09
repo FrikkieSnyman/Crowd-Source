@@ -84,7 +84,7 @@ describe('Project CRUD tests', function() {
 					});
 			});
 	});
-/*
+
 	it('should not be able to save Project instance if not logged in', function(done) {
 		agent.post('/projects')
 			.send(project)
@@ -94,8 +94,8 @@ describe('Project CRUD tests', function() {
 				done(projectSaveErr);
 			});
 	});
-*/
-/*
+		
+
 	it('should not be able to save Project instance if no name is provided', function(done) {
 		// Invalidate name field
 		project.name = '';
@@ -116,14 +116,14 @@ describe('Project CRUD tests', function() {
 					.expect(400)
 					.end(function(projectSaveErr, projectSaveRes) {
 						// Set message assertion
-						(projectSaveRes.body.message).should.match('Please fill Project name');
+						(projectSaveRes.body.message).should.match('Path `name` is required.');
 						
 						// Handle Project save error
 						done(projectSaveErr);
 					});
 			});
 	});
-*/
+	
 	it('should be able to update Project instance if signed in', function(done) {
 		agent.post('/auth/signin')
 			.send(credentials)
