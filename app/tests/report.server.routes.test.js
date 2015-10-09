@@ -44,7 +44,7 @@ describe('Report CRUD tests', function() {
 			done();
 		});
 	});
-	/*
+	
 	it('should be able to save Report instance if logged in', function(done) {
 		agent.post('/auth/signin')
 			.send(credentials)
@@ -83,7 +83,7 @@ describe('Report CRUD tests', function() {
 					});
 			});
 	});
-
+/*
 	it('should not be able to save Report instance if not logged in', function(done) {
 		agent.post('/reports')
 			.send(report)

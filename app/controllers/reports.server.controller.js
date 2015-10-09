@@ -38,9 +38,13 @@ var traverseTree = function(node, project) {
 };
 
 var generateReport = function(project, res) {
-	var projectTree = project.children[0];
-	traverseTree(projectTree, project);
-	notification.sendReport(string, project, res);
+	// From Unit tests if the tree is empty we should not be able to generate a report
+	if(project.children)
+	{
+		var projectTree = project.children[0];
+		traverseTree(projectTree, project);
+		notification.sendReport(string, project, res);
+	}
 };
 /**
  * Create a Report

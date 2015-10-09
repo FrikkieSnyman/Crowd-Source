@@ -31,7 +31,8 @@ describe('Project Model Unit Tests:', function() {
 			project = new Project({
 				name: 'Project Name',
 				user: user,
-				owner : 'Full'
+				owner : 'Full',
+				children :[]
 			});
 
 			done();
