@@ -36,6 +36,7 @@ module.exports = {
 				'public/lib/textAngular/dist/textAngular-rangy.min.js',
 				'public/lib/textAngular/dist/textAngular-sanitize.min.js',
 				'public/lib/textAngular/dist/textAngular.min.js',
+				'public/lib/angular-socket-io/socket.min.js'
 			]
 		},
 		css: [
