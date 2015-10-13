@@ -185,6 +185,16 @@ angular.module('organisations').controller('OrganisationsController', ['$scope',
 				}
 			}
 
+			// removing members
+			for (var i = remove.length - 1; i >= 0; --i) {
+				$scope.organisation.members.splice(remove[i], 1);
+			}
+
+			// adding members
+			for (var i = 0; i < add.length; ++i) {
+				$scope.organisation.members.push(add[i]);
+			}
+
 			$scope.saveOrganisation();
 		};
 
