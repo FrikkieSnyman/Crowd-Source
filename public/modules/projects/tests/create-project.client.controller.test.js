@@ -49,14 +49,16 @@
 				$scope: scope
 			});
 		}));
-		/*
+		
 		it('$scope.createProject() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Projects) {
 			// Create a sample Project object
 			var sampleProjectPostData = new Projects({
 				name: 'New Project',
 				description: 'Test',
 				users : [],
-				owner: 'Bob'
+				owner: 'Bob',
+				openForEstimation : false,
+				round : 1
 			});
 
 			// Create a sample Project response
@@ -65,7 +67,9 @@
 				name: 'New Project',
 				description: 'Test',
 				users : [],
-				owner: 'Bob'
+				owner: 'Bob',
+				openForEstimation : false,
+				round : 1
 			});
 
 			scope.authentication.user = {
@@ -81,7 +85,7 @@
 			$httpBackend.expectGET('/users/getUsers').respond(200);
 
 			// Set POST response
-			$httpBackend.expectPOST('projects', sampleProjectPostData).respond(sampleProjectResponse);
+			$httpBackend.expectPOST('/projects', sampleProjectPostData).respond(sampleProjectResponse);
 
 			// Run controller functionality
 			scope.createProject();
@@ -93,7 +97,7 @@
 			// Test URL redirection after the Project was created
 			expect($location.path()).toBe('/projects/' + sampleProjectResponse._id + '/edit');
 		}));
-
+		/*
 		it('Should do some controller test', inject(function() {
 			// The test logic
 			// ...
