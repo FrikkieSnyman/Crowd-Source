@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Organisation = mongoose.model('Organisation'),
 	User = mongoose.model('User'),
+	Project = mongoose.model('Project'),
 	_ = require('lodash');
 
 /**
@@ -34,10 +35,6 @@ exports.create = function(req, res) {
 					}, this);
 				}
 			});
-
-			// for (var i = organisation.members.length - 1; i >= 0; i--) {
-			// 	organisation.members[i]
-			// };
 		}
 	});
 };
@@ -119,6 +116,17 @@ exports.delete = function(req, res) {
 					users.forEach(function(user) {
 						user.organisations.splice(user.organisations.indexOf(organisation.name), 1);
 						user.save();
+					}, this);
+				}
+			});
+
+			Project.find({name: {$in: organisation.projects}}, function(err, projects) {
+				if(err) {
+					console.log(err);
+				} else {
+					projects.forEach(function(project) {
+						project.organisation = null;
+						project.save();
 					}, this);
 				}
 			});
