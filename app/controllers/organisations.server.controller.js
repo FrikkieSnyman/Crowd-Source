@@ -77,6 +77,23 @@ exports.update = function(req, res) {
 					}, this);
 				}
 			});
+
+			User.find({
+				$and: [
+					{ username: { $nin: organisation.members } },
+					{ organisations: { $in: [organisation.name] } }
+				]
+			}, function(err, users) {
+				if (err) {
+					console.log(err);
+				}
+				else {
+					users.forEach(function(user) {
+						user.organisations.splice(user.organisations.indexOf(organisation.name), 1);
+						user.save();
+					}, this);
+				}
+			});
 		}
 	});
 };
