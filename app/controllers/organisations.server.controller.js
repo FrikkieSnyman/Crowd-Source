@@ -28,8 +28,6 @@ exports.create = function(req, res) {
 				if(err) {
 					console.log(err);
 				} else {
-					console.log(users);
-
 					users.forEach(function(user) {
 						user.organisations.push(organisation.name);
 						user.save();
