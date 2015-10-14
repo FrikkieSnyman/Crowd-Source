@@ -33,7 +33,7 @@
 
 		<md-grid-list
 			md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3"
-			md-row-height-gt-md="1:1.35" md-row-height="1:1"
+			md-row-height-gt-md="1:1.60" md-row-height="1:1"
 			md-gutter="16px" md-gutter-gt-sm="16px">
 
 			<md-grid-tile flex ng-repeat="project in querySearch(searchText)" md-rowspan="1" md-colspan="1" md-colspan-sm="1">
@@ -80,6 +80,12 @@
 								<div class="md-list-item-text projectListInfo" flex>
 									<h3>Owner</h3>
 									<p>{{project.owner}} </p>
+								</div>
+							</md-list-item>
+							<md-list-item ng-show="project.organisation" class="md-2-line projectListInfo">
+								<div class="md-list-item-text projectListInfo" flex>
+									<h3>Organisation</h3>
+									<p>{{project.organisation}} </p>
 								</div>
 							</md-list-item>
 							<md-list-item class="md-2-line projectListInfo">
