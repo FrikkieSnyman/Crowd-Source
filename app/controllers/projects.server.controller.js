@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Project = mongoose.model('Project'),
+	Organisation = mongoose.model('Organisation'),
 	_ = require('lodash');
 
 var owner = function(project, req) {
@@ -44,6 +45,17 @@ exports.create = function(req, res) {
 			});
 		} else {
 			res.jsonp(project);
+
+			if (project.organisation) {
+				Organisation.findOne({name: project.organisation}, function(err, organisation) {
+					if (err) {
+						console.log(err);
+					} else {
+						organisation.projects.push(project.organisation);
+						organisation.save();
+					};
+				});
+			};
 		}
 	});
 };

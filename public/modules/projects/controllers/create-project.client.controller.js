@@ -4,10 +4,12 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, RESOURCE_DOMAIN) {
 		$scope.authentication = Authentication;
 		$scope.people = [];
-		$scope.userOrganisations = [];
 
 		$scope.userOrganisations = Authentication.user.organisations;
-		$scope.userOrganisations.push("None");
+
+		if ($scope.userOrganisations.indexOf('None') === -1) {
+			$scope.userOrganisations.push('None');
+		}
 
 		$http.get(RESOURCE_DOMAIN+'/users/getUsers').success(function(users) {
 			for (var i in users) {
@@ -32,6 +34,14 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 			return selected;
 		};
 
+		var getOrganisation = function() {
+			if ($scope.projectOrganisation === 'None') {
+				return '';
+			} else {
+				return $scope.projectOrganisation;
+			};
+		}
+
 		$scope.createProject = function() {
 			//		var project = {'name': $scope.projectName, 'description': $scope.description, 'owner' : Authentication.user, 'users' : $scope.selected};
 
@@ -40,6 +50,7 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 				description: $scope.description,
 				users : buildSelectedArray(),
 				owner : $scope.authentication.user.username,
+				organisation : getOrganisation(),
 				openForEstimation : false
 			});
 			project.$save(function(response) {
