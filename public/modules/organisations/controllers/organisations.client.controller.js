@@ -25,6 +25,13 @@ angular.module('organisations').controller('OrganisationsController', ['$scope',
 			$scope.showMembers = !$scope.showMembers;
 		};
 
+		$scope.showProjectList = false;
+
+		$scope.toggleProjectList = function() {
+			console.log($scope.organisation.projects);
+			$scope.showProjectList = !$scope.showProjectList;
+		};
+
 		var buildSelectedArray = function() {
 			var selected = [];
 

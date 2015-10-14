@@ -51,7 +51,7 @@ exports.create = function(req, res) {
 					if (err) {
 						console.log(err);
 					} else {
-						organisation.projects.push(project.organisation);
+						organisation.projects.push(project.name);
 						organisation.save();
 					}
 				});

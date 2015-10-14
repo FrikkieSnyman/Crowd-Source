@@ -27,6 +27,23 @@
 			<md-button class="md-primary" ng-click="showAddMemberDialogBox()" ng-show="owner(organisation)">
 				Edit Members
 			</md-button>
+
+			<md-list>
+				<md-list-item ng-click="toggleProjectList()">
+					<md-button class="md-icon-button" aria-label="Use Android">
+						<md-icon md-svg-src="modules/projects/img/icons/right_arrow.svg" ng-show="!showProjectList"> </md-icon>
+						<md-icon md-svg-src="modules/projects/img/icons/down_arrow.svg" ng-show="showProjectList"> </md-icon>
+						<md-tooltip>Show/Hide Projects</md-tooltip>
+					</md-button>
+					<h3>Projects</h3>
+				</md-list-item>
+				<md-list-item class="md-2-line estimatorList" ng-repeat="project in organisation.projects" ng-show="showProjectList == true">
+					<span flex="5"></span>
+					<div class="md-list-item-text" flex>
+						<h3> {{project}} </h3>
+					</div>
+				</md-list-item>
+			</md-list>
 		</md-card-content>
 	</md-card>
 </div>
