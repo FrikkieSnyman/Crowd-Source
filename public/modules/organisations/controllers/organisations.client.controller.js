@@ -101,7 +101,14 @@ angular.module('organisations').controller('OrganisationsController', ['$scope',
 
 		// Find a list of Organisations
 		$scope.find = function() {
-			$scope.organisations = Organisations.query();
+			$scope.organisations = [];
+			var tempOrganisations = Organisations.query(function() {
+				tempOrganisations.forEach(function(organisation) {
+					if (organisation.members.indexOf(Authentication.user.username) !== -1) {
+						$scope.organisations.push(organisation);
+					}
+				});
+			});
 		};
 
 		// Find existing Organisation
