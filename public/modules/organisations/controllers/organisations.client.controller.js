@@ -222,7 +222,7 @@ angular.module('organisations').controller('OrganisationsController', ['$scope',
 
 		$scope.showAddMemberDialogBox = function(ev) {
 			var newScope = $scope.$new();
-			newScope.organisation = $scope.organisation;
+			// newScope.organisation = $scope.organisation;
 			$mdDialog.show({
 				controller: DialogController,
 				templateUrl: 'modules/organisations/views/add-member.client.view.html',

@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Organisation = mongoose.model('Organisation'),
+	User = mongoose.model('User'),
 	_ = require('lodash');
 
 /**
@@ -23,9 +24,19 @@ exports.create = function(req, res) {
 		} else {
 			res.jsonp(organisation);
 
-			for (var i = organisation.members.length - 1; i >= 0; i--) {
-				organisation.members[i]
-			};
+			User.find({username: {$in: organisation.members}}, function(err, users) {
+				if(err) {
+					console.log(err);
+				} else {
+					users.forEach(function(user) {
+						user.organisations.push(organisation.name);
+					}, this);
+				}
+			});
+
+			// for (var i = organisation.members.length - 1; i >= 0; i--) {
+			// 	organisation.members[i]
+			// };
 		}
 	});
 };
@@ -104,7 +115,7 @@ exports.organisationByID = function(req, res, next, id) {
  * Organisation authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.organisation.user.id !== req.user.id) {
+	if (req.organisation.owner !== req.user.username) {
 		return res.status(403).send('User is not authorized');
 	}
 	next();
