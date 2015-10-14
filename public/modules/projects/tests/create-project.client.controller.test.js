@@ -31,7 +31,7 @@
 
 		// Then we can start by loading the main application module
 		beforeEach(module(ApplicationConfiguration.applicationModuleName));
-		console.log(ApplicationConfiguration.applicationModuleName);
+		//console.log(ApplicationConfiguration.applicationModuleName);
 		
 
 		// The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
