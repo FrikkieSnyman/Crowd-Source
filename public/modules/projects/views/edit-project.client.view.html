@@ -2,8 +2,13 @@
 	<md-card flex>
 		<md-card-content>
 			<md-input-container flex>
-				<label>Project Description</label>
+				<label>Description</label>
 				<textarea ng-model="project.description" ng-readonly = "isOpenForEstimation()"></textarea>
+			</md-input-container>
+
+			<md-input-container ng-show="project.organisation" flex>
+				<label>Organisation</label>
+				<textarea ng-model="project.organisation" ng-readonly = "1"></textarea>
 			</md-input-container>
 
 			<md-list>
