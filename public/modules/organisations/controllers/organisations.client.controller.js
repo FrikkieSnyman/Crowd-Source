@@ -114,6 +114,15 @@ angular.module('organisations').controller('OrganisationsController', ['$scope',
 			return results;
 		};
 
+		var createFilterFor = function(query) {
+			var lowercaseQuery = angular.lowercase(query);
+			return function filterFn(item) {
+				//console.log(item);
+				var name = angular.lowercase(item.name);
+				return (name.indexOf(lowercaseQuery) === 0);
+			};
+		};
+
 		$scope.searchTextChange = function(text) {
 			// console.log('Text changed to ' + text);
 		};
@@ -186,12 +195,12 @@ angular.module('organisations').controller('OrganisationsController', ['$scope',
 			}
 
 			// removing members
-			for (var i = remove.length - 1; i >= 0; --i) {
+			for (i = remove.length - 1; i >= 0; --i) {
 				$scope.organisation.members.splice(remove[i], 1);
 			}
 
 			// adding members
-			for (var i = 0; i < add.length; ++i) {
+			for (i = 0; i < add.length; ++i) {
 				$scope.organisation.members.push(add[i]);
 			}
 
@@ -252,6 +261,6 @@ angular.module('organisations').controller('OrganisationsController', ['$scope',
 			$scope.cancel = function() {
 				$mdDialog.cancel();
 			};
-		};
+		}
 	}
 ]);

@@ -53,9 +53,9 @@ exports.create = function(req, res) {
 					} else {
 						organisation.projects.push(project.organisation);
 						organisation.save();
-					};
+					}
 				});
-			};
+			}
 		}
 	});
 };

@@ -39,8 +39,8 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 				return '';
 			} else {
 				return $scope.projectOrganisation;
-			};
-		}
+			}
+		};
 
 		$scope.createProject = function() {
 			//		var project = {'name': $scope.projectName, 'description': $scope.description, 'owner' : Authentication.user, 'users' : $scope.selected};
