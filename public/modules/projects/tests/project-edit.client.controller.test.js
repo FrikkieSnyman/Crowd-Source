@@ -8,7 +8,8 @@
 			scope,
 			$httpBackend,
 			$stateParams,
-			$location;
+			$location,
+			notify;
 
 		// The $resource service augments the response object with methods for updating and deleting the resource.
 		// If we were to use the standard toEqual matcher, our tests would fail because the test values would not match
@@ -31,13 +32,17 @@
 
 		// Then we can start by loading the main application module
 		beforeEach(module(ApplicationConfiguration.applicationModuleName));
+		//beforeEach(module('btford.socket-io'));
 
 		// The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
 		// This allows us to inject a service but then attach it to a variable
 		// with the same name as the service.
-		beforeEach(inject(function($controller, $rootScope, _$location_, _$stateParams_, _$httpBackend_) {
+		beforeEach(inject(function($controller, $rootScope, _$location_, _$stateParams_,_$httpBackend_) {
 			// Set a new global scope
 			scope = $rootScope.$new();
+			
+			
+			
 
 			// Point global variables to injected services
 			$stateParams = _$stateParams_;
@@ -49,7 +54,10 @@
 				$scope: scope
 			});
 		}));
-		/*
+		
+		
+		
+		// Socket .io error
 		it('$scope.update() should update a valid Project', inject(function(Projects) {
 			// Define a sample Project put data
 
@@ -78,12 +86,12 @@
 			// Test URL location to new object
 			//expect($location.path()).toBe('/projects/' + sampleProjectPutData._id);
 		}));
-
+		/*
 		it('Should do some controller test', inject(function() {
 			// The test logic
 			// ...
 		}));
-
+		/*
 		it('$scope.updateLocalTree() should send cause the estimations of the leaf nodes to bubble-up the tree to the root node', inject(function() {
 			// Create new Project object with depth 1 and 2 children
 			var sampleProject = {
@@ -194,4 +202,37 @@
 		*/
 
 	});
+	var sockMock = function($rootScope){
+	this.events = {};
+	this.emits = {};
+	
+	// intercept 'on' calls and capture the callbacks
+	this.on = function(eventName, callback){
+		if(!this.events[eventName]) this.events[eventName] = [];
+		this.events[eventName].push(callback);
+	};
+	
+	// intercept 'emit' calls from the client and record them to assert against in the test
+	this.emit = function(eventName){
+		var args = Array.prototype.slice.call(arguments, 1);
+	
+		if(!this.emits[eventName])
+		this.emits[eventName] = [];
+		this.emits[eventName].push(args);
+	};
+	
+	//simulate an inbound message to the socket from the server (only called from the test)
+	this.receive = function(eventName){
+		var args = Array.prototype.slice.call(arguments, 1);
+	
+		if(this.events[eventName]){
+		angular.forEach(this.events[eventName], function(callback){
+			$rootScope.$apply(function() {
+			callback.apply(this, args);
+			});
+		});
+		};
+	};
+	
+	};
 }());
