@@ -39,7 +39,8 @@
 		beforeEach(inject(function($controller, $rootScope, _$location_, _$stateParams_,_$httpBackend_,_socketFactory_) {
 			// Set a new global scope
 			scope = $rootScope.$new();
-			io = _socketFactory_.factory();
+			io = {connect:function(){}};
+			console.log(io);
 			
 			
 
@@ -90,7 +91,7 @@
 			// The test logic
 			// ...
 		}));
-		/*
+		*/
 		it('$scope.updateLocalTree() should send cause the estimations of the leaf nodes to bubble-up the tree to the root node', inject(function() {
 			// Create new Project object with depth 1 and 2 children
 			var sampleProject = {
@@ -99,14 +100,20 @@
 							nodes : [
 								{
 									nodes : [],
-									estimations : [null, 1, null]
+									estimations : [null, 1, null],
+									minestimations : [null, 1, null],
+									maxestimations : [null, 1, null]
 								},
 								{
 									nodes : [],
-									estimations : [null, 2, null]
+									estimations : [null, 1, null],
+									minestimations : [null, 1, null],
+									maxestimations : [null, 1, null]
 								}
 							],
-							estimations : [null, null, null]
+							estimations : [null, null, null],
+							minestimations : [null, 1, null],
+							maxestimations : [null, 1, null]
 						}
 					],
 			};
@@ -198,7 +205,7 @@
 			expect(scope.project.children[0].nodes[0].nodes[0].estimations[0]).toBe(null);
 			expect(scope.project.children[0].nodes[0].nodes[1].estimations[0]).toBe(null);
 		}));
-		*/
+		
 
 	});
 	var sockMock = function($rootScope){
