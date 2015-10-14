@@ -28,6 +28,8 @@
 				Edit Members
 			</md-button>
 
+			<md-divider></md-divider>
+
 			<md-list>
 				<md-list-item ng-click="toggleProjectList()">
 					<md-button class="md-icon-button" aria-label="Use Android">
@@ -44,6 +46,11 @@
 					</div>
 				</md-list-item>
 			</md-list>
+
+			<md-button class="md-primary" ng-click="goTo('/projects/create')" ng-show="isMember()">
+				Create Project
+			</md-button>
+
 		</md-card-content>
 	</md-card>
 </div>

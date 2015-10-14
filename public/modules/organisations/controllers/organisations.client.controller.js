@@ -261,6 +261,15 @@ angular.module('organisations').controller('OrganisationsController', ['$scope',
 			.join(' ');
 		};
 
+		$scope.isMember = function() {
+			for (var i = 0; i < $scope.people.length; ++i) {
+				if ($scope.people[i].isMember === true && $scope.people[i].username === $scope.authentication.user.username) {
+					return true;
+				}
+			}
+			return false;
+		};
+
 		function DialogController($scope, $mdDialog) {
 			$scope.hide = function() {
 				$mdDialog.hide();
