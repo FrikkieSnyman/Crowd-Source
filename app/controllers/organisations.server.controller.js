@@ -64,6 +64,19 @@ exports.update = function(req, res) {
 			});
 		} else {
 			res.jsonp(organisation);
+
+			User.find({username: {$in: organisation.members}}, function(err, users) {
+				if(err) {
+					console.log(err);
+				} else {
+					users.forEach(function(user) {
+						if (user.organisations.indexOf(organisation.name) === -1) {
+							user.organisations.push(organisation.name);
+							user.save();
+						}
+					}, this);
+				}
+			});
 		}
 	});
 };
@@ -81,6 +94,17 @@ exports.delete = function(req, res) {
 			});
 		} else {
 			res.jsonp(organisation);
+
+			User.find({username: {$in: organisation.members}}, function(err, users) {
+				if(err) {
+					console.log(err);
+				} else {
+					users.forEach(function(user) {
+						user.organisations.splice(user.organisations.indexOf(organisation.name), 1);
+						user.save();
+					}, this);
+				}
+			});
 		}
 	});
 };

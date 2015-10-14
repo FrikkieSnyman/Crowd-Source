@@ -99,6 +99,17 @@ exports.delete = function(req, res) {
 			});
 		} else {
 			res.jsonp(project);
+
+			if (project.organisation) {
+				Organisation.findOne({name: project.organisation}, function(err, organisation) {
+					if (err) {
+						console.log(err);
+					} else {
+						organisation.projects.splice(organisation.projects.indexOf(project.name), 1);
+						organisation.save();
+					}
+				});
+			}
 		}
 	});
 };
