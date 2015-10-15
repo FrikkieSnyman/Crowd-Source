@@ -25,15 +25,12 @@ exports.create = function(req, res) {
 		} else {
 			res.jsonp(organisation);
 
-			User.find({username: {$in: organisation.members}}, function(err, users) {
-				if(err) {
-					console.log(err);
-				} else {
-					users.forEach(function(user) {
-						user.organisations.push(organisation.name);
-						user.save();
-					}, this);
-				}
+			User.update({
+				username: {$in: organisation.members}
+			}, {
+				$push: {organisations: organisation.name}
+			}, {
+				multi: true
 			});
 		}
 	});
@@ -62,34 +59,23 @@ exports.update = function(req, res) {
 		} else {
 			res.jsonp(organisation);
 
-			User.find({username: {$in: organisation.members}}, function(err, users) {
-				if(err) {
-					console.log(err);
-				} else {
-					users.forEach(function(user) {
-						if (user.organisations.indexOf(organisation.name) === -1) {
-							user.organisations.push(organisation.name);
-							user.save();
-						}
-					}, this);
-				}
+			User.update({
+				username: { $in: organisation.members }
+			}, {
+				$addToSet: { organisations: organisation.name }
+			}, {
+				multi: true
 			});
 
-			User.find({
+			User.update({
 				$and: [
 					{ username: { $nin: organisation.members } },
 					{ organisations: { $in: [organisation.name] } }
 				]
-			}, function(err, users) {
-				if (err) {
-					console.log(err);
-				}
-				else {
-					users.forEach(function(user) {
-						user.organisations.splice(user.organisations.indexOf(organisation.name), 1);
-						user.save();
-					}, this);
-				}
+			}, {
+				$pull: { organisations: organisation.name }
+			}, {
+				multi: true
 			});
 		}
 	});
@@ -109,26 +95,20 @@ exports.delete = function(req, res) {
 		} else {
 			res.jsonp(organisation);
 
-			User.find({username: {$in: organisation.members}}, function(err, users) {
-				if(err) {
-					console.log(err);
-				} else {
-					users.forEach(function(user) {
-						user.organisations.splice(user.organisations.indexOf(organisation.name), 1);
-						user.save();
-					}, this);
-				}
+			User.update({
+				username: { $in: organisation.members }
+			}, {
+				$pull: { organisations: organisation.name }
+			}, {
+				multi: true
 			});
 
-			Project.find({name: {$in: organisation.projects}}, function(err, projects) {
-				if(err) {
-					console.log(err);
-				} else {
-					projects.forEach(function(project) {
-						project.organisation = null;
-						project.save();
-					}, this);
-				}
+			Project.update({
+				name: { $in: organisation.projects }
+			}, {
+				organisation: null
+			}, {
+				multi: true
 			});
 		}
 	});
