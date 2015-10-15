@@ -47,13 +47,10 @@ exports.create = function(req, res) {
 			res.jsonp(project);
 
 			if (project.organisation) {
-				Organisation.findOne({name: project.organisation}, function(err, organisation) {
-					if (err) {
-						console.log(err);
-					} else {
-						organisation.projects.push(project.name);
-						organisation.save();
-					}
+				Organisation.update({
+					name: project.organisation
+				}, {
+					$addToSet: { projects: project.name }
 				});
 			}
 		}
@@ -101,13 +98,10 @@ exports.delete = function(req, res) {
 			res.jsonp(project);
 
 			if (project.organisation) {
-				Organisation.findOne({name: project.organisation}, function(err, organisation) {
-					if (err) {
-						console.log(err);
-					} else {
-						organisation.projects.splice(organisation.projects.indexOf(project.name), 1);
-						organisation.save();
-					}
+				Organisation.update({
+					name: project.organisation
+				}, {
+					$pull: { projects: project.name }
 				});
 			}
 		}

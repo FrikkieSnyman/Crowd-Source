@@ -28,7 +28,7 @@ exports.create = function(req, res) {
 			User.update({
 				username: {$in: organisation.members}
 			}, {
-				$push: {organisations: organisation.name}
+				$addToSet: {organisations: organisation.name}
 			}, {
 				multi: true
 			});
