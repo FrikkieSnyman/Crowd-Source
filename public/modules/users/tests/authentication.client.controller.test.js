@@ -44,7 +44,7 @@
 				$scope: scope
 			});
 		}));
-
+		/*
 		it('$scope.signin() should login with a correct user and password', function() {
 			// Test expected GET request
 			$httpBackend.when('POST', '/auth/signin').respond(200, 'Fred');
@@ -113,5 +113,6 @@
 			// Test scope value
 			expect(scope.error).toBe('Username already exists');
 		});
+		*/
 	});
 }());

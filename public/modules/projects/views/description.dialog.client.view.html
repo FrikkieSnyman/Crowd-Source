@@ -10,9 +10,11 @@
 			</div>
 		</md-toolbar>
 		<md-dialog-content>
-			<div ng-hide="isOpenForEstimation()">
-				<label> <b>Node Description</b> </label>
-				<div text-angular ng-model="project.description" ta-disabled="isOpenForEstimation()"></div>
+			<div>
+				<div>
+					<label>Node Description</label>
+				 	<div class="small-area" text-angular="text-angular" ng-model="project.description" ta-disabled='isOpenForEstimation()'></div>
+				</div>
 				<span flex></span>
 			</div>
 			<div ng-show="isOpenForEstimation()">

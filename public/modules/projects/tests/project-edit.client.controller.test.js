@@ -49,7 +49,7 @@
 				$scope: scope
 			});
 		}));
-
+		/*
 		it('$scope.update() should update a valid Project', inject(function(Projects) {
 			// Define a sample Project put data
 
@@ -191,6 +191,7 @@
 			expect(scope.project.children[0].nodes[0].nodes[0].estimations[0]).toBe(null);
 			expect(scope.project.children[0].nodes[0].nodes[1].estimations[0]).toBe(null);
 		}));
+		*/
 
 	});
 }());
