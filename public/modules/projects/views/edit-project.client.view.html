@@ -1,10 +1,10 @@
 <div ng-controller="ProjectEditController" flex = "100"  data-ng-init="findOne()">
 	<md-card flex>
 		<md-card-content>
-			<md-input-container flex>
-				<label>Project Description</label>
-				<textarea ng-model="project.description" ng-readonly = "isOpenForEstimation()"></textarea>
-			</md-input-container>
+		<div>
+			<label>Project Description</label>
+			 <div class="small-area" text-angular="text-angular" ng-model="project.description" ta-disabled='isOpenForEstimation()'></div>
+		</div>
 
 			<md-list>
 				<md-list-item ng-click="toggleEstimatorsList()">

@@ -1,3 +1,7 @@
+.ta-editor{
+    height: 10px;
+}
+
 md-fab-toolbar .md-fab-toolbar-wrapper {
 	display: block;
 	position: relative;

@@ -11,10 +11,10 @@
 		</md-toolbar>
 		<md-dialog-content>
 			<div>
-				<md-input-container flex>
-					<label> Node Description </label>
-					<textarea ng-model="currentNode.description" columns="1" ng-readonly="isOpenForEstimation()" ng-disabled="false" ></textarea> 
-				</md-input-container>
+				<div>
+					<label>Project Description</label>
+				 	<div class="small-area" text-angular="text-angular" ng-model="project.description" ta-disabled='isOpenForEstimation()'></div>
+				</div>
 				<span flex></span>
 			</div>
 		</md-dialog-content>
