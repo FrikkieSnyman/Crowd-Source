@@ -11,6 +11,12 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 			$scope.userOrganisations.push('None');
 		}
 
+		$scope.$on('$locationChangeStart', function (event, next, current) {
+			if ($scope.userOrganisations.indexOf('None') !== -1) {
+				$scope.userOrganisations.splice($scope.userOrganisations.indexOf('None'), 1)
+			}
+		});
+
 		$http.get(RESOURCE_DOMAIN+'/users/getUsers').success(function(users) {
 			for (var i in users) {
 				$scope.people.push({
