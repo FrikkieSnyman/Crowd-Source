@@ -10,7 +10,7 @@ var mongoose = require('mongoose'),
  * Project Schema
  */
 var ProjectSchema = new Schema({
-	name : String,
+	name : { type: String, required: true },
 	description : String,
 	children : [],
 	deleted : Boolean,

@@ -61,7 +61,6 @@ var clearEstimations = function(project) {
 exports.create = function(req, res) {
 	var project = new Project(req.body);
 	project.user = req.user;
-
 	project.save(function(err) {
 		if (err) {
 			return res.status(400).send({
@@ -147,8 +146,10 @@ exports.list = function(req, res) {
 	Project.find().sort('name').populate('user', 'displayName').exec(function(err, projects) {
 		for (var i = projects.length - 1; i >= 0; --i) {
 			var tmpProject = projects[i];
-			if (!((owner(tmpProject, req)) || ((estimator(tmpProject, req)) && (openForEstimation(tmpProject))))) {
-				projects.splice(i, 1);
+			if(req.user){
+				if (!((owner(tmpProject, req)) || ((estimator(tmpProject, req)) && (openForEstimation(tmpProject))))) {
+					projects.splice(i, 1);
+				}
 			}
 		}
 		if (err) {
@@ -156,6 +157,7 @@ exports.list = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+			//console.log(projects);
 			res.jsonp(projects);
 		}
 	});

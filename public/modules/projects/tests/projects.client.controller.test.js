@@ -49,7 +49,7 @@
 				$scope: scope
 			});
 		}));
-		/*
+		
 		it('$scope.find() should create an array with at least one Project object fetched from XHR', inject(function(Projects) {
 			// Create sample Project using the Projects service
 			var sampleProject = new Projects({
@@ -60,7 +60,7 @@
 			var sampleProjects = [sampleProject];
 
 			// Set GET response
-			$httpBackend.expectGET('projects').respond(sampleProjects);
+			$httpBackend.expectGET('/projects').respond(sampleProjects);
 
 			// Run controller functionality
 			scope.find();
@@ -94,18 +94,14 @@
 			// Create a sample Project object
 			var sampleProjectPostData = new Projects({
 				name: 'New Project',
-				description: 'Test',
-				users: '',
-				owner: ''
+				description: 'Test'
 			});
 
 			// Create a sample Project response
 			var sampleProjectResponse = new Projects({
 				_id: '525cf20451979dea2c000001',
 				name: 'New Project',
-				description: 'Test',
-				users: '',
-				owner: ''
+				description: 'Test'
 			});
 
 			// Fixture mock form input values
@@ -114,7 +110,7 @@
 			scope.description = 'Test';
 
 			// Set POST response
-			$httpBackend.expectPOST('projects', sampleProjectPostData).respond(sampleProjectResponse);
+			$httpBackend.expectPOST('/projects', sampleProjectPostData).respond(sampleProjectResponse);
 
 			// Run controller functionality
 			scope.createProject();
@@ -167,6 +163,6 @@
 			// Test array after successful delete
 			expect(scope.projects.length).toBe(0);
 		}));
-		*/
+		
 	});
 }());
