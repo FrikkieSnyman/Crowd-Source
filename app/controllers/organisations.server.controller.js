@@ -25,15 +25,18 @@ exports.create = function(req, res) {
 		} else {
 			res.jsonp(organisation);
 
-			console.log(organisation.members);
-			console.log(organisation.name);
-
 			User.update({
 				username: {$in: organisation.members}
 			}, {
 				$addToSet: {organisations: organisation.name}
 			}, {
 				multi: true
+			}, function(err, numAffected) {
+				if (err) {
+					console.log(err);
+				} else {
+					// console.log('Updated ' + numAffected + ' users');
+				}
 			});
 		}
 	});
@@ -68,6 +71,12 @@ exports.update = function(req, res) {
 				$addToSet: { organisations: organisation.name }
 			}, {
 				multi: true
+			}, function(err, numAffected) {
+				if (err) {
+					console.log(err);
+				} else {
+					// console.log('Updated ' + numAffected + ' users');
+				}
 			});
 
 			User.update({
@@ -79,6 +88,12 @@ exports.update = function(req, res) {
 				$pull: { organisations: organisation.name }
 			}, {
 				multi: true
+			}, function(err, numAffected) {
+				if (err) {
+					console.log(err);
+				} else {
+					// console.log('Updated ' + numAffected + ' users');
+				}
 			});
 		}
 	});
@@ -104,6 +119,12 @@ exports.delete = function(req, res) {
 				$pull: { organisations: organisation.name }
 			}, {
 				multi: true
+			}, function(err, numAffected) {
+				if (err) {
+					console.log(err);
+				} else {
+					// console.log('Updated ' + numAffected + ' users');
+				}
 			});
 
 			Project.update({
@@ -112,6 +133,12 @@ exports.delete = function(req, res) {
 				organisation: null
 			}, {
 				multi: true
+			}, function(err, numAffected) {
+				if (err) {
+					console.log(err);
+				} else {
+					// console.log('Updated ' + numAffected + ' users');
+				}
 			});
 		}
 	});

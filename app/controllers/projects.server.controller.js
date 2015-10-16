@@ -51,6 +51,12 @@ exports.create = function(req, res) {
 					name: project.organisation
 				}, {
 					$addToSet: { projects: project.name }
+				}, function(err, numAffected) {
+					if (err) {
+						console.log(err);
+					} else {
+						// console.log('Updated ' + numAffected + ' users');
+					}
 				});
 			}
 		}
@@ -102,6 +108,12 @@ exports.delete = function(req, res) {
 					name: project.organisation
 				}, {
 					$pull: { projects: project.name }
+				}, function(err, numAffected) {
+					if (err) {
+						console.log(err);
+					} else {
+						// console.log('Updated ' + numAffected + ' users');
+					}
 				});
 			}
 		}
