@@ -149,6 +149,18 @@ exports.list = function(req, res) {
 	});
 };
 
+exports.getOrganisation = function(req, res) {
+	var organisationName = req.body.name;
+
+	Organisation.findOne({name: organisationName}, function(err, organisation) {
+		if (err) {
+			return console.error(err);
+		} else {
+			res.send(organisation);
+		}
+	});
+};
+
 /**
  * Organisation middleware
  */

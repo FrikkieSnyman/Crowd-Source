@@ -9,6 +9,9 @@ module.exports = function(app) {
 		.get(organisations.list)
 		.post(users.requiresLogin, organisations.create);
 
+	app.route('/organisations/getOrganisation')
+		.post(organisations.getOrganisation);
+
 	app.route('/organisations/:organisationId')
 		.get(organisations.read)
 		.put(users.requiresLogin, organisations.hasAuthorization, organisations.update)
