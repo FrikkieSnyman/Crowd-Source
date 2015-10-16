@@ -24,7 +24,8 @@ var ReportSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
-	project: Object
+	project: Object,
+	reopened: Boolean
 });
 
 mongoose.model('Report', ReportSchema);

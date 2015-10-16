@@ -14,7 +14,9 @@ module.exports = {
 		lib: {
 			css: [
 				'public/lib/angular-material/angular-material.min.css',
-				'public/lib/angular-ui-tree/dist/angular-ui-tree.min.css'
+				'public/lib/angular-ui-tree/dist/angular-ui-tree.min.css',
+				'public/lib/textAngular/dist/textAngular.css',
+				'public/lib/font-awesome/css/font-awesome.css'
 			],
 			js: [
 				'public/lib/angular/angular.js',
@@ -31,6 +33,9 @@ module.exports = {
 				'public/lib/angular-ui-tree/dist/angular-ui-tree.min.js',
 				'public/lib/jquery/dist/jquery.min.js',
 				'public/lib/d3/d3.js',
+				'public/lib/textAngular/dist/textAngular-rangy.min.js',
+				'public/lib/textAngular/dist/textAngular-sanitize.min.js',
+				'public/lib/textAngular/dist/textAngular.min.js',
 			]
 		},
 		css: [

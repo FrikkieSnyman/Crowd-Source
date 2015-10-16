@@ -215,9 +215,10 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.submitEstimation = function() {
-			$scope.saveProject();
-			$scope.estimated = true;
-			$scope.determineEstimations();
+			$scope.saveProject(function() {
+				$scope.estimated = true;
+				$scope.determineEstimations();	
+			});
 		};
 
 		$scope.determineEstimations = function() {
@@ -227,7 +228,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 					return;
 				}
 			}
-			$scope.project.openForEstimation = false;
+			// $scope.project.openForEstimation = false;
 			$scope.sendEstimationReport();
 		};
 
@@ -238,7 +239,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.openForEstimation = function() {
-
 			for (var i in $scope.project.children[0].estimations) {
 				$scope.project.children[0].estimations[i] = null;
 			}
@@ -353,22 +353,25 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				minestimations : minEstimations,
 				maxestimations : maxEstimations
 			});
+			$scope.updateLocalTree();
 		};
 
 		$scope.undoToolTip = function(node, removeNode, newSubItem) {
-			//debugger;
-			var tree = $.extend(true, [], $scope.project.children);
-
+			var tree = {};
+			tree = angular.merge(tree, $scope.project.children);
 			removeNode(node);
 
 			var toast = $mdToast.simple()
 				.content('Node deleted')
 				.action('UNDO')
-				.highlightAction(false)
+				.highlightAction(true)
 				.position($scope.getToastPosition());
-			$mdToast.show(toast).then(function() {
-				$scope.project.children = $.extend(true, [], tree);
+			$mdToast.show(toast).then(function(response) {
+				if (response === 'ok') {
+					$scope.project.children = angular.merge($scope.project.children, tree);
+				}
 			});
+			$scope.updateLocalTree();
 		};
 
 		$scope.toastPosition = {
@@ -384,7 +387,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			.join(' ');
 		};
 
-		$scope.saveProject = function() {
+		$scope.saveProject = function(callback) {
 			$scope.project.$update(function(response) {
 				$mdToast.show(
 					$mdToast.simple()
@@ -392,13 +395,15 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 					.position($scope.getToastPosition())
 					.hideDelay(3000)
 				);
+				if (callback !== undefined) {
+					callback();
+				}
 			}, function(errorResponse) {
 				$scope.error = errorResponse;
 			});
 		};
 
 		$scope.querySearch = function(query) {
-		
 			var results = query ? $scope.projects.filter(createFilterFor(query)) : $scope.projects, deferred;
 			return results;
 		};
@@ -472,7 +477,9 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			});
 		};
 
+		$scope.isNodeNamesValid = false;
 		$scope.updateLocalTree = function(scope, node) {
+			$scope.isNodeNamesValid = true;
 			var count = $scope.userIndex;
 			var currnode = $scope.project.children[0];
 			var result;
@@ -483,6 +490,10 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 
 		var minMaxDefaultRange = 2;
 		$scope.getEstimation = function(node, userNum, callback) {
+			if (node.title === undefined || node.title === null || node.title.length <= 0) {
+				$scope.isNodeNamesValid = false;
+			}
+
 			if (node.nodes.length <= 0) {
 				callback(node.estimations[userNum], node.minestimations[userNum], node.maxestimations[userNum]);
 			} else {

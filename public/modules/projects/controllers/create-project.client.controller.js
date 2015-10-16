@@ -15,7 +15,7 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 
 		$scope.$on('$locationChangeStart', function (event, next, current) {
 			if ($scope.userOrganisations.indexOf('None') !== -1) {
-				$scope.userOrganisations.splice($scope.userOrganisations.indexOf('None'), 1)
+				$scope.userOrganisations.splice($scope.userOrganisations.indexOf('None'), 1);
 			}
 		});
 
@@ -66,7 +66,8 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 				users : buildSelectedArray(),
 				owner : $scope.authentication.user.username,
 				organisation : getOrganisation(),
-				openForEstimation : false
+				openForEstimation : false,
+				round : 1
 			});
 			project.$save(function(response) {
 				$location.path('projects/' + project._id + '/edit');

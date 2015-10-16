@@ -18,7 +18,8 @@ var ProjectSchema = new Schema({
 	owner : String,
 	user: Object,
 	openForEstimation : Boolean,
-	organisation: String
+	organisation: String,
+	round : Number
 });
 
 mongoose.model('Project', ProjectSchema);

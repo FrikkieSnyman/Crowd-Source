@@ -7,13 +7,11 @@
 					<label>Project name</label>
 					<input ng-model="projectName" type="text" required>
 				</md-input-container>
-				
-				<md-input-container>
-					<!-- Use floating label instead of placeholder -->
-					<label>Project description</label>
-					<!-- Use text area instead of input for better visability of the description -->
-					<textarea ng-model="description" required></textarea>
-				</md-input-container>
+
+				<div>
+					<label>Project Description</label>
+					 <div  text-angular="text-angular" ta-toolbar="[['h1', 'h2', 'h3', 'bold', 'italics', 'underline','ul', 'ol'], ['html', 'insertImage', 'insertLink', 'redo', 'undo', 'clear', 'wordcount', 'charcount']]" ng-model="description" ta-disabled='isOpenForEstimation()'></div>
+				</div>
 
 				<md-input-container>
 					<label>Organisation</label>
@@ -23,7 +21,7 @@
 						</md-option>
 					</md-select>
 				</md-input-container>
-
+				
 				<md-list>
 					<md-subheader class="md-no-sticky">Estimators</md-subheader>
 					<md-list-item class="md-2-line" ng-repeat="person in queryEstimators()" layout="row">
