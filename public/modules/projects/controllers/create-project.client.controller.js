@@ -4,6 +4,23 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 	function($scope, $stateParams, $location, Authentication, Projects, $http, $mdToast, $mdDialog, $timeout, $rootScope, RESOURCE_DOMAIN) {
 		$scope.authentication = Authentication;
 		$scope.people = [];
+		$scope.allOrganisations = [];
+		$scope.allOrganisationNames = [];
+		$scope.userOrganisations = [];
+
+		if(Authentication.user) {
+			$scope.userOrganisations = Authentication.user.organisations;	
+		}
+		
+		if ($scope.userOrganisations.indexOf('None') === -1) {
+			$scope.userOrganisations.push('None');
+		}
+
+		$scope.$on('$locationChangeStart', function (event, next, current) {
+			if ($scope.userOrganisations.indexOf('None') !== -1) {
+				$scope.userOrganisations.splice($scope.userOrganisations.indexOf('None'), 1);
+			}
+		});
 
 		$http.get(RESOURCE_DOMAIN+'/users/getUsers').success(function(users) {
 			for (var i in users) {
@@ -13,6 +30,13 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 					lastName : users[i].lastName,
 					selected: false
 				});
+			}
+		});
+
+		$http.get(RESOURCE_DOMAIN+'/organisations').success(function(organisations) {
+			for (var i in organisations) {
+				$scope.allOrganisations.push(organisations[i]);
+				$scope.allOrganisationNames.push(organisations[i].name);
 			}
 		});
 
@@ -28,6 +52,14 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 			return selected;
 		};
 
+		var getOrganisation = function() {
+			if ($scope.projectOrganisation === 'None') {
+				return '';
+			} else {
+				return $scope.projectOrganisation;
+			}
+		};
+
 		$scope.createProject = function() {
 			//		var project = {'name': $scope.projectName, 'description': $scope.description, 'owner' : Authentication.user, 'users' : $scope.selected};
 
@@ -36,6 +68,7 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 				description: $scope.description,
 				users : buildSelectedArray(),
 				owner : $scope.authentication.user.username,
+				organisation : getOrganisation(),
 				openForEstimation : false,
 				round : 1
 			});
@@ -51,6 +84,21 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 				$scope.error = errorResponse.data.message;
 			});
 		};
+
+		$scope.queryEstimators = function() {
+			var results = ($scope.projectOrganisation && $scope.projectOrganisation !== 'None') ? $scope.people.filter(createFilterFor($scope.projectOrganisation)) : $scope.people, deferred;
+			var indices = [];
+
+			return results;
+		};
+
+		var createFilterFor = function(organisation) {
+			return function filterFn(item) {
+				var index = $scope.allOrganisationNames.indexOf(organisation);
+
+				return ($scope.allOrganisations[index].members.indexOf(item.name) !== -1);
+			};
+		};
 		
 		$scope.toastPosition = {
 			bottom: true,
@@ -63,6 +111,6 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 			return Object.keys($scope.toastPosition)
 			.filter(function(pos) { return $scope.toastPosition[pos]; })
 			.join(' ');
-		};		
+		};
 	}
 ]); 

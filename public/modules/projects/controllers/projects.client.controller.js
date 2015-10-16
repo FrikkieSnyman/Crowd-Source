@@ -138,7 +138,29 @@ angular.module('projects').controller('ProjectsController', ['$interval','$scope
 
 		// Find a list of Projects
 		$scope.find = function() {
-			$scope.projects = Projects.query();
+			$scope.projects = [];
+
+			var tempProjects = Projects.query(function() {
+				tempProjects.forEach(function(project) {
+					var rowSpan = 4;
+
+					if (project.organisation) {
+						rowSpan += 1;
+					}
+
+					if (project.openForEstimation) {
+						rowSpan += 1;
+					}
+
+					project.rowSpan = rowSpan;
+
+					$scope.projects.push(project);
+				}, this);
+			});
+		};
+
+		$scope.getRowSpan = function(project) {
+			console.log('Hey there');
 		};
 
 		// Find existing Project
@@ -222,6 +244,22 @@ angular.module('projects').controller('ProjectsController', ['$interval','$scope
 			} else {
 				return true;
 			}
+		};
+
+		$scope.calculateColSpan = function(project) {
+			// console.log(project);
+
+			var colSpan = 2;
+
+			if (project.organisation) {
+				colSpan += 1;
+			}
+
+			if (project.openForEstimation) {
+				colSpan += 1;
+			}
+
+			return colSpan;
 		};
 	}
 ]);

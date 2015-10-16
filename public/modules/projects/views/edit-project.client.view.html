@@ -1,6 +1,11 @@
 <div ng-controller="ProjectEditController" flex = "100"  data-ng-init="findOne()">
 	<md-card flex>
 		<md-card-content>
+			<md-input-container ng-show="project.organisation" flex>
+				<label>Organisation</label>
+				<textarea ng-model="project.organisation" ng-readonly = "1"></textarea>
+			</md-input-container>
+
 			<div ng-hide="isOpenForEstimation()">
 				<label> <b>Project Description</b> </label>
 				<div text-angular ta-toolbar="[['h1', 'h2', 'h3', 'bold', 'italics', 'underline','ul', 'ol'], ['html', 'insertImage', 'insertLink', 'redo', 'undo', 'clear', 'wordcount', 'charcount']]" ng-model="project.description" ta-disabled="isOpenForEstimation()"></div>

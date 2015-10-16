@@ -53,7 +53,11 @@
 		it('$scope.find() should create an array with at least one Report object fetched from XHR', inject(function(Reports) {
 			// Create sample Report using the Reports service
 			var sampleReport = new Reports({
-				name: 'New Report'
+				name: 'New Report',
+				project: {
+					organisation: null
+				},
+				rowSpan: 4
 			});
 
 			// Create a sample Reports array that includes the new Report

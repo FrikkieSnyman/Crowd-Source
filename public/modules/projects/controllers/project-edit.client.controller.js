@@ -105,6 +105,25 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 
 		$scope.showAddEstimatorDialogBox = function(ev) {
 			var newScope = $scope.$new();
+
+			if ($scope.project.organisation) {
+				var organisation = {
+					name: $scope.project.organisation
+				};
+
+				$http({method:'POST', url:RESOURCE_DOMAIN + '/organisations/getOrganisation', data: organisation}).success(function(data) {
+					newScope.people = [];
+
+					console.log(data);
+
+					for (var i = $scope.people.length - 1; i >= 0; i--) {
+						if (data.members.indexOf($scope.people[i].username) !== -1) {
+							newScope.people.push($scope.people[i]);
+						}
+					}
+				});
+			}
+
 			$mdDialog.show({
 				controller: DialogController,
 				templateUrl: 'modules/projects/views/add-estimator.client.view.html',

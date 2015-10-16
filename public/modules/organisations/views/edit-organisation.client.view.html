@@ -1,0 +1,56 @@
+<div ng-controller="OrganisationsController" flex = "100" data-ng-init="findOne()">
+	<md-card flex>
+		<md-card-content>
+			<md-input-container flex>
+				<label>Organisation Description</label>
+				<textarea ng-model="organisation.description"></textarea>
+			</md-input-container>
+
+			<md-list>
+				<md-list-item ng-click="toggleMemberList()">
+					<md-button class="md-icon-button" aria-label="Use Android">
+						<md-icon md-svg-src="modules/projects/img/icons/right_arrow.svg" ng-show="!showMembers"> </md-icon>
+						<md-icon md-svg-src="modules/projects/img/icons/down_arrow.svg" ng-show="showMembers"> </md-icon>
+						<md-tooltip>Show/Hide Members</md-tooltip>
+					</md-button>
+					<h3>Members</h3>
+				</md-list-item>
+				<md-list-item class="md-2-line estimatorList" ng-repeat="member in organisation.members" ng-show="showMembers == true">
+					<span flex="5"></span>
+					<div class="md-list-item-text" flex>
+						<h3> {{userDetails[member].firstName}} {{userDetails[member].lastName}} </h3>
+						<p> {{member}} </p>
+					</div>
+				</md-list-item>
+			</md-list>
+
+			<md-button class="md-primary" ng-click="showAddMemberDialogBox()" ng-show="owner(organisation)">
+				Edit Members
+			</md-button>
+
+			<md-divider></md-divider>
+
+			<md-list>
+				<md-list-item ng-click="toggleProjectList()">
+					<md-button class="md-icon-button" aria-label="Use Android">
+						<md-icon md-svg-src="modules/projects/img/icons/right_arrow.svg" ng-show="!showProjectList"> </md-icon>
+						<md-icon md-svg-src="modules/projects/img/icons/down_arrow.svg" ng-show="showProjectList"> </md-icon>
+						<md-tooltip>Show/Hide Projects</md-tooltip>
+					</md-button>
+					<h3>Projects</h3>
+				</md-list-item>
+				<md-list-item class="md-2-line estimatorList" ng-repeat="project in organisation.projects" ng-show="showProjectList == true">
+					<span flex="5"></span>
+					<div class="md-list-item-text" flex>
+						<h3> {{project}} </h3>
+					</div>
+				</md-list-item>
+			</md-list>
+
+			<md-button class="md-primary" ng-click="goTo('/projects/create')" ng-show="isMember()">
+				Create Project
+			</md-button>
+
+		</md-card-content>
+	</md-card>
+</div>

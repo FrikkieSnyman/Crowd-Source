@@ -117,7 +117,21 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 
 		// Find a list of Reports
 		$scope.find = function() {
-			$scope.reports = Reports.query();
+			$scope.reports = [];
+
+			var tempReports = Reports.query(function() {
+				tempReports.forEach(function(report) {
+					var rowSpan = 4;
+
+					if (report.project.organisation) {
+						rowSpan += 1;
+					}
+
+					report.rowSpan = rowSpan;
+
+					$scope.reports.push(report);
+				}, this);
+			});
 		};
 
 		// Find existing Report

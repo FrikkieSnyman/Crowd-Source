@@ -21,6 +21,12 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 					headerPath = headerPath.replace(projectID, Headerpath.getProjectPath());
 
 					headerPath = headerPath.substring(0, headerPath.indexOf('edit') - 1);
+				} else if (headerPath.indexOf('edit') !== -1 && headerPath.indexOf('organisations') !== -1) {
+					var organisationID = headerPath.substring(headerPath.indexOf('organisations') + 14, headerPath.indexOf('edit') - 1);
+
+					headerPath = headerPath.replace(organisationID, Headerpath.getOrganisationPath());
+
+					headerPath = headerPath.substring(0, headerPath.indexOf('edit') - 1);
 				} else if (headerPath.indexOf('reports') !== -1 && headerPath.indexOf('/') !== -1) {
 					var reportID = headerPath.substring(headerPath.indexOf('reports') + 8, headerPath.length);
 
@@ -65,6 +71,11 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 			return $location.path() === '/projects';
 		};
 
+		$scope.onOrganisations = function() {
+			// console.log($location);
+			return $location.path() === '/organisations';
+		};
+
 		$scope.sidenav = $mdSidenav;
 		function buildToggler(navID) {
 			var debounceFn =  $mdUtil.debounce(function() {
@@ -75,7 +86,15 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 			}, 300);
 			return debounceFn;
 		}
+
 		$scope.toggleLeft = buildToggler('left');
 
+		$scope.navigateToCreatePage = function() {
+			if ($location.$$path.indexOf('projects') !== -1) {
+				$scope.goTo('projects/create');
+			} else if ($location.$$path.indexOf('organisations') !== -1) {
+				$scope.goTo('organisations/create');
+			}
+		};
 	}
 ]);

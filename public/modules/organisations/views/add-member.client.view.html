@@ -1,0 +1,31 @@
+<md-dialog data-ng-controller="OrganisationsController" data-ng-init="initUsers()">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2 ng-if="owner(organisation)">Edit Members</h2>
+			<h2 ng-if="!owner(organisation)">Members</h2>
+			<span flex></span>
+			<md-button class="md-icon-button" ng-click="cancel()">
+				<md-icon md-svg-src="modules/projects/img/icons/close.svg" aria-label="Close dialog"></md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<md-content>
+		<md-list-item class="md-2-line" ng-repeat="person in people" ng-show="person.isMember">
+			<div class="md-list-item-text">
+				<h3> {{person.firstName}} {{person.lastName}} </h3>
+				<p> {{person.username}} </p>
+			</div>
+			<md-checkbox class="md-secondary" ng-model="person.isMember"></md-checkbox>
+		</md-list-item>
+		<md-list-item class="md-2-line" ng-repeat="person in people" ng-show="!person.isMember">
+			<div class="md-list-item-text">
+				<h3> {{person.firstName}} {{person.lastName}} </h3>
+				<p> {{person.username}} </p>
+			</div>
+			<md-checkbox class="md-secondary" ng-model="person.isMember"></md-checkbox>
+		</md-list-item>
+	</md-content>
+	<div>
+		<md-button class="md-primary" ng-click="updateMembers();cancel();" ng-disabled="!owner(organisation)"> Save </md-button>
+	</div>
+</md-dialog>

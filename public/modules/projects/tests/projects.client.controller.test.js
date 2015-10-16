@@ -53,7 +53,8 @@
 		it('$scope.find() should create an array with at least one Project object fetched from XHR', inject(function(Projects) {
 			// Create sample Project using the Projects service
 			var sampleProject = new Projects({
-				name: 'New Project'
+				name: 'New Project',
+				rowSpan: 4
 			});
 
 			// Create a sample Projects array that includes the new Project

@@ -1,0 +1,30 @@
+<section data-ng-controller="OrganisationsController" data-ng-init="confirm = true">
+    <md-card>
+        <md-card-content>
+            <form name="myForm">
+                <md-input-container>
+                    <label>Organisation name</label>
+                    <input ng-model="name" type="text" required>
+                </md-input-container>
+                
+                <md-input-container>
+                    <label>Organisation description</label>
+                    <textarea ng-model="description" required></textarea>
+                </md-input-container>
+                
+                <md-list>
+                    <md-subheader class="md-no-sticky">Members</md-subheader>
+                    <md-list-item class="md-2-line" ng-repeat="person in people" layout="row">
+                        <div class="md-list-item-text">
+                            <h3>{{person.firstName}} {{person.lastName}}</h3>
+                            <p> {{person.name}} </p>
+                        </div>  
+                        <md-checkbox class="md-primary" ng-model="person.selected" aria-label="selected"></md-checkbox>
+                    </md-list-item>
+                </md-list>
+            </form>
+
+            <md-button class="md-primary"  ng-click="create()" ng-disabled="myForm.$invalid">Create Organisation</md-button>
+        </md-card-content>
+    </md-card>
+</section>

@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Project = mongoose.model('Project'),
+	Organisation = mongoose.model('Organisation'),
 	_ = require('lodash');
 
 var owner = function(project, req) {
@@ -67,6 +68,18 @@ exports.create = function(req, res) {
 			});
 		} else {
 			res.jsonp(project);
+
+			if (project.organisation) {
+				Organisation.update({
+					name: project.organisation
+				}, {
+					$addToSet: { projects: project.name }
+				}, function(err, numAffected) {
+					if (err) {
+						console.log(err);
+					}
+				});
+			}
 		}
 	});
 };
@@ -110,6 +123,18 @@ exports.delete = function(req, res) {
 			});
 		} else {
 			res.jsonp(project);
+
+			if (project.organisation) {
+				Organisation.update({
+					name: project.organisation
+				}, {
+					$pull: { projects: project.name }
+				}, function(err, numAffected) {
+					if (err) {
+						console.log(err);
+					}
+				});
+			}
 		}
 	});
 };

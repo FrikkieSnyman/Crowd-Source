@@ -18,6 +18,7 @@ var ProjectSchema = new Schema({
 	owner : String,
 	user: Object,
 	openForEstimation : Boolean,
+	organisation: String,
 	round : Number
 });
 
