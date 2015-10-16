@@ -6,12 +6,12 @@
 var should = require('should'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
-	Report = mongoose.model('Report');
-
+	Report = mongoose.model('Report'),
+	Project = mongoose.model('Project');
 /**
  * Globals
  */
-var user, report;
+var user, report, project;
 
 /**
  * Unit tests
@@ -26,11 +26,19 @@ describe('Report Model Unit Tests:', function() {
 			username: 'username',
 			password: 'password'
 		});
+		
+		project = new Project({
+			name: 'Project Name',
+			user: user,
+			owner : 'Full'
+		});
 
 		user.save(function() { 
 			report = new Report({
 				name: 'Report Name',
-				user: user
+				user: user,
+				project: project
+				
 			});
 
 			done();

@@ -22,6 +22,7 @@
     "font-awesome": "~4.4.0",
     "jquery": "~2.1.4",
     "textAngular": "~1.4.6",
+    "angular-socket.io-mock": "~1.1.0",
     "pdfjs-bower": "~1.0.233"
   },
   "resolutions": {
