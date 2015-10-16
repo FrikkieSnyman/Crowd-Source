@@ -2,7 +2,7 @@
 
 module.exports = {
 	app: {
-		title: 'Estimate Swarm',
+		title: 'Crowd Source',
 		description: 'Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js',
 		keywords: 'MongoDB, Express, AngularJS, Node.js'
 	},
