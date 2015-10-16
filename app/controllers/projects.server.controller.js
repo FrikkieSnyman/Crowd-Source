@@ -54,8 +54,6 @@ exports.create = function(req, res) {
 				}, function(err, numAffected) {
 					if (err) {
 						console.log(err);
-					} else {
-						// console.log('Updated ' + numAffected + ' users');
 					}
 				});
 			}
@@ -111,8 +109,6 @@ exports.delete = function(req, res) {
 				}, function(err, numAffected) {
 					if (err) {
 						console.log(err);
-					} else {
-						// console.log('Updated ' + numAffected + ' users');
 					}
 				});
 			}

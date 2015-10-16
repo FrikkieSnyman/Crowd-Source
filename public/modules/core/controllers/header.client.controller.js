@@ -95,6 +95,6 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 			} else if ($location.$$path.indexOf('organisations') !== -1) {
 				$scope.goTo('organisations/create');
 			}
-		}
+		};
 	}
 ]);
