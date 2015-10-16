@@ -12,7 +12,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$locatio
 .config(function($mdThemingProvider) {
 	$mdThemingProvider.theme('default')
 	.primaryPalette('indigo')
-	.accentPalette('yellow');
+	.accentPalette('amber');
 }).constant('RESOURCE_DOMAIN', '');
 
 //Then define the init function for starting up the application

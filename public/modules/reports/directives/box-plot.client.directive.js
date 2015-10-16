@@ -100,7 +100,7 @@ angular.module('reports').directive('boxPlot', ['D3', '$window',
 							.attr('y', (bodyHeight / 2) - (boxHeight / 2))
 							.attr('rx', 2)
 							.attr('rx', 2)
-							.style('fill', 'yellow')
+							.style('fill', '#FFC107')
 							.style('stroke', 'black');
 
 							/*
