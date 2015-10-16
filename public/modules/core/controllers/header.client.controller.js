@@ -86,7 +86,15 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 			}, 300);
 			return debounceFn;
 		}
+
 		$scope.toggleLeft = buildToggler('left');
 
+		$scope.navigateToCreatePage = function() {
+			if ($location.$$path.indexOf('projects') !== -1) {
+				$scope.goTo('projects/create');
+			} else if ($location.$$path.indexOf('organisations') !== -1) {
+				$scope.goTo('organisations/create');
+			}
+		}
 	}
 ]);
