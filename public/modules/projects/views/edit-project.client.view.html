@@ -1,11 +1,16 @@
 <div ng-controller="ProjectEditController" flex = "100"  data-ng-init="findOne()">
 	<md-card flex>
 		<md-card-content>
-			<md-input-container flex>
-				<label>Project Description</label>
-				<textarea ng-model="project.description" ng-readonly = "isOpenForEstimation()"></textarea>
-			</md-input-container>
-
+			<div ng-hide="isOpenForEstimation()">
+				<label> <b>Project Description</b> </label>
+				<div text-angular ta-toolbar="[['h1', 'h2', 'h3', 'bold', 'italics', 'underline','ul', 'ol'], ['html', 'insertImage', 'insertLink', 'redo', 'undo', 'clear', 'wordcount', 'charcount']]" ng-model="project.description" ta-disabled="isOpenForEstimation()"></div>
+				<span flex></span>
+			</div>
+			<div ng-show="isOpenForEstimation()">
+				<label> <b>Project Description</b> </label>
+				<div text-angular ng-model="project.description" ta-toolbar="[[]]" ta-disabled="isOpenForEstimation()"></div>
+				<span flex></span>
+			</div>
 			<md-list>
 				<md-list-item ng-click="toggleEstimatorsList()">
 					<md-button class="md-icon-button" aria-label="Use Android">
@@ -104,7 +109,7 @@
 					</md-button>
 					<md-input-container class = "treeInput" flex>
 						<label>Title</label>
-						<input ng-model="node.title" ng-readonly = "isOpenForEstimation()">
+						<input ng-model="node.title" ng-readonly = "isOpenForEstimation()" ng-change="updateLocalTree()" required>
 					</md-input-container>
 
 					<md-input-container class = "treeInput" flex ="10" ng-show = "estimator() && isOpenForEstimation()">
@@ -169,7 +174,7 @@
 				<md-button class = "md-primary" ng-click = "saveProject()" ng-show = "owner() && !isOpenForEstimation()">
 					Save Project
 				</md-button>
-				<md-button class = "md-primary" ng-click = "openForEstimation()" ng-show = "owner() && !isOpenForEstimation()">
+				<md-button class = "md-primary" ng-click = "openForEstimation()" ng-show = "owner() && !isOpenForEstimation()" ng-disabled="!isNodeNamesValid">
 					Open for Estimation
 				</md-button>
 				<md-button class="md-primary" ng-click="newSubItem(this)" ng-show = "owner() && !isOpenForEstimation()">

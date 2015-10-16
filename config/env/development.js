@@ -3,7 +3,7 @@
 module.exports = {
 	db: 'mongodb://localhost/estimate-swarm-dev',
 	app: {
-		title: 'Estimate Swarm - Development Environment'
+		title: 'Crowd Source - Development Environment'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',

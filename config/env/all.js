@@ -2,7 +2,7 @@
 
 module.exports = {
 	app: {
-		title: 'Estimate Swarm',
+		title: 'Crowd Source',
 		description: 'Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js',
 		keywords: 'MongoDB, Express, AngularJS, Node.js'
 	},
@@ -37,7 +37,11 @@ module.exports = {
 				'public/lib/textAngular/dist/textAngular-sanitize.min.js',
 				'public/lib/textAngular/dist/textAngular.min.js',
 				'public/lib/angular-socket-io/socket.min.js',
-				'public/lib/angular-socket.io-mock/angular-socket.io-mock.js'
+				'public/lib/angular-socket.io-mock/angular-socket.io-mock.js',
+				'public/lib/pdfjs-bower/dist/compatibility.js',
+				'public/lib/pdfjs-bower/dist/pdf.js',
+				'public/lib/pdfjs-bower/dist/pdf.worker.js',
+				'public/lib/angular-pdf/dist/angular-pdf.min.js'
 			]
 		},
 		css: [

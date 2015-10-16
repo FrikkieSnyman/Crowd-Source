@@ -10,13 +10,16 @@
 			</div>
 		</md-toolbar>
 		<md-dialog-content>
-			<div>
-				<md-input-container flex>
-					<label> Node Description </label>
-					<textarea ng-model="currentNode.description" columns="1" ng-readonly="isOpenForEstimation()" ng-disabled="false" ></textarea> 
-				</md-input-container>
+			<div ng-hide="isOpenForEstimation()">
+				<label> <b>Node Description</b> </label>
+				<div text-angular ta-toolbar="[['h1', 'h2', 'h3', 'bold', 'italics', 'underline','ul', 'ol'], ['html', 'insertImage', 'insertLink', 'redo', 'undo', 'clear', 'wordcount', 'charcount']]" ng-model="currentNode.description" ta-disabled="isOpenForEstimation()"></div>
 				<span flex></span>
 			</div>
+			<div ng-show="isOpenForEstimation()">
+				<label> <b>Node Description</b> </label>
+				<div text-angular ng-model="currentNode.description" ta-toolbar="[[]]" ta-disabled="isOpenForEstimation()"></div>
+				<span flex></span>
+			</div>			
 		</md-dialog-content>
 		<div class="md-actions" layout="row">
 			<span flex></span>

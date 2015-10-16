@@ -4,7 +4,7 @@ module.exports = {
 	db: 'mongodb://localhost/estimate-swarm-test',
 	port: 3001,
 	app: {
-		title: 'Estimate Swarm - Test Environment'
+		title: 'Crowd Source - Test Environment'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',
