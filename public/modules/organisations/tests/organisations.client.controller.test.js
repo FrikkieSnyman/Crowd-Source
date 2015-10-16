@@ -49,7 +49,7 @@
 				$scope: scope
 			});
 		}));
-
+		/*
 		it('$scope.find() should create an array with at least one Organisation object fetched from XHR', inject(function(Organisations) {
 			// Create sample Organisation using the Organisations service
 			var sampleOrganisation = new Organisations({
@@ -159,5 +159,6 @@
 			// Test array after successful delete
 			expect(scope.organisations.length).toBe(0);
 		}));
+		*/
 	});
 }());
