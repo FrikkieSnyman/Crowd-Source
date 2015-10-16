@@ -63,7 +63,6 @@
 				description: 'Test',
 				users : [],
 				owner: 'Bob',
-				organisation: 'Google',
 				openForEstimation : false,
 				round : 1
 			});
@@ -75,7 +74,6 @@
 				description: 'Test',
 				users : [],
 				owner: 'Bob',
-				organisation: 'Google',
 				openForEstimation : false,
 				round : 1
 			});
@@ -93,13 +91,16 @@
 
 			// $httpBackend.expectGET('/users/getUsers').respond(200);
 			$httpBackend.expectGET('/users/getUsers').respond(200);
+			$httpBackend.expectGET('/organisations').respond(200);
 
 			// Set POST response
-			$httpBackend.expectPOST('/projects', sampleProjectPostData).respond(sampleProjectResponse);
+			$httpBackend.expectPOST('/projects', sampleProjectPostData).respond(sampleProjectResponse)
+			
+		
 
 			// Run controller functionality
 			scope.createProject();
-			//$httpBackend.flush();
+			$httpBackend.flush();
 
 			// Test form inputs are reset
 			expect(scope.name).toEqual('New Project');
