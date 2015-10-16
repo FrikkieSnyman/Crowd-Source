@@ -94,7 +94,7 @@
 			$httpBackend.expectGET('/organisations').respond(200);
 
 			// Set POST response
-			$httpBackend.expectPOST('/projects', sampleProjectPostData).respond(sampleProjectResponse)
+			$httpBackend.expectPOST('/projects', sampleProjectPostData).respond(sampleProjectResponse);
 			
 		
 
