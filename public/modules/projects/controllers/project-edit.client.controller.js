@@ -239,7 +239,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		};
 
 		$scope.openForEstimation = function() {
-
 			for (var i in $scope.project.children[0].estimations) {
 				$scope.project.children[0].estimations[i] = null;
 			}
@@ -354,6 +353,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				minestimations : minEstimations,
 				maxestimations : maxEstimations
 			});
+			$scope.updateLocalTree();
 		};
 
 		$scope.undoToolTip = function(node, removeNode, newSubItem) {
@@ -371,6 +371,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 					$scope.project.children = angular.merge($scope.project.children, tree);
 				}
 			});
+			$scope.updateLocalTree();
 		};
 
 		$scope.toastPosition = {
@@ -476,7 +477,9 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			});
 		};
 
+		$scope.isNodeNamesValid = false;
 		$scope.updateLocalTree = function(scope, node) {
+			$scope.isNodeNamesValid = true;
 			var count = $scope.userIndex;
 			var currnode = $scope.project.children[0];
 			var result;
@@ -487,6 +490,10 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 
 		var minMaxDefaultRange = 2;
 		$scope.getEstimation = function(node, userNum, callback) {
+			if (node.title === undefined || node.title === null || node.title.length <= 0) {
+				$scope.isNodeNamesValid = false;
+			}
+
 			if (node.nodes.length <= 0) {
 				callback(node.estimations[userNum], node.minestimations[userNum], node.maxestimations[userNum]);
 			} else {
