@@ -109,7 +109,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			if ($scope.project.organisation) {
 				var organisation = {
 					name: $scope.project.organisation
-				}
+				};
 
 				$http({method:'POST', url:RESOURCE_DOMAIN + '/organisations/getOrganisation', data: organisation}).success(function(data) {
 					newScope.people = [];
@@ -120,7 +120,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 						if (data.members.indexOf($scope.people[i].username) !== -1) {
 							newScope.people.push($scope.people[i]);
 						}
-					};
+					}
 				});
 			}
 
