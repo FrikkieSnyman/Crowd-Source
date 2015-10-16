@@ -25,6 +25,9 @@ exports.create = function(req, res) {
 		} else {
 			res.jsonp(organisation);
 
+			console.log(organisation.members);
+			console.log(organisation.name);
+
 			User.update({
 				username: {$in: organisation.members}
 			}, {
