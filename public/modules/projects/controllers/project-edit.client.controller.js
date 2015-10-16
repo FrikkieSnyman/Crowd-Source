@@ -284,7 +284,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			}
 			$scope.project.children.push({
 				id: new Date().getTime(),
-				title:'Root Node',
+				title: $scope.project.name,
 				nodes: [],
 				chat : [],
 				collapsed : false,
