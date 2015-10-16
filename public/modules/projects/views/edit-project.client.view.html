@@ -3,7 +3,7 @@
 		<md-card-content>
 			<div ng-hide="isOpenForEstimation()">
 				<label> <b>Project Description</b> </label>
-				<div text-angular ta-toolbar="[['h1', 'h2', 'h3', 'bold', 'italics', 'underline','ul', 'ol', 'redo', 'undo', 'clear'], ['html', 'insertImage', 'insertLink', 'insertVideo', 'wordcount', 'charcount']]" ng-model="project.description" ta-disabled="isOpenForEstimation()"></div>
+				<div text-angular ta-toolbar="[['h2', 'h3', 'h4', 'bold', 'italics', 'underline','ul', 'ol', 'redo', 'undo', 'clear'], ['html', 'insertImage', 'insertLink', 'insertVideo', 'wordcount', 'charcount']]" ng-model="project.description" ta-disabled="isOpenForEstimation()"></div>
 				<span flex></span>
 			</div>
 			<div ng-show="isOpenForEstimation()">
