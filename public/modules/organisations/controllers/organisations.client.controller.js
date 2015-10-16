@@ -104,7 +104,7 @@ angular.module('organisations').controller('OrganisationsController', ['$scope',
 			$scope.organisations = [];
 			var tempOrganisations = Organisations.query(function() {
 				tempOrganisations.forEach(function(organisation) {
-					if (organisation.members.indexOf(Authentication.user.username) !== -1) {
+					if (organisation.members.indexOf(Authentication.user.username) !== -1 || organisation.owner === Authentication.user.username) {
 						$scope.organisations.push(organisation);
 					}
 				});
