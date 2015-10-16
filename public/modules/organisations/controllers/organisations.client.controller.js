@@ -66,6 +66,11 @@ angular.module('organisations').controller('OrganisationsController', ['$scope',
 
 				// Clear form fields
 				$scope.name = '';
+
+				// Update user information
+				if (organisation.members.indexOf(Authentication.user.username) !== -1) {
+					Authentication.user.organisations.push(organisation.name);
+				}
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -75,6 +80,8 @@ angular.module('organisations').controller('OrganisationsController', ['$scope',
 		$scope.remove = function(organisation) {
 			if ( organisation ) { 
 				organisation.$remove();
+
+				Authentication.user.organisations.splice(Authentication.user.organisations.indexOf(organisation.name), 1);
 
 				for (var i in $scope.organisations) {
 					if ($scope.organisations [i] === organisation) {
@@ -94,6 +101,13 @@ angular.module('organisations').controller('OrganisationsController', ['$scope',
 
 			organisation.$update(function() {
 				$location.path('organisations/' + organisation._id);
+
+				// Update user information
+				if ($scope.organisation.members.indexOf(Authentication.user.username) !== -1) {
+					Authentication.user.organisations.push($scope.organisation.name);
+				} else {
+					Authentication.user.organisations.splice(Authentication.user.organisations.indexOf($scope.organisation.name), 1);
+				}
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -223,6 +237,13 @@ angular.module('organisations').controller('OrganisationsController', ['$scope',
 
 		$scope.saveOrganisation = function() {
 			$scope.organisation.$update(function(response) {
+				// Update user information
+				if ($scope.organisation.members.indexOf(Authentication.user.username) !== -1) {
+					Authentication.user.organisations.push($scope.organisation.name);
+				} else {
+					Authentication.user.organisations.splice(Authentication.user.organisations.indexOf($scope.organisation.name), 1);
+				}
+
 				$mdToast.show(
 					$mdToast.simple()
 					.content('Organisation saved')
