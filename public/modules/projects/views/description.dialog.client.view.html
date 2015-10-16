@@ -12,7 +12,7 @@
 		<md-dialog-content>
 			<div ng-hide="isOpenForEstimation()">
 				<label> <b>Node Description</b> </label>
-				<div text-angular ta-toolbar="[['h1', 'h2', 'h3', 'bold', 'italics', 'underline','ul', 'ol', 'redo', 'undo', 'clear'], ['html', 'insertImage', 'insertLink', 'insertVideo', 'wordcount', 'charcount']]" ng-model="currentNode.description" ta-disabled="isOpenForEstimation()"></div>
+				<div text-angular ta-toolbar="[['h1', 'h2', 'h3', 'bold', 'italics', 'underline','ul', 'ol'], ['html', 'insertImage', 'insertLink', 'redo', 'undo', 'clear', 'wordcount', 'charcount']]" ng-model="currentNode.description" ta-disabled="isOpenForEstimation()"></div>
 				<span flex></span>
 			</div>
 			<div ng-show="isOpenForEstimation()">
