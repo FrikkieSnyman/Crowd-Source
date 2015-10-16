@@ -155,8 +155,6 @@ angular.module('projects').controller('ProjectsController', ['$interval','$scope
 					project.rowSpan = rowSpan;
 
 					$scope.projects.push(project);
-
-					console.log($scope.projects);
 				}, this);
 			});
 		};

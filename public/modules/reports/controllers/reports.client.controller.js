@@ -4,11 +4,10 @@
 angular.module('reports').controller('ReportsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Reports', 'Headerpath', 'RESOURCE_DOMAIN',
 	function($scope, $stateParams, $location, Authentication, Reports, Headerpath, RESOURCE_DOMAIN) {
 		$scope.authentication = Authentication;
+
 		$scope.goTo = function(route) {
 			$location.path(route);
 		};
-
-		
 		
 		// Create new Report
 		$scope.querySearch = function(query) {
@@ -81,6 +80,22 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 		// Find a list of Reports
 		$scope.find = function() {
 			$scope.reports = Reports.query();
+
+			$scope.reports = [];
+
+			var tempReports = Reports.query(function() {
+				tempReports.forEach(function(report) {
+					var rowSpan = 4;
+
+					if (report.project.organisation) {
+						rowSpan += 1;
+					}
+
+					report.rowSpan = rowSpan;
+
+					$scope.reports.push(report);
+				}, this);
+			});
 		};
 
 		// Find existing Report
