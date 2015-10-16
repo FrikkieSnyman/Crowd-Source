@@ -45,15 +45,10 @@
 			$httpBackend = _$httpBackend_;
 			$location = _$location_;
 
-			// scope.authentication.user = {
-			// 	username: 'Bob',
-			// 	organisations: ['Google']
-			// };
-
-			scope.authentication.user = {};
-			scope.authentication.user.username = 'Bob';
-			scope.authentication.user.organisations = [];
-			scope.authentication.user.organisations.push('Google');
+			//scope.authentication.user = {};
+			//scope.authentication.user.username = 'Bob';
+			//scope.authentication.user.organisations = [];
+			//scope.authentication.user.organisations.push('Google');
 
 			// Initialize the Create project controller.
 			CreateProjectController = $controller('CreateProjectController', {
@@ -84,6 +79,11 @@
 				openForEstimation : false,
 				round : 1
 			});
+			
+			scope.authentication.user = {
+			 	username: 'Bob',
+			 	organisations: ['Google']
+			 };
 
 			// Fixture mock form input values
 			scope.projectName = 'New Project';
@@ -99,7 +99,7 @@
 
 			// Run controller functionality
 			scope.createProject();
-			$httpBackend.flush();
+			//$httpBackend.flush();
 
 			// Test form inputs are reset
 			expect(scope.name).toEqual('New Project');

@@ -6,9 +6,12 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 		$scope.people = [];
 		$scope.allOrganisations = [];
 		$scope.allOrganisationNames = [];
+		$scope.userOrganisations = [];
 
-		$scope.userOrganisations = Authentication.user.organisations;
-
+		if(Authentication.user) {
+			$scope.userOrganisations = Authentication.user.organisations;	
+		}
+		
 		if ($scope.userOrganisations.indexOf('None') === -1) {
 			$scope.userOrganisations.push('None');
 		}
@@ -109,8 +112,5 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 			.filter(function(pos) { return $scope.toastPosition[pos]; })
 			.join(' ');
 		};
-
-		console.log($scope);
-
 	}
 ]); 
