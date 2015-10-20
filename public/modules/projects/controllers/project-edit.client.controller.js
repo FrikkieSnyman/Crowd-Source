@@ -343,6 +343,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				} else {
 					$scope.estimated = true;
 				}
+				$scope.updateLocalTree();
 			});
 		};
 
@@ -388,6 +389,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			$mdToast.show(toast).then(function(response) {
 				if (response === 'ok') {
 					$scope.project.children = angular.merge($scope.project.children, tree);
+					$scope.updateLocalTree();
 				}
 			});
 			$scope.updateLocalTree();
@@ -499,6 +501,9 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		$scope.isNodeNamesValid = false;
 		$scope.updateLocalTree = function(scope, node) {
 			$scope.isNodeNamesValid = true;
+			if ($scope.project.children[0].nodes.length <= 0) {
+				$scope.isNodeNamesValid = false;
+			}
 			var count = $scope.userIndex;
 			var currnode = $scope.project.children[0];
 			var result;
