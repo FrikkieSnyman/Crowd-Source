@@ -354,3 +354,100 @@ The estimation module will create a notification request and send in to the noti
 	    	\caption{Domain Modelt}
 	    	\label{fig:Domain Model}
    	\end{figure}
+
+
+%============================
+%Organisation
+%============================
+\subsection{Organisation}
+The organisation module is responsible for the representation and persistence of all organisations that the system will use to group projects and users. This module will allow for organisations to be created, as well as to be updated. A organisation is represented as a collection of users and projects. It helps reduce the complexity for users as they only see information that is relevant to them.
+
+\subsubsection{Scope}
+The scope of the Project module is shown in the figure below
+	\begin{figure}[H]
+	    	\centering
+	    	\fbox{\includegraphics[width=1.0\textwidth]{projectScope}}
+	    	\caption{Project Scope}
+	    	\label{fig:Project_Scope}
+   	\end{figure}
+\subsubsection{Use cases}
+
+\paragraph{Create a project - priority: critical}
+Users with sufficient privileges can create projects. This will persist the project to the database.
+
+\begin{itemize}
+	\item Services contract:\\ \\
+	The createProjectRequest contains the name of the project as well as the user who is creating the project. The function will allow the user to expand on the project in order to build a comprehensive project tree.
+	\begin{figure}[H]
+    	\centering
+    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractcreateProject}}
+    	\caption{createProject services contract}
+    	\label{fig:createProject_services_contract}
+   	\end{figure}
+\end{itemize}
+
+\paragraph{Get project - priority: critical}
+Users with sufficient privileges can retrieve projects to view them, or to be used for other purposes. This use case must thus return a representation of the project-tree, and not produce the output of the project tree.
+
+\begin{itemize}
+	\item Services contract:\\ \\
+	The getProjectRequest contains the name of the Project that must be retrieved. The getProjectResult contains the Project that has been identified by the projectName.
+	\begin{figure}[H]
+    	\centering
+    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractgetProject}}
+    	\caption{getProject services contract}
+    	\label{fig:getProject_services_contract}
+   	\end{figure}
+\end{itemize}
+
+\paragraph{Delete project - priority: important}
+Projects can be removed from the database entirely by deleting them. This action can only be done by authorised user such as the owner of a project.
+
+\begin{itemize}
+	\item Services contract:\\ \\
+	The deleteProjectRequest contains a reference to the Project that must be deleted, which can be obtained by calling the getProject function.
+	\begin{figure}[H]
+    	\centering
+    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractDeleteProject}}
+    	\caption{deleteProject services contract}
+    	\label{fig:deleteProject_services_contract}
+   	\end{figure}
+\end{itemize}
+
+
+\paragraph{Update project - priority: critical}
+This enables users to update projects, if they have sufficient privileges, by adding or removing task nodes to and from the project tree.
+
+\begin{itemize}
+	\item Services contract:\\ \\
+	The updateProjectRequest contains a reference to the project that needs to be update which can be obtained by making use of the getProject functionality. The updateProjectRequest also contains a reference to the updated project, which can either be an entirely different project, or the same project as represented by oldProject, but with some changes applied to it.
+	\begin{figure}[H]
+    	\centering
+    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractupdateProject}}
+    	\caption{updateProject services contract}
+    	\label{fig:updateProject_services_contract}
+   	\end{figure}
+\end{itemize}
+
+\paragraph{Discuss task - priority: important}
+Tasks that form part of projects can be discussed on in a chat system. All discussions are saved to the database and update in real-time.
+
+\begin{itemize}
+	\item Services contract:\\ \\
+	The discussTaskRequest contains information about the task that is being discussed. The taskID must exist within the project
+	\begin{figure}[H]
+    	\centering
+    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractDiscussTask}}
+    	\caption{discussTask services contract}
+    	\label{fig:discussTask_services_contract}
+   	\end{figure}
+\end{itemize}
+
+\subsubsection{Domain model}
+The domain model for the Project module requires that tasks being created and added to the tree, be persisted. Each project holds a reference to its parent, which is also of type Project. Furthermore, each Project holds a list of all its children, which once again, are also of type Project. Each instance of Project is represented as a Task object, which contains references to estimations made on that specific task.
+\begin{figure}[H]
+	\centering
+	\fbox{\includegraphics[width=0.5\textwidth]{projectdomainmodel}}
+	\caption{Project domain model}
+	\label{fig:Project_domain_model}
+\end{figure}
