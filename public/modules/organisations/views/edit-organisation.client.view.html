@@ -1,10 +1,11 @@
 <div ng-controller="OrganisationsController" flex = "100" data-ng-init="findOne()">
 	<md-card flex>
 		<md-card-content>
-			<md-input-container flex>
-				<label>Organisation Description</label>
-				<textarea ng-model="organisation.description"></textarea>
-			</md-input-container>
+			<div>
+				<label> <b>Node Description</b> </label>
+				 <div  text-angular="text-angular" ta-toolbar="[['h2', 'h3', 'h4', 'bold', 'italics', 'underline','ul', 'ol'], ['html', 'insertImage', 'insertLink', 'redo', 'undo', 'clear', 'wordcount', 'charcount']]" ng-model="organisation.description"></div>
+				<span flex></span>
+			</div>	
 
 			<md-list>
 				<md-list-item ng-click="toggleMemberList()">
