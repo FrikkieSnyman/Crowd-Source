@@ -363,40 +363,39 @@ The estimation module will create a notification request and send in to the noti
 The organisation module is responsible for the representation and persistence of all organisations that the system will use to group projects and users. This module will allow for organisations to be created, as well as to be updated. A organisation is represented as a collection of users and projects. It helps reduce the complexity for users as they only see information that is relevant to them.
 
 \subsubsection{Scope}
-The scope of the Project module is shown in the figure below
+The scope of the Organisation module is shown in the figure below
 	\begin{figure}[H]
 	    	\centering
-	    	\fbox{\includegraphics[width=1.0\textwidth]{projectScope}}
-	    	\caption{Project Scope}
-	    	\label{fig:Project_Scope}
+	    	\fbox{\includegraphics[width=1.0\textwidth]{organizationScope}}
+	    	\caption{Organisation Scope}
+	    	\label{fig:Organisation_Scope}
    	\end{figure}
 \subsubsection{Use cases}
 
-\paragraph{Create a project - priority: critical}
-Users with sufficient privileges can create projects. This will persist the project to the database.
+\paragraph{Create a organisation - priority: critical}
+Users with sufficient privileges can create organisations. This will persist the organisation to the database.
 
 \begin{itemize}
 	\item Services contract:\\ \\
-	The createProjectRequest contains the name of the project as well as the user who is creating the project. The function will allow the user to expand on the project in order to build a comprehensive project tree.
+	The createOrganisationRequest contains the name of the organisations as well as the user who is part of the organisation. This will allow the user to allocate projects and users to this organisation.
 	\begin{figure}[H]
     	\centering
-    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractcreateProject}}
-    	\caption{createProject services contract}
-    	\label{fig:createProject_services_contract}
+    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractcreateOrganisation}}
+    	\caption{createOrganisation services contract}
+    	\label{fig:createOrganisation_services_contract}
    	\end{figure}
 \end{itemize}
 
 \paragraph{Get project - priority: critical}
-Users with sufficient privileges can retrieve projects to view them, or to be used for other purposes. This use case must thus return a representation of the project-tree, and not produce the output of the project tree.
-
+Users with sufficient privileges can retrieve organization to view them, or to be used for other purposes. This use case must thus return a representation of the organisation ant the projects and users that belongs to the organisation.
 \begin{itemize}
 	\item Services contract:\\ \\
-	The getProjectRequest contains the name of the Project that must be retrieved. The getProjectResult contains the Project that has been identified by the projectName.
+	The getOrganizationRequest contains the name of the Organization that must be retrieved. The getOrganizationResult contains the Organization that has been identified by the OrganizationName.
 	\begin{figure}[H]
     	\centering
-    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractgetProject}}
-    	\caption{getProject services contract}
-    	\label{fig:getProject_services_contract}
+    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractgetOrganization}}
+    	\caption{getOrganization services contract}
+    	\label{fig:getOrganization_services_contract}
    	\end{figure}
 \end{itemize}
 
