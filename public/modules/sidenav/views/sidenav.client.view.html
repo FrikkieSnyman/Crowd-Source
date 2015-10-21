@@ -15,6 +15,9 @@
 			<md-button class="sideNavItem" ng-click="go('/');toggleLeft()"><span>Home</span></md-button>
 			<md-divider></md-divider>
 
+			<md-button class="sideNavItem" href="usermanual.pdf" >User Manual</md-button>
+			<md-divider></md-divider>
+			
 			<div data-ng-hide="authentication.user">
 				<md-button class="sideNavItem" ng-click="signupDialog($event);toggleLeft()"><span>Sign Up</span></md-button>
 				<md-divider></md-divider>
@@ -37,8 +40,6 @@
 				<md-divider></md-divider>
 
 				<md-button class="sideNavItem" ng-click="signOut();toggleLeft()"><span>Sign Out</span></md-button>
-				<md-divider></md-divider>
-				<md-button class="sideNavItem" href="usermanual.pdf" >User Manual</md-button>
 			</div>
 		</md-content>
 	</md-sidenav>
