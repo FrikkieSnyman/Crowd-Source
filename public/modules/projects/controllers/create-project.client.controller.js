@@ -7,6 +7,7 @@ angular.module('projects').controller('CreateProjectController', ['$scope', '$st
 		$scope.allOrganisations = [];
 		$scope.allOrganisationNames = [];
 		$scope.userOrganisations = [];
+$scope.projectOrganisation = 'None';
 
 		if(Authentication.user) {
 			$scope.userOrganisations = Authentication.user.organisations;	
