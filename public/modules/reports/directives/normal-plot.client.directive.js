@@ -40,8 +40,9 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 										stdDe = parseFloat(stdDe) + Math.pow(parseFloat((parseFloat(min) - parseFloat(max)) / 6),2);
 										
 									}
+									mean = mean/node.estimations.length;
 								}
-								mean = mean/node.estimations.length;
+								
 								stdDe = Math.sqrt(stdDe);
 								//console.log(mean);
 								//console.log(stdDe);	

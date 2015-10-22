@@ -187,9 +187,7 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 		};
 		
 		$scope.isSelected = function(user){
-			console.log(user)
 			var project = $scope.report.project;
-			console.log(project.users);
 			var index;
 			for(var i in project.users)
 			{
@@ -209,11 +207,11 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 					
 					var tmpReport = {
 						project :newProject
-					}
+					};
 					$rootScope.$broadcast('updateGraph',tmpReport);
 				}
 			}
-		}
+		};
 		
 	}
 ]);
