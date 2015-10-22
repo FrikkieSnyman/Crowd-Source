@@ -1,6 +1,25 @@
 <section data-ng-controller="ReportsController" data-ng-init="findOne()">
 	<md-card flex = "100">
         <md-tabs md-dynamic-height md-border-bottom>
+			<md-tab label="Normal Distubution">
+				<md-button  class="md-raised" ng-click="getInfoDialog($event,'/modules/reports/views/normalinfo.client.view.html')" >
+					Info
+				</md-button>
+				<md-button  class="md-raised" ng-click="getInfoDialog($event,'/modules/reports/views/normalcompare.client.view.html')" >
+					Compare
+				</md-button>
+				<div normal-plot object-to-inject="updateGraph">
+				</div>
+				<md-list>
+					<md-subheader class="md-no-sticky">Show Estimators ditrubution on project</md-subheader>
+					<md-list-item ng-repeat="user in report.project.users">
+						<p>{{user | uppercase}}</p>
+						<md-button  class="md-raised" ng-click="isSelected(user)" >
+							Add
+						</md-button>
+					</md-list-item>
+				</md-list>
+			</md-tab>
       		<md-tab label="Bar Graph">
 				<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == report.user._id))">
 					<a class="btn btn-primary" href="/#!/reports/{{report._id}}/edit">
@@ -32,16 +51,6 @@
 					Info
 				</md-button>
 				<div tree-plot>
-				</div>
-			</md-tab>
-			<md-tab label="Normal Distubution">
-				<md-button  class="md-raised" ng-click="getInfoDialog($event,'/modules/reports/views/normalinfo.client.view.html')" >
-					Info
-				</md-button>
-				<md-button  class="md-raised" ng-click="getInfoDialog($event,'/modules/reports/views/normalcompare.client.view.html')" >
-					Compare
-				</md-button>
-				<div normal-plot object-to-inject="updateGraph">
 				</div>
 			</md-tab>
 		</md-tabs>
