@@ -25,7 +25,7 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 							var maxVal = -Infinity;
 							
 							var calc = function(inProject,callback){
-								console.log(inProject);
+								//console.log(inProject);
 								for(var i in inProject.children){
 									//console.log(project.children[i])
 									var node = inProject.children[i];
@@ -137,6 +137,57 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 								.attr('height', height + margin.top + margin.bottom)
 								.append('g')
 								.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+							//
+							var d3legend = function(g){
+								
+								g.each(function() {
+								var g = d3.select(this),
+									items = {},
+									svg = d3.select(g.property("nearestViewportElement")),
+									legendPadding = g.attr("data-style-padding") || 5,
+									lb = g.selectAll(".legend-box").data([true]),
+									li = g.selectAll(".legend-items").data([true])
+							
+								lb.enter().append("rect").classed("legend-box",true)
+								li.enter().append("g").classed("legend-items",true)
+							
+								svg.selectAll("[data-legend]").each(function() {
+									var self = d3.select(this)
+									items[self.attr("data-legend")] = {
+									pos : self.attr("data-legend-pos") || this.getBBox().y,
+									color : self.attr("data-legend-color") != undefined ? self.attr("data-legend-color") : self.style("fill") != 'none' ? self.style("fill") : self.style("stroke") 
+									}
+								})
+							
+								items = d3.entries(items).sort(function(a,b) { return a.value.pos-b.value.pos})
+				
+								li.selectAll("text")
+									.data(items,function(d) { return d.key})
+									.call(function(d) { d.enter().append("text")})
+									.call(function(d) { d.exit().remove()})
+									.attr("y",function(d,i) { return i+"em"})
+									.attr("x","1em")
+									.text(function(d) { ;return d.key})
+								
+								li.selectAll("circle")
+									.data(items,function(d) { return d.key})
+									.call(function(d) { d.enter().append("circle")})
+									.call(function(d) { d.exit().remove()})
+									.attr("cy",function(d,i) { return i-0.25+"em"})
+									.attr("cx",0)
+									.attr("r","0.4em")
+									.style("fill",function(d) { console.log(d.value.color);return d.value.color})  
+								
+								// Reposition and resize the box
+								var lbbox = li[0][0].getBBox()  
+								lb.attr("x",(lbbox.x-legendPadding))
+									.attr("y",(lbbox.y-legendPadding))
+									.attr("height",(lbbox.height+2*legendPadding))
+									.attr("width",(lbbox.width+2*legendPadding))
+								})
+							return g
+							};
+							//
 							
 							var domain = [];
 							for(var i in data)
@@ -161,22 +212,23 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 								.attr('class', 'y axis')
 								.call(yAxis);
 								
-							for(var j in data)
-							{
-								svg.append('path')
-									.datum(data[j])
-									.attr('class', 'line')
-									.attr('d', line)
-									.attr('stroke',getColor);
-							}	
+							var dist = svg.selectAll(".line")
+								.data(data)
+								.enter().append("g");
+						
+							dist.append('path')
+								.attr('class', 'line')
+								.attr('d', line)
+								.attr('stroke',getColor)
+								.attr('data-legend',function(d){
+									return d.desc +' '+ d.round;
+								});
 							
-							d3.select('md-list').remove();
-							var div = d3.select(element[0]).append('md-list');
-							
-							for(var k in data){
-								var item = div.append('md-list-item');
-								item.append('p').text(data[i].desc + 'Round ' + data[k].round);
-							}
+							var legend = svg.append("g")
+								.attr("class","legend")
+								.attr("transform","translate(50,30)")
+								.style("font-size","12px")
+								.call(d3legend);
 						};
 						
 						getData(project,drawGraph); 
