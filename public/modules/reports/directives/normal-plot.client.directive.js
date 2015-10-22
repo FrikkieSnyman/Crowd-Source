@@ -18,28 +18,30 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 						var body = d3.select(element[0]);
 						function getData(project,mainCallback) {
 								
-							var mean = parseInt(0);
-							var stdDe = parseInt(0);
+							var mean = parseFloat(0);
+							var stdDe = parseFloat(0);
 							
 							var minVal = Infinity;
 							var maxVal = -Infinity;
 							
 							var calc = function(inProject,callback){
-								//console.log(inProject);
+								console.log(inProject);
 								for(var i in inProject.children){
 									//console.log(project.children[i])
 									var node = inProject.children[i];
+
 									for(var j in node.estimations)
-									{
-										//console.log(node.estimations[j]);
+									{	
+										//console.log(node.estimations);
 										var min = parseInt(node.minestimations[j]);
 										var max = parseInt(node.maxestimations[j]);
-										var est = parseInt(node.maxestimations[j]);
-										mean = parseFloat(mean) + parseFloat((parseFloat(min) + 4 * parseFloat(est) + parseFloat(max)) / 6).toFixed(2);
+										var est = parseInt(node.estimations[j]);
+										mean = parseFloat(mean) + parseFloat((parseFloat(min) + 4 * parseFloat(est) + parseFloat(max)) / 6);
 										stdDe = parseFloat(stdDe) + Math.pow(parseFloat((parseFloat(min) - parseFloat(max)) / 6),2);
 										
 									}
 								}
+								mean = mean/node.estimations.length;
 								stdDe = Math.sqrt(stdDe);
 								//console.log(mean);
 								//console.log(stdDe);	
@@ -59,12 +61,15 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 								// loop to populate data array with 
 								// probabily - quantile pairs
 								minVal = parseFloat(mean) - 4*parseFloat(stdDe);
+								console.log(mean);
 								maxVal = parseFloat(mean) + 4*parseFloat(stdDe);
+								//console.log(maxVal);
 								//console.log('Min ' + minVal + ' mean ' + mean + ' Max ' + maxVal);
 								var tmp = [];
-								for (var i = minVal; i <= maxVal; i = i + 0.01) {
+								for (var i = minVal; i <= maxVal; i = i + 0.1) {
 									var q = i; // calc random draw from normal dist
 									var p = dist(stdDe,i,mean); // calc prob of rand draw
+									//console.log(q);
 									var el = {
 										'q': q,
 										'p': p
@@ -235,6 +240,7 @@ angular.module('reports').directive('normalPlot', ['D3', '$window',
 						
 						scope.$on('updateGraph',function(event, report){
 							//console.log(data);
+							console.log(report);
 							getData(report.project,drawGraph);
 							
 							

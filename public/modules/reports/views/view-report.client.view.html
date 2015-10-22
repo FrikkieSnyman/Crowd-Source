@@ -43,6 +43,15 @@
 				</md-button>
 				<div normal-plot object-to-inject="updateGraph">
 				</div>
+				<md-list>
+					<md-subheader class="md-no-sticky">Show Estimators ditrubution on project</md-subheader>
+					<md-list-item ng-repeat="user in report.project.users">
+						<p>{{user | uppercase}}</p>
+						<md-button  class="md-raised" ng-click="isSelected(user)" >
+							Add
+						</md-button>
+					</md-list-item>
+				</md-list>
 			</md-tab>
 		</md-tabs>
 	</md-card>
