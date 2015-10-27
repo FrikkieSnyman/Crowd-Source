@@ -8,7 +8,7 @@
     "angular-aria": "~1.4.2",
     "angular-bootstrap": "~0.11.2",
     "angular-cookies": "~1.2",
-    "angular-material": "~0.11.0",
+    "angular-material": "~1.0",
     "angular-mocks": "~1.4.3",
     "angular-resource": "~1.2",
     "angular-sanitize": "~1.2",
