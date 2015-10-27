@@ -570,8 +570,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				.content('All unsaved changes will be lost.')
 				.ariaLabel('Yes')
 				.ok('Yes')
-				.cancel('No')
-				.targetEvent(event);
+				.cancel('No');
 				$mdDialog.show(confirm).then(function() {
 					newUrl = newUrl.split('#!');
 					$scope.goTo(newUrl[1]);
