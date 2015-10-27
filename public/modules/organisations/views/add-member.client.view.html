@@ -9,23 +9,25 @@
 			</md-button>
 		</div>
 	</md-toolbar>
-	<md-content>
-		<md-list-item class="md-2-line" ng-repeat="person in people" ng-show="person.isMember">
-			<div class="md-list-item-text">
-				<h3> {{person.firstName}} {{person.lastName}} </h3>
-				<p> {{person.username}} </p>
-			</div>
-			<md-checkbox class="md-secondary" ng-model="person.isMember"></md-checkbox>
-		</md-list-item>
-		<md-list-item class="md-2-line" ng-repeat="person in people" ng-show="!person.isMember">
-			<div class="md-list-item-text">
-				<h3> {{person.firstName}} {{person.lastName}} </h3>
-				<p> {{person.username}} </p>
-			</div>
-			<md-checkbox class="md-secondary" ng-model="person.isMember"></md-checkbox>
-		</md-list-item>
-	</md-content>
-	<div>
+	<md-dialog-content>
+		<div class="md-dialog-content">
+			<md-list-item class="md-2-line" ng-repeat="person in people" ng-show="person.isMember">
+				<div class="md-list-item-text">
+					<h3> {{person.firstName}} {{person.lastName}} </h3>
+					<p> {{person.username}} </p>
+				</div>
+				<md-checkbox class="md-secondary" ng-model="person.isMember"></md-checkbox>
+			</md-list-item>
+			<md-list-item class="md-2-line" ng-repeat="person in people" ng-show="!person.isMember">
+				<div class="md-list-item-text">
+					<h3> {{person.firstName}} {{person.lastName}} </h3>
+					<p> {{person.username}} </p>
+				</div>
+				<md-checkbox class="md-secondary" ng-model="person.isMember"></md-checkbox>
+			</md-list-item>
+		</div>
+	</md-dialog-content>
+	<div class="md-actions" layout="row">
 		<md-button class="md-primary" ng-click="updateMembers();cancel();" ng-disabled="!owner(organisation)"> Save </md-button>
 	</div>
 </md-dialog>
