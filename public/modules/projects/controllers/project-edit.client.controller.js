@@ -262,7 +262,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				$scope.project.children[0].estimations[i] = null;
 			}
 			var confirm = new $mdDialog.confirm()
-			.parent(angular.element(document.body))
 			.title('Are you sure you want to open the project for estimations?')
 			.content('This will allow estimators to estimate, but will lock the project tree to its current state.')
 			.ariaLabel('Open for estimation')
@@ -567,13 +566,11 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				event.preventDefault();
 			
 				var confirm = $mdDialog.confirm()
-				.parent(angular.element(document.body))
 				.title('Are you sure you want to leave this page?')
 				.content('All unsaved changes will be lost.')
 				.ariaLabel('Yes')
 				.ok('Yes')
-				.cancel('No')
-				.targetEvent(event);
+				.cancel('No');
 				$mdDialog.show(confirm).then(function() {
 					newUrl = newUrl.split('#!');
 					$scope.goTo(newUrl[1]);
