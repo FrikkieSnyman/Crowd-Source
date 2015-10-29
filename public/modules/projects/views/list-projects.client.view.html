@@ -79,7 +79,7 @@
 							<md-list-item class="md-2-line projectListInfo">
 								<div class="md-list-item-text projectListInfo" flex>
 									<h3>Owner</h3>
-									<p>{{project.owner}} </p>
+									<p>{{project.owner}}</p>
 								</div>
 							</md-list-item>
 							<md-list-item ng-show="project.organisation" class="md-2-line projectListInfo">
@@ -109,7 +109,6 @@
 							<md-list-item class="md-2-line projectListInfo" ng-show="{{project.openForEstimation}}">
 								<div class="md-list-item-text projectListInfo" flex>
 									<h3> Progress </h3>
-									<p ng-if="project.openForEstimation" ng-hide="getEstimationProgress(project)"></p>
 									<!-- <br /> -->
 									<md-progress-linear class="cardProgressBar" md-mode="determinate" value="{{perc}}"></md-progress-linear>
 								</div>
