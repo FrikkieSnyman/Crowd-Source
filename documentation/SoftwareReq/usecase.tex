@@ -354,3 +354,70 @@ The estimation module will create a notification request and send in to the noti
 	    	\caption{Domain Modelt}
 	    	\label{fig:Domain Model}
    	\end{figure}
+
+
+%============================
+%Organisation
+%============================
+\subsection{Organisation}
+The organisation module is responsible for the representation and persistence of all organisations that the system will use to group projects and users. This module will allow for organisations to be created, as well as to be updated. A organisation is represented as a collection of users and projects. It helps reduce the complexity for users as they only see information that is relevant to them.
+
+\subsubsection{Scope}
+The scope of the Organisation module is shown in the figure below
+	\begin{figure}[H]
+	    	\centering
+	    	\fbox{\includegraphics[width=1.0\textwidth]{organizationScope}}
+	    	\caption{Organisation Scope}
+	    	\label{fig:Organisation_Scope}
+   	\end{figure}
+\subsubsection{Use cases}
+
+\paragraph{Create a organisation - priority: critical}
+Users with sufficient privileges can create organisations. This will persist the organisation to the database.
+
+\begin{itemize}
+	\item Services contract:\\ \\
+	The createOrganisationRequest contains the name of the organisations as well as the user who is part of the organisation. This will allow the user to allocate projects and users to this organisation.
+	\begin{figure}[H]
+    	\centering
+    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractcreateOrganisation}}
+    	\caption{createOrganisation services contract}
+    	\label{fig:createOrganisation_services_contract}
+   	\end{figure}
+\end{itemize}
+
+\paragraph{Get Organisation - priority: critical}
+Users with sufficient privileges can retrieve organisation to view them, or to be used for other purposes. This use case must thus return a representation of the organisation and the projects and users that belongs to the organisation.
+\begin{itemize}
+	\item Services contract:\\ \\
+	The getOrganisationRequest contains the name of the Organisation that must be retrieved. The getOrganizationResult contains the Organisation that has been identified by the OrganizationName.
+	\begin{figure}[H]
+    	\centering
+    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractgetOrganization}}
+    	\caption{getOrganisation services contract}
+    	\label{fig:getOrganisation_services_contract}
+   	\end{figure}
+\end{itemize}
+
+\paragraph{Update Organisation - priority: critical}
+This enables users to update organisation, if they have sufficient privileges.
+
+\begin{itemize}
+	\item Services contract:\\ \\
+	The updateOrganisationRequest contains a reference to the Organisation that needs to be update which can be obtained by making use of the getOrganisation functionality. The updateOrganisationRequest also contains a reference to the updated organisation, which can either be an entirely different organisation, or the same organisation as represented by oldOrganisation, but with some changes applied to it.
+	\begin{figure}[H]
+    	\centering
+    	\fbox{\includegraphics[width=1.0\textwidth]{servicesContractupdateOrganisation}}
+    	\caption{updateOrganisation services contract}
+    	\label{fig:updateOrganisation_services_contract}
+   	\end{figure}
+\end{itemize}
+
+\subsubsection{Domain model}
+The domain model for the Organisation module requires that users being added to the organisation, be persisted. Each Organisation holds a reference to its projects, which is of type Project. Furthermore, each Project holds a list of all its users, which are also of type user.
+\begin{figure}[H]
+	\centering
+	\fbox{\includegraphics[width=0.5\textwidth]{organisationdomainmodel}}
+	\caption{Organisation domain model}
+	\label{fig:Orgnaisnation_domain_model}
+\end{figure}
