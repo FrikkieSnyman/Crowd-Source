@@ -6,7 +6,9 @@ module.exports = {
 		lib: {
 			css: [
 				'public/lib/angular-material/angular-material.min.css',
-				'public/lib/angular-ui-tree/dist/angular-ui-tree.min.css'
+				'public/lib/angular-ui-tree/dist/angular-ui-tree.min.css',
+				'public/lib/textAngular/dist/textAngular.css',
+				'public/lib/font-awesome/css/font-awesome.css'
 			],
 			js: [
 				'public/lib/angular/angular.min.js',
@@ -21,7 +23,16 @@ module.exports = {
 				'public/lib/angular-animate/angular-animate.min.js',
 				'public/lib/angular-aria/angular-aria.min.js',
 				'public/lib/angular-ui-tree/dist/angular-ui-tree.min.js',
-				'public/lib/d3/d3.min.js',
+				'public/lib/d3/d3.min.js',,
+				'public/lib/textAngular/dist/textAngular-rangy.min.js',
+				'public/lib/textAngular/dist/textAngular-sanitize.min.js',
+				'public/lib/textAngular/dist/textAngular.min.js',
+				'public/lib/angular-socket-io/socket.min.js',
+				'public/lib/angular-socket.io-mock/angular-socket.io-mock.js',
+				'public/lib/pdfjs-bower/dist/compatibility.js',
+				'public/lib/pdfjs-bower/dist/pdf.js',
+				'public/lib/pdfjs-bower/dist/pdf.worker.js',
+				'public/lib/angular-pdf/dist/angular-pdf.min.js'
 			]
 		},
 		css: 'public/dist/application.min.css',
