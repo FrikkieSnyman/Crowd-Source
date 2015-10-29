@@ -136,9 +136,9 @@
 						<label ng-bind="checkNaN(node.maxestimations[userIndex])" ng-if="node.nodes.length > 0"></label>
 					</md-input-container>
 
-					<md-button class="md-icon-button treeInput" aria-label="Use Android" data-nodrag ng-disabled="!(!isOpenForEstimation() || node.description)" ng-click="showDescriptionDialog($event, node)">
+					<md-button class="md-icon-button treeInput" aria-label="Use Android" data-nodrag ng-click="showDescriptionDialog($event, node)">
 						<md-tooltip>
-							Description
+							Edit Description
 						</md-tooltip>
 						<md-icon md-svg-src="modules/projects/img/icons/info.svg"></md-icon>
 					</md-button>
