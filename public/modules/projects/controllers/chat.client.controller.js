@@ -64,7 +64,6 @@ angular.module('projects').controller('ChatController', ['$scope','$rootScope','
 		};
 
 		$scope.submitChat = function(node, msg) {
-			console.log($scope.currentNode);
 			$scope.currentNode.chat.push({'user':$scope.authentication.user.displayName, 'msg':msg});
 			$scope.saveProject();
 			$scope.chat = '';
