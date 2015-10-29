@@ -9,12 +9,14 @@
 		</div>
 	</md-toolbar>
 	<md-dialog-content>
-		<md-list>
-			<md-list-item ng-repeat="person in proj.users">
-				<p>
-					{{ person }}
-				</p>
-			</md-list-item>
-		</md-list>
+		<div class="md-dialog-content">
+			<md-list>
+				<md-list-item ng-repeat="person in proj.users">
+					<p>
+						{{ person }}
+					</p>
+				</md-list-item>
+			</md-list>
+		</div>
 	</md-dialog-content>
 </md-dialog>

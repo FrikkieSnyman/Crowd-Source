@@ -140,6 +140,7 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 				reportId: $stateParams.reportId
 			}, function() {
 				Headerpath.setReportPath($scope.report.name);
+				//console.log($scope.report.project.users);
 			});
 		};
 		
@@ -183,6 +184,33 @@ angular.module('reports').controller('ReportsController', ['$scope', '$statePara
 			return Object.keys($scope.toastPosition)
 			.filter(function(pos) { return $scope.toastPosition[pos]; })
 			.join(' ');
+		};
+		
+		$scope.isSelected = function(user){
+			var project = $scope.report.project;
+			var index;
+			for(var i in project.users)
+			{
+				if(project.users[i] === user)
+				{
+					index = i;
+					var newProject = {};
+					newProject.name = user;
+					newProject.round = '(USER)';
+					newProject.children = [];
+					newProject.children.push({
+						estimations : [project.children[0].estimations[i]],
+						minestimations : [project.children[0].minestimations[i]],
+						maxestimations : [project.children[0].maxestimations[i]]
+					});
+					//console.log((newProject));
+					
+					var tmpReport = {
+						project :newProject
+					};
+					$rootScope.$broadcast('updateGraph',tmpReport);
+				}
+			}
 		};
 		
 	}

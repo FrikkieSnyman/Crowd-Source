@@ -262,7 +262,6 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				$scope.project.children[0].estimations[i] = null;
 			}
 			var confirm = new $mdDialog.confirm()
-			.parent(angular.element(document.body))
 			.title('Are you sure you want to open the project for estimations?')
 			.content('This will allow estimators to estimate, but will lock the project tree to its current state.')
 			.ariaLabel('Open for estimation')
@@ -343,6 +342,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				} else {
 					$scope.estimated = true;
 				}
+				$scope.updateLocalTree();
 			});
 		};
 
@@ -388,6 +388,7 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 			$mdToast.show(toast).then(function(response) {
 				if (response === 'ok') {
 					$scope.project.children = angular.merge($scope.project.children, tree);
+					$scope.updateLocalTree();
 				}
 			});
 			$scope.updateLocalTree();
@@ -499,6 +500,9 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 		$scope.isNodeNamesValid = false;
 		$scope.updateLocalTree = function(scope, node) {
 			$scope.isNodeNamesValid = true;
+			if ($scope.project.children[0].nodes.length <= 0) {
+				$scope.isNodeNamesValid = false;
+			}
 			var count = $scope.userIndex;
 			var currnode = $scope.project.children[0];
 			var result;
@@ -562,13 +566,11 @@ angular.module('projects').controller('ProjectEditController', ['$scope', '$stat
 				event.preventDefault();
 			
 				var confirm = $mdDialog.confirm()
-				.parent(angular.element(document.body))
 				.title('Are you sure you want to leave this page?')
 				.content('All unsaved changes will be lost.')
 				.ariaLabel('Yes')
 				.ok('Yes')
-				.cancel('No')
-				.targetEvent(event);
+				.cancel('No');
 				$mdDialog.show(confirm).then(function() {
 					newUrl = newUrl.split('#!');
 					$scope.goTo(newUrl[1]);
